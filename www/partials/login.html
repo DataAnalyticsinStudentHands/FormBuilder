@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+        <h2>Database & Login Module</h2>
+        <p> Login </p>
+        <div>
+            <form ng-submit="submit()">
+                <input type="text" ng-model="userName" name="userName">
+                <br>
+                <input type="password" ng-model="passWord" name="passWord">
+                <br>
+                <input type="submit" value="Submit" id="submit">
+            </form>
+            <br>
+            <p>{{loginMsg}}</p>
+<!--            <h3> Result to DB Login Query:</h3>-->
+            <hr>
+            <p>{{loginResult}}</p>
+        </div>
+    </div>
+      <div><a ui-sref="register">REGISTER HERE</a></div>
+  </div>
+</div>

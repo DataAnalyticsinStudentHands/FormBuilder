@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <h1>Register</h1>
+    <form class="list list-inset" name="registerform" ng-submit="registerUser()">
+        <label class="item item-input">
+            <input class="item item-input" type="text" ng-model="$parent.register.username" placeholder="Username" required>
+        </label>
+        <br/>
+        <label class="item item-input">
+            <input class="item item-input" type="password" ng-model="$parent.register.password" placeholder="Password" required>
+        </label>
+        <br/>
+        <label class="item item-input">
+            <input class="item item-input" type="text" ng-model="$parent.register.firstName" placeholder="First Name">
+        </label>
+        <br/>
+        <label class="item item-input">
+            <input class="item item-input" type="text" ng-model="$parent.register.lastName" placeholder="Last Name">
+        </label>
+        <!--<input class="log" type="password" ng-model="register.pConf" placeholder="Password Confirmation">-->
+        <div>
+            <button type="submit" class="button button-block button-positive">Submit</button>
+        </div>
+    </form>
+</div>

@@ -22,8 +22,8 @@
             rule: '[url]'
           }
         ],
-        templateUrl: 'partials/template.html',
-        popoverTemplateUrl: 'partials/popoverTemplate.html'
+        templateUrl: 'example/template.html',
+        popoverTemplateUrl: 'example/popoverTemplate.html'
       });
       return $builder.registerComponent('name', {
         group: 'Default',
