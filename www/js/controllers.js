@@ -108,34 +108,50 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
       };
     }]);
 
-databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams',
-    function($scope, $builder, $validator, $stateParams) {
-        $scope.id = $stateParams.id;
-      var checkbox, textbox;
-      textbox = $builder.addFormObject($scope.id, {
-        id: 'textbox',
-        component: 'textInput',
-        label: 'Form Name',
-        description: 'A name for the form.',
-        placeholder: 'Form Name',
-        required: true,
-        editable: false
-      });
-      checkbox = $builder.addFormObject($scope.id, {
-        id: 'checkbox',
-        component: 'checkbox',
-        label: 'Pets',
-        description: 'Do you have any pets?',
-        options: ['Dog', 'Cat']
-      });
-      $builder.addFormObject($scope.id, {
-        component: 'sampleInput'
-      });
+databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter',
+    function($scope, $builder, $validator, $stateParams, form, $filter) {
+      $scope.id = $stateParams.id;
+      $scope.form_obj = form;
+      $builder.forms[$scope.id] = null;
+
+      //var checkbox, textbox;
+      //textbox = $builder.addFormObject($scope.id, {
+      //  id: 'textbox',
+      //  component: 'textInput',
+      //  label: 'Form Name',
+      //  description: 'A name for the form.',
+      //  placeholder: 'Form Name',
+      //  required: true,
+      //  editable: false
+      //});
+      //checkbox = $builder.addFormObject($scope.id, {
+      //  id: 'checkbox',
+      //  component: 'checkbox',
+      //  label: 'Pets',
+      //  description: 'Do you have any pets?',
+      //  options: ['Dog', 'Cat']
+      //});
+      //$builder.addFormObject($scope.id, {
+      //  component: 'sampleInput'
+      //});
+        var questions = $filter('orderBy')(form.questions, "index", false);
+        questions.forEach(function(question){
+            $builder.addFormObject($scope.id, {
+                id: question.question_id,
+                component: question.component,
+                description: question.description,
+                label: question.label,
+                index: question.index,
+                placeholder: question.placeholder,
+                required: question.required,
+                options: eval(question.options)
+            });
+            console.log(question);
+        });
+
       $scope.form = $builder.forms[$scope.id];
       $scope.input = [];
       $scope.defaultValue = {};
-      $scope.defaultValue[textbox.id] = 'default value';
-      $scope.defaultValue[checkbox.id] = [true, true];
       return $scope.submit = function() {
         return $validator.validate($scope, $scope.id).success(function() {
           return console.log('success');

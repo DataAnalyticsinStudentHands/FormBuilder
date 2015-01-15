@@ -12,8 +12,11 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         getForm:
             function(fid) {
-                console.log("test");
-                return Restangular.all("forms").one(fid).get();
+                return Restangular.all("forms").one(fid).get().then(function(success){
+                    var form = Restangular.stripRestangular(success);
+                    /** PROCESS HERE ***/
+                    return form;
+                });
             },
         newForm:
             function(form) {
@@ -23,10 +26,6 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             function(id, form) {
                 Restangular.all("forms").one(id).post(form);
             },
-        processIncomingForm:
-            function(form) {
-                return form;
-            },
         deleteForm:
             function(fid) {
                 Restangular.all("forms").one(fid).delete();
@@ -34,21 +33,21 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
     }
 }]);
 
-fbService.factory('entryService', ['Restangular', function(Restangular) {
+fbService.factory('responseService', ['Restangular', function(Restangular) {
     return {
-        getEntry:
+        getResponse:
             function(fid) {
 
             },
-        newEntry:
+        newResponse:
             function(form) {
 
             },
-        updateEntry:
+        updateResponse:
             function(id, form) {
 
             },
-        deleteEntry:
+        deleteResponse:
             function(fid) {
 
             }

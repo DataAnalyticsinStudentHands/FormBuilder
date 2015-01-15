@@ -59,8 +59,7 @@ databaseModule.config(
           templateUrl: "partials/form.html",
           controller: 'formCtrl',
           resolve: {
-              form: function(formService) {
-                  console.log("test1");
+              form: function(formService, $stateParams) {
                   return formService.getForm($stateParams.id);
               }
           },
