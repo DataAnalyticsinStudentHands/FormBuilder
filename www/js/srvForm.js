@@ -8,19 +8,28 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
     return {
         getForms:
             function(fid) {
-
+                Restangular.all("forms").getList();
+            },
+        getForm:
+            function(fid) {
+                console.log("test");
+                return Restangular.all("forms").one(fid).get();
             },
         newForm:
             function(form) {
-
+                Restangular.all("forms").post(form);
             },
         updateForm:
             function(id, form) {
-
+                Restangular.all("forms").one(id).post(form);
+            },
+        processIncomingForm:
+            function(form) {
+                return form;
             },
         deleteForm:
             function(fid) {
-
+                Restangular.all("forms").one(fid).delete();
             }
     }
 }]);

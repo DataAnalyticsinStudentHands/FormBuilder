@@ -107,3 +107,40 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
         });
       };
     }]);
+
+databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams',
+    function($scope, $builder, $validator, $stateParams) {
+        $scope.id = $stateParams.id;
+      var checkbox, textbox;
+      textbox = $builder.addFormObject($scope.id, {
+        id: 'textbox',
+        component: 'textInput',
+        label: 'Form Name',
+        description: 'A name for the form.',
+        placeholder: 'Form Name',
+        required: true,
+        editable: false
+      });
+      checkbox = $builder.addFormObject($scope.id, {
+        id: 'checkbox',
+        component: 'checkbox',
+        label: 'Pets',
+        description: 'Do you have any pets?',
+        options: ['Dog', 'Cat']
+      });
+      $builder.addFormObject($scope.id, {
+        component: 'sampleInput'
+      });
+      $scope.form = $builder.forms[$scope.id];
+      $scope.input = [];
+      $scope.defaultValue = {};
+      $scope.defaultValue[textbox.id] = 'default value';
+      $scope.defaultValue[checkbox.id] = [true, true];
+      return $scope.submit = function() {
+        return $validator.validate($scope, $scope.id).success(function() {
+          return console.log('success');
+        }).error(function() {
+          return console.log('error');
+        });
+      };
+    }]);

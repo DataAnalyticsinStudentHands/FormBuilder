@@ -53,6 +53,18 @@ databaseModule.config(
           templateUrl: "partials/formbuilder.html",
           controller: 'builderCtrl',
           authenticate: true
+      }).
+      state('form', {
+          url: "/form/:id",
+          templateUrl: "partials/form.html",
+          controller: 'formCtrl',
+          resolve: {
+              form: function(formService) {
+                  console.log("test1");
+                  return formService.getForm($stateParams.id);
+              }
+          },
+          authenticate: true
       });
   });
 
