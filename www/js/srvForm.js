@@ -24,7 +24,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         updateForm:
             function(id, form) {
-                Restangular.all("forms").one(id).post(form);
+                Restangular.all("forms").one(id).put(form);
             },
         deleteForm:
             function(fid) {
@@ -33,19 +33,44 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
     }
 }]);
 
-fbService.factory('responseService', ['Restangular', function(Restangular) {
+fbService.factory('responseService', ['Restangular', '$filter', function(Restangular, $filter) {
     return {
         getResponse:
-            function(fid) {
-
+            function(rid) {
+                console.log(rid);
+                return Restangular.all("formResponses").get(rid).then(function(data){
+                    return Restangular.stripRestangular(data);
+                });
+            },
+        createResponse:
+            function(fid, uid) {
+                return Restangular.all("formResponses").post({
+                    "form_id": fid,
+                    "owner_id": 14,
+                    "entries": []
+                }).then(function(data){
+                    return eval(data);
+                });
             },
         newResponse:
-            function(form) {
-
+            function(input, fid) {
+                var service = this;
+                return this.createResponse(fid).then(function(id){
+                    service.getResponse(id).then(function(response){
+                        console.log(response);
+                        response.entries.forEach(function(entryObj){
+                            var inputObj = $filter('getById')(input, entryObj.question_id);
+                            entryObj.value = inputObj.value;
+                        });
+                        service.updateResponse(id, response).then(function(s){
+                            console.log(s, "done");
+                        });
+                    })
+                });
             },
         updateResponse:
             function(id, form) {
-
+                return Restangular.all("formResponses").all(id).doPUT(form);
             },
         deleteResponse:
             function(fid) {

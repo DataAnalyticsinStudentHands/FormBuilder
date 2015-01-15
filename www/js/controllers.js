@@ -74,6 +74,7 @@ databaseController.controller('secureCtrl', ['$scope', 'Auth', '$state',
 
 databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator',
     function($scope, $builder, $validator) {
+      $builder.forms['default'] = null;
       var checkbox, textbox;
       textbox = $builder.addFormObject('default', {
         id: 'textbox',
@@ -108,32 +109,12 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
       };
     }]);
 
-databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter',
-    function($scope, $builder, $validator, $stateParams, form, $filter) {
+databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService',
+    function($scope, $builder, $validator, $stateParams, form, $filter, responseService) {
       $scope.id = $stateParams.id;
       $scope.form_obj = form;
       $builder.forms[$scope.id] = null;
 
-      //var checkbox, textbox;
-      //textbox = $builder.addFormObject($scope.id, {
-      //  id: 'textbox',
-      //  component: 'textInput',
-      //  label: 'Form Name',
-      //  description: 'A name for the form.',
-      //  placeholder: 'Form Name',
-      //  required: true,
-      //  editable: false
-      //});
-      //checkbox = $builder.addFormObject($scope.id, {
-      //  id: 'checkbox',
-      //  component: 'checkbox',
-      //  label: 'Pets',
-      //  description: 'Do you have any pets?',
-      //  options: ['Dog', 'Cat']
-      //});
-      //$builder.addFormObject($scope.id, {
-      //  component: 'sampleInput'
-      //});
         var questions = $filter('orderBy')(form.questions, "index", false);
         questions.forEach(function(question){
             $builder.addFormObject($scope.id, {
@@ -146,7 +127,7 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
                 required: question.required,
                 options: eval(question.options)
             });
-            console.log(question);
+            //console.log(question);
         });
 
       $scope.form = $builder.forms[$scope.id];
@@ -154,7 +135,8 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
       $scope.defaultValue = {};
       return $scope.submit = function() {
         return $validator.validate($scope, $scope.id).success(function() {
-          return console.log('success');
+            responseService.newResponse($scope.input, $scope.id);
+            return console.log('success');
         }).error(function() {
           return console.log('error');
         });

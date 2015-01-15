@@ -43,7 +43,7 @@ databaseModule.config(
           abstract: true
       }).
       state('secure.home', {
-          url: "/secure",
+          url: "/home",
           templateUrl: "partials/secure.html",
           controller: 'secureCtrl',
           authenticate: true
