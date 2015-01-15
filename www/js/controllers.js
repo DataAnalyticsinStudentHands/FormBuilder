@@ -71,9 +71,10 @@ databaseController.controller('secureCtrl', ['$scope', 'Auth', '$state',
       }
   }]);
 
-databaseController.controller('DemoController', [
-    '$scope', '$builder', '$validator', function($scope, $builder, $validator) {
+databaseController.controller('DemoController', ['$scope', '$builder', '$validator',
+    function($scope, $builder, $validator) {
       var checkbox, textbox;
+        console.log("test");
       textbox = $builder.addFormObject('default', {
         id: 'textbox',
         component: 'textInput',
@@ -105,5 +106,4 @@ databaseController.controller('DemoController', [
           return console.log('error');
         });
       };
-    }
-  ]);
+    }]);

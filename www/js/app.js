@@ -35,7 +35,7 @@ databaseModule.config(
       state('secure', {
           url: "/secure",
           templateUrl: "partials/formbuilder.html",
-          controller: 'secureCtrl',
+          controller: 'DemoController',
           authenticate: true
       });
   });
