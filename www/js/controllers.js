@@ -79,9 +79,9 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
       textbox = $builder.addFormObject('default', {
         id: 'textbox',
         component: 'textInput',
-        label: 'Name',
-        description: 'Your name',
-        placeholder: 'Your name',
+        label: 'Form Name',
+        description: 'A name for the form.',
+        placeholder: 'Form Name',
         required: true,
         editable: false
       });
