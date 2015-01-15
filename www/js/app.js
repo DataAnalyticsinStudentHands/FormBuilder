@@ -7,7 +7,6 @@ var databaseModule = angular.module('databaseModule', ['restangular', 'databaseC
 databaseModule.config(
   function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/login");
-
     $stateProvider.
       state('loggedout', {
         abstract: true,
@@ -18,16 +17,13 @@ databaseModule.config(
           templateUrl: "partials/login.html",
           controller: 'loginCtrl',
           authenticate: false
-      });
-    $stateProvider.
+      }).
       state('register', {
           url: "/register",
           templateUrl: "partials/register.html",
           controller: 'registerCtrl',
           authenticate: false
-      });
-
-    $stateProvider.
+      }).
       state('loggedin', {
           abstract: true,
           template: "<ui-view>"
@@ -35,7 +31,7 @@ databaseModule.config(
       state('secure', {
           url: "/secure",
           templateUrl: "partials/formbuilder.html",
-          controller: 'DemoController',
+          controller: 'builderCtrl',
           authenticate: true
       });
   });
@@ -45,10 +41,10 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
     $rootScope.Restangular = function() {
         return Restangular;
-    }
+    };
     $rootScope.isAuthenticated = function() {
         return Auth.hasCredentials();
-    }
+    };
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
       console.log("$stateChangeStart");
       console.log($rootScope.isAuthenticated());

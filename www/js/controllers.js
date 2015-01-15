@@ -42,7 +42,8 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
      };
  }]);
 
-databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth', function($scope, $state, Auth) {
+databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
+    function($scope, $state, Auth) {
     $scope.registerUser = function() {
         Auth.setCredentials("Visitor", "test");
         $scope.salt = "nfp89gpe";
@@ -71,7 +72,7 @@ databaseController.controller('secureCtrl', ['$scope', 'Auth', '$state',
       }
   }]);
 
-databaseController.controller('DemoController', ['$scope', '$builder', '$validator',
+databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator',
     function($scope, $builder, $validator) {
       var checkbox, textbox;
         console.log("test");
