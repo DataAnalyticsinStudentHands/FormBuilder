@@ -39,6 +39,17 @@ databaseModule.config(
       }).
       state('secure', {
           url: "/secure",
+          template: "<ui-view>",
+          abstract: true
+      }).
+      state('secure.home', {
+          url: "/secure",
+          templateUrl: "partials/secure.html",
+          controller: 'secureCtrl',
+          authenticate: true
+      }).
+      state('secure.builder', {
+          url: "/builder/:id",
           templateUrl: "partials/formbuilder.html",
           controller: 'builderCtrl',
           authenticate: true

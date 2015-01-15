@@ -6,7 +6,7 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
  function($scope, Auth, $state) {
      if($scope.isAuthenticated() === true) {
          //Point 'em to logged in page of app
-         $state.go('secure');
+         $state.go('secure.home');
      }
      
      //we need to put the salt on server + client side and it needs to be static
@@ -23,7 +23,7 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
                 $scope.loginResult = result;
                 $scope.loginMsg = "You have logged in successfully! Status 200OK technomumbojumbo";
                 Auth.confirmCredentials();
-                $state.go('secure');
+                $state.go('secure.home');
              }, function(error) {
                 $scope.loginMsg = "Arghhh, matey! Check your username or password.";
                 Auth.clearCredentials();
@@ -68,14 +68,13 @@ databaseController.controller('secureCtrl', ['$scope', 'Auth', '$state',
       $scope.logOut = function() {
           console.log('loggedout');
           Auth.clearCredentials();
-          $state.go('secure',{},{reload: true});
+          $state.go('secure.home',{},{reload: true});
       }
   }]);
 
 databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator',
     function($scope, $builder, $validator) {
       var checkbox, textbox;
-        console.log("test");
       textbox = $builder.addFormObject('default', {
         id: 'textbox',
         component: 'textInput',
