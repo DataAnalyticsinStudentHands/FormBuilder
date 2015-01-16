@@ -62,31 +62,58 @@ databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
     }
 }]);
 
-databaseController.controller('secureCtrl', ['$scope', 'Auth', '$state',
-  function($scope, Auth, $state) {
-      //nothing to see here, move along
-      $scope.logOut = function() {
+databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
+  function($scope, Auth, $state, formService) {
+    formService.getMyForms().then(function(data){
+        $scope.myForms = data;
+    });
+    $scope.logOut = function() {
           console.log('loggedout');
           Auth.clearCredentials();
           $state.go('secure.home',{},{reload: true});
       }
   }]);
 
-databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService',
-    function($scope, $builder, $validator, formService) {
-      $builder.forms['default'] = null;
+databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter',
+    function($scope, $builder, $validator, formService, $stateParams, $filter) {
+        console.log($stateParams);
+        $scope.form_id = $stateParams.id;
+        $builder.forms['default'] = null;
 
-      $scope.input = [];
-      $scope.submit = function() {
-        return $validator.validate($scope, 'default').success(function() {
-          return console.log('success');
-        }).error(function() {
-          return console.log('error');
-        });
-      };
-      $scope.save = function() {
-          formService.newForm(angular.copy($builder.forms['default']));
-      }
+        if($scope.form_id) {
+            formService.getForm($scope.form_id).then(function(data){
+                console.log(data);
+                $scope.form = data;
+                var questions = $filter('orderBy')($scope.form.questions, "index", false);
+                questions.forEach(function(question){
+                    $builder.addFormObject($scope.id, {
+                        id: question.question_id,
+                        component: question.component,
+                        description: question.description,
+                        label: question.label,
+                        index: question.index,
+                        placeholder: question.placeholder,
+                        required: question.required,
+                        options: eval(question.options),
+                        validation: question.validation
+                    });
+                });
+            });
+            $scope.form = $builder.forms['default'];
+        }
+
+        $scope.input = [];
+        $scope.submit = function() {
+            return $validator.validate($scope, 'default').success(function() {
+                return console.log('success');
+            }).error(function() {
+                return console.log('error');
+            });
+        };
+
+        $scope.save = function() {
+            formService.newForm(angular.copy($builder.forms['default']));
+        }
     }]);
 
 databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',

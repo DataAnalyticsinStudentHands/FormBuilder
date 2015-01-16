@@ -44,8 +44,8 @@ databaseModule.config(
       }).
       state('secure.home', {
           url: "/home",
-          templateUrl: "partials/secure.html",
-          controller: 'secureCtrl',
+          templateUrl: "partials/home.html",
+          controller: 'homeCtrl',
           authenticate: true
       }).
       state('secure.builder', {

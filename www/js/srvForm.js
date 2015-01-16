@@ -8,11 +8,13 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
     return {
         getForms:
             function() {
-                Restangular.all("forms").getList();
+                return Restangular.all("forms").getList();
             },
         getMyForms:
             function() {
-                Restangular.all("forms").all("myForms").getList();
+                return Restangular.all("forms").all("myForms").getList().then(function(data){
+                    return data.plain();
+                });
             },
         getForm:
             function(fid) {
@@ -22,8 +24,6 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                     form.questions.forEach(function(question){
                         service.processInQuestion(question);
                     });
-                    /** PROCESS HERE ***/
-                    console.log(form);
                     return form;
                 });
             },
@@ -36,16 +36,15 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 questions.forEach(function(question){
                     newFormObj.questions.push(service.processOutQuestion(question));
                 });
-                console.log(newFormObj);
-                Restangular.all("forms").post(newFormObj);
+                return Restangular.all("forms").post(newFormObj);
             },
         updateForm:
             function(id, form) {
-                Restangular.all("forms").one(id).put(form);
+                return Restangular.all("forms").one(id).put(form);
             },
         deleteForm:
             function(fid) {
-                Restangular.all("forms").one(fid).delete();
+                return Restangular.all("forms").one(fid).delete();
             },
         processOutQuestion:
             function(question) {
@@ -131,8 +130,8 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                 return Restangular.all("formResponses").all(id).doPUT(form);
             },
         deleteResponse:
-            function(fid) {
-
+            function(rid) {
+                return Restangular.all("formResponses").one(rid).delete();
             }
     }
 }]);

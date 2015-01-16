@@ -1,0 +1,9 @@
+<div> Form Builder Home Page</div>
+
+<button type="button" ng-click="logOut()">Log Out</button>
+
+<button type="button" ui-sref="secure.builder">Build Form</button>
+
+<ul class="list-group">
+    <li ng-repeat="form in myForms" class="list-group-item" ui-sref="secure.builder({'id':{{form.id}}})">{{form.name}}</li>
+</ul>
