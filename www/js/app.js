@@ -74,7 +74,6 @@ databaseModule.config(
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', function(Restangular, $rootScope, Auth, $q, $state, $builder) {
     Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
-    Auth.setCredentials("Visitor", "test");
     $rootScope.Restangular = function() {
         return Restangular;
     };
@@ -93,7 +92,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     
         
     $builder.registerComponent('sampleInput', {
-        group: 'from html',
+        group: 'Utilities',
         label: 'Sample',
         description: 'From html template',
         placeholder: 'placeholder',
@@ -113,8 +112,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
                 rule: '[url]'
             }
         ],
-        templateUrl: 'partials/template.html',
-        popoverTemplateUrl: 'partials/popoverTemplate.html'
+        templateUrl: 'partials/component/template.html',
+        popoverTemplateUrl: 'partials/component/popoverTemplate.html'
     });
 
     $builder.registerComponent('name', {
@@ -128,10 +127,11 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
 
     $builder.registerComponent('description', {
         group: 'Utilities',
-        label: 'Instructions',
+        label: 'TextBlock',
+        description: "This is a textblock.",
         required: false,
         arrayToText: true,
-        templateUrl: "partials/tmplDescription.html",
-        popoverTemplateUrl: "partials/popDescription.html"
+        templateUrl: "partials/component/tmplDescription.html",
+        popoverTemplateUrl: "partials/component/popDescription.html"
     });
 }]);

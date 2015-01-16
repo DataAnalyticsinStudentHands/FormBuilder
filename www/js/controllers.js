@@ -117,6 +117,7 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
 
         var questions = $filter('orderBy')(form.questions, "index", false);
         questions.forEach(function(question){
+            console.log(question);
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -127,7 +128,6 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
                 required: question.required,
                 options: eval(question.options)
             });
-            //console.log(question);
         });
 
       $scope.form = $builder.forms[$scope.id];
