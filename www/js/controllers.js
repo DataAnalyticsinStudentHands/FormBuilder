@@ -106,7 +106,8 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
                 index: question.index,
                 placeholder: question.placeholder,
                 required: question.required,
-                options: eval(question.options)
+                options: eval(question.options),
+                validation: question.validation
             });
         });
 

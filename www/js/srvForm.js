@@ -10,11 +10,20 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             function() {
                 Restangular.all("forms").getList();
             },
+        getMyForms:
+            function() {
+                Restangular.all("forms").all("myForms").getList();
+            },
         getForm:
             function(fid) {
+                var service = this;
                 return Restangular.all("forms").one(fid).get().then(function(success){
                     var form = Restangular.stripRestangular(success);
+                    form.questions.forEach(function(question){
+                        service.processInQuestion(question);
+                    });
                     /** PROCESS HERE ***/
+                    console.log(form);
                     return form;
                 });
             },
@@ -58,6 +67,25 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                         question.validation = "NONE";
                 }
                 return question;
+            },
+        processInQuestion:
+            function(question) {
+                switch(question.validation){
+                    case "NONE":
+                        question.validation = "/.*/";
+                        break;
+                    case "NUMBER":
+                        question.validation = "[number]";
+                        break;
+                    case "EMAIL":
+                        question.validation = "[email]";
+                        break;
+                    case "URL":
+                        question.validation = "[url]";
+                        break;
+                    default:
+                        question.validation = "/.*/";
+                }
             }
     }
 }]);
