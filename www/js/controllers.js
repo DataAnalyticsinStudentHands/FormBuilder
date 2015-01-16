@@ -137,6 +137,7 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
         return $validator.validate($scope, $scope.id).success(function() {
             responseService.newResponse($scope.input, $scope.id).then(function(){
                 $state.go("finished");
+                $scope.input = null;
             });
             return console.log('success');
         }).error(function() {
