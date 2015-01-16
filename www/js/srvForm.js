@@ -20,11 +20,12 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         newForm:
             function(questions) {
+                var service = this;
                 var newFormObj = {};
                 newFormObj.name = "New Test Form";
                 newFormObj.questions = [];
                 questions.forEach(function(question){
-                    console.log(question);
+                    newFormObj.questions.push(service.processOutQuestion(question));
                 });
                 console.log(newFormObj);
                 Restangular.all("forms").post(newFormObj);
@@ -36,6 +37,27 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
         deleteForm:
             function(fid) {
                 Restangular.all("forms").one(fid).delete();
+            },
+        processOutQuestion:
+            function(question) {
+                question.options = JSON.stringify(question.options);
+                switch(question.validation){
+                    case "/.*/":
+                        question.validation = "NONE";
+                        break;
+                    case "[number]":
+                        question.validation = "NUMBER";
+                        break;
+                    case "[email]":
+                        question.validation = "EMAIL";
+                        break;
+                    case "[url]":
+                        question.validation = "URL";
+                        break;
+                    default:
+                        question.validation = "NONE";
+                }
+                return question;
             }
     }
 }]);
@@ -50,10 +72,10 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                 });
             },
         createResponse:
-            function(fid, uid) {
+            function(fid) {
                 return Restangular.all("formResponses").post({
                     "form_id": fid,
-                    "owner_id": 14,
+                    "owner_id": 0,
                     "entries": []
                 }).then(function(data){
                     return eval(data);

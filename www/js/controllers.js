@@ -85,8 +85,7 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
         });
       };
       $scope.save = function() {
-          console.log($builder.forms['default']);
-          formService.newForm($builder.forms['default']);
+          formService.newForm(angular.copy($builder.forms['default']));
       }
     }]);
 
