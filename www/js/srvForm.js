@@ -19,8 +19,15 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 });
             },
         newForm:
-            function(form) {
-                Restangular.all("forms").post(form);
+            function(questions) {
+                var newFormObj = {};
+                newFormObj.name = "New Test Form";
+                newFormObj.questions = [];
+                questions.forEach(function(question){
+                    console.log(question);
+                });
+                console.log(newFormObj);
+                Restangular.all("forms").post(newFormObj);
             },
         updateForm:
             function(id, form) {

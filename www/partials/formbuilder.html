@@ -1,6 +1,9 @@
 <div class="container">
     <div class="row">
         <h1>Form Builder</h1>
+        <div class="col-md-offset-11">
+            <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
+        </div>
         <hr/>
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -16,7 +19,7 @@
     </div>
 
     <div class="row">
-        <h2>Form</h2>
+        <h2>Form Preview</h2>
         <hr/>
         <form class="form-horizontal">
             <div ng-model="input" fb-form="default" fb-default="defaultValue"></div>
