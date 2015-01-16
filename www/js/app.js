@@ -63,12 +63,18 @@ databaseModule.config(
                   return formService.getForm($stateParams.id);
               }
           },
-          authenticate: true
+          authenticate: false
+      }).
+      state('finished', {
+          url: "/finish",
+          templateUrl: "partials/finish.html",
+          authenticate: false
       });
   });
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', function(Restangular, $rootScope, Auth, $q, $state, $builder) {
     Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
+    Auth.setCredentials("Visitor", "test");
     $rootScope.Restangular = function() {
         return Restangular;
     };

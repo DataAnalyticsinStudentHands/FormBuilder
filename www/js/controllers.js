@@ -109,8 +109,8 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
       };
     }]);
 
-databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService',
-    function($scope, $builder, $validator, $stateParams, form, $filter, responseService) {
+databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',
+    function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state) {
       $scope.id = $stateParams.id;
       $scope.form_obj = form;
       $builder.forms[$scope.id] = null;
@@ -135,7 +135,9 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
       $scope.defaultValue = {};
       return $scope.submit = function() {
         return $validator.validate($scope, $scope.id).success(function() {
-            responseService.newResponse($scope.input, $scope.id);
+            responseService.newResponse($scope.input, $scope.id).then(function(){
+                $state.go("finished");
+            });
             return console.log('success');
         }).error(function() {
           return console.log('error');

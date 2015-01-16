@@ -65,6 +65,7 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                         service.updateResponse(id, response).then(function(s){
                             console.log(s, "done");
                         });
+                        return "";
                     })
                 });
             },
