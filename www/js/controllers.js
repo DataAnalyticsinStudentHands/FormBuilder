@@ -63,30 +63,30 @@ databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
 }]);
 
 databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
-  function($scope, Auth, $state, formService) {
-    formService.getMyForms().then(function(data){
-        $scope.myForms = data;
-    });
-    $scope.logOut = function() {
-          console.log('loggedout');
-          Auth.clearCredentials();
-          $state.go('secure.home',{},{reload: true});
-      }
-  }]);
+    function($scope, Auth, $state, formService) {
+        formService.getMyForms().then(function(data){
+            $scope.myForms = data;
+        });
+        $scope.logOut = function() {
+            console.log('loggedout');
+            Auth.clearCredentials();
+            $state.go('secure.home',{},{reload: true});
+        }
+    }]);
 
 databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter',
     function($scope, $builder, $validator, formService, $stateParams, $filter) {
-        console.log($stateParams);
         $scope.form_id = $stateParams.id;
         $builder.forms['default'] = null;
 
         if($scope.form_id) {
             formService.getForm($scope.form_id).then(function(data){
                 console.log(data);
+                $scope.form_data = data;
                 $scope.form = data;
                 var questions = $filter('orderBy')($scope.form.questions, "index", false);
                 questions.forEach(function(question){
-                    $builder.addFormObject($scope.id, {
+                    $builder.addFormObject('default', {
                         id: question.question_id,
                         component: question.component,
                         description: question.description,
@@ -112,15 +112,18 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
         };
 
         $scope.save = function() {
-            formService.newForm(angular.copy($builder.forms['default']));
+            if(!$scope.form_id)
+                formService.newForm(angular.copy($builder.forms['default']));
+            else
+                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default']));
         }
     }]);
 
 databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',
     function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state) {
-      $scope.id = $stateParams.id;
-      $scope.form_obj = form;
-      $builder.forms[$scope.id] = null;
+        $scope.id = $stateParams.id;
+        $scope.form_obj = form;
+        $builder.forms[$scope.id] = null;
 
         var questions = $filter('orderBy')(form.questions, "index", false);
         questions.forEach(function(question){
@@ -138,18 +141,18 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
             });
         });
 
-      $scope.form = $builder.forms[$scope.id];
-      $scope.input = [];
-      $scope.defaultValue = {};
-      return $scope.submit = function() {
-        return $validator.validate($scope, $scope.id).success(function() {
-            responseService.newResponse($scope.input, $scope.id).then(function(){
-                $state.go("finished");
-                $scope.input = null;
+        $scope.form = $builder.forms[$scope.id];
+        $scope.input = [];
+        $scope.defaultValue = {};
+        return $scope.submit = function() {
+            return $validator.validate($scope, $scope.id).success(function() {
+                responseService.newResponse($scope.input, $scope.id).then(function(){
+                    $state.go("finished");
+                    $scope.input = null;
+                });
+                return console.log('success');
+            }).error(function() {
+                return console.log('error');
             });
-            return console.log('success');
-        }).error(function() {
-          return console.log('error');
-        });
-      };
+        };
     }]);

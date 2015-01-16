@@ -39,8 +39,13 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 return Restangular.all("forms").post(newFormObj);
             },
         updateForm:
-            function(id, form) {
-                return Restangular.all("forms").one(id).put(form);
+            function(id, form_data, form) {
+                var service = this;
+                form.forEach(function(question){
+                    service.processOutQuestion(question);
+                });
+                form_data.questions = form;
+                return Restangular.all("forms").one(id).doPUT(form_data);
             },
         deleteForm:
             function(fid) {
@@ -64,6 +69,10 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                         break;
                     default:
                         question.validation = "NONE";
+                }
+                if(question.id) {
+                    question.question_id = question.id;
+                    delete question.id;
                 }
                 return question;
             },
