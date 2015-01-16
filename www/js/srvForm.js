@@ -7,7 +7,7 @@ var fbService = angular.module('formBuilderServiceModule', []);
 fbService.factory('formService', ['Restangular', function(Restangular) {
     return {
         getForms:
-            function(fid) {
+            function() {
                 Restangular.all("forms").getList();
             },
         getForm:
@@ -75,7 +75,7 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             function(fid) {
                 return Restangular.all("formResponses").post({
                     "form_id": fid,
-                    "owner_id": 0,
+                    "owner_id": 1,
                     "entries": []
                 }).then(function(data){
                     return eval(data);
