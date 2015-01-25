@@ -74,14 +74,14 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
-databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter',
-    function($scope, $builder, $validator, formService, $stateParams, $filter) {
+databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
+    function($scope, $builder, $validator, formService, $stateParams, $filter, $state) {
         $scope.form_id = $stateParams.id;
         $builder.forms['default'] = null;
 
+        //IF we are actually editing a previously saved form
         if($scope.form_id) {
             formService.getForm($scope.form_id).then(function(data){
-                console.log(data);
                 $scope.form_data = data;
                 $scope.form = data;
                 var questions = $filter('orderBy')($scope.form.questions, "index", false);
@@ -113,9 +113,14 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
 
         $scope.save = function() {
             if(!$scope.form_id)
-                formService.newForm(angular.copy($builder.forms['default']));
+                formService.newForm(angular.copy($builder.forms['default'])).then(function(response){
+                    $scope.form_id = response.headers("ObjectId");
+                    $state.go("secure.builder", {"id": $scope.form_id});
+                });
             else
-                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default']));
+                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function(response){
+                    alert("Saved!");
+                });
         }
     }]);
 

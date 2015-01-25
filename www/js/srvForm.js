@@ -36,7 +36,10 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 questions.forEach(function(question){
                     newFormObj.questions.push(service.processOutQuestion(question));
                 });
-                return Restangular.all("forms").post(newFormObj);
+                return Restangular.setFullResponse(true).all("forms").post(newFormObj).then(function(data){
+                    Restangular.setFullResponse(false);
+                    return data;
+                });
             },
         updateForm:
             function(id, form_data, form) {

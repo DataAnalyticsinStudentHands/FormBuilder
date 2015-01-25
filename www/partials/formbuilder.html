@@ -1,8 +1,11 @@
 <div class="container">
     <div class="row">
         <h1>Form Builder</h1>
-        <div class="col-md-offset-11">
-            <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
+        <div class="row">
+            <div class="col-md-offset-10">
+                <a type="submit" ng-show="form_id" target="_blank" href="/#/form/{{form_id}}" class="btn btn-default">Preview</a>
+                <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
+            </div>
         </div>
         <hr/>
         <div class="col-md-6">

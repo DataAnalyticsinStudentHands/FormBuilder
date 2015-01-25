@@ -73,7 +73,8 @@ databaseModule.config(
   });
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', function(Restangular, $rootScope, Auth, $q, $state, $builder) {
-    Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
+    //Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
+    Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
     $rootScope.Restangular = function() {
         return Restangular;
     };
