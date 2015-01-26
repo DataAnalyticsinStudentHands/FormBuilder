@@ -28,10 +28,10 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 });
             },
         newForm:
-            function(questions) {
+            function(form_name, questions) {
                 var service = this;
                 var newFormObj = {};
-                newFormObj.name = "New Test Form";
+                newFormObj.name = form_name;
                 newFormObj.questions = [];
                 questions.forEach(function(question){
                     newFormObj.questions.push(service.processOutQuestion(question));
@@ -105,7 +105,6 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
     return {
         getResponse:
             function(rid) {
-                console.log(rid);
                 return Restangular.all("formResponses").get(rid).then(function(data){
                     return Restangular.stripRestangular(data);
                 });
@@ -125,7 +124,6 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                 var service = this;
                 return this.createResponse(fid).then(function(id){
                     service.getResponse(id).then(function(response){
-                        console.log(response);
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             entryObj.value = inputObj.value;

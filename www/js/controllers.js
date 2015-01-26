@@ -3,48 +3,46 @@
 var databaseController = angular.module('databaseControllerModule', []);
 
 databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
- function($scope, Auth, $state) {
-     if($scope.isAuthenticated() === true) {
-         //Point 'em to logged in page of app
-         $state.go('secure.home');
-     }
-     
-     //we need to put the salt on server + client side and it needs to be static
-     $scope.salt = "nfp89gpe"; //PENDING
-     
-     $scope.submit = function() {
-         if ($scope.userName && $scope.passWord) {
-             $scope.passWordHashed = new String(CryptoJS.SHA512($scope.passWord + $scope.userName + $scope.salt));
-//             console.log($scope.passWordHashed);
-             Auth.setCredentials($scope.userName, $scope.passWordHashed);
-//             $scope.loginResult = $scope.Restangular.get();
-             $scope.loginResultPromise = $scope.Restangular().all("users").one("myUser").get();
-             $scope.loginResultPromise.then(function(result) {
-                $scope.loginResult = result;
-                $scope.loginMsg = "You have logged in successfully! Status 200OK technomumbojumbo";
-                Auth.confirmCredentials();
-                $state.go('secure.home');
-             }, function(error) {
-                $scope.loginMsg = "Arghhh, matey! Check your username or password.";
-                Auth.clearCredentials();
-             });
-             $scope.userName = '';
-             $scope.passWord = '';
-         } else if(!$scope.userName && !$scope.passWord) {
-             $scope.loginMsg = "You kiddin' me m8? No username or password?";
-         } else if (!$scope.userName) {
-             $scope.loginMsg = "No username? Tryina hack me?";
-             $scope.loginResult = "";
-         } else if (!$scope.passWord) {
-             $scope.loginMsg = "What? No password!? Where do you think you're going?";
-             $scope.loginResult = "";
-         }
-     };
- }]);
+    function($scope, Auth, $state) {
+        if($scope.isAuthenticated() === true) {
+            //Point 'em to logged in page of app
+            $state.go('secure.home');
+        }
+
+        //we need to put the salt on server + client side and it needs to be static
+        $scope.salt = "nfp89gpe"; //PENDING
+
+        $scope.submit = function() {
+            if ($scope.userName && $scope.passWord) {
+                $scope.passWordHashed = new String(CryptoJS.SHA512($scope.passWord + $scope.userName + $scope.salt));
+                Auth.setCredentials($scope.userName, $scope.passWordHashed);
+                $scope.loginResultPromise = $scope.Restangular().all("users").one("myUser").get();
+                $scope.loginResultPromise.then(function(result) {
+                    $scope.loginResult = result;
+                    $scope.loginMsg = "You have logged in successfully! Status 200OK technomumbojumbo";
+                    Auth.confirmCredentials();
+                    $state.go('secure.home');
+                }, function(error) {
+                    $scope.loginMsg = "Arghhh, matey! Check your username or password.";
+                    Auth.clearCredentials();
+                });
+                $scope.userName = '';
+                $scope.passWord = '';
+            } else if(!$scope.userName && !$scope.passWord) {
+                $scope.loginMsg = "You kiddin' me m8? No username or password?";
+            } else if (!$scope.userName) {
+                $scope.loginMsg = "No username? Tryina hack me?";
+                $scope.loginResult = "";
+            } else if (!$scope.passWord) {
+                $scope.loginMsg = "What? No password!? Where do you think you're going?";
+                $scope.loginResult = "";
+            }
+        };
+    }]);
 
 databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
     function($scope, $state, Auth) {
-    $scope.registerUser = function() {
+        $scope.registerUser = function() {
         Auth.setCredentials("Visitor", "test");
         $scope.salt = "nfp89gpe";
         $scope.register.password = new String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
@@ -112,15 +110,20 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
         };
 
         $scope.save = function() {
-            if(!$scope.form_id)
-                formService.newForm(angular.copy($builder.forms['default'])).then(function(response){
-                    $scope.form_id = response.headers("ObjectId");
-                    $state.go("secure.builder", {"id": $scope.form_id});
-                });
-            else
-                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function(response){
+            if(!$scope.form_id) {
+                if(!$scope.form_data) {
+                    alert("Field required!");
+                } else {
+                    formService.newForm($scope.form_data.name, angular.copy($builder.forms['default'])).then(function (response) {
+                        $scope.form_id = response.headers("ObjectId");
+                        $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
+                    });
+                }
+            } else {
+                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function (response) {
                     alert("Saved!");
                 });
+            }
         }
     }]);
 
