@@ -72,6 +72,11 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
+databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService',
+    function($scope, Auth, $state, formService) {
+
+    }]);
+
 databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
     function($scope, $builder, $validator, formService, $stateParams, $filter, $state) {
         $scope.form_id = $stateParams.id;
