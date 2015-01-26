@@ -1,14 +1,15 @@
-<div> Form Builder Home Page</div>
-
+<h1> Form Builder </h1>
 
 <button type="button" class="btn btn-default" ui-sref="secure.builder">New Form</button>
 <button type="button" class="btn btn-default" ng-click="logOut()">Log Out</button>
 
 <ul class="list-group">
-    <li ng-repeat="form in myForms" class="list-group-item" ui-sref="secure.builder({'id':{{form.id}}})">
+    <li ng-repeat="form in myForms" class="list-group-item clearfix">
         {{form.name}}
         <span class="pull-right">
-            <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})">Edit</button>
+            <button type="button" class="btn btn-default" ui-sref="secure.responses({'id':{{form.id}}})"><span class="glyphicon glyphicon-inbox"></span></button>
+            <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" class="btn btn-default" ui-sref="secure.form_settings({'id':{{form.id}}})"><span class="glyphicon glyphicon-cog"></span></button>
         </span>
     </li>
 </ul>

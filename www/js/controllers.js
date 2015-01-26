@@ -100,15 +100,6 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
             $scope.form = $builder.forms['default'];
         }
 
-        $scope.input = [];
-        $scope.submit = function() {
-            return $validator.validate($scope, 'default').success(function() {
-                return console.log('success');
-            }).error(function() {
-                return console.log('error');
-            });
-        };
-
         $scope.save = function() {
             if(!$scope.form_id) {
                 if(!$scope.form_data) {
