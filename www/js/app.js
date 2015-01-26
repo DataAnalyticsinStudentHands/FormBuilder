@@ -90,35 +90,19 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             event.preventDefault();
         }
     });
-    
-        
-    $builder.registerComponent('sampleInput', {
+
+    $builder.registerComponent('dateInput', {
         group: 'Utilities',
-        label: 'Sample',
-        description: 'From html template',
-        placeholder: 'placeholder',
+        label: 'Date',
+        description: 'Choose a Date',
+        placeholder: '',
         required: false,
-        validationOptions: [
-            {
-                label: 'none',
-                rule: '/.*/'
-            }, {
-                label: 'number',
-                rule: '[number]'
-            }, {
-                label: 'email',
-                rule: '[email]'
-            }, {
-                label: 'url',
-                rule: '[url]'
-            }
-        ],
-        templateUrl: 'partials/component/template.html',
-        popoverTemplateUrl: 'partials/component/popoverTemplate.html'
+        templateUrl: 'partials/component/tmplDate.html',
+        popoverTemplateUrl: 'partials/component/popDate.html'
     });
 
     $builder.registerComponent('name', {
-        group: 'Default',
+        group: 'Components',
         label: 'Name',
         required: false,
         arrayToText: true,
