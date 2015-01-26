@@ -10,7 +10,8 @@ var databaseModule = angular.module('databaseModule', [
     'ui.router',
     'builder',
     'builder.components',
-    'validator.rules'
+    'validator.rules',
+    'ngSanitize'
 ]);
 
 databaseModule.config(
@@ -54,6 +55,12 @@ databaseModule.config(
           controller: 'builderCtrl',
           authenticate: true
       }).
+      state('secure.response', {
+          url: "/response/:id",
+          templateUrl: "partials/response.html",
+          controller: 'responseCtrl',
+          authenticate: true
+      }).
       state('form', {
           url: "/form/:id",
           templateUrl: "partials/form.html",
@@ -91,16 +98,6 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         }
     });
 
-    $builder.registerComponent('dateInput', {
-        group: 'Utilities',
-        label: 'Date',
-        description: 'Choose a Date',
-        placeholder: '',
-        required: false,
-        templateUrl: 'partials/component/tmplDate.html',
-        popoverTemplateUrl: 'partials/component/popDate.html'
-    });
-
     $builder.registerComponent('name', {
         group: 'Components',
         label: 'Name',
@@ -118,5 +115,15 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         arrayToText: true,
         templateUrl: "partials/component/tmplDescription.html",
         popoverTemplateUrl: "partials/component/popDescription.html"
+    });
+
+    $builder.registerComponent('dateInput', {
+        group: 'Utilities',
+        label: 'Date',
+        description: 'Choose a Date',
+        placeholder: '',
+        required: false,
+        templateUrl: 'partials/component/tmplDate.html',
+        popoverTemplateUrl: 'partials/component/popDate.html'
     });
 }]);

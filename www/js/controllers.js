@@ -84,6 +84,7 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
                 $scope.form = data;
                 var questions = $filter('orderBy')($scope.form.questions, "index", false);
                 questions.forEach(function(question){
+                    console.log(question);
                     $builder.addFormObject('default', {
                         id: question.question_id,
                         component: question.component,
