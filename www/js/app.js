@@ -82,13 +82,13 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         return Auth.hasCredentials();
     };
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        console.log("$stateChangeStart");
-            if (toState.authenticate && !$rootScope.isAuthenticated()){
-            console.log("non-authed");
-            // User isn’t authenticated
+        // User isn’t authenticated
+        if(toState.name == "form"  && !Auth.hasCredentials()) {
+            Auth.setCredentials("Visitor", "test");
+        } else if (toState.authenticate && !$rootScope.isAuthenticated()){
             $state.go("login");
             event.preventDefault();
-        } else console.log("authed");
+        }
     });
     
         
