@@ -73,9 +73,20 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
-databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService',
+databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', 'formService',
     function($scope, Auth, $state, formService) {
 
+    }]);
+
+databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
+    function($scope, Auth, $state, formService, responseService, $stateParams) {
+        $scope.id = $stateParams.id;
+        responseService.getResponsesByFormId($scope.id).then(function(data){
+            $scope.responses = data;
+        });
+        formService.getForm($scope.id).then(function(data) {
+            $scope.form = data;
+        });
     }]);
 
 databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',

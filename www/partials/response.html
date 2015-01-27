@@ -1,1 +1,15 @@
-<h1>Responses</h1>
+<div class="container">
+    <div class="row">
+        <h1>Responses</h1>
+        <h4>Form: {{form.name}}</h4>
+    </div>
+    <hr/>
+    <ul class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="response in responses">
+            Response #{{response.id}}
+            <span class="pull-right">
+                <button type="button" class="btn btn-default" ui-sref="secure.response.detail({rid: response.id})"><span class="glyphicon glyphicon-align-justify"></span></button>
+            </span>
+        </li>
+    </ul>
+</div>

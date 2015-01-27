@@ -19,8 +19,8 @@ databaseModule.config(
     $urlRouterProvider.otherwise("/login");
     $stateProvider.
       state('loggedout', {
-        abstract: true,
-        template: "<ui-view>"
+          abstract: true,
+          template: "<ui-view>"
       }).
       state('login', {
           url: "/login",
@@ -59,6 +59,16 @@ databaseModule.config(
           url: "/response/:id",
           templateUrl: "partials/response.html",
           controller: 'responseCtrl',
+          authenticate: true
+      }).
+      state('secure.response.detail', {
+          url: "/detail/:rid",
+          views: {
+              "@": {
+                  templateUrl: "partials/responseDetail.html",
+                  controller: 'responseDetailCtrl'
+              }
+          },
           authenticate: true
       }).
       state('form', {
