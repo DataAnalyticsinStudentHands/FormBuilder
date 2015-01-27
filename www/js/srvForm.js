@@ -109,6 +109,12 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                     return Restangular.stripRestangular(data);
                 });
             },
+        getResponsesByFormId:
+            function(form_id){
+                return Restangular.all("formResponses").all("byFormId").get(form_id).then(function(data){
+                    return Restangular.stripRestangular(data);
+                });
+            },
         createResponse:
             function(fid) {
                 return Restangular.all("formResponses").post({
