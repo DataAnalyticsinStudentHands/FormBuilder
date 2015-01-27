@@ -62,6 +62,7 @@ databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
 
 databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
     function($scope, Auth, $state, formService) {
+        $scope.state = $state;
         formService.getMyForms().then(function(data){
             $scope.myForms = data;
         });
@@ -89,7 +90,6 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
                 $scope.form = data;
                 var questions = $filter('orderBy')($scope.form.questions, "index", false);
                 questions.forEach(function(question){
-                    console.log(question);
                     $builder.addFormObject('default', {
                         id: question.question_id,
                         component: question.component,
@@ -103,7 +103,6 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
                     });
                 });
             });
-            $scope.form = $builder.forms['default'];
         }
 
         $scope.save = function() {
