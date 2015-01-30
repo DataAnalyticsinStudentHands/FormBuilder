@@ -79,8 +79,15 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
         $scope.rid = $stateParams.rid;
         $builder.forms[$scope.id] = null;
 
-        var questions = $filter('orderBy')(form.questions, "index", false);
+        var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
+        response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
+            console.log(question.component, $filter('getByQuestionId')(response.entries, question.question_id).value);
+            if(question.component == "dateInput"){
+                $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
+            } else if(question.component == "checkbox"){
+                $filter('getByQuestionId')(response.entries, question.question_id).value = ["1"];
+            }
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -97,6 +104,7 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
+        console.log(questions, $scope.defaultValue);
     }]);
 
 databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
