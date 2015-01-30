@@ -69,6 +69,14 @@ databaseModule.config(
                   controller: 'responseDetailCtrl'
               }
           },
+          resolve: {
+              form: function(formService, $stateParams) {
+                  return formService.getForm($stateParams.id);
+              },
+              response: function(responseService, $stateParams) {
+                  return responseService.getResponse($stateParams.rid);
+              }
+          },
           authenticate: true
       }).
       state('form', {

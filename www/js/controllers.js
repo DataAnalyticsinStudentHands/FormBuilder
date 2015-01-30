@@ -73,9 +73,30 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
-databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', 'formService',
-    function($scope, Auth, $state, formService) {
+databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', 'form', 'response',
+    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, form, response) {
+        console.log(response);
+        $scope.id = $stateParams.id;
+        $scope.rid = $stateParams.rid;
+        $builder.forms[$scope.id] = null;
 
+        var questions = $filter('orderBy')(form.questions, "index", false);
+        questions.forEach(function(question){
+            $builder.addFormObject($scope.id, {
+                id: question.question_id,
+                component: question.component,
+                description: question.description,
+                label: question.label,
+                index: question.index,
+                placeholder: question.placeholder,
+                required: question.required,
+                options: eval(question.options),
+                validation: question.validation
+            });
+        });
+
+        $scope.form = $builder.forms[$scope.id];
+        $scope.input = response.entries;
     }]);
 
 databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
@@ -157,7 +178,6 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
 
         $scope.form = $builder.forms[$scope.id];
         $scope.input = [];
-        $scope.defaultValue = {};
         return $scope.submit = function() {
             return $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
