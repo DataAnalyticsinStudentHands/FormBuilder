@@ -43,22 +43,22 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
 databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
     function($scope, $state, Auth) {
         $scope.registerUser = function() {
-        Auth.setCredentials("Visitor", "test");
-        $scope.salt = "nfp89gpe";
-        $scope.register.password = new String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
-        $scope.$parent.Restangular().all("users").post($scope.register).then(
-            function(success) {
-                Auth.clearCredentials();
-                console.log("USER CREATED");
-                $state.go("login", {}, {reload: true});
-            },function(fail) {
-                Auth.clearCredentials();
-                console.log("REGISTRATION FAILURE");
-        });
+            Auth.setCredentials("Visitor", "test");
+            $scope.salt = "nfp89gpe";
+            $scope.register.password = new String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
+            $scope.$parent.Restangular().all("users").post($scope.register).then(
+                function(success) {
+                    Auth.clearCredentials();
+                    console.log("USER CREATED");
+                    $state.go("login", {}, {reload: true});
+                },function(fail) {
+                    Auth.clearCredentials();
+                    console.log("REGISTRATION FAILURE");
+                });
 
-        Auth.clearCredentials();
-    }
-}]);
+            Auth.clearCredentials();
+        }
+    }]);
 
 databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
     function($scope, Auth, $state, formService) {
@@ -75,7 +75,6 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
 
 databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'form', 'response',
     function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, form, response) {
-        console.log(response);
         $scope.id = $stateParams.id;
         $scope.rid = $stateParams.rid;
         $builder.forms[$scope.id] = null;
@@ -98,7 +97,6 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
-        console.log($scope.defaultValue);
     }]);
 
 databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
