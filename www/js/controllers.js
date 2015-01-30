@@ -73,8 +73,8 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
-databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', 'form', 'response',
-    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, form, response) {
+databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'form', 'response',
+    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, form, response) {
         console.log(response);
         $scope.id = $stateParams.id;
         $scope.rid = $stateParams.rid;
@@ -94,9 +94,11 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
                 validation: question.validation
             });
         });
-
-        $scope.form = $builder.forms[$scope.id];
-        $scope.input = response.entries;
+        $scope.defaultValue = {};
+        response.entries.forEach(function(entry){
+            $scope.defaultValue[entry.question_id] = entry.value;
+        });
+        console.log($scope.defaultValue);
     }]);
 
 databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
@@ -119,8 +121,7 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
         if($scope.form_id) {
             formService.getForm($scope.form_id).then(function(data){
                 $scope.form_data = data;
-                $scope.form = data;
-                var questions = $filter('orderBy')($scope.form.questions, "index", false);
+                var questions = $filter('orderBy')(data.questions, "index", false);
                 questions.forEach(function(question){
                     $builder.addFormObject('default', {
                         id: question.question_id,
@@ -182,11 +183,12 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
             return $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     $state.go("finished");
+                    console.log($scope.input);
                     $scope.input = null;
                 });
                 return console.log('success');
             }).error(function() {
                 return console.log('error');
             });
-        };
+        }; 5
     }]);

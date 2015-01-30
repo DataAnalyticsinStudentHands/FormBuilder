@@ -134,6 +134,7 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             entryObj.value = inputObj.value;
                         });
+                        console.log(response.entries, input);
                         service.updateResponse(id, response).then(function(s){
                             console.log(s, "done");
                         });
