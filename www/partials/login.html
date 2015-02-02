@@ -5,9 +5,13 @@
         <p> Login </p>
         <div>
             <form ng-submit="submit()">
-                <input type="text" ng-model="userName" name="userName">
+                <label>
+                    <input type="text" ng-model="userName" name="userName">
+                </label>
                 <br>
-                <input type="password" ng-model="passWord" name="passWord">
+                <label>
+                    <input type="password" ng-model="passWord" name="passWord">
+                </label>
                 <br>
                 <input type="submit" value="Submit" id="submit">
             </form>

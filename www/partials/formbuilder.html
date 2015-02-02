@@ -1,29 +1,13 @@
-<script type='text/javascript'>
-
-    (function()
-    {
-        if( window.localStorage )
-        {
-            if( !localStorage.getItem( 'firstLoad' ) )
-            {
-                localStorage[ 'firstLoad' ] = true;
-                window.location.reload();
-            }
-            else
-                localStorage.removeItem( 'firstLoad' );
-        }
-    })();
-
-</script>
 <div class="container">
     <div class="row">
         <h1>Form Builder</h1>
         <div class="row">
             <div class="col-md-offset-0 col-md-3">
-                <input type='text' ng-model="form_data.name" class='form-control' placeholder="Form Title"/>
+                <input type='text' ng-model="form_data.name" id="form_title" class='form-control' placeholder="Form Name"/>
             </div>
             <div class="col-md-offset-9">
                 <input type="submit" ui-sref="secure.home" class="btn btn-default" value="Cancel">
+                <!--suppress HtmlUnknownAnchorTarget -->
                 <a type="submit" ng-show="form_id" target="_blank" href="/#/form/{{form_id}}" class="btn btn-default">Preview</a>
                 <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
             </div>

@@ -4,13 +4,13 @@
 
 var databaseModule = angular.module('databaseModule', [
     'restangular',
-    'databaseControllerModule',
-    'databaseServicesModule',
+    'formBuilderControllerModule',
     'formBuilderServiceModule',
-    'ui.router',
+    'databaseServicesModule',
     'builder',
     'builder.components',
     'validator.rules',
+    'ui.router',
     'ngSanitize'
 ]);
 
@@ -106,7 +106,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     $rootScope.isAuthenticated = function() {
         return Auth.hasCredentials();
     };
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    $rootScope.$on("$stateChangeStart", function(event, toState){
         // User isn’t authenticated
         if(toState.name == "form"  && !Auth.hasCredentials()) {
             Auth.setCredentials("Visitor", "test");

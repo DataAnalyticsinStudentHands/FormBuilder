@@ -1,15 +1,18 @@
 <form>
     <div class="form-group">
-        <label class='control-label'>Label</label>
+        <label class='control-label'>Label
         <input type='text' ng-model="label" validator="[required]" class='form-control'/>
+        </label>
     </div>
     <div class="form-group">
-        <label class='control-label'>Description</label>
+        <label class='control-label'>Description
         <input type='text' ng-model="description" class='form-control'/>
+        </label>
     </div>
     <div class="form-group">
-        <label class='control-label'>Placeholder</label>
+        <label class='control-label'>Placeholder
         <input type='text' ng-model="placeholder" class='form-control'/>
+        </label>
     </div>
     <div class="checkbox">
         <label>
@@ -17,8 +20,9 @@
             Required</label>
     </div>
     <div class="form-group" ng-if="validationOptions.length > 0">
-        <label class='control-label'>Validation</label>
+        <label class='control-label'>Validation
         <select ng-model="$parent.validation" class='form-control' ng-options="option.rule as option.label for option in validationOptions"></select>
+        </label>
     </div>
 
     <hr/>

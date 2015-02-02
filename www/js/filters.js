@@ -39,9 +39,9 @@ fbService.filter('uniqueById', function() {
     };
 });
 
-fbService.filter("nl2br", function($filter) {
+fbService.filter("nl2br", function() {
     return function(data) {
         if (!data) return data;
-        return data.replace(/\n\r?/g, '<br />');
+        return data.replace(/\n\r?/g, "<br />");
     };
 });

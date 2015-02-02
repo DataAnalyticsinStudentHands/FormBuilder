@@ -1,20 +1,18 @@
 'use strict';
 /* Controllers */
-var databaseController = angular.module('databaseControllerModule', []);
+var formBuilderController = angular.module('formBuilderControllerModule', []);
 
-databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
+formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state',
     function($scope, Auth, $state) {
         if($scope.isAuthenticated() === true) {
             //Point 'em to logged in page of app
             $state.go('secure.home');
         }
-
         //we need to put the salt on server + client side and it needs to be static
         $scope.salt = "nfp89gpe"; //PENDING
-
         $scope.submit = function() {
             if ($scope.userName && $scope.passWord) {
-                $scope.passWordHashed = new String(CryptoJS.SHA512($scope.passWord + $scope.userName + $scope.salt));
+                $scope.passWordHashed = String(CryptoJS.SHA512($scope.passWord + $scope.userName + $scope.salt));
                 Auth.setCredentials($scope.userName, $scope.passWordHashed);
                 $scope.loginResultPromise = $scope.Restangular().all("users").one("myUser").get();
                 $scope.loginResultPromise.then(function(result) {
@@ -22,7 +20,7 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
                     $scope.loginMsg = "You have logged in successfully! Status 200OK technomumbojumbo";
                     Auth.confirmCredentials();
                     $state.go('secure.home');
-                }, function(error) {
+                }, function() {
                     $scope.loginMsg = "Arghhh, matey! Check your username or password.";
                     Auth.clearCredentials();
                 });
@@ -40,18 +38,18 @@ databaseController.controller('loginCtrl', ['$scope', 'Auth', '$state',
         };
     }]);
 
-databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
+formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth',
     function($scope, $state, Auth) {
         $scope.registerUser = function() {
             Auth.setCredentials("Visitor", "test");
             $scope.salt = "nfp89gpe";
-            $scope.register.password = new String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
+            $scope.register.password = String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
             $scope.$parent.Restangular().all("users").post($scope.register).then(
-                function(success) {
+                function() {
                     Auth.clearCredentials();
                     console.log("USER CREATED");
                     $state.go("login", {}, {reload: true});
-                },function(fail) {
+                },function() {
                     Auth.clearCredentials();
                     console.log("REGISTRATION FAILURE");
                 });
@@ -60,7 +58,7 @@ databaseController.controller('registerCtrl', ['$scope', '$state', 'Auth',
         }
     }]);
 
-databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
+formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
     function($scope, Auth, $state, formService) {
         $scope.state = $state;
         formService.getMyForms().then(function(data){
@@ -73,7 +71,7 @@ databaseController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formServ
         }
     }]);
 
-databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'form', 'response',
+formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'form', 'response',
     function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, form, response) {
         $scope.id = $stateParams.id;
         $scope.rid = $stateParams.rid;
@@ -82,7 +80,6 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
         var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
         response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
-            console.log(question.component, $filter('getByQuestionId')(response.entries, question.question_id).value);
             if(question.component == "dateInput"){
                 $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
             } else if(question.component == "checkbox"){
@@ -108,10 +105,9 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
-        console.log(questions, $scope.defaultValue);
     }]);
 
-databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
     function($scope, Auth, $state, formService, responseService, $stateParams) {
         $scope.id = $stateParams.id;
         responseService.getResponsesByFormId($scope.id).then(function(data){
@@ -122,7 +118,7 @@ databaseController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'form
         });
     }]);
 
-databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
+formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
     function($scope, $builder, $validator, formService, $stateParams, $filter, $state) {
         $scope.form_id = $stateParams.id;
         $builder.forms['default'] = null;
@@ -159,14 +155,14 @@ databaseController.controller('builderCtrl', ['$scope', '$builder', '$validator'
                     });
                 }
             } else {
-                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function (response) {
+                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
                     alert("Saved!");
                 });
             }
         }
     }]);
 
-databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',
+formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',
     function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state) {
         $scope.id = $stateParams.id;
         $scope.form_obj = form;
@@ -200,5 +196,5 @@ databaseController.controller('formCtrl', ['$scope', '$builder', '$validator', '
             }).error(function() {
                 return console.log('error');
             });
-        }; 5
+        };
     }]);
