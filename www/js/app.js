@@ -19,34 +19,31 @@ databaseModule.config(
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login");
         $stateProvider.
-            state('loggedout', {
-                abstract: true,
-                template: "<ui-view>"
-            }).
             state('login', {
                 url: "/login",
-                templateUrl: "partials/login.html",
-                controller: 'loginCtrl',
+                views: {
+                    "app": { templateUrl: "partials/login.html", controller: "loginCtrl"}
+                },
                 authenticate: false
             }).
             state('register', {
                 url: "/register",
-                templateUrl: "partials/register.html",
-                controller: 'registerCtrl',
+                views: {
+                    "app": { templateUrl: "partials/register.html", controller: "registerCtrl"}
+                },
                 authenticate: false
-            }).
-            state('loggedin', {
-                abstract: true,
-                template: "<ui-view>"
             }).
             state('secure', {
                 url: "/secure",
-                template: "<ui-view>",
+                views: {
+                    "menu_view@secure": { templateUrl: "partials/menuBar.html"},
+                    "app": { templateUrl: "partials/home.html"}
+                },
                 abstract: true
             }).
             state('secure.home', {
                 url: "/home",
-                templateUrl: "partials/home.html",
+                templateUrl: "partials/form_home.html",
                 controller: 'homeCtrl',
                 authenticate: true
             }).
