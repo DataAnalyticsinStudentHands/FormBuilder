@@ -129,6 +129,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
         });
+        $scope.formURL = window.location.protocol+"//"+window.location.host + "/#/form/" + $scope.id;
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify',

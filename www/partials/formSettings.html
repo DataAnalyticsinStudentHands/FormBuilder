@@ -1,6 +1,48 @@
 <div class="container">
     <div class="row">
         <h2>{{form.name}} Settings</h2>
+        <div class="row">
+            <div class="col-md-offset-0 col-md-3">
+                <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
+            </div>
+            <div class="col-md-offset-9">
+                <input type="submit" ui-sref="secure.home" class="btn btn-default" value="Cancel">
+                <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
+            </div>
+        </div>
         <hr/>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class='control-label'> Form URL
+                <input type="text" ng-model="formURL" class='form-control'>
+            </label>
+            <a type="button" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
+        </div>
+        <div class="form-group">
+            <label class='control-label'> Form Submitted
+                <textarea class='form-control'></textarea>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class='control-label'> Form Closed Message
+                <textarea class='form-control'></textarea>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class='control-label'> URL Redirect
+                <input type="text" class='form-control'>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class='control-label'> Form Open
+                <input type="checkbox" class='form-control'>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class='control-label'> Form Public
+                <input type="checkbox" class='form-control'>
+            </label>
+        </div>
     </div>
 </div>
