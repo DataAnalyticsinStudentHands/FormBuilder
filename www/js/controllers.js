@@ -86,7 +86,11 @@ databaseController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state',
             if(question.component == "dateInput"){
                 $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
             } else if(question.component == "checkbox"){
-                $filter('getByQuestionId')(response.entries, question.question_id).value = ["1"];
+                var checked = [];
+                eval(question.options).forEach(function(checkedItem) {
+                    checked.push(question.options.indexOf(checkedItem) != -1);
+                });
+                $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
             }
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
