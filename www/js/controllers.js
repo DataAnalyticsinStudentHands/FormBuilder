@@ -2,12 +2,13 @@
 /* Controllers */
 var formBuilderController = angular.module('formBuilderControllerModule', []);
 
-formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state',
-    function($scope, Auth, $state) {
+formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify',
+    function($scope, Auth, $state, ngNotify) {
         if($scope.isAuthenticated() === true) {
             //Point 'em to logged in page of app
             $state.go('secure.home');
         }
+
         //we need to put the salt on server + client side and it needs to be static
         $scope.salt = "nfp89gpe"; //PENDING
         $scope.submit = function() {
@@ -17,10 +18,11 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state',
                 $scope.loginResultPromise = $scope.Restangular().all("users").one("myUser").get();
                 $scope.loginResultPromise.then(function(result) {
                     $scope.loginResult = result;
-                    $scope.loginMsg = "You have logged in successfully! Status 200OK technomumbojumbo";
+                    ngNotify.set("Login success!", "success");
                     Auth.confirmCredentials();
                     $state.go('secure.home');
                 }, function() {
+                    ngNotify.set("Login failure, please try again!", "error");
                     $scope.loginMsg = "Arghhh, matey! Check your username or password.";
                     Auth.clearCredentials();
                 });
@@ -38,35 +40,38 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state',
         };
     }]);
 
-formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth',
-    function($scope, $state, Auth) {
+formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify',
+    function($scope, $state, Auth, ngNotify) {
         $scope.registerUser = function() {
             Auth.setCredentials("Visitor", "test");
             $scope.salt = "nfp89gpe";
-            $scope.register.password = String(CryptoJS.SHA512($scope.register.password + $scope.register.username + $scope.salt));
+            $scope.register.password = String(CryptoJS.SHA512($scope.password + $scope.register.username + $scope.salt));
             $scope.$parent.Restangular().all("users").post($scope.register).then(
                 function() {
                     Auth.clearCredentials();
-                    console.log("USER CREATED");
+                    ngNotify.set("Registration success!", "success");
                     $state.go("login", {}, {reload: true});
                 },function() {
+                    ngNotify.set("Registration Failure!", "error");
                     Auth.clearCredentials();
-                    console.log("REGISTRATION FAILURE");
-                });
-
+                }, function() {
+                    $scope.register = null;
+                    $scope.password = null;
+                }
+            );
             Auth.clearCredentials();
         }
     }]);
 
-formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService',
-    function($scope, Auth, $state, formService) {
+formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService', 'ngNotify',
+    function($scope, Auth, $state, formService, ngNotify) {
         $scope.state = $state;
         formService.getMyForms().then(function(data){
             $scope.myForms = data;
         });
         $scope.logOut = function() {
-            console.log('loggedout');
             Auth.clearCredentials();
+            ngNotify.set("Successfully logged out!", "success");
             $state.go('secure.home',{},{reload: true});
         }
     }]);
@@ -126,8 +131,8 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         });
     }]);
 
-formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
-    function($scope, $builder, $validator, formService, $stateParams, $filter, $state) {
+formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify',
+    function($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify) {
         $scope.form_id = $stateParams.id;
         $builder.forms['default'] = null;
 
@@ -155,16 +160,17 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
         $scope.save = function() {
             if(!$scope.form_id) {
                 if(!$scope.form_data) {
-                    alert("Field required!");
+                    ngNotify.set("Form Name is required!", "error");
                 } else {
                     formService.newForm($scope.form_data.name, angular.copy($builder.forms['default'])).then(function (response) {
+                        ngNotify.set("Form saved!", "success");
                         $scope.form_id = response.headers("ObjectId");
                         $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
                     });
                 }
             } else {
                 formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
-                    alert("Saved!");
+                    ngNotify.set("Form saved!", "success");
                 });
             }
         }
@@ -196,13 +202,12 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         return $scope.submit = function() {
             return $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
+                    ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
-                    console.log($scope.input);
                     $scope.input = null;
                 });
-                return console.log('success');
             }).error(function() {
-                return console.log('error');
+                ngNotify.set("Form submission error, please verify the form contents.", "error");
             });
         };
     }]);
