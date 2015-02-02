@@ -91,7 +91,6 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                 var checked = [];
                 $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
                 eval(question.options).forEach(function(checkBoxItem) {
-                    console.log($scope.checkBoxResponse);
                     $scope.checkBoxResponse.forEach(function(checkedResponse){
                         if(checkBoxItem.indexOf(checkedResponse) != -1){
                             checked.push(true);
