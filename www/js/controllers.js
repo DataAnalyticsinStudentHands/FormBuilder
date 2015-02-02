@@ -89,8 +89,14 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                 $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
             } else if(question.component == "checkbox"){
                 var checked = [];
-                eval(question.options).forEach(function(checkedItem) {
-                    checked.push(question.options.indexOf(checkedItem) != -1);
+                $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
+                eval(question.options).forEach(function(checkBoxItem) {
+                    console.log($scope.checkBoxResponse);
+                    $scope.checkBoxResponse.forEach(function(checkedResponse){
+                        if(checkBoxItem.indexOf(checkedResponse) != -1){
+                            checked.push(true);
+                        }
+                    })
                 });
                 $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
             }

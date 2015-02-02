@@ -142,4 +142,14 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         templateUrl: 'partials/component/tmplDate.html',
         popoverTemplateUrl: 'partials/component/popDate.html'
     });
+
+    $builder.registerComponent('section', {
+        group: 'Utilities',
+        label: 'Section/Page Name',
+        description: 'Conditional Section/Page Description',
+        placeholder: '',
+        required: false,
+        templateUrl: 'partials/component/tmplSection.html',
+        popoverTemplateUrl: 'partials/component/popSection.html'
+    });
 }]);
