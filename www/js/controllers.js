@@ -118,6 +118,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         });
     }]);
 
+formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
+    function($scope, Auth, $state, formService, responseService, $stateParams) {
+        $scope.id = $stateParams.id;
+        formService.getForm($scope.id).then(function(data) {
+            $scope.form = data;
+        });
+    }]);
+
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state',
     function($scope, $builder, $validator, formService, $stateParams, $filter, $state) {
         $scope.form_id = $stateParams.id;
