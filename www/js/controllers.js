@@ -177,8 +177,8 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
         }
     }]);
 
-formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state',
-    function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state) {
+formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
+    function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
         $scope.id = $stateParams.id;
         $scope.form_obj = form;
         $builder.forms[$scope.id] = null;
