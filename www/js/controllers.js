@@ -139,7 +139,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 var entries = [];
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    console.log(entry.value, entry.value.replace('"', '""'));
                     entries.push(entry.value.replace(/"/g, '""'));
                 });
                 $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
@@ -147,7 +146,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
             var pom = document.createElement('a');
             pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
-            pom.setAttribute('download', "test.csv");
+            pom.setAttribute('download', $scope.form.name + "_responses.csv");
             pom.click();
         }
     }]);
