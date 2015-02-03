@@ -134,17 +134,21 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             questions.forEach(function(question){
                 questionValueArray.push(question.label);
             });
-            $scope.CSVout += questionValueArray.join(', ');
+            $scope.CSVout += '"' + questionValueArray.join('","') + '"';
             $scope.responses.forEach(function(response){
                 var entries = [];
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    entries.push(entry.value);
-                    console.log(entry.value);
+                    console.log(entry.value, entry.value.replace('"', '""'));
+                    entries.push(entry.value.replace(/"/g, '""'));
                 });
-                $scope.CSVout += "\n" + entries.join(', ');
+                $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
             });
-            console.log($scope.CSVout);
+
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
+            pom.setAttribute('download', "test.csv");
+            pom.click();
         }
     }]);
 

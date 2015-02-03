@@ -85,8 +85,12 @@ databaseModule.config(
             }).
             state('form', {
                 url: "/form/:id",
-                templateUrl: "partials/form.html",
-                controller: 'formCtrl',
+                views: {
+                    "app": {
+                        templateUrl: "partials/form.html",
+                        controller: 'formCtrl'
+                    }
+                },
                 resolve: {
                     form: function(formService, $stateParams) {
                         return formService.getForm($stateParams.id);
@@ -96,7 +100,11 @@ databaseModule.config(
             }).
             state('finished', {
                 url: "/finish",
-                templateUrl: "partials/finish.html",
+                views: {
+                    "app": {
+                        templateUrl: "partials/finish.html"
+                    }
+                },
                 authenticate: false
             });
     });
