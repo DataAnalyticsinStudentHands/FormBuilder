@@ -31,7 +31,6 @@
     "commit": "564d2d10ee415b1e48a21d2dbd28f00358b58fd3"
   },
   "_source": "git://github.com/kelp404/angular-validator.git",
-  "_target": "~0.2.6",
-  "_originalSource": "angular-validator",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "angular-validator"
 }

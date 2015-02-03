@@ -68,7 +68,7 @@ databaseModule.config(
             state('secure.response.detail', {
                 url: "/detail/:rid",
                 views: {
-                    "@": {
+                    "@secure": {
                         templateUrl: "partials/responseDetail.html",
                         controller: 'responseDetailCtrl'
                     }

@@ -117,8 +117,8 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         });
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
-    function($scope, Auth, $state, formService, responseService, $stateParams) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
+    function($scope, Auth, $state, formService, responseService, $stateParams, $filter) {
         $scope.id = $stateParams.id;
         responseService.getResponsesByFormId($scope.id).then(function(data){
             $scope.responses = data;
@@ -126,6 +126,26 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
         });
+
+        $scope.getCSV = function(){
+            $scope.CSVout = "";
+            var questions = $filter('orderBy')($scope.form.questions, "index", false);
+            var questionValueArray = [];
+            questions.forEach(function(question){
+                questionValueArray.push(question.label);
+            });
+            $scope.CSVout += questionValueArray.join(', ');
+            $scope.responses.forEach(function(response){
+                var entries = [];
+                questions.forEach(function(question){
+                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                    entries.push(entry.value);
+                    console.log(entry.value);
+                });
+                $scope.CSVout += "\n" + entries.join(', ');
+            });
+            console.log($scope.CSVout);
+        }
     }]);
 
 formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
