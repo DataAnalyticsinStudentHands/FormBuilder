@@ -7,7 +7,6 @@
             </div>
             <div class="col-md-offset-8">
                 <input type="submit" ui-sref="secure.home" class="btn btn-default" value="Cancel">
-                <!--suppress HtmlUnknownAnchorTarget -->
                 <input type="submit" ng-show="form_id" class="btn btn-default" ui-sref="secure.form_settings({id: form_id})" value="Settings">
                 <a type="submit" ng-show="form_id" target="_blank" href="/#/form/{{form_id}}" class="btn btn-default">Preview</a>
                 <input type="submit" ng-click="save()" class="btn btn-default" value="Save">
