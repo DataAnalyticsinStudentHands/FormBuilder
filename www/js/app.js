@@ -36,7 +36,7 @@ databaseModule.config(
             state('secure', {
                 url: "/secure",
                 views: {
-                    "menu_view@secure": { templateUrl: "partials/menuBar.html"},
+                    "menu_view@secure": { templateUrl: "partials/menuBar.html", controller: "homeCtrl"},
                     "app": { templateUrl: "partials/home.html"}
                 },
                 abstract: true
