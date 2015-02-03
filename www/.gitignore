@@ -10,6 +10,7 @@ npm-debug.log
 
 # bower components
 bower_components
+lib
 
 # compass
 .sass-cache
