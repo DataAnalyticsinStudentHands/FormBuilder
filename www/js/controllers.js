@@ -87,7 +87,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         questions.forEach(function(question){
             if(question.component == "dateInput"){
                 $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
-            } else if(question.component == "name") {
+            } else if(question.component == "name" || question.component == "address") {
                 $filter('getByQuestionId')(response.entries, question.question_id).value = $filter('getByQuestionId')(response.entries, question.question_id).value.split(", ");
             } else if(question.component == "checkbox"){
                 var checked = [];
