@@ -12,7 +12,8 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         getMyForms:
             function() {
-                return Restangular.all("forms").all("myForms").getList().then(function(data){
+                return Restangular.all("forms").customGETLIST("myForms", {
+                numberOfForms: '1000'}).then(function(data){
                     return data.plain();
                 });
             },
@@ -111,7 +112,8 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             },
         getResponsesByFormId:
             function(form_id){
-                return Restangular.all("formResponses").all("byFormId").get(form_id).then(function(data){
+                return Restangular.all("formResponses").all("byFormId").customGET(form_id, {
+                numberOfFormResponses: '1000'}).then(function(data){
                     return Restangular.stripRestangular(data);
                 });
             },
