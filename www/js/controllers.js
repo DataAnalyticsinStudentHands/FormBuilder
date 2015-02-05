@@ -85,38 +85,41 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
         response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
-            if(question.component == "dateInput"){
-                $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
-            } else if(question.component == "name" || question.component == "address") {
-                $filter('getByQuestionId')(response.entries, question.question_id).value = $filter('getByQuestionId')(response.entries, question.question_id).value.split(", ");
-            } else if(question.component == "checkbox"){
-                var checked = [];
-                $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
-                eval(question.options).forEach(function(checkBoxItem) {
-                    $scope.checkBoxResponse.forEach(function(checkedResponse){
-                        if(checkBoxItem.indexOf(checkedResponse) != -1){
-                            checked.push(true);
-                        }
-                    })
+            if($filter('getByQuestionId')(response.entries, question.question_id)) {
+                if (question.component == "dateInput") {
+                    $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
+                } else if (question.component == "name" || question.component == "address") {
+                    $filter('getByQuestionId')(response.entries, question.question_id).value = $filter('getByQuestionId')(response.entries, question.question_id).value.split(", ");
+                } else if (question.component == "checkbox") {
+                    var checked = [];
+                    $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
+                    eval(question.options).forEach(function (checkBoxItem) {
+                        $scope.checkBoxResponse.forEach(function (checkedResponse) {
+                            if (checkBoxItem.indexOf(checkedResponse) != -1) {
+                                checked.push(true);
+                            }
+                        })
+                    });
+                    $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
+                }
+                $builder.addFormObject($scope.id, {
+                    id: question.question_id,
+                    component: question.component,
+                    description: question.description,
+                    label: question.label,
+                    index: question.index,
+                    placeholder: question.placeholder,
+                    required: question.required,
+                    options: eval(question.options),
+                    validation: question.validation
                 });
-                $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
             }
-            $builder.addFormObject($scope.id, {
-                id: question.question_id,
-                component: question.component,
-                description: question.description,
-                label: question.label,
-                index: question.index,
-                placeholder: question.placeholder,
-                required: question.required,
-                options: eval(question.options),
-                validation: question.validation
-            });
         });
         $scope.defaultValue = {};
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
+
     }]);
 
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
@@ -141,7 +144,10 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 var entries = [];
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    entries.push(entry.value.replace(/"/g, '""'));
+                    if(entry)
+                        entries.push(entry.value.replace(/"/g, '""'));
+                    else
+                        entries.push("");
                 });
                 $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
             });
