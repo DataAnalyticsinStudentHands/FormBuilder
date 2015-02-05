@@ -238,7 +238,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                     $scope.input = null;
                 });
             }).error(function() {
-                ngNotify.set("Form submission error, please verify the form contents.", "error");
+                ngNotify.set("Form submission error, please verify form contents.", "error");
             });
         };
     }]);
