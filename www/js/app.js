@@ -130,7 +130,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     });
 
     $builder.registerComponent('description', {
-        group: 'Common',
+        group: 'Other',
         label: 'TextBlock',
         description: "This is a textblock.",
         required: false,
@@ -139,7 +139,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         popoverTemplateUrl: "partials/component/popDescription.html"
     });
     $builder.registerComponent('dateInput', {
-        group: 'Common',
+        group: 'Other',
         label: 'Date',
         description: 'Choose a Date',
         placeholder: '',
@@ -148,7 +148,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         popoverTemplateUrl: 'partials/component/popDate.html'
     });
     $builder.registerComponent('name', {
-        group: 'Common',
+        group: 'Other',
         label: 'Name',
         required: false,
         arrayToText: true,
@@ -156,7 +156,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         popoverTemplate: "<form>\n    <div class=\"form-group\">\n        <label class='control-label'>Label</label>\n        <input type='text' ng-model=\"label\" validator=\"[required]\" class='form-control'/>\n    </div>\n    <div class=\"checkbox\">\n        <label>\n            <input type='checkbox' ng-model=\"required\" />\n            Required\n        </label>\n    </div>\n\n    <hr/>\n    <div class='form-group'>\n        <input type='submit' ng-click=\"popover.save($event)\" class='btn btn-primary' value='Save'/>\n        <input type='button' ng-click=\"popover.cancel($event)\" class='btn btn-default' value='Cancel'/>\n        <input type='button' ng-click=\"popover.remove($event)\" class='btn btn-danger' value='Delete'/>\n    </div>\n</form>"
     });
     $builder.registerComponent('address', {
-        group: 'Common',
+        group: 'Other',
         label: 'Address',
         required: false,
         arrayToText: true,
@@ -164,7 +164,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         popoverTemplateUrl: "partials/component/popAddress.html"
     });
     $builder.registerComponent('section', {
-        group: 'Common',
+        group: 'Other',
         label: 'Section/Page Name',
         description: 'Conditional Section/Page Description',
         placeholder: '',
