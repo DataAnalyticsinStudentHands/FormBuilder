@@ -119,7 +119,6 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
-
     }]);
 
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
@@ -152,10 +151,10 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
             });
 
-            var pom = document.createElement('a');
-            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
-            pom.setAttribute('download', $scope.form.name + "_responses.csv");
-            pom.click();
+            var download_button = document.createElement('a');
+            download_button.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
+            download_button.setAttribute('download', $scope.form.name + "_responses.csv");
+            download_button.click();
         }
     }]);
 
@@ -221,6 +220,10 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 
         var questions = $filter('orderBy')(form.questions, "index", false);
         questions.forEach(function(question){
+            if(question.component == "section"){
+                question.pageBreak = question.required;
+                question.required = false;
+            }
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
