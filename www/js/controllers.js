@@ -89,7 +89,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         dd.content[1] = "Response: #" + $scope.rid;
         dd.content[2].style = 'tableExample';
         dd.content[2].table = {};
-        dd.content[2].table.widths = [200, '*'];
+        dd.content[2].table.widths = [150, '*'];
         dd.content[2].table.body = [['Questions', 'Response']];
         dd.content[2].layout= 'noBorders';
 
@@ -133,7 +133,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         });
 
         $scope.toPDF = function(){
-            pdfMake.createPdf(dd).open();
+            pdfMake.createPdf(dd).download();
         }
     }]);
 
@@ -269,6 +269,27 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $builder.forms[$scope.id] = null;
 
         var questions = $filter('orderBy')(form.questions, "index", false);
+        var questionPageArray = [];
+
+        var page_number = 0;
+        questions.forEach(function(question){
+            var pageArray = questionPageArray[page_number];
+            if(!pageArray)
+                pageArray = [];
+
+            if (question.component != "section") {
+                pageArray.push(question);
+                questionPageArray[page_number] = pageArray;
+            } else {
+                page_number++;
+                pageArray = questionPageArray[page_number];
+                if(!pageArray)
+                    pageArray = [];
+                pageArray.push(question);
+                questionPageArray[page_number] = pageArray;
+            }
+        });
+
         questions.forEach(function(question){
             if(question.component == "section"){
                 question.pageBreak = question.required;
