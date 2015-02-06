@@ -83,10 +83,21 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         $scope.form = form;
         $builder.forms[$scope.id] = null;
 
+        dd.content = [];
+        dd.content.push({},{},{});
+        dd.content[0].text = "Form: " + form.name;
+        dd.content[1] = "Response: #" + $scope.rid;
+        dd.content[2].style = 'tableExample';
+        dd.content[2].table = {};
+        dd.content[2].table.widths = [200, '*'];
+        dd.content[2].table.body = [['Questions', 'Response']];
+        dd.content[2].layout= 'noBorders';
+
         var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
         response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
             if($filter('getByQuestionId')(response.entries, question.question_id)) {
+                dd.content[2].table.body.push([question.label, angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value)]);
                 if (question.component == "dateInput") {
                     $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
                 } else if (question.component == "name" || question.component == "address") {
@@ -129,11 +140,20 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
     function($scope, Auth, $state, formService, responseService, $stateParams, $filter) {
         $scope.id = $stateParams.id;
+
+        dd.content = [];
+        dd.content.push({},{},{});
+        dd.content[2].style = 'tableExample';
+        dd.content[2].table = {};
+        dd.content[2].table.widths = [200, '*'];
+        dd.content[2].layout= 'noBorders';
+
         responseService.getResponsesByFormId($scope.id).then(function(data){
             $scope.responses = data;
         });
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
+            dd.content[0].text = "Form: " + data.name;
         });
 
         $scope.getCSV = function(){
@@ -160,6 +180,30 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             download_button.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
             download_button.setAttribute('download', $scope.form.name + "_responses.csv");
             download_button.click();
+        };
+
+        $scope.toPDF = function(){
+            console.log($scope.form.questions, $scope.responses);
+            var table_loc = 2;
+            dd.content[1] = "\n Response: #" + $scope.responses[0].id;
+            dd.content[table_loc].table.body = [['Questions', 'Response']];
+
+            var questions = $filter('orderBy')($scope.form.questions, "index", false);
+            $scope.responses.forEach(function(response){
+                questions.forEach(function(question){
+                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                    dd.content[table_loc].table.body.push([question.label, entry.value]);
+                });
+
+                table_loc+=2;
+                dd.content.push("",{});
+                dd.content[table_loc-1] = "\n Response: #" + response.id;
+                dd.content[table_loc].table = {};
+                dd.content[table_loc].table.widths = [200, '*'];
+                dd.content[table_loc].layout= 'noBorders';
+                dd.content[table_loc].table.body = [['Questions', 'Response']];
+            });
+            pdfMake.createPdf(dd).open();
         }
     }]);
 
