@@ -237,19 +237,14 @@
                  */
                 var el = fadeLib(tpl);
 
-                /**
-                 * Our primary object containing all public API methods and allows for all our functionality to be invoked.
-                 *
-                 * @type {Object}
-                 */
-                var notifyObject = {
+                return {
 
                     /**
                      * Merges our user specified options with our default set of options.
                      *
                      * @param {Object} params - object of user provided options to configure notifications.
                      */
-                    config: function(params) {
+                    config: function (params) {
                         params = params || {};
                         angular.extend(options, params);
                     },
@@ -260,7 +255,7 @@
                      * @param {String}             message - the message our notification will display to the user.
                      * @param {String|Object|null} userOpt - optional parameter that contains the type or an object of options used to configure this notification.
                      */
-                    set: function(message, userOpt) {
+                    set: function (message, userOpt) {
 
                         if (!message) {
                             return;
@@ -286,8 +281,8 @@
                         var sticky = setSticky(userOpts.sticky);
                         var duration = setDuration(userOpts.duration);
                         var notifyClass = setType(userOpts.type) + ' ' +
-                                          setTheme(userOpts.theme) + ' ' +
-                                          setPosition(userOpts.position);
+                            setTheme(userOpts.theme) + ' ' +
+                            setPosition(userOpts.position);
 
                         notifyClass += sticky ? ' ngn-sticky' : '';
 
@@ -297,9 +292,9 @@
                         };
                         //console.log(el);
                         //el.css("z-index", "999");
-                        el.fadeIn(200, function() {
+                        el.fadeIn(200, function () {
                             if (!sticky) {
-                                notifyTimeout = $timeout(function() {
+                                notifyTimeout = $timeout(function () {
                                     notifyScope.dismiss();
                                 }, duration);
                             }
@@ -310,7 +305,7 @@
                      * Allows a developer to manually dismiss a notification that may be
                      * set to sticky, when the message is no longer warranted.
                      */
-                    dismiss: function() {
+                    dismiss: function () {
                         notifyScope.dismiss();
                         //el.css("z-index", "0");
                     },
@@ -324,8 +319,10 @@
                      * @param {String} themeName  - the name for this new theme that will be used when applying it via configuration.
                      * @param {String} themeClass - the class that this theme will use when applying it's styles.
                      */
-                    addTheme: function(themeName, themeClass) {
-                        if (!themeName || !themeClass) { return; }
+                    addTheme: function (themeName, themeClass) {
+                        if (!themeName || !themeClass) {
+                            return;
+                        }
                         themes[themeName] = themeClass;
                     },
 
@@ -336,14 +333,14 @@
                      * @param {String} typeName  - the name for this new type that will be used when applying it via configuration.
                      * @param {String} typeClass - the class that this type will use when applying it's styles.
                      */
-                    addType: function(typeName, typeClass) {
-                        if (!typeName || !typeClass) { return; }
+                    addType: function (typeName, typeClass) {
+                        if (!typeName || !typeClass) {
+                            return;
+                        }
                         types[typeName + 'Class'] = typeClass;
                     }
 
                 };
-
-                return notifyObject;
             }
         ];
      });
