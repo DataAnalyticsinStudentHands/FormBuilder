@@ -12,8 +12,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         getMyForms:
             function() {
-                return Restangular.all("forms").customGETLIST("myForms", {
-                numberOfForms: '1000'}).then(function(data){
+                return Restangular.all("forms").customGETLIST("myForms", {numberOfForms: 999999999}).then(function(data){
                     return data.plain();
                 });
             },
