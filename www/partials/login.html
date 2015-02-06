@@ -1,27 +1,36 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-        <h2>Database & Login Module</h2>
-        <p> Login </p>
-        <div>
-            <form ng-submit="submit()">
-                <label>
-                    <input type="text" ng-model="userName" name="userName">
-                </label>
-                <br>
-                <label>
-                    <input type="password" ng-model="passWord" name="passWord">
-                </label>
-                <br>
-                <input type="submit" value="Submit" id="submit">
-            </form>
-            <br>
-            <p>{{loginMsg}}</p>
-<!--            <h3> Result to DB Login Query:</h3>-->
-            <hr>
-            <p>{{loginResult}}</p>
-        </div>
-    </div>
-      <div><a ui-sref="register">REGISTER HERE</a></div>
-  </div>
+<div class="container">
+    <form class="form-signin" ng-submit="submit()">
+        <h2 class="form-signin-heading">FormBuilder Log In</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input id="inputEmail" class="form-control" ng-model="userName" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" ng-model="passWord" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
 </div>
+
+<!--<div class="container">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-2">-->
+            <!--<h2>Database & Login Module</h2>-->
+            <!--<p> Login </p>-->
+            <!--<div>-->
+                <!--<form ng-submit="submit()">-->
+                    <!--<label>-->
+                        <!--<input type="text" ng-model="userName" name="userName">-->
+                    <!--</label>-->
+                    <!--<br>-->
+                    <!--<label>-->
+                        <!--<input type="password" ng-model="passWord" name="passWord">-->
+                    <!--</label>-->
+                    <!--<br>-->
+                    <!--<input type="submit" value="Submit" id="submit">-->
+                <!--</form>-->
+                <!--<br>-->
+                <!--<p>{{loginMsg}}</p>-->
+                <!--<p>{{loginResult}}</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div><a ui-sref="register">REGISTER HERE</a></div>-->
+    <!--</div>-->
+<!--</div>-->
