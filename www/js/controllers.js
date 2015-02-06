@@ -80,6 +80,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
     function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, form, response) {
         $scope.id = $stateParams.id;
         $scope.rid = $stateParams.rid;
+        $scope.form = form;
         $builder.forms[$scope.id] = null;
 
         var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
@@ -119,6 +120,10 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         response.entries.forEach(function(entry){
             $scope.defaultValue[entry.question_id] = entry.value;
         });
+
+        $scope.toPDF = function(){
+            pdfMake.createPdf(dd).open();
+        }
     }]);
 
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
