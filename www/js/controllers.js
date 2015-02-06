@@ -142,11 +142,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.id = $stateParams.id;
 
         dd.content = [];
-        dd.content.push({},{},{});
-        dd.content[2].style = 'tableExample';
-        dd.content[2].table = {};
-        dd.content[2].table.widths = [200, '*'];
-        dd.content[2].layout= 'noBorders';
+        dd.content.push({});
 
         responseService.getResponsesByFormId($scope.id).then(function(data){
             $scope.responses = data;
@@ -183,27 +179,32 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         };
 
         $scope.toPDF = function(){
-            console.log($scope.form.questions, $scope.responses);
-            var table_loc = 2;
-            dd.content[1] = "\n Response: #" + $scope.responses[0].id;
-            dd.content[table_loc].table.body = [['Questions', 'Response']];
-
+            var table_loc = 0;
             var questions = $filter('orderBy')($scope.form.questions, "index", false);
             $scope.responses.forEach(function(response){
-                questions.forEach(function(question){
-                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    dd.content[table_loc].table.body.push([question.label, entry.value]);
-                });
-
                 table_loc+=2;
                 dd.content.push("",{});
-                dd.content[table_loc-1] = "\n Response: #" + response.id;
+                if (table_loc == 2) {
+                    dd.content[table_loc - 1] = {text: "\n Response: #" + response.id};
+
+                } else {
+                    dd.content[table_loc - 1] = {text: "Response: #" + response.id};
+                    dd.content[table_loc - 1].pageBreak = 'before';
+                }
                 dd.content[table_loc].table = {};
-                dd.content[table_loc].table.widths = [200, '*'];
+                dd.content[table_loc].table.widths = [150, '*'];
                 dd.content[table_loc].layout= 'noBorders';
                 dd.content[table_loc].table.body = [['Questions', 'Response']];
+
+                questions.forEach(function(question){
+                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                    if(entry)
+                        dd.content[table_loc].table.body.push([question.label, entry.value]);
+                    else
+                        dd.content[table_loc].table.body.push([question.label, ""]);
+                });
             });
-            pdfMake.createPdf(dd).open();
+            pdfMake.createPdf(dd).download();
         }
     }]);
 
