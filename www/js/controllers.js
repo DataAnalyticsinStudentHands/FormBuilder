@@ -105,12 +105,15 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                 } else if (question.component == "checkbox") {
                     var checked = [];
                     $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
-                    eval(question.options).forEach(function (checkBoxItem) {
+                    eval(question.options).forEach(function (checkBoxItem, key) {
                         $scope.checkBoxResponse.forEach(function (checkedResponse) {
                             if (checkBoxItem.indexOf(checkedResponse) != -1) {
                                 checked.push(true);
                             }
-                        })
+                        });
+                        if(!checked[key]){
+                            checked[key] = false;
+                        }
                     });
                     $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
                 }

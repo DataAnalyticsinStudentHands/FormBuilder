@@ -157,7 +157,7 @@
                         $scope.questionPageArray[page_number] = pageArray;
                     }
                 });
-                console.log($scope.questionPageArray);
+                //console.log($scope.questionPageArray);
 
                 if ($scope.input.length > $scope.form.length) {
                     $scope.input.splice($scope.form.length);
