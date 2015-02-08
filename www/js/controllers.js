@@ -141,17 +141,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
     function($scope, Auth, $state, formService, responseService, $stateParams, $filter) {
         $scope.id = $stateParams.id;
 
-        dd.content = [];
-        dd.content.push({});
-
         responseService.getResponsesByFormId($scope.id).then(function(data){
             $scope.responses = data;
         });
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
-            dd.content[0].text = "Form: " + data.name;
-            dd.content[0].alignment = 'center';
-            dd.content[0].bold = true;
+            dd.content = [];
+            dd.content.push({});
+            dd.content[0] = {text: "Form: " + data.name, alignment: 'center', bold: true};
         });
 
         $scope.getCSV = function(){
@@ -179,7 +176,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             download_button.setAttribute('download', $scope.form.name + "_responses.csv");
             download_button.click();
         };
-
         $scope.toPDF = function(){
             var table_loc = 0;
             var questions = $filter('orderBy')($scope.form.questions, "index", false);
@@ -188,7 +184,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 dd.content.push("",{});
                 if (table_loc == 2) {
                     dd.content[table_loc - 1] = {text: "\n Response: #" + response.id, alignment: "center", bold: true};
-
                 } else {
                     dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
                     dd.content[table_loc - 1].pageBreak = 'before';
