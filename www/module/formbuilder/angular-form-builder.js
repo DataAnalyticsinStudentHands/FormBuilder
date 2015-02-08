@@ -154,6 +154,7 @@
                         if(!pageArray)
                             pageArray = [];
                         pageArray.heading = question.label;
+                        pageArray.show = question.required;
                         $scope.questionPageArray[page_number] = pageArray;
                     }
                 });
