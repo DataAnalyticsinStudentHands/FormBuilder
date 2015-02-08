@@ -211,7 +211,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
         });
-        $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "/#/form/" + $scope.id;
+        $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/form/" + $scope.id;
         $scope.deleteForm = function() {
             bootbox.dialog({
                 title: "Delete Form",
