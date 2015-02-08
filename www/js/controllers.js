@@ -211,7 +211,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
         });
-        $scope.formURL = window.location.protocol+"//"+window.location.host + "/#/form/" + $scope.id;
+        $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "/#/form/" + $scope.id;
         $scope.deleteForm = function() {
             bootbox.dialog({
                 title: "Delete Form",
@@ -291,14 +291,13 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $builder.forms[$scope.id] = null;
 
         var questions = $filter('orderBy')(form.questions, "index", false);
-        var questionPageArray = [];
 
+        var questionPageArray = [];
         var page_number = 0;
         questions.forEach(function(question){
             var pageArray = questionPageArray[page_number];
             if(!pageArray)
                 pageArray = [];
-
             if (question.component != "section") {
                 pageArray.push(question);
                 questionPageArray[page_number] = pageArray;
@@ -311,6 +310,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                 questionPageArray[page_number] = pageArray;
             }
         });
+        //console.log(questionPageArray);
 
         questions.forEach(function(question){
             if(question.component == "section"){
