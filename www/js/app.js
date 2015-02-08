@@ -110,8 +110,8 @@ databaseModule.config(
     });
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', function(Restangular, $rootScope, Auth, $q, $state, $builder) {
-    Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
-    //Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
+    //Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
+    Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
 
     $rootScope.Restangular = function() {
         return Restangular;
@@ -137,6 +137,15 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         arrayToText: true,
         templateUrl: "partials/component/tmplDescription.html",
         popoverTemplateUrl: "partials/component/popDescription.html"
+    });
+    $builder.registerComponent('dateTimeInput', {
+        group: 'Other',
+        label: 'Date Time Picker',
+        description: 'Choose a Date and Time',
+        placeholder: '',
+        required: false,
+        templateUrl: 'partials/component/tmplDateTime.html',
+        popoverTemplateUrl: 'partials/component/popDateTime.html'
     });
     $builder.registerComponent('dateInput', {
         group: 'Other',
