@@ -76,8 +76,8 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
         }
     }]);
 
-formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'form', 'response',
-    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, form, response) {
+formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'responseService','form', 'response',
+    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, responseService, form, response) {
         $scope.id = $stateParams.id;
         $scope.rid = $stateParams.rid;
         $scope.form = form;
@@ -134,6 +134,12 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
 
         $scope.toPDF = function(){
             pdfMake.createPdf(dd).download();
+        };
+
+        $scope.deleteResponse = function(){
+            responseService.deleteResponse($scope.id).then(function(){
+                console.log("deleted");
+            });
         }
     }]);
 

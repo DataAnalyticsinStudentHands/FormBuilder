@@ -6,10 +6,6 @@ var fbService = angular.module('formBuilderServiceModule', []);
 
 fbService.factory('formService', ['Restangular', function(Restangular) {
     return {
-        getForms:
-            function() {
-                return Restangular.all("forms").getList();
-            },
         getMyForms:
             function() {
                 return Restangular.all("forms").customGETLIST("myForms", {numberOfForms: 999999999}).then(function(data){
@@ -148,7 +144,7 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             },
         deleteResponse:
             function(rid) {
-                return Restangular.all("formResponses").one(rid).delete();
+                return Restangular.all("formResponses").one(rid).remove(); //DO THIS NOW
             }
     }
 }]);
