@@ -298,26 +298,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 
         var questions = $filter('orderBy')(form.questions, "index", false);
 
-        var questionPageArray = [];
-        var page_number = 0;
-        questions.forEach(function(question){
-            var pageArray = questionPageArray[page_number];
-            if(!pageArray)
-                pageArray = [];
-            if (question.component != "section") {
-                pageArray.push(question);
-                questionPageArray[page_number] = pageArray;
-            } else {
-                page_number++;
-                pageArray = questionPageArray[page_number];
-                if(!pageArray)
-                    pageArray = [];
-                pageArray.push(question);
-                questionPageArray[page_number] = pageArray;
-            }
-        });
-        //console.log(questionPageArray);
-
         questions.forEach(function(question){
             if(question.component == "section"){
                 question.pageBreak = question.required;

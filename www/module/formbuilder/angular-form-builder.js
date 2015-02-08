@@ -134,6 +134,27 @@
                 $scope.input = [];
             }
             return $scope.$watch('form', function() {
+                $scope.questionPageArray = [];
+                var page_number = 0;
+                $scope.form.forEach(function(question){
+                    var pageArray = $scope.questionPageArray[page_number];
+                    if(!pageArray)
+                        pageArray = [];
+                    if (question.component != "section") {
+                        pageArray.push(question);
+                        $scope.questionPageArray[page_number] = pageArray;
+                    } else {
+                        page_number++;
+                        //Adds section in, to put sectionObj in array.
+                        pageArray = $scope.questionPageArray[page_number];
+                        if(!pageArray)
+                            pageArray = [];
+                        //pageArray.push(question);
+                        pageArray.heading = question;
+                        $scope.questionPageArray[page_number] = pageArray;
+                    }
+                });
+
                 if ($scope.input.length > $scope.form.length) {
                     $scope.input.splice($scope.form.length);
                 }
@@ -463,7 +484,7 @@
                     input: '=ngModel',
                     "default": '=fbDefault'
                 },
-                template: "<div class='fb-form-object' ng-repeat=\"object in form\" fb-form-object=\"object\"></div>",
+                templateUrl: "partials/component/form.html",
                 controller: 'fbFormController',
                 link: function(scope, element, attrs) {
                     var $builder, _base, _name;
