@@ -150,6 +150,8 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
             dd.content[0].text = "Form: " + data.name;
+            dd.content[0].alignment = 'center';
+            dd.content[0].bold = true;
         });
 
         $scope.getCSV = function(){
@@ -185,16 +187,16 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 table_loc+=2;
                 dd.content.push("",{});
                 if (table_loc == 2) {
-                    dd.content[table_loc - 1] = {text: "\n Response: #" + response.id};
+                    dd.content[table_loc - 1] = {text: "\n Response: #" + response.id, alignment: "center", bold: true};
 
                 } else {
-                    dd.content[table_loc - 1] = {text: "Response: #" + response.id};
+                    dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
                     dd.content[table_loc - 1].pageBreak = 'before';
                 }
                 dd.content[table_loc].table = {};
                 dd.content[table_loc].table.widths = [150, '*'];
                 dd.content[table_loc].layout= 'noBorders';
-                dd.content[table_loc].table.body = [['Questions', 'Response']];
+                dd.content[table_loc].table.body = [[{text: "Questions", alignment: "center", bold: true}, {text: "Responses", alignment: "center", bold: true}]];
 
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
