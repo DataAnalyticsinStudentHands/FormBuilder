@@ -136,6 +136,10 @@
             return $scope.$watch('form', function() {
                 $scope.questionPageArray = [];
                 var page_number = 0;
+                $scope.questionPageArray[0] = [];
+                $scope.questionPageArray[0].heading = "";
+                $scope.questionPageArray[0].show = true;
+
                 $scope.form.forEach(function(question){
                     var pageArray = $scope.questionPageArray[page_number];
                     if(!pageArray)
@@ -149,11 +153,11 @@
                         pageArray = $scope.questionPageArray[page_number];
                         if(!pageArray)
                             pageArray = [];
-                        //pageArray.push(question);
-                        pageArray.heading = question;
+                        pageArray.heading = question.label;
                         $scope.questionPageArray[page_number] = pageArray;
                     }
                 });
+                console.log($scope.questionPageArray);
 
                 if ($scope.input.length > $scope.form.length) {
                     $scope.input.splice($scope.form.length);

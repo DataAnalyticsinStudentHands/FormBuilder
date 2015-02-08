@@ -299,10 +299,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         var questions = $filter('orderBy')(form.questions, "index", false);
 
         questions.forEach(function(question){
-            if(question.component == "section"){
-                question.pageBreak = question.required;
-                question.required = false;
-            }
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
