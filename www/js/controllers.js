@@ -208,13 +208,38 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         }
     }]);
 
-formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams',
-    function($scope, Auth, $state, formService, responseService, $stateParams) {
+formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify',
+    function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify) {
         $scope.id = $stateParams.id;
         formService.getForm($scope.id).then(function(data) {
             $scope.form = data;
         });
         $scope.formURL = window.location.protocol+"//"+window.location.host + "/#/form/" + $scope.id;
+        $scope.deleteForm = function() {
+            bootbox.dialog({
+                title: "Delete Form",
+                message: "Are you sure? Deleting will cause data loss!",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        className: "btn-default"
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function() {
+                            formService.deleteForm($scope.id).then(function(){
+                                ngNotify.set("Deleted!", "success");
+                                $state.go("secure.home");
+                            },
+                            function(){
+                                ngNotify.set("Error deleting!", "error");
+                            });
+                        }
+                    }
+                }
+            });
+        }
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify',

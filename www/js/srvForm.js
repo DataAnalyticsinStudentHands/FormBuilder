@@ -52,7 +52,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         deleteForm:
             function(fid) {
-                return Restangular.all("forms").one(fid).delete();
+                return Restangular.all("forms").one(fid).remove();
             },
         processOutQuestion:
             function(question) {
