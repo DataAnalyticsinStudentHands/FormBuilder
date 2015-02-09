@@ -51,8 +51,12 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                     Auth.clearCredentials();
                     ngNotify.set("Registration success!", "success");
                     $state.go("login", {}, {reload: true});
-                },function() {
-                    ngNotify.set("Registration Failure!", "error");
+                },function(error) {
+                    console.log(error);
+                    var errorMSG = "Registration Failure!";
+                    if(error.status == 409)
+                        errorMSG = "Account with e-mail address already exists!";
+                    ngNotify.set(errorMSG, "error");
                     Auth.clearCredentials();
                 }, function() {
                     $scope.register = null;
