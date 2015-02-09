@@ -111,6 +111,12 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                     return Restangular.stripRestangular(data);
                 });
             },
+        getMyResponses:
+            function(){
+                return Restangular.all("formResponses").customGET("myFormResponses", {numberOfFormResponses: 999999999}).then(function(data){
+                    return Restangular.stripRestangular(data);
+                });
+            },
         createResponse:
             function(fid) {
                 return Restangular.all("formResponses").post({
