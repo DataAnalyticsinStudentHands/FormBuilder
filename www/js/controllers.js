@@ -214,6 +214,13 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         }
     }]);
 
+formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
+    function($scope, Auth, $state, formService, responseService) {
+        responseService.getMyResponses($scope.id).then(function(data){
+            $scope.responses = data;
+        });
+    }]);
+
 formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify',
     function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify) {
         $scope.id = $stateParams.id;

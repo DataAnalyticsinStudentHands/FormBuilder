@@ -65,6 +65,12 @@ databaseModule.config(
                 controller: 'responseCtrl',
                 authenticate: true
             }).
+            state('secure.user_response', {
+                url: "/user_response",
+                templateUrl: "partials/userResponse.html",
+                controller: 'userResponseCtrl',
+                authenticate: true
+            }).
             state('secure.response.detail', {
                 url: "/detail/:rid",
                 views: {
