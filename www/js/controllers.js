@@ -107,7 +107,6 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
             if($filter('getByQuestionId')(response.entries, question.question_id)) {
-                dd.content[2].table.body.push([question.label, angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value)]);
                 if (question.component == "dateInput") {
                     $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
                 } else if (question.component == "name" || question.component == "address") {
@@ -126,7 +125,13 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                         }
                     });
                     $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
+                } else if(question.component == "name") {
+
+                } else {
+
                 }
+                dd.content[2].table.body.push([question.label, angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value)]);
+
                 $builder.addFormObject($scope.id, {
                     id: question.question_id,
                     component: question.component,
@@ -167,7 +172,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             $scope.form = data;
             dd.content = [];
             dd.content.push({});
-            dd.content[0] = {text: "Form: " + data.name, alignment: 'center', bold: true};
+            dd.content[0] = {text: "Form: " + data.name + "\n\n", alignment: 'center', bold: true};
         });
 
         $scope.getCSV = function(){
@@ -201,12 +206,9 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             $scope.responses.forEach(function(response){
                 table_loc+=2;
                 dd.content.push("",{});
-                if (table_loc == 2) {
-                    dd.content[table_loc - 1] = {text: "\n Response: #" + response.id, alignment: "center", bold: true};
-                } else {
-                    dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
+                dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
+                if(table_loc != 2)
                     dd.content[table_loc - 1].pageBreak = 'before';
-                }
                 dd.content[table_loc].table = {};
                 dd.content[table_loc].table.widths = [150, '*'];
                 dd.content[table_loc].layout= 'noBorders';

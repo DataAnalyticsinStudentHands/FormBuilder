@@ -2,30 +2,30 @@ var databaseServices = angular.module('databaseServicesModule', []);
 
 databaseServices.factory('Auth', ['Base64', '$http', function (Base64, $http) {
     // initialize to whatever is in the cookie, if anything
-    $http.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.getItem('authdata');
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.getItem('formBuilder-authdata');
     console.log($http.defaults.headers.common.Authorization);
     return {
         setCredentials: function (username, password) {
             var encoded = Base64.encode(username + ':' + password);
             $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
-            localStorage.setItem('authdata', encoded);
-            localStorage.setItem("authdata-conf", false);
+            localStorage.setItem('formBuilder-authdata', encoded);
+            localStorage.setItem('formBuilder-authdata-conf', false);
         },
         clearCredentials: function () {
             document.execCommand("ClearAuthenticationCache");
-            localStorage.removeItem('authdata');
+            localStorage.removeItem('formBuilder-authdata');
             $http.defaults.headers.common.Authorization = 'Basic ';
-            localStorage.setItem("authdata-conf", false);
+            localStorage.setItem('formBuilder-authdata-conf', false);
         },
         hasCredentials: function() {
             var ls, lsc;
-            ls = localStorage.getItem('authdata');
-            lsc = eval(localStorage.getItem('authdata-conf'));
+            ls = localStorage.getItem('formBuilder-authdata');
+            lsc = eval(localStorage.getItem('formBuilder-authdata-conf'));
             //LITTLE HACKY TRYING TO NOT LOG THEM IN AS VISITOR
             return (ls && lsc && ls != "VmlzaXRvcjp0ZXN0");
         },
         confirmCredentials: function() {
-            localStorage.setItem("authdata-conf", true);
+            localStorage.setItem('formBuilder-authdata-conf', true);
         }
     };
 }]);
