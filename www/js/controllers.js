@@ -43,27 +43,33 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNo
 formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify',
     function($scope, $state, Auth, ngNotify) {
         $scope.registerUser = function() {
-            Auth.setCredentials("Visitor", "test");
-            $scope.salt = "nfp89gpe";
-            $scope.register.password = String(CryptoJS.SHA512($scope.password + $scope.register.username + $scope.salt));
-            $scope.$parent.Restangular().all("users").post($scope.register).then(
-                function() {
-                    Auth.clearCredentials();
-                    ngNotify.set("Registration success!", "success");
-                    $state.go("login", {}, {reload: true});
-                },function(error) {
-                    console.log(error);
-                    var errorMSG = "Registration Failure!";
-                    if(error.status == 409)
-                        errorMSG = "Account with e-mail address already exists!";
-                    ngNotify.set(errorMSG, "error");
-                    Auth.clearCredentials();
-                }, function() {
-                    $scope.register = null;
-                    $scope.password = null;
-                }
-            );
-            Auth.clearCredentials();
+            var errorMSG;
+            if($scope.password.pw == $scope.password.pwc) {
+                Auth.setCredentials("Visitor", "test");
+                $scope.salt = "nfp89gpe";
+                $scope.register.password = String(CryptoJS.SHA512($scope.password.pw + $scope.register.username + $scope.salt));
+                $scope.$parent.Restangular().all("users").post($scope.register).then(
+                    function () {
+                        Auth.clearCredentials();
+                        ngNotify.set("Registration success!", "success");
+                        $state.go("login", {}, {reload: true});
+                    }, function (error) {
+                        console.log(error);
+                        errorMSG = "Registration Failure!";
+                        if (error.status == 409)
+                            errorMSG = "Account with e-mail address already exists!";
+                        ngNotify.set(errorMSG, "error");
+                        Auth.clearCredentials();
+                    }, function () {
+                        $scope.register = null;
+                        $scope.password = null;
+                    }
+                );
+                Auth.clearCredentials();
+            } else {
+                errorMSG = "Passwords do not match.";
+                ngNotify.set(errorMSG, "error");
+            }
         }
     }]);
 
