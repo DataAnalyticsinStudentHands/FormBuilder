@@ -151,7 +151,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         });
 
         $scope.toPDF = function(){
-            pdfMake.createPdf(dd).download();
+            pdfMake.createPdf(dd).download($scope.form.name + "_response" + $scope.rid + (new Date()).format('mdY\\_His') + ".pdf");
         };
 
         $scope.deleteResponse = function(){
@@ -197,7 +197,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
             var download_button = document.createElement('a');
             download_button.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($scope.CSVout));
-            download_button.setAttribute('download', $scope.form.name + "_responses.csv");
+            download_button.setAttribute('download', $scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".csv");
             download_button.click();
         };
         $scope.toPDF = function(){
@@ -222,7 +222,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                         dd.content[table_loc].table.body.push([question.label, ""]);
                 });
             });
-            pdfMake.createPdf(dd).download();
+            pdfMake.createPdf(dd).download($scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".pdf");
         }
     }]);
 
