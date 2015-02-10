@@ -334,6 +334,8 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
                     $scope.input = null;
+                }, function(){
+                    ngNotify.set("Form submission error, please verify form contents.", "error");
                 });
             }).error(function() {
                 ngNotify.set("Form submission error, please verify form contents.", "error");

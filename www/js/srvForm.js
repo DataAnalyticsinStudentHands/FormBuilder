@@ -131,16 +131,15 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             function(input, fid) {
                 var service = this;
                 return this.createResponse(fid).then(function(id){
-                    service.getResponse(id).then(function(response){
+                    return service.getResponse(id).then(function(response){
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             entryObj.value = inputObj.value;
                         });
                         console.log(response.entries, input);
-                        service.updateResponse(id, response).then(function(s){
+                        return service.updateResponse(id, response).then(function(s){
                             console.log(s, "done");
                         });
-                        return "";
                     })
                 });
             },
