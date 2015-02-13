@@ -43,3 +43,16 @@ body{padding:10px}.footer{height:50px}
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+/* Progress bar for file upload */
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 1px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: #b6d5e5;
+    width: 0;
+}

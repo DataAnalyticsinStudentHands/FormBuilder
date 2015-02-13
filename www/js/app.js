@@ -193,7 +193,6 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         group: 'Other',
         label: 'Upload a file',
         description: 'Upload a file',
-        placeholder: '',
         required: false,
         templateUrl: 'partials/component/tmplFileUpload.html',
         popoverTemplateUrl: 'partials/component/popFileUpload.html'

@@ -343,7 +343,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         return $scope.submit = function() {
             $validator.validate($scope, $scope.id).success(function() {
                 console.log($scope.input);
-
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
@@ -359,7 +358,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 
 formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular) {
-        'use strict';
         $scope.uploadRightAway = true;
 
         $scope.hasUploader = function (index) {
@@ -386,6 +384,7 @@ formBuilderController.controller('uploadCtrl',
             for (i = 0; i < $files.length; i++) {
                 var $file = $files[i];
                 $scope.fileName = param + $file.name;
+                $scope.name = $file.name;
 
                 if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
                     var fileReader = new FileReader();
@@ -401,31 +400,26 @@ formBuilderController.controller('uploadCtrl',
         $scope.start = function (index) {
             $scope.progress[index] = 0;
             $scope.errorMsg = null;
-            var uploadUrl = Restangular.configuration.baseUrl + '/fileUploads?user_id=' + "18" + '&form_id=' + "85";
+            var uploadUrl = Restangular.configuration.baseUrl + '/fileUploads?user_id=' + "18" + '&form_id=' + "85" + '&content_type=' + $scope.selectedFiles[index].type;
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
-                data: {
-                    myModel: $scope.myModel,
-                    errorCode: $scope.generateErrorOnServer && $scope.serverErrorCode,
-                    errorMessage: $scope.generateErrorOnServer && $scope.serverErrorMsg
-                },
                 file: $scope.selectedFiles[index],
-                fileName: $scope.fileName // to modify the name of the file(s)
-                //fileFormDataName: 'myFile'
+                fileName: $scope.fileName
             });
             $scope.upload[index].then(function (response) {
+                console.log($scope.inputText);
+                $scope.inputText = response.headers("ObjectId");
+                console.log($scope.inputText);
                 $timeout(function () {
                     $scope.uploadResult.push(response.data);
+                    console.log($scope.inputText);
                 });
             }, function (response) {
                 if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                // Math.min is to fix IE which reports 200% sometimes
                 $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
-            $scope.upload[index].xhr(function (xhr) {
-                //xhr.upload.addEventListener('abort', function() {console.log('abort complete')}, false);
-            });
+            $scope.upload[index].xhr(function (xhr) { });
         };
 
         //$scope.deleteFile = function (id) {
