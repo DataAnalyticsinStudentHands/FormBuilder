@@ -4,14 +4,16 @@
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="toPDF()">PDF</button>
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="getCSV()">CSV</button>
         </h2>
-        <h4>Form: {{form.name}}</h4>
+        <h4>Form: {{form.name}}
+            <input type="search" class="form-control pull-right" style="width: 35%" ng-model="filter" placeholder="Search">
+        </h4>
     </div>
     <hr/>
     <div class="well" ng-show="responses.length < 1">
         <p>There are currently no responses here.</p>
     </div>
     <ul class="list-group">
-        <li class="list-group-item clearfix" ng-repeat="response in responses">
+        <li class="list-group-item clearfix" ng-repeat="response in responses | filter: filter">
             Response #{{response.id}}
             <span class="pull-right">
                 <button type="button" class="btn btn-primary" ui-sref="secure.response.detail({rid: response.id})">View</button>
