@@ -1,10 +1,8 @@
 <div class="form-group">
-    <label class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
+    <label class="col-sm-4 control-label" for="{{formName+index}}" ng-class="{'fb-required':required}">{{label}}</label>
     <div class="col-sm-8">
-        <div class="up-buttons">
-            <div ng-file-select="" ng-model="files" class="upload-button" ng-multiple="false" ng-accept="'*.pdf,*.jpg,*.png'" ng-model-rejected="rejFiles" tabindex="0">Attach an Image or PDF</div><br>
-            <button ng-file-select="" ng-model="files" ng-multiple="true">Attach Any File</button>
-        </div>
+        <!--<input type="date" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>-->
+        <input ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect('transferApplication', $files, 'essay1')" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
         <p class='help-block'>{{description}}</p>
     </div>
 </div>
