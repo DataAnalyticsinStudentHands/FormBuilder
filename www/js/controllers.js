@@ -399,7 +399,9 @@ formBuilderController.controller('uploadCtrl',
                 fileName: $scope.fileName
             });
             $scope.upload[index].then(function (response) {
+                $scope.hideInputText = true;
                 $scope.$parent.inputText = response.headers("ObjectId");
+                $scope.$parent.inputId = response.headers("ObjectId");
                 $timeout(function () {
                     $scope.uploadResult.push(response.data);
                 });
