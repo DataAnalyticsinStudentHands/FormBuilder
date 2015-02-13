@@ -1,8 +1,27 @@
 <div class="form-group">
     <label class="col-sm-4 control-label" for="{{formName+index}}" ng-class="{'fb-required':required}">{{label}}</label>
-    <div class="col-sm-8">
+    <div class="col-sm-8" ng-controller="uploadCtrl">
+
+        <p class="item item-icon-left item-text-wrap" ng-show="myVariables.fileEssay1">
+            <i class="icon ion-folder balanced"></i>
+            Currently Uploaded File: {{myVariables.fileEssay1}}
+        </p>
+        <p class="item item-text-wrap" ng-hide="myVariables.fileEssay1">
+            Currently there is no file uploaded. Please use the "Upload File" button to select a file.
+        </p>
+
+        <div class="item" ng-show="selectedFiles != null">
+            <div class="sel-file" ng-repeat="f in selectedFiles">
+                <label>Progress for file upload:</label>
+                <span class="progress" ng-show="progress[$index] >= 0">
+					<div style="width:{{progress[$index]}}%">{{progress[$index]}}%</div>
+				</span>
+                <button class="button button-small button-positive" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Cancel Upload</button>
+                {{f.name}} - size: {{f.size}}B
+            </div>
+        </div>
         <!--<input type="date" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>-->
-        <input ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect('transferApplication', $files, 'essay1')" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        <input ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
         <p class='help-block'>{{description}}</p>
     </div>
 </div>

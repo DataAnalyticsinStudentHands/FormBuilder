@@ -342,6 +342,8 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.input = [];
         return $scope.submit = function() {
             $validator.validate($scope, $scope.id).success(function() {
+                console.log($scope.input);
+
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
@@ -354,3 +356,90 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
             });
         };
     }]);
+
+formBuilderController.controller('uploadCtrl',
+    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular) {
+        'use strict';
+        $scope.uploadRightAway = true;
+
+        $scope.hasUploader = function (index) {
+            return $scope.upload[index] !== null;
+        };
+        $scope.abort = function (index) {
+            $scope.upload[index].abort();
+            $scope.upload[index] = null;
+        };
+        $scope.onFileSelect = function ($files, param) {
+            $scope.selectedFiles = [];
+            $scope.progress = [];
+            if ($scope.upload && $scope.upload.length > 0) {
+                for (var i = 0; i < $scope.upload.length; i++) {
+                    if ($scope.upload[i] !== null) {
+                        $scope.upload[i].abort();
+                    }
+                }
+            }
+            $scope.upload = [];
+            $scope.uploadResult = [];
+            $scope.selectedFiles = $files;
+            $scope.dataUrls = [];
+            for (i = 0; i < $files.length; i++) {
+                var $file = $files[i];
+                $scope.fileName = param + $file.name;
+
+                if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL($files[i]);
+                }
+                $scope.progress[i] = -1;
+                if ($scope.uploadRightAway) {
+                    $scope.start(i);
+                }
+            }
+        };
+
+        $scope.start = function (index) {
+            $scope.progress[index] = 0;
+            $scope.errorMsg = null;
+            var uploadUrl = Restangular.configuration.baseUrl + '/fileUploads?user_id=' + "18" + '&form_id=' + "85";
+            $scope.upload[index] = $upload.upload({
+                url: uploadUrl,
+                data: {
+                    myModel: $scope.myModel,
+                    errorCode: $scope.generateErrorOnServer && $scope.serverErrorCode,
+                    errorMessage: $scope.generateErrorOnServer && $scope.serverErrorMsg
+                },
+                file: $scope.selectedFiles[index],
+                fileName: $scope.fileName // to modify the name of the file(s)
+                //fileFormDataName: 'myFile'
+            });
+            $scope.upload[index].then(function (response) {
+                $timeout(function () {
+                    $scope.uploadResult.push(response.data);
+                });
+            }, function (response) {
+                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                // Math.min is to fix IE which reports 200% sometimes
+                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+            $scope.upload[index].xhr(function (xhr) {
+                //xhr.upload.addEventListener('abort', function() {console.log('abort complete')}, false);
+            });
+        };
+
+        //$scope.deleteFile = function (id) {
+        //    var deleteFile;
+        //    Restangular.all("fileUploads").remove({"applicationId": id, "fileName":  deleteFile}).then(
+        //        function (result) {
+        //
+        //        },
+        //        function (error) {
+        //            ngNotify.set("Could not delete your file on server.", {
+        //                position: 'bottom',
+        //                type: 'error'
+        //            });
+        //        }
+        //    );
+        //};
+    });
