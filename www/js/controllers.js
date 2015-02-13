@@ -354,6 +354,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 
 formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular) {
+        $scope.$parent.URL = Restangular.configuration.baseUrl + "/fileUploads/";
         $scope.uploadRightAway = true;
 
         $scope.hasUploader = function (index) {
@@ -381,11 +382,6 @@ formBuilderController.controller('uploadCtrl',
                 var $file = $files[i];
                 $scope.fileName = param + $file.name;
                 $scope.name = $file.name;
-
-                if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
-                    var fileReader = new FileReader();
-                    fileReader.readAsDataURL($files[i]);
-                }
                 $scope.progress[i] = -1;
                 if ($scope.uploadRightAway) {
                     $scope.start(i);
