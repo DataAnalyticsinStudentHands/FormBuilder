@@ -161,8 +161,8 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter',
-    function($scope, Auth, $state, formService, responseService, $stateParams, $filter) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', '$builder',
+    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, $builder) {
         $scope.id = $stateParams.id;
 
         responseService.getResponsesByFormId($scope.id).then(function(data){
@@ -187,6 +187,10 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 var entries = [];
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                    if($builder.components[question.component].arrayToText){
+                        entry.value = entry.value.replace(/,/g, ' ');
+                        console.log(entry.value);
+                    }
                     if(entry)
                         entries.push(entry.value.replace(/"/g, '""'));
                     else
