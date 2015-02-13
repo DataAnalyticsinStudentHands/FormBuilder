@@ -187,4 +187,13 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         templateUrl: 'partials/component/tmplSection.html',
         popoverTemplateUrl: 'partials/component/popSection.html'
     });
+    $builder.registerComponent('fileUpload', {
+        group: 'Other',
+        label: 'Upload a file',
+        description: 'Upload a file',
+        placeholder: '',
+        required: false,
+        templateUrl: 'partials/component/tmplFileUpload.html',
+        popoverTemplateUrl: 'partials/component/popFileUpload.html'
+    });
 }]);
