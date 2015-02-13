@@ -12,7 +12,8 @@ var databaseModule = angular.module('databaseModule', [
     'validator.rules',
     'ui.router',
     'ngSanitize',
-    'ngNotify'
+    'ngNotify',
+    'angularFileUpload'
 ]);
 
 databaseModule.config(
@@ -115,7 +116,8 @@ databaseModule.config(
             });
     });
 
-databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', function(Restangular, $rootScope, Auth, $q, $state, $builder) {
+databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder',
+    function(Restangular, $rootScope, Auth, $q, $state, $builder) {
     Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
     //Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
 
