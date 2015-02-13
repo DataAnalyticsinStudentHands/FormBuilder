@@ -7,6 +7,9 @@
         <h4>Form: {{form.name}}</h4>
     </div>
     <hr/>
+    <div class="well" ng-show="responses.length < 1">
+        <p>There are currently no responses here.</p>
+    </div>
     <ul class="list-group">
         <li class="list-group-item clearfix" ng-repeat="response in responses">
             Response #{{response.id}}

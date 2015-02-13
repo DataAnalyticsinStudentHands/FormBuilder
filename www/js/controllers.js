@@ -337,13 +337,13 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.form = $builder.forms[$scope.id];
         $scope.input = [];
         return $scope.submit = function() {
-            return $validator.validate($scope, $scope.id).success(function() {
+            $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
                     $scope.input = null;
                 }, function(){
-                    ngNotify.set("Form submission error, please verify form contents.", "error");
+                    ngNotify.set("Submission failed!", "error");
                 });
             }).error(function() {
                 ngNotify.set("Form submission error, please verify form contents.", "error");
