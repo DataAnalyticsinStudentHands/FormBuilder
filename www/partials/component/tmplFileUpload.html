@@ -1,6 +1,6 @@
-<div class="form-group">
+<div class="form-group" ng-controller="uploadCtrl">
     <label class="col-sm-4 control-label" for="{{formName+index}}" ng-class="{'fb-required':required}">{{label}}</label>
-    <div class="col-sm-8" ng-controller="uploadCtrl">
+    <div class="col-sm-8">
         <p class="item item-icon-left item-text-wrap" ng-show="upload[$index]">
             <i class="icon ion-folder balanced"></i>
             Currently Uploaded File: {{name}}
@@ -20,7 +20,8 @@
                 {{f.name}} - size: {{f.size/1000}}kB
             </div>
         </div>
-        <input validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+
+        <input ng-model='inputText' validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
         <p class='help-block'>{{description}}</p>
     </div>
 </div>

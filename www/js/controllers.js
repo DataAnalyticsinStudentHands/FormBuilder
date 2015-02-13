@@ -54,7 +54,6 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                         ngNotify.set("Registration success!", "success");
                         $state.go("login", {}, {reload: true});
                     }, function (error) {
-                        console.log(error);
                         errorMSG = "Registration Failure!";
                         if (error.status == 409)
                             errorMSG = "Account with e-mail address already exists!";
@@ -156,7 +155,6 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
 
         $scope.deleteResponse = function(){
             responseService.deleteResponse($scope.id).then(function(){
-                console.log("deleted");
             });
         }
     }]);
@@ -189,7 +187,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
                     if($builder.components[question.component].arrayToText){
                         entry.value = entry.value.replace(/,/g, ' ');
-                        console.log(entry.value);
                     }
                     if(entry)
                         entries.push(entry.value.replace(/"/g, '""'));
@@ -342,7 +339,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.input = [];
         return $scope.submit = function() {
             $validator.validate($scope, $scope.id).success(function() {
-                console.log($scope.input);
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished");
@@ -407,12 +403,9 @@ formBuilderController.controller('uploadCtrl',
                 fileName: $scope.fileName
             });
             $scope.upload[index].then(function (response) {
-                console.log($scope.inputText);
-                $scope.inputText = response.headers("ObjectId");
-                console.log($scope.inputText);
+                $scope.$parent.inputText = response.headers("ObjectId");
                 $timeout(function () {
                     $scope.uploadResult.push(response.data);
-                    console.log($scope.inputText);
                 });
             }, function (response) {
                 if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
