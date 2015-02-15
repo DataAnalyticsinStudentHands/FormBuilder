@@ -108,7 +108,10 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
             if($filter('getByQuestionId')(response.entries, question.question_id)) {
                 if ($filter('getByQuestionId')(response.entries, question.question_id)) {
                     var response_entry = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value);
-                    dd.content[2].table.body.push([question.label, response_entry]);
+                    if(question.component === "fileUpload")
+                        dd.content[2].table.body.push([question.label, window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + response_entry]);
+                    else
+                        dd.content[2].table.body.push([question.label, response_entry]);
                 }
                 if (question.component == "dateInput") {
                     $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
@@ -149,8 +152,6 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         });
 
         $scope.toPDF = function(){
-            questions.forEach(function(question) {
-            });
             pdfMake.createPdf(dd).download($scope.form.name + "_response" + $scope.rid + "_" + (new Date()).format('mdY\\_His') + ".pdf");
         };
 
@@ -190,7 +191,9 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                     if($builder.components[question.component].arrayToText){
                         entry.value = entry.value.replace(/,/g, ' ');
                     }
-                    if(entry)
+                    if(question.component === "fileUpload" && entry && entry.value)
+                        entries.push(window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + entry.value);
+                    else if(entry)
                         entries.push(entry.value.replace(/"/g, '""'));
                     else
                         entries.push("");
@@ -219,7 +222,9 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    if(entry)
+                    if(question.component === "fileUpload" && entry && entry.value)
+                        dd.content[table_loc].table.body.push([question.label, window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + entry.value]);
+                    else if(entry)
                         dd.content[table_loc].table.body.push([question.label, entry.value]);
                     else
                         dd.content[table_loc].table.body.push([question.label, ""]);
@@ -242,6 +247,38 @@ formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
         $timeout(function(){
             location.replace(form.redirect_url);
         }, 5000)
+    }]);
+
+formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',
+    function($scope, $stateParams, ngNotify, Restangular) {
+        $scope.id = $stateParams.id;
+
+        $scope.download = function(id) {
+            if(id.toString() === "[object File]"){
+                id = $scope.inputId;
+            }
+            Restangular.setFullResponse(true);
+            Restangular.all("fileUploads")
+                .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)
+                .then(
+                function (success) {
+                    var blob = new Blob([success.data], {
+                        type: success.headers("content-type")
+                    });
+                    saveAs(blob, success.headers("file_name"));
+                    Restangular.setFullResponse(false);
+                },
+                function () {
+                    ngNotify.set("Something went wrong while getting the uploaded file!", {
+                        position: 'bottom',
+                        type: 'error'
+                    });
+                    Restangular.setFullResponse(false);
+                }
+            );
+        };
+
+        $scope.download($scope.id);
     }]);
 
 formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify',

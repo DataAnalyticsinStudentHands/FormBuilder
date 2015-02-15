@@ -90,6 +90,15 @@ databaseModule.config(
                 },
                 authenticate: true
             }).
+            state('download', {
+                url: "/file/:id",
+                views: {
+                    "app": {
+                        templateUrl: "partials/file.html", controller: "fileDownloadCtrl"
+                    }
+                },
+                authenticate: true
+            }).
             state('form', {
                 url: "/form/:id",
                 views: {
