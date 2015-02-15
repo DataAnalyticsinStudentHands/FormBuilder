@@ -670,11 +670,17 @@
                 isHover.x = offsetA.left > offsetB.left && offsetA.left < offsetB.left + sizeB.width;
                 isHover.x = isHover.x || offsetA.left + sizeA.width > offsetB.left && offsetA.left + sizeA.width < offsetB.left + sizeB.width;
                 if (!isHover) {
-                    return false;
+                    if(sizeA.width === 0 || sizeA.height === 0 || sizeB.width === 0 || sizeB.height === 0)
+                        console.error("SIZE 0");
+                    else
+                        return false;
                 }
                 isHover.y = offsetA.top > offsetB.top && offsetA.top < offsetB.top + sizeB.height;
                 isHover.y = isHover.y || offsetA.top + sizeA.height > offsetB.top && offsetA.top + sizeA.height < offsetB.top + sizeB.height;
-                return isHover.x && isHover.y;
+                if(sizeA.width === 0 || sizeA.height === 0 || sizeB.width === 0 || sizeB.height === 0)
+                    console.error("SIZE 0");
+                else
+                    return isHover.x && isHover.y;
             };
         })(this);
         delay = function(ms, func) {
@@ -775,11 +781,15 @@
                         _ref = _this.data.droppables;
                         _results = [];
                         for (id in _ref) {
-                            droppable = _ref[id];
-                            if (_this.isHover($clone, $(droppable.element))) {
-                                _results.push(droppable.move(e, result));
-                            } else {
-                                _results.push(droppable.out(e, result));
+                            if(_ref.hasOwnProperty(id)) {
+                                droppable = _ref[id];
+                                if($(droppable.element).width()>0) {
+                                    if (_this.isHover($clone, $(droppable.element))) {
+                                        _results.push(droppable.move(e, result));
+                                    } else {
+                                        _results.push(droppable.out(e, result));
+                                    }
+                                }
                             }
                         }
                         return _results;
@@ -788,9 +798,13 @@
                         var droppable, id, isHover, _ref;
                         _ref = _this.data.droppables;
                         for (id in _ref) {
-                            droppable = _ref[id];
-                            isHover = _this.isHover($clone, $(droppable.element));
-                            droppable.up(e, isHover, result);
+                            if(_ref.hasOwnProperty(id)) {
+                                droppable = _ref[id];
+                                if($(droppable.element).width()>0) {
+                                    isHover = _this.isHover($clone, $(droppable.element));
+                                    droppable.up(e, isHover, result);
+                                }
+                            }
                         }
                         delete _this.hooks.move.drag;
                         delete _this.hooks.up.drag;
@@ -846,11 +860,15 @@
                         _this.autoScroll.start(e);
                         _ref = _this.data.droppables;
                         for (id in _ref) {
-                            droppable = _ref[id];
-                            if (_this.isHover($element, $(droppable.element))) {
-                                droppable.move(e, result);
-                            } else {
-                                droppable.out(e, result);
+                            if(_ref.hasOwnProperty(id)) {
+                                droppable = _ref[id];
+                                if($(droppable.element).width()>0) {
+                                    if (_this.isHover($element, $(droppable.element))) {
+                                        droppable.move(e, result);
+                                    } else {
+                                        droppable.out(e, result);
+                                    }
+                                }
                             }
                         }
                     };
@@ -858,9 +876,13 @@
                         var droppable, id, isHover, _ref;
                         _ref = _this.data.droppables;
                         for (id in _ref) {
-                            droppable = _ref[id];
-                            isHover = _this.isHover($element, $(droppable.element));
-                            droppable.up(e, isHover, result);
+                            if(_ref.hasOwnProperty(id)) {
+                                droppable = _ref[id];
+                                if($(droppable.element).width()>0) {
+                                    isHover = _this.isHover($element, $(droppable.element));
+                                    droppable.up(e, isHover, result);
+                                }
+                            }
                         }
                         delete _this.hooks.move.drag;
                         delete _this.hooks.up.drag;
