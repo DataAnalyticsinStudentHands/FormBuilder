@@ -353,7 +353,8 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
     }]);
 
 formBuilderController.controller('uploadCtrl',
-    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular) {
+    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify) {
+        $scope.inputId = $scope.inputText;
         $scope.$parent.URL = Restangular.configuration.baseUrl + "/fileUploads/";
         $scope.uploadRightAway = true;
 
@@ -399,9 +400,8 @@ formBuilderController.controller('uploadCtrl',
                 fileName: $scope.fileName
             });
             $scope.upload[index].then(function (response) {
-                $scope.hideInputText = true;
                 $scope.$parent.inputText = response.headers("ObjectId");
-                $scope.$parent.inputId = response.headers("ObjectId");
+                $scope.inputId = response.headers("ObjectId");
                 $timeout(function () {
                     $scope.uploadResult.push(response.data);
                 });
@@ -427,4 +427,25 @@ formBuilderController.controller('uploadCtrl',
         //        }
         //    );
         //};
+        $scope.download = function(id) {
+            Restangular.setFullResponse(true);
+            Restangular.all("fileUploads")
+                .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)
+                .then(
+                function (success) {
+                    var blob = new Blob([success.data], {
+                        type: success.headers("content-type")
+                    });
+                    saveAs(blob, success.headers("file_name"));
+                    Restangular.setFullResponse(false);
+                },
+                function () {
+                    ngNotify.set("Something went wrong while getting the uploaded file!", {
+                        position: 'bottom',
+                        type: 'error'
+                    });
+                    Restangular.setFullResponse(false);
+                }
+            );
+        }
     });

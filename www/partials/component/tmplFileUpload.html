@@ -1,12 +1,10 @@
 <div class="form-group" ng-controller="uploadCtrl">
-
     <label class="col-sm-4 control-label" for="{{formName+index}}" ng-class="{'fb-required':required}">{{label}}</label>
     <div class="col-sm-8">
         <p class="item item-icon-left item-text-wrap" ng-show='inputText'>
             <i class="icon ion-folder balanced"></i>
             Currently Uploaded File: {{name}}
-            <a ng-show="inputText && !hideInputText" target="_blank" ng-href="{{URL}}{{inputText}}">Download</a>
-            <a ng-show="hideInputText" target="_blank" ng-href="{{URL}}{{inputId}}">Download</a>
+            <a ng-show="inputId" ng-click="download(inputId)">Download</a>
         </p>
         <p class="item item-text-wrap" ng-hide='inputText'>
             Currently there is no file uploaded. Please use the "Upload File" button to select a file.
