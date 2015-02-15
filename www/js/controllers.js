@@ -354,8 +354,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 
 formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify) {
-        $scope.inputId = $scope.inputText;
-        $scope.$parent.URL = Restangular.configuration.baseUrl + "/fileUploads/";
         $scope.uploadRightAway = true;
 
         $scope.hasUploader = function (index) {
@@ -413,21 +411,30 @@ formBuilderController.controller('uploadCtrl',
             $scope.upload[index].xhr(function (xhr) { });
         };
 
-        //$scope.deleteFile = function (id) {
-        //    var deleteFile;
-        //    Restangular.all("fileUploads").remove({"applicationId": id, "fileName":  deleteFile}).then(
-        //        function (result) {
-        //
-        //        },
-        //        function (error) {
-        //            ngNotify.set("Could not delete your file on server.", {
-        //                position: 'bottom',
-        //                type: 'error'
-        //            });
-        //        }
-        //    );
-        //};
+        $scope.deleteFile = function (id) {
+            var deleteFile;
+            Restangular.all("fileUploads").one(id).remove({}).then(
+                function () {
+                    $scope.inputId = null;
+                    $scope.inputText = null;
+                    ngNotify.set("Deleted!", {
+                        position: 'bottom',
+                        type: 'success'
+                    });
+                },
+                function () {
+                    ngNotify.set("Could not delete your file on server.", {
+                        position: 'bottom',
+                        type: 'error'
+                    });
+                }
+            );
+        };
+
         $scope.download = function(id) {
+            if(id.toString() === "[object File]"){
+                id = $scope.inputId;
+            }
             Restangular.setFullResponse(true);
             Restangular.all("fileUploads")
                 .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)

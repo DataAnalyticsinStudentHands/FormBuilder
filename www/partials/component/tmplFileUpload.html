@@ -4,12 +4,12 @@
         <p class="item item-icon-left item-text-wrap" ng-show='inputText'>
             <i class="icon ion-folder balanced"></i>
             Currently Uploaded File: {{name}}
-            <a ng-show="inputId" ng-click="download(inputId)">Download</a>
+            <a ng-click="download(inputText)">Download</a>
         </p>
         <p class="item item-text-wrap" ng-hide='inputText'>
             Currently there is no file uploaded. Please use the "Upload File" button to select a file.
         </p>
-        <div ng-show="selectedFiles != null">
+        <div ng-show="selectedFiles != null && inputText">
             <div class="sel-file" ng-repeat="f in selectedFiles">
                 <label>Progress for file upload:</label>
                 <br/>
@@ -22,6 +22,7 @@
             </div>
         </div>
         <input ng-hide='inputText' ng-model='inputText' validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        <input ng-show='inputId' class="form-control" type="button" ng-click="deleteFile(inputId)" value="Delete">
         <p class='help-block'>{{description}}</p>
     </div>
 </div>
