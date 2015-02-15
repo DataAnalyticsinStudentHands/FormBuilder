@@ -94,8 +94,8 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
 
         dd.content = [];
         dd.content.push({},{},{});
-        dd.content[0].text = "Form: " + form.name;
-        dd.content[1] = "Response: #" + $scope.rid;
+        dd.content[0] = {text: "Form: " + form.name, alignment: "center", bold: true};
+        dd.content[1] = {text: "\n Response: #" + $scope.rid, alignment: "center", bold: true};
         dd.content[2].style = 'tableExample';
         dd.content[2].table = {};
         dd.content[2].table.widths = [150, '*'];
@@ -106,6 +106,10 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         response.entries = $filter('uniqueById')(response.entries, "question_id");
         questions.forEach(function(question){
             if($filter('getByQuestionId')(response.entries, question.question_id)) {
+                if ($filter('getByQuestionId')(response.entries, question.question_id)) {
+                    var response_entry = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value);
+                    dd.content[2].table.body.push([question.label, response_entry]);
+                }
                 if (question.component == "dateInput") {
                     $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
                 } else if (question.component == "name" || question.component == "address") {
@@ -124,12 +128,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                         }
                     });
                     $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
-                } else if(question.component == "name") {
-
-                } else {
-
                 }
-                dd.content[2].table.body.push([question.label, angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value)]);
 
                 $builder.addFormObject($scope.id, {
                     id: question.question_id,
@@ -150,11 +149,14 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         });
 
         $scope.toPDF = function(){
-            pdfMake.createPdf(dd).download($scope.form.name + "_response" + $scope.rid + (new Date()).format('mdY\\_His') + ".pdf");
+            questions.forEach(function(question) {
+            });
+            pdfMake.createPdf(dd).download($scope.form.name + "_response" + $scope.rid + "_" + (new Date()).format('mdY\\_His') + ".pdf");
         };
 
         $scope.deleteResponse = function(){
             responseService.deleteResponse($scope.id).then(function(){
+
             });
         }
     }]);
@@ -255,12 +257,12 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
                         className: "btn-danger",
                         callback: function() {
                             formService.deleteForm($scope.id).then(function(){
-                                ngNotify.set("Deleted!", "success");
-                                $state.go("secure.home");
-                            },
-                            function(){
-                                ngNotify.set("Error deleting!", "error");
-                            });
+                                    ngNotify.set("Deleted!", "success");
+                                    $state.go("secure.home");
+                                },
+                                function(){
+                                    ngNotify.set("Error deleting!", "error");
+                                });
                         }
                     }
                 }
