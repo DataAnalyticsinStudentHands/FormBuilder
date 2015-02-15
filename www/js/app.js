@@ -106,10 +106,15 @@ databaseModule.config(
                 authenticate: false
             }).
             state('finished', {
-                url: "/finish",
+                url: "/finish/:id",
                 views: {
                     "app": {
-                        templateUrl: "partials/finish.html"
+                        templateUrl: "partials/finish.html", controller: "finishedCtrl"
+                    }
+                },
+                resolve: {
+                    form: function(formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
                     }
                 },
                 authenticate: false

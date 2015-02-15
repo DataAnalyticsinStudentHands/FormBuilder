@@ -1,3 +1,9 @@
-<div>
+<div ng-show="form.completed_message">
+    {{form.completed_message}}
+</div>
+<div ng-hide="form.completed_message">
     Thank you for filling out the form. Your response has been recorded!
+</div>
+<div ng-show="form.redirect_url">
+    You will be redirected in five seconds. <a ng-href={{form.redirect_url}}>Click here</a> to go now.
 </div>

@@ -236,6 +236,14 @@ formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state'
         });
     }]);
 
+formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
+    function($scope, form, $timeout) {
+        $scope.form = form;
+        $timeout(function(){
+            location.replace(form.redirect_url);
+        }, 5000)
+    }]);
+
 formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify',
     function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify) {
         $scope.id = $stateParams.id;
@@ -349,7 +357,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
             $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
-                    $state.go("finished");
+                    $state.go("finished", {"id": $scope.form_obj.id});
                     $scope.input = null;
                 }, function(){
                     ngNotify.set("Submission failed!", "error");
