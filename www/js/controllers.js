@@ -117,7 +117,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                 } else if (question.component == "checkbox") {
                     var checked = [];
                     $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
-                    eval(question.options).forEach(function (checkBoxItem, key) {
+                    question.options.forEach(function (checkBoxItem, key) {
                         $scope.checkBoxResponse.forEach(function (checkedResponse) {
                             if (checkBoxItem.indexOf(checkedResponse) != -1) {
                                 checked.push(true);
@@ -138,7 +138,7 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
                     index: question.index,
                     placeholder: question.placeholder,
                     required: question.required,
-                    options: eval(question.options),
+                    options: question.options,
                     validation: question.validation
                 });
             }
@@ -267,6 +267,12 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
                     }
                 }
             });
+        };
+
+        $scope.save = function(){
+            formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
+                ngNotify.set("Form saved!", "success");
+            });
         }
     }]);
 
@@ -289,7 +295,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                         index: question.index,
                         placeholder: question.placeholder,
                         required: question.required,
-                        options: eval(question.options),
+                        options: question.options,
                         validation: question.validation
                     });
                 });
@@ -318,7 +324,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
 formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
     function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
         $scope.id = $stateParams.id;
-        $scope.form_obj = form;
+        $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
 
         var questions = $filter('orderBy')(form.questions, "index", false);
@@ -332,14 +338,14 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                 index: question.index,
                 placeholder: question.placeholder,
                 required: question.required,
-                options: eval(question.options),
+                options: question.options,
                 validation: question.validation
             });
         });
 
         $scope.form = $builder.forms[$scope.id];
         $scope.input = [];
-        return $scope.submit = function() {
+        $scope.submit = function() {
             $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id).then(function(){
                     ngNotify.set("Form submission success!", "success");
@@ -355,7 +361,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
     }]);
 
 formBuilderController.controller('uploadCtrl',
-    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify) {
+    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
         $scope.uploadRightAway = true;
 
         $scope.hasUploader = function (index) {
@@ -393,7 +399,7 @@ formBuilderController.controller('uploadCtrl',
         $scope.start = function (index) {
             $scope.progress[index] = 0;
             $scope.errorMsg = null;
-            var uploadUrl = Restangular.configuration.baseUrl + '/fileUploads?user_id=' + "18" + '&form_id=' + "85" + '&content_type=' + $scope.selectedFiles[index].type;
+            var uploadUrl = Restangular.configuration.baseUrl + '/fileUploads?user_id=' + $rootScope.uid + '&form_id=' + $rootScope.form_obj.id + '&content_type=' + $scope.selectedFiles[index].type;
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
                 file: $scope.selectedFiles[index],
@@ -414,7 +420,6 @@ formBuilderController.controller('uploadCtrl',
         };
 
         $scope.deleteFile = function (id) {
-            var deleteFile;
             Restangular.all("fileUploads").one(id).remove({}).then(
                 function () {
                     $scope.inputId = null;

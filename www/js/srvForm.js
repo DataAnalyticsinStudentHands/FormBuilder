@@ -4,6 +4,19 @@
 
 var fbService = angular.module('formBuilderServiceModule', []);
 
+fbService.factory('userService', ['Restangular', '$q', '$filter', function(Restangular, $q, $filter) {
+    return {
+        getMyUser:
+            function() {
+                return Restangular.all("users").get("myUser");
+            },
+        getMyRole:
+            function() {
+                return Restangular.all("users").all("myRole").getList().then(function(success) { return success[0]; });
+            }
+    }
+}]);
+
 fbService.factory('formService', ['Restangular', function(Restangular) {
     return {
         getMyForms:
@@ -40,6 +53,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
         updateForm:
             function(id, form_data, form) {
                 var service = this;
+                console.log(form_data);
                 form.forEach(function(question){
                     service.processOutQuestion(question);
                 });
@@ -77,6 +91,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         processInQuestion:
             function(question) {
+                question.options = eval(question.options);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";
@@ -136,7 +151,6 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             entryObj.value = inputObj.value;
                         });
-                        console.log(response.entries, input);
                         return service.updateResponse(id, response).then(function(s){
                             console.log(s, "done");
                         });

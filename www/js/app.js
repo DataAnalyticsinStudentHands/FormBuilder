@@ -116,25 +116,42 @@ databaseModule.config(
             });
     });
 
-databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder',
-    function(Restangular, $rootScope, Auth, $q, $state, $builder) {
+databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', 'userService',
+    function(Restangular, $rootScope, Auth, $q, $state, $builder, userService) {
     Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
     //Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
 
     $rootScope.Restangular = function() {
         return Restangular;
     };
-    $rootScope.isAuthenticated = function() {
+    $rootScope.isAuthenticated = function(authenticate) {
+        userService.getMyUser().then(function (result) {
+            $rootScope.uid = result.id.toString();
+            $rootScope.uin = result.username.toString();
+        }, function (error) {
+            if (error.status === 0) { // NO NETWORK CONNECTION OR SERVER DOWN, WE WILL NOT LOG THEM OUT
+                ngNotify.set("Internet or Server Unavailable", {type: "error", sticky: true});
+            } else { //Most Likely a 403 - LOG THEM OUT
+                if (authenticate) {
+                    Auth.clearCredentials();
+                    $state.go("login");
+                    location.reload();
+                }
+            }
+        });
         return Auth.hasCredentials();
     };
     $rootScope.$on("$stateChangeStart", function(event, toState){
         // User isn’t authenticated
         if(toState.name == "form"  && !Auth.hasCredentials()) {
             Auth.setCredentials("Visitor", "test");
-        } else if (toState.authenticate && !$rootScope.isAuthenticated()){
+        } else if (toState.authenticate && !$rootScope.isAuthenticated(toState.authenticate)){
+            // User isn’t authenticated
             $state.go("login");
+            //Prevents the switching of the state
             event.preventDefault();
         }
+        $rootScope.isAuthenticated(false);
     });
 
     $builder.registerComponent('description', {
