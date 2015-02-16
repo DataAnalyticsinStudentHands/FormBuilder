@@ -168,6 +168,15 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         $rootScope.isAuthenticated(false);
     });
 
+    $builder.registerComponent('descriptionHorizontal', {
+        group: 'Other',
+        label: 'TextBlock',
+        description: "This is a textblock.",
+        required: false,
+        arrayToText: true,
+        templateUrl: "partials/component/tmplDescriptionHorizontal.html",
+        popoverTemplateUrl: "partials/component/popDescriptionHorizontal.html"
+    });
     $builder.registerComponent('description', {
         group: 'Other',
         label: 'TextBlock',
