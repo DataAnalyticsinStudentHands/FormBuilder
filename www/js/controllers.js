@@ -244,9 +244,11 @@ formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state'
 formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
     function($scope, form, $timeout) {
         $scope.form = form;
-        $timeout(function(){
-            location.replace(form.redirect_url);
-        }, 5000)
+        if($scope.form.redirect_url){
+            $timeout(function(){
+                location.replace(form.redirect_url);
+            }, 5000)
+        }
     }]);
 
 formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',
