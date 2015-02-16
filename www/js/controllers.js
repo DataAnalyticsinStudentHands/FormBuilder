@@ -347,8 +347,15 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                     });
                 });
             });
+        } else {
+            $builder.addFormObject('default', {
+                component: "section",
+                label: "First Section",
+                index: 0,
+                placeholder: "",
+                required: true
+            });
         }
-
         $scope.save = function() {
             if(!$scope.form_id) {
                 if(!$scope.form_data) {
