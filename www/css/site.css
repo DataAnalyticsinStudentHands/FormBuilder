@@ -1,5 +1,21 @@
 body{padding:10px}.footer{height:50px}
-
+/*.formbuilderLeft {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll !important;
+}*/
+@media screen and (min-width: 992px) {
+    .formbuilderRight {
+        position: fixed;
+    }
+}
+.formbuilderRight .form-horizontal {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px; 
+}
 .form-signin {
     max-width: 330px;
     padding: 15px;
