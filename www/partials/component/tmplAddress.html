@@ -28,12 +28,16 @@
         </div>
         <div class="col-sm-3" style="padding-left: 0;">
             <input type="text"
+                   minlength="2"
+                   maxlength="2"
                    ng-model="inputArray[4]"
                    class="form-control" id="{{formName+index}}-5"/>
             <p class='help-block'>State</p>
         </div>
         <div class="col-sm-3" style="padding-left: 0;">
-            <input type="text"
+            <input type="number"
+                   max="99999"
+                   min="10000"
                    ng-model="inputArray[5]"
                    class="form-control" id="{{formName+index}}-6"/>
             <p class='help-block'>ZIP</p>
