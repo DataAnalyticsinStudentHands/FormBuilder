@@ -53,11 +53,17 @@
                     var fb = $('.formbuilderRight');
                     if ($(window).scrollTop() > 250) {
                         fb.css('top', $(window).scrollTop());
-                        fb.css('height', "100%");
+                        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-60);
                     } else {
-                        fb.css('top', 250);
-                        fb.css('height', "calc(100% - 250px)");
+                        fb.css('top', '');
+                        // $(".formbuilderRight .form-horizontal").css('height','500px');
+                        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-240);
                     }
+                }
+            });
+            $( window ).resize(function() {
+                if ($( window ).width() <= 992) {
+                    $('.formbuilderRight').css('top', '');
                 }
             });
     </script>
