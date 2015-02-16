@@ -2,12 +2,14 @@
     <div class="row">
         <h2>{{form.name}} Settings</h2>
         <div class="row">
-            <div class="col-md-offset-0 col-md-3">
-                <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
-            </div>
-            <div class="col-md-offset-9">
-                <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
-                <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
+            <div class="col-md-12">
+                <label> Form Title
+                    <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
+                </label>
+                <div class="pull-right">
+                    <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
+                    <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
+                </div>
             </div>
         </div>
         <hr/>
