@@ -47,6 +47,19 @@
     <link rel="stylesheet" type="text/css" href="module/ng-notify/src/styles/ng-notify.css">
     <link rel="stylesheet" type="text/css" href="css/site.css">
     <link rel="stylesheet" type="text/css" href="css/angular-form-builder.css">
+    <script type="text/javascript">
+        // $( window ).resize(function() {
+            if ($( window ).width() > 992)
+            {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 200) {
+                    $('.formbuilderRight ').css('top', $(window).scrollTop());
+                }
+            }
+            );
+        }
+        // });
+    </script>
 </head>
 <body>
     <div ui-view="app"></div>
