@@ -48,17 +48,18 @@
     <link rel="stylesheet" type="text/css" href="css/site.css">
     <link rel="stylesheet" type="text/css" href="css/angular-form-builder.css">
     <script type="text/javascript">
-        // $( window ).resize(function() {
-            if ($( window ).width() > 992)
-            {
+        if ($( window ).width() > 992) {
             $(window).scroll(function () {
-                if ($(window).scrollTop() > 200) {
-                    $('.formbuilderRight ').css('top', $(window).scrollTop());
+                var fb = $('.formbuilderRight');
+                if ($(window).scrollTop() > 250) {
+                    fb.css('top', $(window).scrollTop());
+                    fb.css('height', "100%");
+                } else {
+                    fb.css('top', 250);
+                    fb.css('height', "calc(100% - 250px)");
                 }
-            }
-            );
+            });
         }
-        // });
     </script>
 </head>
 <body>

@@ -9,32 +9,19 @@ body{padding:10px}.footer{height:50px}
 @media screen and (min-width: 992px) {
     .formbuilderRight {
         position: absolute;
-        overflow-y: scroll;
     }
 }
-.formbuilderRight{
-    padding-left: 30px;
+
+.formbuilderRight .form-horizontal{
+    /*padding-left: 30px;*/
 }
-.formbuilderRight .form-horizontal {
+
+.formbuilderRight {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 400px; 
+    height: calc(100% - 250px);
 }
-@media screen and (min-height: 612px) {
-    .formbuilderRight .form-horizontal {
-        height: 280px; 
-    }
-}
-@media screen and (max-height: 782px) {
-    .formbuilderRight .form-horizontal {
-        height: 380px; 
-    }
-}
-@media screen and (min-height: 930px) {
-    .formbuilderRight .form-horizontal {
-        height: 600px; 
-    }
-}
+
 .form-signin {
     max-width: 330px;
     padding: 15px;
