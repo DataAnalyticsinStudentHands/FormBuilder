@@ -66,7 +66,8 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             },
         processOutQuestion:
             function(question) {
-                question.options = JSON.stringify(question.options);
+                if(!(typeof question.options == 'string' || question.options instanceof String))
+                    question.options = JSON.stringify(angular.copy(question.options));
                 switch(question.validation){
                     case "/.*/":
                         question.validation = "NONE";
