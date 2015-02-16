@@ -43,24 +43,10 @@
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha512.js"></script>
 
     <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="module/ng-notify/src/styles/ng-notify.css">
     <link rel="stylesheet" type="text/css" href="css/site.css">
     <link rel="stylesheet" type="text/css" href="css/angular-form-builder.css">
-    <script type="text/javascript">
-            $(window).scroll(function () {
-                if ($( window ).width() > 992) {
-                    var fb = $('.formbuilderRight');
-                    if ($(window).scrollTop() > 250) {
-                        fb.css('top', $(window).scrollTop());
-                        fb.css('height', "100%");
-                    } else {
-                        fb.css('top', 250);
-                        fb.css('height', "calc(100% - 250px)");
-                    }
-                }
-            });
-    </script>
 </head>
 <body>
     <div ui-view="app"></div>

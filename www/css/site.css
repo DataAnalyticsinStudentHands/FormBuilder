@@ -6,20 +6,30 @@ body{padding:10px}.footer{height:50px}
     left: 0;
     overflow-y: scroll !important;
 }*/
+
 @media screen and (min-width: 992px) {
     .formbuilderRight {
         position: absolute;
     }
 }
-
+.formbuilderRight, .formbuilderLeft {
+    /*float: left;*/
+    /*display: block;*/
+    /*position: absolute;*/
+}
 .formbuilderRight .form-horizontal{
-    /*padding-left: 30px;*/
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /*height: 500px;*/
+    height: calc(100% - 240px);
 }
 
 .formbuilderRight {
-    overflow-y: scroll;
+    /*display: block;*/
+    right: 40px;
+/*    overflow-y: hidden;
     overflow-x: hidden;
-    height: calc(100% - 250px);
+    height: calc(100% - 250px);*/
 }
 
 .form-signin {

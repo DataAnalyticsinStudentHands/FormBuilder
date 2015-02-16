@@ -1,6 +1,26 @@
 /**
  * Created by Carl on 2/6/2015.
  */
+$(window).scroll(function () {
+    if ($( window ).width() > 992) {
+        var fb = $('.formbuilderRight');
+        if ($(window).scrollTop() > 250) {
+            fb.css('top', $(window).scrollTop());
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-40);
+        } else {
+            fb.css('top', '');
+            // $(".formbuilderRight .form-horizontal").css('height','500px');
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-290);
+        }
+    }
+});
+$( window ).resize(function() {
+    //1009px
+    if ($( window ).width() <= 992) {
+        $('.formbuilderRight').css('top', '');
+    }
+});
+
 var dd = {
     content: [],
     styles: {
