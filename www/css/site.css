@@ -10,6 +10,7 @@ body{padding:10px}.footer{height:50px}
 @media screen and (min-width: 992px) {
     .formbuilderRight {
         position: absolute;
+        right: 40px;
     }
 }
 .formbuilderRight, .formbuilderLeft {
@@ -26,7 +27,7 @@ body{padding:10px}.footer{height:50px}
 
 .formbuilderRight {
     /*display: block;*/
-    right: 40px;
+    
 /*    overflow-y: hidden;
     overflow-x: hidden;
     height: calc(100% - 250px);*/
