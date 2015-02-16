@@ -149,7 +149,8 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
                     return service.getResponse(id).then(function(response){
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
-                            entryObj.value = inputObj.value;
+                            if(inputObj)
+                                entryObj.value = inputObj.value;
                         });
                         return service.updateResponse(id, response).then(function(s){
                             console.log(s, "done");
