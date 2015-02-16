@@ -170,7 +170,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
 
     $builder.registerComponent('descriptionHorizontal', {
         group: 'Other',
-        label: 'TextBlock',
+        label: 'TextBlock 1',
         description: "This is a textblock.",
         required: false,
         arrayToText: true,
@@ -179,7 +179,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     });
     $builder.registerComponent('description', {
         group: 'Other',
-        label: 'TextBlock',
+        label: 'TextBlock 2',
         description: "This is a textblock.",
         required: false,
         arrayToText: true,
