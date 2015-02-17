@@ -2,7 +2,7 @@
  * Created by Carl on 2/6/2015.
  */
 $(window).scroll(function () {
-    if ($( window ).width() > 992) {
+    if ($( window ).width() >= 992) {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 250) {
             fb.css('top', $(window).scrollTop());
@@ -11,12 +11,14 @@ $(window).scroll(function () {
             fb.css('top', '');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295);
         }
+    } else {
+        $(".formbuilderRight .form-horizontal").css('height', 400);
     }
 });
 $( window ).resize(function() {
-    //1009px
-    if ($( window ).width() <= 992) {
+    if ($( window ).width() < 992) {
         $('.formbuilderRight').css('top', '');
+        $(".formbuilderRight .form-horizontal").css('height', 400);
     }
 });
 
