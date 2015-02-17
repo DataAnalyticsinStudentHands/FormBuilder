@@ -48,6 +48,11 @@
     <link rel="stylesheet" type="text/css" href="css/site.css">
     <link rel="stylesheet" type="text/css" href="css/angular-form-builder.css">
     <script type="text/javascript">
+            $( document ).ready(function() {
+                if ($( window ).width() <= 992) {
+                    $(".formbuilderRight .form-horizontal").css('height', 400);
+                }
+            });
             $(window).scroll(function () {
                 if ($( window ).width() > 992) {
                     var fb = $('.formbuilderRight');
@@ -64,6 +69,7 @@
             $( window ).resize(function() {
                 if ($( window ).width() <= 992) {
                     $('.formbuilderRight').css('top', '');
+                    $(".formbuilderRight .form-horizontal").css('height', 400);
                 }
             });
     </script>
