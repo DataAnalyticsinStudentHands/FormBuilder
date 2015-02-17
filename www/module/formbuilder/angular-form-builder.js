@@ -463,10 +463,13 @@
                     scope.copyObjectToScope(scope.component);
                     $drag.draggable($(element), {
                         mode: 'mirror',
-                        defer: false,
+                        cancel : 'a',
                         object: {
                             componentName: scope.component.name
                         }
+                    });
+                    $(element).on('dblclick',function(e){
+                        console.log(e.type);
                     });
                     return scope.$watch('component.template', function(template) {
                         var view;
