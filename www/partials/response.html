@@ -12,12 +12,14 @@
     <div class="well" ng-show="responses.length < 1">
         <p>There are currently no responses here.</p>
     </div>
-    <ul class="list-group">
-        <li class="list-group-item clearfix" ng-repeat="response in responses | filter: filter">
-            Response #{{response.id}}
-            <span class="pull-right">
-                <button type="button" class="btn btn-primary" ui-sref="secure.response.detail({rid: response.id})">View</button>
-            </span>
-        </li>
-    </ul>
+    <table class="table table-striped" ng-hide="responses.length < 1">
+        <tr>
+            <td ng-repeat="q in form.questions | orderBy: 'index'">{{q.label}}</td>
+        </tr>
+        <tr ng-repeat="response in responses">
+            <td ng-repeat="entry in response.entries | uniqueById: 'question_id'">
+                {{entry}}
+            </td>
+        </tr>
+    </table>
 </div>
