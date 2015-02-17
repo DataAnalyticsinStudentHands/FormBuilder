@@ -463,10 +463,18 @@
                     scope.copyObjectToScope(scope.component);
                     $drag.draggable($(element), {
                         mode: 'mirror',
-                        defer: false,
+                        cancel : 'a',
+                        //defer: false,
                         object: {
                             componentName: scope.component.name
                         }
+                    });
+                    $(element).on('dblclick',function(e){
+                        scope.$apply(function() {
+                            $builder.addFormObject("default", {
+                                component: scope.component.name
+                            });
+                        });
                     });
                     return scope.$watch('component.template', function(template) {
                         var view;
