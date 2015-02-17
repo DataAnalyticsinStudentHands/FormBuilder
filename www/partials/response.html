@@ -12,16 +12,16 @@
     <div class="well" ng-show="responses.length < 1">
         <p>There are currently no responses here.</p>
     </div>
-    <div style="overflow-y: scroll; padding-left: 10px">
-        <table class="table table-striped row col-md-12" ng-hide="responses.length < 1">
-            <tr>
-                <td ng-repeat="q in form.questions | orderBy: 'index'">{{q.label}}</td>
-            </tr>
-            <tr ng-repeat="response in responses">
-                <td ng-repeat="entry in response.entries | uniqueById: 'question_id' | orderByIndexInQuestion: form.questions track by $index">
-                    {{entry.value}}
-                </td>
-            </tr>
+    <div style="overflow-y: scroll">
+        <table class="table table-bordered" ng-hide="responses.length < 1">
+            <thead> <tr class="danger"> <td ng-repeat="q in form.questions | orderBy: 'index'">{{q.label}}</td> </tr> </thead>
+            <tbody>
+                <tr ng-repeat="response in responses">
+                    <td ng-repeat="entry in response.entries | uniqueById: 'question_id' | orderByIndexInQuestion: form.questions track by $index">
+                        {{entry.value}}
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
