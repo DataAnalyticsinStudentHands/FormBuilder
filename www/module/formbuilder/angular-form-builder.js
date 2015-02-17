@@ -464,12 +464,16 @@
                     $drag.draggable($(element), {
                         mode: 'mirror',
                         cancel : 'a',
+                        //defer: false,
                         object: {
                             componentName: scope.component.name
                         }
                     });
                     $(element).on('dblclick',function(e){
-                        console.log(e.type);
+                        console.log(scope);
+                        $builder.addFormObject("default", {
+                            component: scope.component.name
+                        });
                     });
                     return scope.$watch('component.template', function(template) {
                         var view;
