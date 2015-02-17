@@ -39,6 +39,17 @@ fbService.filter('uniqueById', function() {
     };
 });
 
+fbService.filter('orderByIndexInQuestion', function($filter) {
+    return function(collection, questions) {
+        var sortedEntries = [];
+        questions = $filter('orderBy')(questions, 'index');
+        questions.forEach(function(question){
+            sortedEntries.push($filter('getByQuestionId')(collection, question.question_id))
+        });
+        return sortedEntries;
+    };
+});
+
 fbService.filter("nl2br", function() {
     return function(data) {
         if (!data) return data;
