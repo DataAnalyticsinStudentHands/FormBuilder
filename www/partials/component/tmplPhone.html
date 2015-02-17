@@ -1,7 +1,16 @@
 <div class="form-group">
-    <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
-    <div class="col-sm-8">
-        <input type="tel" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
+    <label class="col-md-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
+    <div class="col-md-8">
+        <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+        <div class="col-sm-4" style="padding-left: 0;">
+            <input type="number" min="100" max="999" ng-model="inputArray[0]" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}-0" class="form-control"/>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0;">
+            <input type="number" min="100" max="999" ng-model="inputArray[1]" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}-1" class="form-control"/>
+        </div>
+        <div class="col-sm-4" style="padding-left: 0;">
+            <input type="number" min="1000" max="9999" ng-model="inputArray[2]" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}-2" class="form-control"/>
+        </div>
         <p class='help-block'>{{description}}</p>
     </div>
 </div>
