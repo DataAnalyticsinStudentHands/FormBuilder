@@ -33,6 +33,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                     form.questions.forEach(function(question){
                         service.processInQuestion(question);
                     });
+                    form.expiration_date = new Date(form.expiration_date);
                     return form;
                 });
             },
@@ -53,7 +54,6 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
         updateForm:
             function(id, form_data, form) {
                 var service = this;
-                console.log(form_data);
                 form.forEach(function(question){
                     service.processOutQuestion(question);
                 });

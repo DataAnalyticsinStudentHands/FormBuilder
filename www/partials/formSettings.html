@@ -14,43 +14,43 @@
         </div>
         <hr/>
     </div>
-    <form class="row">
-        <input type="submit" ng-click="save()" class="btn btn-primary pull-right" value="Save">
-        <div class="form-group">
-            <label class='control-label'> Form URL
-                <input type="text" ng-model="formURL" class='form-control'>
-            </label>
-            <a type="button" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
-        </div>
-        <div class="form-group">
-            <label class='control-label'> Form Submitted Message
-                <textarea class='form-control' ng-model="form.completed_message"></textarea>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class='control-label'> Form Closed Message
-                <textarea class='form-control' ng-model="form.closed_message"></textarea>
-            </label>
-        </div>
-        <div class="form-group">
-            <label class='control-label'> URL Redirect
-                <input type="url" class='form-control' ng-model="form.redirect_url">
-            </label>
-        </div>
-        <div class="form-group">
-            <label class='control-label'> Form Open
-                <input type="checkbox" class='form-control' ng-model="form.enabled">
-            </label>
-        </div>
-        <div class="form-group">
+    <form class="row" ng-submit="save()">
+        <div class="col-md-5">
             <label class='control-label'> Form Public
                 <input type="checkbox" class='form-control' ng-model="form.public">
             </label>
-        </div>
-        <div class="form-group">
-            <label class='control-label'> Delete Form <br/>
-                <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
+            <label class='control-label pull-right'> Form Open
+                <input type="checkbox" class='form-control' ng-model="form.enabled">
             </label>
+            <p class="help-block">Non-public forms are only viewable by collaborators. Form must be public for responses without user login.</p>
+            <br/>
+            <label class='control-label' style="width: 100%"> Form Closed Message
+                <textarea class='form-control' ng-model="form.closed_message"></textarea>
+            </label>
+            <p class="help-block">Message to show visitor once form is closed or expired.</p>
+            <label class='control-label' style="width: 100%"> URL Redirect
+                <input type="url" class='form-control' ng-model="form.redirect_url">
+            </label>
+            <p class="help-block">URL for user after finishing form.</p>
+        </div>
+        <div class="col-md-5">
+            <label class='control-label'> Form URL
+                <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled">
+            </label>
+            <a type="button" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
+            <p class="help-block">Form must be open for URL to function.</p>
+            <label class='control-label' style="width: 100%"> Form Submitted Message
+                <textarea class='form-control' ng-model="form.completed_message"></textarea>
+            </label>
+            <p class="help-block">Message to show visitor once form is submitted.</p>
+            <label class='control-label'> Form URL
+                <input type="date" ng-model="form.expiration_date" class='form-control'>
+            </label>
+            <p class="help-block">Date at which form will automatically close to new submissions.</p>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-primary pull-right" value="Save">
+            <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
         </div>
     </form>
 </div>
