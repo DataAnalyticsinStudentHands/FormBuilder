@@ -13,10 +13,10 @@ body{padding:10px}.footer{height:50px}
         right: 40px;
     }
 }
-.formbuilderRight, .formbuilderLeft {
-    /*float: left;*/
-    /*display: block;*/
-    /*position: absolute;*/
+@media screen and (max-width: 991px) {
+    .formbuilderRight .form-horizontal{
+        height: 400px;
+    }
 }
 .formbuilderRight .form-horizontal{
     overflow-y: scroll;
