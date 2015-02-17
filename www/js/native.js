@@ -6,11 +6,10 @@ $(window).scroll(function () {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 250) {
             fb.css('top', $(window).scrollTop());
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-40);
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
         } else {
             fb.css('top', '');
-            // $(".formbuilderRight .form-horizontal").css('height','500px');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-290);
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295);
         }
     }
 });
