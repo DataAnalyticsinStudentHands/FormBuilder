@@ -2,7 +2,8 @@
  * Created by Carl on 2/6/2015.
  */
 $(window).scroll(function () {
-    if ($( window ).width() >= 992) {
+    document.getElementById("hihi").innerHTML=$(window).outerWidth();
+    if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 250) {
             fb.css('top', $(window).scrollTop());
@@ -16,7 +17,8 @@ $(window).scroll(function () {
     }
 });
 $( window ).resize(function() {
-    if ($( window ).width() < 992) {
+    document.getElementById("hihi").innerHTML=$(window).outerWidth();
+    if ($(window).outerWidth() <= 991) {
         $('.formbuilderRight').css('top', '');
         $(".formbuilderRight .form-horizontal").css('height', 400);
     }
