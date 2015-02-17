@@ -470,9 +470,10 @@
                         }
                     });
                     $(element).on('dblclick',function(e){
-                        console.log(scope);
-                        $builder.addFormObject("default", {
-                            component: scope.component.name
+                        scope.$apply(function() {
+                            $builder.addFormObject("default", {
+                                component: scope.component.name
+                            });
                         });
                     });
                     return scope.$watch('component.template', function(template) {
