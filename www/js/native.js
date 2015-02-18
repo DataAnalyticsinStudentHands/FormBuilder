@@ -4,7 +4,7 @@
 $(window).scroll(function () {
     if ($(window).scrollTop() > 140) {
         $('.rmargin').addClass('form-title-fixed');
-        $('.rmargin').css('width', $('.container').width());
+        $('.rmargin').css('width', $('.container').width()+30);
         $('.formbuilder').css('margin-top', 100);
     } else {
         $('.formbuilder').css('margin-top', '');
@@ -14,7 +14,7 @@ $(window).scroll(function () {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 140) {
             fb.addClass('form-fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
         } else {
             fb.removeClass('form-fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
