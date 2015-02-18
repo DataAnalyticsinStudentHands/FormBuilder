@@ -5,10 +5,10 @@ $(window).scroll(function () {
     if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 250) {
-            fb.css('top', $(window).scrollTop());
+            fb.addClass('fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
         } else {
-            fb.css('top', '');
+            fb.removeClass('fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295);
         }
     } else {
@@ -17,7 +17,8 @@ $(window).scroll(function () {
 });
 $( window ).resize(function() {
     if ($(window).outerWidth() <= 991) {
-        $('.formbuilderRight').css('top', '');
+        // $('.formbuilderRight').css('top', '');
+        $('.formbuilderRight').removeClass('fixed');
         $(".formbuilderRight .form-horizontal").css('height', 400);
     }
 });
