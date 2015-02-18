@@ -4,12 +4,12 @@
 $(window).scroll(function () {
     if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 250) {
+        if ($(window).scrollTop() > 240) {
             fb.addClass('fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
         } else {
             fb.removeClass('fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295);
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
         }
     } else {
         $(".formbuilderRight .form-horizontal").css('height', 400);
@@ -17,7 +17,6 @@ $(window).scroll(function () {
 });
 $( window ).resize(function() {
     if ($(window).outerWidth() <= 991) {
-        // $('.formbuilderRight').css('top', '');
         $('.formbuilderRight').removeClass('fixed');
         $(".formbuilderRight .form-horizontal").css('height', 400);
     }
