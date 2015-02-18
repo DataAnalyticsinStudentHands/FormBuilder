@@ -2,13 +2,21 @@
  * Created by Carl on 2/6/2015.
  */
 $(window).scroll(function () {
+    if ($(window).scrollTop() > 140) {
+        $('.rmargin').addClass('form-title-fixed');
+        $('.rmargin').css('width', $('.container').width());
+        $('.formbuilder').css('margin-top', 100);
+    } else {
+        $('.formbuilder').css('margin-top', '');
+        $('.rmargin').removeClass('form-title-fixed');
+    };
     if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 242) {
-            fb.addClass('fixed');
+        if ($(window).scrollTop() > 140) {
+            fb.addClass('form-fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
         } else {
-            fb.removeClass('fixed');
+            fb.removeClass('form-fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
         }
     } else {
@@ -17,7 +25,7 @@ $(window).scroll(function () {
 });
 $( window ).resize(function() {
     if ($(window).outerWidth() <= 991) {
-        $('.formbuilderRight').removeClass('fixed');
+        $('.formbuilderRight').removeClass('form-fixed');
         $(".formbuilderRight .form-horizontal").css('height', 400);
     } else {
         // $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());

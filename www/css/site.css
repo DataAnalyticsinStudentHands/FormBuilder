@@ -3,9 +3,16 @@
     margin-right: 0;
     margin-left: 0;
 }
-.fixed {
+.form-title-fixed {
     position: fixed !important;
-    top:0;
+    top:0px;
+    z-index: 1000;
+    background-color: white;
+    /*width: inherit;*/
+}
+.form-fixed {
+    position: fixed !important;
+    top:100px;
 }
 @media screen and (min-width: 992px) {
     .formbuilderRight {
