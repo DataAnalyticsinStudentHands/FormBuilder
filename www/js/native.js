@@ -4,7 +4,7 @@
 $(window).scroll(function () {
     if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 240) {
+        if ($(window).scrollTop() > 242) {
             fb.addClass('fixed');
             $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
         } else {
@@ -19,6 +19,8 @@ $( window ).resize(function() {
     if ($(window).outerWidth() <= 991) {
         $('.formbuilderRight').removeClass('fixed');
         $(".formbuilderRight .form-horizontal").css('height', 400);
+    } else {
+        // $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
     }
 });
 
