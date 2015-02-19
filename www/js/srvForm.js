@@ -81,6 +81,9 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                     case "[url]":
                         question.validation = "URL";
                         break;
+                    case "/[A-Z]/":
+                        question.validation = "PHONE";
+                        break;
                     default:
                         question.validation = "NONE";
                 }
@@ -105,6 +108,9 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                         break;
                     case "URL":
                         question.validation = "[url]";
+                        break;
+                    case "PHONE":
+                        question.validation = "/[A-Z]/";
                         break;
                     default:
                         question.validation = "/.*/";

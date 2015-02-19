@@ -208,8 +208,9 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         group: 'Common',
         label: 'Phone',
         description: 'Phone Number',
+        validation: '/.*/',
+        placeholder: 'placeholder',
         required: false,
-        arrayToText: true,
         templateUrl: 'partials/component/tmplPhone.html',
         popoverTemplateUrl: 'partials/component/popPhone.html'
     });
