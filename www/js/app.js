@@ -208,8 +208,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         group: 'Common',
         label: 'Phone',
         description: 'Phone Number',
-        validation: '/.*/',
-        placeholder: 'placeholder',
+        validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+        placeholder: '###-###-####',
         required: false,
         templateUrl: 'partials/component/tmplPhone.html',
         popoverTemplateUrl: 'partials/component/popPhone.html'
