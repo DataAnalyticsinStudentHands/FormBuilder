@@ -176,6 +176,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         $rootScope.isAuthenticated(false);
     });
 
+
     $builder.registerComponent('descriptionHorizontal', {
         group: 'Other',
         label: 'TextBlock 1',
