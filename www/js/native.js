@@ -10,7 +10,7 @@ $(window).scroll(function () {
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
     };
-    if ($( window ).outerWidth() > 991) {
+    if (verge.viewportW() > 991) {
         var fb = $('.formbuilderRight');
         if ($(window).scrollTop() > 140) {
             fb.addClass('form-fixed');
@@ -24,7 +24,7 @@ $(window).scroll(function () {
     }
 });
 $( window ).resize(function() {
-    if ($(window).outerWidth() <= 991) {
+    if (verge.viewportW() <= 991) {
         $('.formbuilderRight').removeClass('form-fixed');
         $(".formbuilderRight .form-horizontal").css('height', 400);
     } else {
