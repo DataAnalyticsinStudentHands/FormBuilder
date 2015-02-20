@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <h1>Form Builder</h1>
-        <div class="row">
+        <div class="row rmargin">
             <div class="col-md-12">
                 <label> Form Title
                     <input type='text' ng-model="form_data.name" id="form_title" class='form-control' placeholder="Form Name"/>
@@ -12,11 +12,11 @@
                     <a type="submit" ng-show="form_id" target="_blank" ui-sref="form({'id':{{form_id}}})" class="btn btn-default">Preview</a>
                     <input type="submit" ng-click="save()" class="btn btn-primary" value="Save">
                 </div>
+                <hr/>
             </div>
         </div>
-        <hr/>
     </div>
-    <div class="row">
+    <div class="row formbuilder">
         <div class="col-md-6 formbuilderLeft">
             <div class="panel panel-default">
                 <div class="panel-heading">

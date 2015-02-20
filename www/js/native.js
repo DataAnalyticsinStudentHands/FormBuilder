@@ -2,21 +2,33 @@
  * Created by Carl on 2/6/2015.
  */
 $(window).scroll(function () {
-    if ($( window ).width() > 992) {
+    if ($(window).scrollTop() > 140) {
+        $('.rmargin').addClass('form-title-fixed');
+        $('.rmargin').css('width', $('.container').width()+30);
+        $('.formbuilder').css('margin-top', 100);
+    } else {
+        $('.formbuilder').css('margin-top', '');
+        $('.rmargin').removeClass('form-title-fixed');
+    };
+    if ($( window ).outerWidth() > 991) {
         var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 250) {
-            fb.css('top', $(window).scrollTop());
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-45);
+        if ($(window).scrollTop() > 140) {
+            fb.addClass('form-fixed');
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
         } else {
-            fb.css('top', '');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295);
+            fb.removeClass('form-fixed');
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
         }
+    } else {
+        $(".formbuilderRight .form-horizontal").css('height', 400);
     }
 });
 $( window ).resize(function() {
-    //1009px
-    if ($( window ).width() <= 992) {
-        $('.formbuilderRight').css('top', '');
+    if ($(window).outerWidth() <= 991) {
+        $('.formbuilderRight').removeClass('form-fixed');
+        $(".formbuilderRight .form-horizontal").css('height', 400);
+    } else {
+        // $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
     }
 });
 

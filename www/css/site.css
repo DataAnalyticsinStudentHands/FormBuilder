@@ -1,28 +1,34 @@
-body{padding:10px}.footer{height:50px}
-/*.formbuilderLeft {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    overflow-y: scroll !important;
-}*/
-
+.footer{height:50px}
+.rmargin {
+    margin-right: 0;
+    margin-left: 0;
+}
+.form-title-fixed {
+    position: fixed !important;
+    top:0px;
+    z-index: 1000;
+    background-color: white;
+    /*width: inherit;*/
+}
+.form-fixed {
+    position: fixed !important;
+    top:100px;
+}
 @media screen and (min-width: 992px) {
     .formbuilderRight {
         position: absolute;
         right: 40px;
     }
 }
-.formbuilderRight, .formbuilderLeft {
-    /*float: left;*/
-    /*display: block;*/
-    /*position: absolute;*/
+@media screen and (max-width: 991px) {
+    .formbuilderRight .form-horizontal{
+        height: 400px;
+    }
 }
 .formbuilderRight .form-horizontal{
     overflow-y: scroll;
     overflow-x: hidden;
     /*height: 500px;*/
-    height: calc(100% - 240px);
 }
 
 .formbuilderRight {
