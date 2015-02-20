@@ -22,16 +22,16 @@
                 ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
                 {{column.title}}
             </th>
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<th ng-repeat="column in columns"-->
-                <!--ng-show="column.visible"-->
-                <!--class="text-center sortable">-->
-                <!--&lt;!&ndash;suppress CheckEmptyScriptTag, HtmlFormInputWithoutLabel &ndash;&gt;-->
-                <!--<input type="text" class="form-control"-->
-                       <!--ng-model="filter_dict[column.field] "/>-->
-            <!--</th>-->
-        <!--</tr>-->
+        </tr>
+        <tr>
+            <th ng-repeat="column in columns"
+                ng-show="column.visible"
+                class="text-center sortable">
+                <!--suppress CheckEmptyScriptTag, HtmlFormInputWithoutLabel -->
+                <input type="text" class="form-control" placeholder="Search..."
+                       ng-model="filter_dict[column.field] "/>
+            </th>
+        </tr>
         </thead>
         <tbody>
         <tr ng-repeat="response in $data">

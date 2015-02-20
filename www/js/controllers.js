@@ -176,19 +176,19 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.filter_dict = {};
         $scope.questions = $filter('orderBy')($scope.form.questions, 'index');
         $scope.questions.forEach(function(q){
-            var q_obj = [];
+            var q_obj = {};
             q_obj["title"] = q.label;
             q_obj["title"] = q.label;
             q_obj["field"] = q.label.replace(/ /g, '_');
             q_obj["visible"] = true;
-            //$scope.filter_dict[q.label.replace(/ /g, '_')] = "";
+            $scope.filter_dict[q.label.replace(/ /g, '_')] = "";
             $scope.columns.push(q_obj);
         });
         var data = [];
 
         $scope.responses.forEach(function(response){
             var entries = $filter('orderByIndexInQuestion')($filter('uniqueById')(response.entries, 'question_id'), $scope.questions);
-            var proc_entries = [];
+            var proc_entries = {};
             entries.forEach(function(entry){
                 if(entry){
                     proc_entries[entry.label.replace(/ /g, '_')] = entry.value;
@@ -203,7 +203,8 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             total: data.length, // length of data
             getData: function($defer, params) {
                 // use build-in angular filter
-                var filteredData =
+                var filteredData = $scope.filter_dict ?
+                    $filter('filter')(data, $scope.filter_dict) :
                     data;
 
                 var orderedData = params.sorting() ?
