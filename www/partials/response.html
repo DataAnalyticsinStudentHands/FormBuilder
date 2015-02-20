@@ -4,24 +4,42 @@
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="toPDF()">PDF</button>
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="getCSV()">CSV</button>
         </h2>
-        <h4>Form: {{form.name}}
-            <input type="search" class="form-control pull-right" style="width: 35%" ng-model="filter" placeholder="Search">
-        </h4>
+        <h4>Form: {{form.name}}</h4>
     </div>
     <hr/>
     <div class="well" ng-show="responses.length < 1">
         <p>There are currently no responses here.</p>
     </div>
-    <div style="overflow-y: scroll">
-        <table class="table table-bordered" ng-hide="responses.length < 1">
-            <thead> <tr class="danger"> <td ng-repeat="q in form.questions | orderBy: 'index'">{{q.label}}</td> </tr> </thead>
-            <tbody>
-                <tr ng-repeat="response in responses">
-                    <td ng-repeat="entry in response.entries | uniqueById: 'question_id' | orderByIndexInQuestion: form.questions track by $index">
-                        {{entry.value}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div style="overflow-y: scroll" ng-hide="responses.length < 1">
+    <table ng-table="tableParams" show-filter="true" class="table">
+        <thead>
+        <tr>
+            <th ng-repeat="column in columns" ng-show="column.visible"
+                class="text-center sortable" ng-class="{
+                    'sort-asc': tableParams.isSortBy(column.field, 'asc'),
+                    'sort-desc': tableParams.isSortBy(column.field, 'desc')
+                  }"
+                ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+                {{column.title}}
+            </th>
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<th ng-repeat="column in columns"-->
+                <!--ng-show="column.visible"-->
+                <!--class="text-center sortable">-->
+                <!--&lt;!&ndash;suppress CheckEmptyScriptTag, HtmlFormInputWithoutLabel &ndash;&gt;-->
+                <!--<input type="text" class="form-control"-->
+                       <!--ng-model="filter_dict[column.field] "/>-->
+            <!--</th>-->
+        <!--</tr>-->
+        </thead>
+        <tbody>
+        <tr ng-repeat="response in $data">
+            <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field">
+                {{response[column.field]}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
     </div>
 </div>

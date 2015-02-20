@@ -1,6 +1,6 @@
 'use strict';
 /* Controllers */
-var formBuilderController = angular.module('formBuilderControllerModule', []);
+var formBuilderController = angular.module('formBuilderControllerModule', ['ngTable']);
 
 formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify',
     function($scope, Auth, $state, ngNotify) {
@@ -162,19 +162,63 @@ formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$stat
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', '$builder',
-    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, $builder) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', '$builder', 'ngTableParams', 'responses', 'form',
+    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, $builder, ngTableParams, responses, form) {
         $scope.id = $stateParams.id;
+        $scope.responses = responses;
+        $scope.form = form;
 
-        responseService.getResponsesByFormId($scope.id).then(function(data){
-            $scope.responses = data;
+        dd.content = [];
+        dd.content.push({});
+        dd.content[0] = {text: "Form: " + form.name + "\n\n", alignment: 'center', bold: true};
+
+        $scope.columns = [];
+        $scope.filter_dict = {};
+        $scope.questions = $filter('orderBy')($scope.form.questions, 'index');
+        $scope.questions.forEach(function(q){
+            var q_obj = [];
+            q_obj["title"] = q.label;
+            q_obj["title"] = q.label;
+            q_obj["field"] = q.label.replace(/ /g, '_');
+            q_obj["visible"] = true;
+            //$scope.filter_dict[q.label.replace(/ /g, '_')] = "";
+            $scope.columns.push(q_obj);
         });
-        formService.getForm($scope.id).then(function(data) {
-            $scope.form = data;
-            dd.content = [];
-            dd.content.push({});
-            dd.content[0] = {text: "Form: " + data.name + "\n\n", alignment: 'center', bold: true};
+        var data = [];
+
+        $scope.responses.forEach(function(response){
+            var entries = $filter('orderByIndexInQuestion')($filter('uniqueById')(response.entries, 'question_id'), $scope.questions);
+            var proc_entries = [];
+            entries.forEach(function(entry){
+                if(entry){
+                    proc_entries[entry.label.replace(/ /g, '_')] = entry.value;
+                }
+            });
+            data.push(proc_entries);
         });
+        $scope.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page,
+        }, {
+            total: data.length, // length of data
+            getData: function($defer, params) {
+                // use build-in angular filter
+                var filteredData =
+                    data;
+
+                var orderedData = params.sorting() ?
+                    $filter('orderBy')(filteredData, params.orderBy()) :
+                    filteredData;
+
+                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+
+        $scope.$watch("filter_dict", function () {
+            if($scope.filter_dict && $scope.tableParams){
+                $scope.tableParams.reload();
+            }
+        }, true);
 
         $scope.getCSV = function(){
             $scope.CSVout = "";

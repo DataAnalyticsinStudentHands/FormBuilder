@@ -64,6 +64,14 @@ databaseModule.config(
                 url: "/response/:id",
                 templateUrl: "partials/response.html",
                 controller: 'responseCtrl',
+                resolve: {
+                    form: function(formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
+                    },
+                    responses: function(responseService, $stateParams) {
+                        return responseService.getResponsesByFormId($stateParams.id);
+                    }
+                },
                 authenticate: true
             }).
             state('secure.user_response', {
