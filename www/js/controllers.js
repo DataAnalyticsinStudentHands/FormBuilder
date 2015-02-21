@@ -85,83 +85,6 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
         }
     }]);
 
-formBuilderController.controller('responseDetailCtrl', ['$scope', 'Auth', '$state', '$stateParams', 'formService', '$builder', '$filter', '$timeout', 'responseService','form', 'response',
-    function($scope, Auth, $state, $stateParams, formService, $builder, $filter, $timeout, responseService, form, response) {
-        $scope.id = $stateParams.id;
-        $scope.rid = $stateParams.rid;
-        $scope.form = form;
-        $builder.forms[$scope.id] = null;
-
-        dd.content = [];
-        dd.content.push({},{},{});
-        dd.content[0] = {text: "Form: " + form.name, alignment: "center", bold: true};
-        dd.content[1] = {text: "\n Response: #" + $scope.rid, alignment: "center", bold: true};
-        dd.content[2].style = 'tableExample';
-        dd.content[2].table = {};
-        dd.content[2].table.widths = [150, '*'];
-        dd.content[2].table.body = [['Questions', 'Response']];
-        dd.content[2].layout= 'noBorders';
-
-        var questions = $filter('uniqueById')($filter('orderBy')(form.questions, "index", false), "question_id");
-        response.entries = $filter('uniqueById')(response.entries, "question_id");
-        questions.forEach(function(question){
-            if($filter('getByQuestionId')(response.entries, question.question_id)) {
-                if ($filter('getByQuestionId')(response.entries, question.question_id)) {
-                    var response_entry = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value);
-                    if(question.component === "fileUpload")
-                        dd.content[2].table.body.push([question.label, window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + response_entry]);
-                    else
-                        dd.content[2].table.body.push([question.label, response_entry]);
-                }
-                if (question.component == "dateInput") {
-                    $filter('getByQuestionId')(response.entries, question.question_id).value = new Date($filter('getByQuestionId')(response.entries, question.question_id).value);
-                } else if (question.component == "name" || question.component == "address") {
-                    $filter('getByQuestionId')(response.entries, question.question_id).value = $filter('getByQuestionId')(response.entries, question.question_id).value.split(", ");
-                } else if (question.component == "checkbox") {
-                    var checked = [];
-                    $scope.checkBoxResponse = angular.copy($filter('getByQuestionId')(response.entries, question.question_id).value).split(", ");
-                    question.options.forEach(function (checkBoxItem, key) {
-                        $scope.checkBoxResponse.forEach(function (checkedResponse) {
-                            if (checkBoxItem.indexOf(checkedResponse) != -1) {
-                                checked.push(true);
-                            }
-                        });
-                        if(!checked[key]){
-                            checked[key] = false;
-                        }
-                    });
-                    $filter('getByQuestionId')(response.entries, question.question_id).value = checked;
-                }
-
-                $builder.addFormObject($scope.id, {
-                    id: question.question_id,
-                    component: question.component,
-                    description: question.description,
-                    label: question.label,
-                    index: question.index,
-                    placeholder: question.placeholder,
-                    required: question.required,
-                    options: question.options,
-                    validation: question.validation
-                });
-            }
-        });
-        $scope.defaultValue = {};
-        response.entries.forEach(function(entry){
-            $scope.defaultValue[entry.question_id] = entry.value;
-        });
-
-        $scope.toPDF = function(){
-            pdfMake.createPdf(dd).download($scope.form.name + "_response" + $scope.rid + "_" + (new Date()).format('mdY\\_His') + ".pdf");
-        };
-
-        $scope.deleteResponse = function(){
-            responseService.deleteResponse($scope.id).then(function(){
-
-            });
-        }
-    }]);
-
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', '$builder', 'ngTableParams', 'responses', 'form',
     function($scope, Auth, $state, formService, responseService, $stateParams, $filter, $builder, ngTableParams, responses, form) {
         $scope.id = $stateParams.id;
@@ -178,10 +101,9 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.questions.forEach(function(q){
             var q_obj = {};
             q_obj["title"] = q.label;
-            q_obj["title"] = q.label;
-            q_obj["field"] = q.label.replace(/ /g, '_');
+            q_obj["field"] = q.question_id;
             q_obj["visible"] = true;
-            $scope.filter_dict[q.label.replace(/ /g, '_')] = "";
+            //$scope.filter_dict[q.question_id] = "";
             $scope.columns.push(q_obj);
         });
         var data = [];
@@ -191,14 +113,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             var proc_entries = {};
             entries.forEach(function(entry){
                 if(entry){
-                    proc_entries[entry.label.replace(/ /g, '_')] = entry.value;
+                    proc_entries[entry.question_id] = entry.value;
                 }
             });
             data.push(proc_entries);
         });
         $scope.tableParams = new ngTableParams({
             page: 1,            // show first page
-            count: 10          // count per page,
+            count: 10           // count per page,
         }, {
             total: data.length, // length of data
             getData: function($defer, params) {

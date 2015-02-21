@@ -3,6 +3,7 @@
         <h1>
             Forms
             <button type="button" class="btn btn-primary pull-right" ui-sref="secure.builder">New Form</button>
+            <input type="search" class="form-control pull-right" style="width: 35%; margin-right: 5px" ng-init="query=''" ng-model="query" placeholder="Search">
         </h1>
     </div>
     <div class="well" ng-show="myForms.length < 1">
@@ -17,7 +18,7 @@
         <p>You can come back to this page by clicking the “Home” button in the top bar. It will then show you a list of all your forms.</p>
     </div>
     <ul class="list-group">
-        <li ng-repeat="form in myForms" class="list-group-item clearfix">
+        <li ng-repeat="form in myForms | filter: {name: query}" class="list-group-item clearfix">
             {{form.name}}
             <span class="pull-right">
                 <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})" title="Responses"><span class="glyphicon glyphicon-inbox"></span></button>

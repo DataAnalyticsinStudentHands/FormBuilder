@@ -80,24 +80,6 @@ databaseModule.config(
                 controller: 'userResponseCtrl',
                 authenticate: true
             }).
-            state('secure.response.detail', {
-                url: "/detail/:rid",
-                views: {
-                    "@secure": {
-                        templateUrl: "partials/responseDetail.html",
-                        controller: 'responseDetailCtrl'
-                    }
-                },
-                resolve: {
-                    form: function(formService, $stateParams) {
-                        return formService.getForm($stateParams.id);
-                    },
-                    response: function(responseService, $stateParams) {
-                        return responseService.getResponse($stateParams.rid);
-                    }
-                },
-                authenticate: true
-            }).
             state('download', {
                 url: "/file/:id",
                 views: {
