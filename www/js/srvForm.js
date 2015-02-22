@@ -17,7 +17,7 @@ fbService.factory('userService', ['Restangular', '$q', '$filter', function(Resta
     }
 }]);
 
-fbService.factory('formService', ['Restangular', function(Restangular) {
+fbService.factory('formService', ['Restangular', '$filter', function(Restangular, $filter) {
     return {
         getMyForms:
             function() {
@@ -30,6 +30,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
                 var service = this;
                 return Restangular.all("forms").one(fid).get().then(function(success){
                     var form = Restangular.stripRestangular(success);
+                    service.processInForm(form);
                     form.questions.forEach(function(question){
                         service.processInQuestion(question);
                     });
@@ -64,6 +65,9 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
             function(fid) {
                 return Restangular.all("forms").one(fid).remove();
             },
+        processInForm: function (form) {
+            form.questions = $filter('orderBy')(form.questions, 'index');
+        },
         processOutQuestion:
             function(question) {
                 if(!(typeof question.options == 'string' || question.options instanceof String))
@@ -113,7 +117,7 @@ fbService.factory('formService', ['Restangular', function(Restangular) {
     }
 }]);
 
-fbService.factory('responseService', ['Restangular', '$filter', function(Restangular, $filter) {
+fbService.factory('responseService', ['Restangular', '$filter', 'formService', function(Restangular, $filter, formService) {
     return {
         getResponse:
             function(rid) {
@@ -123,8 +127,19 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             },
         getResponsesByFormId:
             function(form_id){
+                var service = this;
                 return Restangular.all("formResponses").all("byFormId").customGET(form_id, {numberOfFormResponses: 999999999}).then(function(data){
-                    return Restangular.stripRestangular(data);
+                    var responses = Restangular.stripRestangular(data);
+                    return formService.getForm(form_id).then(function(data_form){
+                        var form = Restangular.stripRestangular(data_form);
+                        responses.forEach(function(response) {
+                            service.processInResponse(response, form);
+                            response.entries.forEach(function(entry){
+                                if(entry) service.processInEntry(entry, $filter('getByQuestionId')(form.questions, entry.question_id)); else entry = {value: ""};
+                            });
+                        });
+                        return responses;
+                    })
                 });
             },
         getMyResponses:
@@ -165,7 +180,24 @@ fbService.factory('responseService', ['Restangular', '$filter', function(Restang
             },
         deleteResponse:
             function(rid) {
-                return Restangular.all("formResponses").one(rid).remove(); //DO THIS NOW
+                return Restangular.all("formResponses").one(rid).remove();
+            },
+        processInResponse:
+            function(response, form){
+                response.entries = $filter('orderByIndexInQuestion')($filter('uniqueById')(response.entries, 'question_id'), form.questions);
+                return response;
+            },
+        processInEntry:
+            function(entry, question){
+                switch(question.component){
+                    case "fileUpload":
+                        if(entry.value != "")
+                            entry.value = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + entry.value;
+                        else
+                            entry.value = "No File";
+                        break;
+                }
+                return entry;
             }
     }
 }]);

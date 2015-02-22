@@ -97,24 +97,21 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
         $scope.columns = [];
         $scope.filter_dict = {};
-        $scope.questions = $filter('orderBy')($scope.form.questions, 'index');
+        $scope.questions = $scope.form.questions;
         $scope.questions.forEach(function(q){
             var q_obj = {};
             q_obj["title"] = q.label;
             q_obj["field"] = q.question_id;
             q_obj["visible"] = true;
-            //$scope.filter_dict[q.question_id] = "";
             $scope.columns.push(q_obj);
         });
         var data = [];
 
         $scope.responses.forEach(function(response){
-            var entries = $filter('orderByIndexInQuestion')($filter('uniqueById')(response.entries, 'question_id'), $scope.questions);
+            var entries = response.entries;
             var proc_entries = {};
             entries.forEach(function(entry){
-                if(entry){
-                    proc_entries[entry.question_id] = entry.value;
-                }
+                proc_entries[entry.question_id] = entry.value;
             });
             data.push(proc_entries);
         });
@@ -145,7 +142,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
         $scope.getCSV = function(){
             $scope.CSVout = "";
-            var questions = $filter('orderBy')($scope.form.questions, "index", false);
+            var questions = $scope.form.questions;
             var questionValueArray = [];
             questions.forEach(function(question){
                 questionValueArray.push(question.label);
@@ -158,12 +155,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                     if($builder.components[question.component].arrayToText){
                         entry.value = entry.value.replace(/,/g, ' ');
                     }
-                    if(question.component === "fileUpload" && entry && entry.value)
-                        entries.push(window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + entry.value);
-                    else if(entry)
-                        entries.push(entry.value.replace(/"/g, '""'));
-                    else
-                        entries.push("");
+                    entries.push(entry.value.replace(/"/g, '""'));
                 });
                 $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
             });
@@ -175,7 +167,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         };
         $scope.toPDF = function(){
             var table_loc = 0;
-            var questions = $filter('orderBy')($scope.form.questions, "index", false);
+            var questions = $scope.form.questions;
             $scope.responses.forEach(function(response){
                 table_loc+=2;
                 dd.content.push("",{});
@@ -189,12 +181,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    if(question.component === "fileUpload" && entry && entry.value)
-                        dd.content[table_loc].table.body.push([question.label, window.location.protocol + "//" + window.location.host + window.location.pathname + "#/file/" + entry.value]);
-                    else if(entry)
-                        dd.content[table_loc].table.body.push([question.label, entry.value]);
-                    else
-                        dd.content[table_loc].table.body.push([question.label, ""]);
+                    dd.content[table_loc].table.body.push([question.label, entry.value]);
                 });
             });
             pdfMake.createPdf(dd).download($scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".pdf");
@@ -223,9 +210,6 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         $scope.id = $stateParams.id;
 
         $scope.download = function(id) {
-            if(id.toString() === "[object File]"){
-                id = $scope.inputId;
-            }
             Restangular.setFullResponse(true);
             Restangular.all("fileUploads")
                 .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)
@@ -238,10 +222,7 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
                     Restangular.setFullResponse(false);
                 },
                 function () {
-                    ngNotify.set("Something went wrong while getting the uploaded file!", {
-                        position: 'bottom',
-                        type: 'error'
-                    });
+                    ngNotify.set("Something went wrong while getting the uploaded file!", {position: 'bottom', type: 'error'});
                     Restangular.setFullResponse(false);
                 }
             );
@@ -299,7 +280,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
         if($scope.form_id) {
             formService.getForm($scope.form_id).then(function(data){
                 $scope.form_data = data;
-                var questions = $filter('orderBy')(data.questions, "index", false);
+                var questions = data.questions;
                 questions.forEach(function(question){
                     $builder.addFormObject('default', {
                         id: question.question_id,
@@ -348,9 +329,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
 
-        var questions = $filter('orderBy')(form.questions, "index", false);
-
-        questions.forEach(function(question){
+        form.questions.forEach(function(question){
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -445,6 +424,7 @@ formBuilderController.controller('uploadCtrl',
                 function () {
                     $scope.inputId = null;
                     $scope.inputText = null;
+                    $scope.$parent.inputText = null;
                     ngNotify.set("Deleted!", {
                         position: 'bottom',
                         type: 'success'
