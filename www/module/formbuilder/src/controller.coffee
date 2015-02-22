@@ -7,7 +7,7 @@ copyObjectToScope = (object, scope) ->
     ###
     for key, value of object when key isnt '$$hashKey'
         # copy object.{} to scope.{}
-        scope[key] = value
+        scope[key] = angular.copy(value)
     return
 
 # ----------------------------------------
@@ -25,11 +25,12 @@ angular.module 'builder.controller', ['builder.provider']
         ###
         1. Copy origin formObject (ng-repeat="object in formObjects") to scope.
         2. Setup optionsText with formObject.options.
-        3. Watch scope.label, .description, .placeholder, .required, .options then copy to origin formObject.
+        3. Watch scope.label, .description, .placeholder, .required, .settings, .options then copy to origin formObject.
         4. Watch scope.optionsText then convert to scope.options.
         5. setup validationOptions
         ###
         copyObjectToScope formObject, $scope
+
 
         $scope.optionsText = formObject.options.join '\n'
 
@@ -41,6 +42,7 @@ angular.module 'builder.controller', ['builder.provider']
             formObject.options = $scope.options
             formObject.settings = $scope.settings
             formObject.validation = $scope.validation
+            console.log($scope);
         , yes
 
         $scope.$watch 'optionsText', (text) ->
@@ -61,6 +63,7 @@ angular.module 'builder.controller', ['builder.provider']
                 description: $scope.description
                 placeholder: $scope.placeholder
                 required: $scope.required
+                settings: $scope.settings
                 optionsText: $scope.optionsText
                 validation: $scope.validation
         rollback: ->
@@ -72,6 +75,7 @@ angular.module 'builder.controller', ['builder.provider']
             $scope.description = @model.description
             $scope.placeholder = @model.placeholder
             $scope.required = @model.required
+            $scope.$parent.settings = @model.settings
             $scope.optionsText = @model.optionsText
             $scope.validation = @model.validation
 ]
@@ -118,7 +122,6 @@ angular.module 'builder.controller', ['builder.provider']
     # set default for input
     $scope.input ?= []
     $scope.$watch 'form', ->
-
         $scope.questionPageArray = []
         page_number = 0
         $scope.questionPageArray[0] = []
@@ -161,7 +164,6 @@ angular.module 'builder.controller', ['builder.provider']
     $builder = $injector.get '$builder'
 
     $scope.copyObjectToScope = (object) -> copyObjectToScope object, $scope
-
     $scope.updateInput = (value) ->
         ###
         Copy current scope.input[X] to $parent.input.

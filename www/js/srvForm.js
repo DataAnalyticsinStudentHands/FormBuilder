@@ -95,12 +95,14 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     question.question_id = question.id;
                     delete question.id;
                 }
+                console.log(question);
                 return question;
             },
         processInQuestion:
             function(question) {
                 question.options = eval(question.options);
-                question.settings = eval(question.settings);
+                question.settings = JSON.parse(question.settings);
+                console.log(question.settings);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";

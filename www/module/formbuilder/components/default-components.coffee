@@ -21,7 +21,8 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class="col-sm-8">
                     <input type="text" maxlength="3000" ng-trim="false" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
-                  <!--<p class="help-block pull-right">{{3000 - inputText.length}} characters remaining</p>-->   <p class="help-block">{{description}}</p>
+                    <p class="help-block">{{description}}</p>
+                    <p class="help-block pull-right" ng-show="settings.show_charLimit === true">{{3000 - inputText.length}} characters remaining</p>
                 </div>
             </div>
             """
@@ -44,6 +45,11 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label>
                         <input type="checkbox" ng-model="required" />
                         Required</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="settings.show_charLimit" />
+                        Show Character Limit</label>
                 </div>
                 <div class="form-group" ng-if="validationOptions.length > 0">
                     <label class="control-label">Validation</label>

@@ -289,11 +289,13 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                         placeholder: question.placeholder,
                         required: question.required,
                         options: question.options,
-                        validation: question.validation
+                        validation: question.validation,
+                        settings: question.settings
                     });
                 });
             });
         } else {
+            $scope.form_id = 0;
             $builder.addFormObject('default', {
                 component: "section",
                 label: "First Section",
@@ -337,7 +339,8 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                 placeholder: question.placeholder,
                 required: question.required,
                 options: question.options,
-                validation: question.validation
+                validation: question.validation,
+                settings: question.settings
             });
         });
 

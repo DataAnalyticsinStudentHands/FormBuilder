@@ -11,7 +11,7 @@
     for (key in object) {
       value = object[key];
       if (key !== '$$hashKey') {
-        scope[key] = value;
+        scope[key] = angular.copy(value);
       }
     }
   };
@@ -25,7 +25,7 @@
         /*
         1. Copy origin formObject (ng-repeat="object in formObjects") to scope.
         2. Setup optionsText with formObject.options.
-        3. Watch scope.label, .description, .placeholder, .required, .options then copy to origin formObject.
+        3. Watch scope.label, .description, .placeholder, .required, .settings, .options then copy to origin formObject.
         4. Watch scope.optionsText then convert to scope.options.
         5. setup validationOptions
          */
@@ -39,7 +39,8 @@
           formObject.required = $scope.required;
           formObject.options = $scope.options;
           formObject.settings = $scope.settings;
-          return formObject.validation = $scope.validation;
+          formObject.validation = $scope.validation;
+          return console.log($scope);
         }, true);
         $scope.$watch('optionsText', function(text) {
           var x;
@@ -71,6 +72,7 @@
             description: $scope.description,
             placeholder: $scope.placeholder,
             required: $scope.required,
+            settings: $scope.settings,
             optionsText: $scope.optionsText,
             validation: $scope.validation
           };
@@ -87,6 +89,7 @@
           $scope.description = this.model.description;
           $scope.placeholder = this.model.placeholder;
           $scope.required = this.model.required;
+          $scope.$parent.settings = this.model.settings;
           $scope.optionsText = this.model.optionsText;
           return $scope.validation = this.model.validation;
         }
