@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
-        <img class="pull-right" src="img/hc_logo.png" height="50px"/>
-        <h2>{{form_obj.name}}
-        </h2>
+        <img class="pull-right" src="img/hc_logo.png" height="60px" style="padding-top: 10px"/>
+        <h2>{{form_obj.name}}</h2>
+        <h3>{{form_obj.subtitle}}</h3>
         <hr/>
-        <form class="form-horizontal">
+        <form class="form-horizontal" ng-submit="submit()">
             <div ng-model="input" fb-form="{{id}}"></div>
             <div class="form-group">
                 <div class="col-md-2 col-md-offset-10">
-                    <input type="submit" ng-click="submit()" class="btn btn-primary" value="Submit"/>
+                    <input type="submit" class="btn btn-primary" value="Submit"/>
                 </div>
             </div>
         </form>

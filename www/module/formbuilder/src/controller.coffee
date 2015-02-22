@@ -42,7 +42,6 @@ angular.module 'builder.controller', ['builder.provider']
             formObject.options = $scope.options
             formObject.settings = $scope.settings
             formObject.validation = $scope.validation
-            console.log($scope);
         , yes
 
         $scope.$watch 'optionsText', (text) ->

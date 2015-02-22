@@ -39,8 +39,7 @@
           formObject.required = $scope.required;
           formObject.options = $scope.options;
           formObject.settings = $scope.settings;
-          formObject.validation = $scope.validation;
-          return console.log($scope);
+          return formObject.validation = $scope.validation;
         }, true);
         $scope.$watch('optionsText', function(text) {
           var x;
