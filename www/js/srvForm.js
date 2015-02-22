@@ -101,8 +101,8 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
         processInQuestion:
             function(question) {
                 question.options = eval(question.options);
-                question.settings = JSON.parse(question.settings);
-                console.log(question.settings);
+                if(question.settings)
+                    question.settings = JSON.parse(question.settings);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";
