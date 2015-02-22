@@ -46,7 +46,7 @@
         validation: (ref6 = component.validation) != null ? ref6 : '/.*/',
         validationOptions: (ref7 = component.validationOptions) != null ? ref7 : [],
         options: (ref8 = component.options) != null ? ref8 : [],
-        settings: (ref9 = component.settings) != null ? ref9 : [],
+        settings: (ref9 = component.settings) != null ? ref9 : {},
         arrayToText: (ref10 = component.arrayToText) != null ? ref10 : false,
         template: component.template,
         templateUrl: component.templateUrl,

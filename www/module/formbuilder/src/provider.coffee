@@ -49,7 +49,7 @@ angular.module 'builder.provider', []
             validation: component.validation ? '/.*/'
             validationOptions: component.validationOptions ? []
             options: component.options ? []
-            settings: component.settings ? []
+            settings: component.settings ? {}
             arrayToText: component.arrayToText ? no
             template: component.template
             templateUrl: component.templateUrl
