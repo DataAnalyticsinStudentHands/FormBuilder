@@ -134,8 +134,12 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                         var form = Restangular.stripRestangular(data_form);
                         responses.forEach(function(response) {
                             service.processInResponse(response, form);
-                            response.entries.forEach(function(entry){
-                                if(entry) service.processInEntry(entry, $filter('getByQuestionId')(form.questions, entry.question_id)); else entry = {value: ""};
+                            response.entries.forEach(function(entry, key){
+                                console.log(entry);
+                                if(entry)
+                                    service.processInEntry(entry, $filter('getByQuestionId')(form.questions, entry.question_id));
+                                else
+                                    response.entries[key] = {value: ""};
                             });
                         });
                         return responses;
@@ -184,6 +188,12 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
             },
         processInResponse:
             function(response, form){
+                form.questions.forEach(function(question){
+                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                    if(!entry){
+                        response.entries.push({value: "", question_id: question.question_id})
+                    }
+                });
                 response.entries = $filter('orderByIndexInQuestion')($filter('uniqueById')(response.entries, 'question_id'), form.questions);
                 return response;
             },

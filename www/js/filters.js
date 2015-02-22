@@ -14,7 +14,7 @@ fbService.filter('getByQuestionId', function() {
     return function(input, id) {
         var i=0, len=input.length;
         for (; i<len; i++) {
-            if (+input[i].question_id == +id) {
+            if (input[i] && +input[i].question_id == +id) {
                 return input[i];
             }
         }

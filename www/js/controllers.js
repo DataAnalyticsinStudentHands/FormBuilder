@@ -85,8 +85,8 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', '$builder', 'ngTableParams', 'responses', 'form',
-    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, $builder, ngTableParams, responses, form) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'ngTableParams', 'responses', 'form',
+    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, ngTableParams, responses, form) {
         $scope.id = $stateParams.id;
         $scope.responses = responses;
         $scope.form = form;
@@ -111,7 +111,8 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             var entries = response.entries;
             var proc_entries = {};
             entries.forEach(function(entry){
-                proc_entries[entry.question_id] = entry.value;
+                if(entry)
+                    proc_entries[entry.question_id] = entry.value;
             });
             data.push(proc_entries);
         });
@@ -152,9 +153,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
                 var entries = [];
                 questions.forEach(function(question){
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    if($builder.components[question.component].arrayToText){
-                        entry.value = entry.value.replace(/,/g, ' ');
-                    }
                     entries.push(entry.value.replace(/"/g, '""'));
                 });
                 $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
@@ -425,16 +423,10 @@ formBuilderController.controller('uploadCtrl',
                     $scope.inputId = null;
                     $scope.inputText = null;
                     $scope.$parent.inputText = null;
-                    ngNotify.set("Deleted!", {
-                        position: 'bottom',
-                        type: 'success'
-                    });
+                    ngNotify.set("Deleted!", {position: 'bottom', type: 'success'});
                 },
                 function () {
-                    ngNotify.set("Could not delete your file on server.", {
-                        position: 'bottom',
-                        type: 'error'
-                    });
+                    ngNotify.set("Could not delete your file on server.", {position: 'bottom', type: 'error'});
                 }
             );
         };
