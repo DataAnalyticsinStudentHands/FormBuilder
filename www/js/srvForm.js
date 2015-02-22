@@ -45,6 +45,7 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                 newFormObj.name = form_name;
                 newFormObj.questions = [];
                 questions.forEach(function(question){
+                    delete question.id;
                     newFormObj.questions.push(service.processOutQuestion(question));
                 });
                 return Restangular.setFullResponse(true).all("forms").post(newFormObj).then(function(data){
