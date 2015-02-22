@@ -2,44 +2,32 @@
     <label class="col-md-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
     <div class="col-md-8">
         <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
-        <div class="col-sm-6" style="padding-left: 0;">
+        <div class="col-sm-12" style="padding-left: 0;">
             <input type="text"
                    ng-model="inputArray[0]"
                    class="form-control" id="{{formName+index}}-0"/>
-            <p class='help-block'>First Name</p>
-        </div>
-        <div class="col-sm-6" style="padding-left: 0;">
-            <input type="text"
-                   ng-model="inputArray[1]"
-                   class="form-control" id="{{formName+index}}-2"/>
-            <p class='help-block'>Last Name</p>
-        </div>
-        <div class="col-sm-12" style="padding-left: 0;">
-            <input type="text"
-                   ng-model="inputArray[2]"
-                   class="form-control" id="{{formName+index}}-3"/>
             <p class='help-block'>Street Name</p>
         </div>
         <div class="col-sm-6" style="padding-left: 0;">
             <input type="text"
-                   ng-model="inputArray[3]"
-                   class="form-control" id="{{formName+index}}-4"/>
+                   ng-model="inputArray[1]"
+                   class="form-control" id="{{formName+index}}-1"/>
             <p class='help-block'>City</p>
         </div>
         <div class="col-sm-3" style="padding-left: 0;">
             <input type="text"
                    minlength="2"
                    maxlength="2"
-                   ng-model="inputArray[4]"
-                   class="form-control" id="{{formName+index}}-5"/>
+                   ng-model="inputArray[2]"
+                   class="form-control" id="{{formName+index}}-2"/>
             <p class='help-block'>State</p>
         </div>
         <div class="col-sm-3" style="padding-left: 0;">
             <input type="number"
                    max="99999"
                    min="10000"
-                   ng-model="inputArray[5]"
-                   class="form-control" id="{{formName+index}}-6"/>
+                   ng-model="inputArray[3]"
+                   class="form-control" id="{{formName+index}}-3"/>
             <p class='help-block'>ZIP</p>
         </div>
     </div>
