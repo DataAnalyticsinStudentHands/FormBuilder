@@ -82,11 +82,18 @@ angular.module 'builder.drag', []
         # x
         isHover.x = offsetA.left > offsetB.left and offsetA.left < offsetB.left + sizeB.width
         isHover.x = isHover.x or offsetA.left + sizeA.width > offsetB.left and offsetA.left + sizeA.width < offsetB.left + sizeB.width
-        return no if not isHover
+        if !isHover
+            if sizeA.width == 0 or sizeA.height == 0 or sizeB.width == 0 or sizeB.height == 0
+                console.error 'SIZE 0'
+            else
+                return no if not isHover
         # y
         isHover.y = offsetA.top > offsetB.top and offsetA.top < offsetB.top + sizeB.height
         isHover.y = isHover.y or offsetA.top + sizeA.height > offsetB.top and offsetA.top + sizeA.height < offsetB.top + sizeB.height
-        isHover.x and isHover.y
+        if sizeA.width == 0 or sizeA.height == 0 or sizeB.width == 0 or sizeB.height == 0
+            console.error 'SIZE 0'
+        else
+            return isHover.x and isHover.y
 
 
     delay = (ms, func) ->
@@ -166,10 +173,11 @@ angular.module 'builder.drag', []
                             droppable.move e, result
                         else
                             droppable.out e, result
+                        return
             @hooks.up.drag = (e) =>
                 # execute callback for droppables
                 for id, droppable of @data.droppables
-                    if $(droppable.element).width > 0
+                    if $(droppable.element).width() > 0
                         isHover = @isHover $clone, $(droppable.element)
                         droppable.up e, isHover, result
                 delete @hooks.move.drag

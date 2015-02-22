@@ -116,7 +116,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: ['option one', 'option two']
         arrayToText: yes
         template:
             """
@@ -173,7 +173,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: ['option one', 'option two']
         template:
             """
             <div class="form-group">
@@ -227,7 +227,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: ['option one', 'option two']
         template:
             """
             <div class="form-group">

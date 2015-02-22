@@ -98,11 +98,21 @@
         isHover.x = offsetA.left > offsetB.left && offsetA.left < offsetB.left + sizeB.width;
         isHover.x = isHover.x || offsetA.left + sizeA.width > offsetB.left && offsetA.left + sizeA.width < offsetB.left + sizeB.width;
         if (!isHover) {
-          return false;
+          if (sizeA.width === 0 || sizeA.height === 0 || sizeB.width === 0 || sizeB.height === 0) {
+            console.error('SIZE 0');
+          } else {
+            if (!isHover) {
+              return false;
+            }
+          }
         }
         isHover.y = offsetA.top > offsetB.top && offsetA.top < offsetB.top + sizeB.height;
         isHover.y = isHover.y || offsetA.top + sizeA.height > offsetB.top && offsetA.top + sizeA.height < offsetB.top + sizeB.height;
-        return isHover.x && isHover.y;
+        if (sizeA.width === 0 || sizeA.height === 0 || sizeB.width === 0 || sizeB.height === 0) {
+          return console.error('SIZE 0');
+        } else {
+          return isHover.x && isHover.y;
+        }
       };
     })(this);
     delay = function(ms, func) {
@@ -183,7 +193,7 @@
           result.element = $clone[0];
           $clone.addClass("fb-draggable form-horizontal prepare-dragging");
           _this.hooks.move.drag = function(e, defer) {
-            var droppable, id, ref, results;
+            var droppable, id, ref;
             if ($clone.hasClass('prepare-dragging')) {
               $clone.css({
                 width: $element.width(),
@@ -201,27 +211,24 @@
             });
             _this.autoScroll.start(e);
             ref = _this.data.droppables;
-            results = [];
             for (id in ref) {
               droppable = ref[id];
               if ($(droppable.element).width() > 0) {
                 if (_this.isHover($clone, $(droppable.element))) {
-                  results.push(droppable.move(e, result));
+                  droppable.move(e, result);
                 } else {
-                  results.push(droppable.out(e, result));
+                  droppable.out(e, result);
                 }
-              } else {
-                results.push(void 0);
+                return;
               }
             }
-            return results;
           };
           _this.hooks.up.drag = function(e) {
             var droppable, id, isHover, ref;
             ref = _this.data.droppables;
             for (id in ref) {
               droppable = ref[id];
-              if ($(droppable.element).width > 0) {
+              if ($(droppable.element).width() > 0) {
                 isHover = _this.isHover($clone, $(droppable.element));
                 droppable.up(e, isHover, result);
               }
