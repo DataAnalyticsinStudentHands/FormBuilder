@@ -53,7 +53,7 @@
                         }
                         return _results;
                     })();
-                    return $scope.inputText = $scope.options[0];
+                    //return $scope.inputText = $scope.options[0];
                 });
                 component = $builder.components[formObject.component];
                 return $scope.validationOptions = component.validationOptions;
@@ -559,9 +559,9 @@
                         view = $compile($template)(scope);
                         return $(element).html(view);
                     });
-                    if (!scope.$component.arrayToText && scope.formObject.options.length > 0) {
-                        scope.inputText = scope.formObject.options[0];
-                    }
+                    //if (!scope.$component.arrayToText && scope.formObject.options.length > 0) {
+                    //    scope.inputText = scope.formObject.options[0];
+                    //}
                     return scope.$watch("default['" + scope.formObject.id + "']", function(value) {
                         if (!value) {
                             return;
