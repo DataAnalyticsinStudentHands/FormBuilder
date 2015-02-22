@@ -135,7 +135,6 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                         responses.forEach(function(response) {
                             service.processInResponse(response, form);
                             response.entries.forEach(function(entry, key){
-                                console.log(entry);
                                 if(entry)
                                     service.processInEntry(entry, $filter('getByQuestionId')(form.questions, entry.question_id));
                                 else
@@ -172,9 +171,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                             if(inputObj)
                                 entryObj.value = inputObj.value;
                         });
-                        return service.updateResponse(id, response).then(function(s){
-                            console.log(s, "done");
-                        });
+                        return service.updateResponse(id, response);
                     })
                 });
             },

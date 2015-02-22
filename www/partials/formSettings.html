@@ -8,6 +8,7 @@
                 </label>
                 <div class="pull-right">
                     <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
+                    <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
                     <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
                 </div>
             </div>
@@ -22,7 +23,7 @@
             <label class='control-label pull-right'> Form Open
                 <input type="checkbox" class='form-control' ng-model="form.enabled">
             </label>
-            <p class="help-block">Non-public forms are only viewable by collaborators. Form must be public for responses without user login.</p>
+            <p class="help-block">Non-public forms are only viewable by collaborators. Form must be public for responses without user login. Form must be open to receive responses.</p>
             <br/>
             <label class='control-label' style="width: 100%"> Form Closed Message
                 <textarea class='form-control' ng-model="form.closed_message"></textarea>
@@ -31,7 +32,7 @@
             <label class='control-label' style="width: 100%"> URL Redirect
                 <input type="url" class='form-control' ng-model="form.redirect_url">
             </label>
-            <p class="help-block">URL for user after finishing form.</p>
+            <p class="help-block">URL to send user after finishing form.</p>
         </div>
         <div class="col-md-5">
             <label class='control-label'> Form URL
