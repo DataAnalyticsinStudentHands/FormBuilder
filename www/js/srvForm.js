@@ -73,6 +73,8 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
             function(question) {
                 if(!(typeof question.options == 'string' || question.options instanceof String))
                     question.options = JSON.stringify(angular.copy(question.options));
+                if(!(typeof question.settings == 'string' || question.settings instanceof String))
+                    question.settings = JSON.stringify(angular.copy(question.settings));
                 switch(question.validation){
                     case "/.*/":
                         question.validation = "NONE";
@@ -89,16 +91,18 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     default:
                         question.validation = "NONE";
                 }
-                console.log(question);
-                if(question.id) {
+                if(question.id || question.id === 0) {
                     question.question_id = question.id;
                     delete question.id;
                 }
+                console.log(question);
                 return question;
             },
         processInQuestion:
             function(question) {
                 question.options = eval(question.options);
+                if(question.settings)
+                    question.settings = JSON.parse(question.settings);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";
