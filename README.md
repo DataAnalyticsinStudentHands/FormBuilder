@@ -10,7 +10,7 @@ FormBuilder is a dynamic form building web application that works with dynamic f
 
 ### Branch and Versioning Introduction
 - **MASTER** Up to date version of what is deployed to production environment. Updates to master must be for deploying a new release. Production releases must be tagged with a production release tag.
-- **RELEASE** Used to deploy to the test environment. Commits directly to this branch should be for bug hotfixing and must bump the PATCH version number in the release tagging. All test deployments must be tagged with a pre-production release tag.
+- **PRERELEASE** Used to deploy to the test environment. Commits directly to this branch should be for bug hotfixing and must bump the PATCH version number in the release tagging. All test deployments must be tagged with a pre-production release tag.
 - **FEATURE/*** Features are developed in the feature/* branches. Feature branch work towards bumps in MINOR version number as they are merged into the release branch. Feature branches can sync and push to the release branch as needed.
 
 #### Key Points:
