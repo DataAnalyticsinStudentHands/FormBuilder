@@ -195,6 +195,16 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         templateUrl: 'partials/component/tmplDate.html',
         popoverTemplateUrl: 'partials/component/popDate.html'
     });
+    $builder.registerComponent('phoneInput', {
+        group: 'Common',
+        label: 'Phone',
+        description: 'Phone Number',
+        validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+        placeholder: '###-###-####',
+        required: false,
+        templateUrl: 'partials/component/tmplPhone.html',
+        popoverTemplateUrl: 'partials/component/popPhone.html'
+    });
     $builder.registerComponent('name', {
         group: 'Other',
         label: 'Name',
