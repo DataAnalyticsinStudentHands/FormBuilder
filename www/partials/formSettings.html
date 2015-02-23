@@ -17,13 +17,13 @@
     </div>
     <form class="row" ng-submit="save()">
         <div class="col-md-5">
-            <label class='control-label'> Form Public
-                <input type="checkbox" class='form-control' ng-model="form.public">
-            </label>
             <label class='control-label pull-right'> Form Open
                 <input type="checkbox" class='form-control' ng-model="form.enabled">
             </label>
-            <p class="help-block">Non-public forms are only viewable by collaborators. Form must be public for responses without user login. Form must be open to receive responses.</p>
+            <label class='control-label'> Form Public
+                <input type="checkbox" class='form-control' ng-model="form.public">
+            </label>
+            <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
             <br/>
             <label class='control-label' style="width: 100%"> Form Closed Message
                 <textarea class='form-control' ng-model="form.closed_message"></textarea>

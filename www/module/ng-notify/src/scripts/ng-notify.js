@@ -217,7 +217,7 @@
                  */
                 fadeLib.fn.prototype.fadeOut = function(duration, callback) {
                     this._fade(-1, 1, duration, callback);
-                    this.el.css('z-index', '0');
+                    this.el.css('z-index', '-999');
                 };
 
                 /**
