@@ -66,7 +66,8 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
             function(fid) {
                 return Restangular.all("forms").one(fid).remove();
             },
-        processInForm: function (form) {
+        processInForm:
+            function (form) {
             form.questions = $filter('orderBy')(form.questions, 'index');
         },
         processOutQuestion:
@@ -125,6 +126,14 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     default:
                         question.validation = "/.*/";
                 }
+            },
+        duplicateForm:
+            function(form, new_name) {
+                var form_duplicate = angular.copy(form);
+                form_duplicate.questions.forEach(function(q){
+                    delete q.question_id;
+                });
+                this.newForm(new_name, form_duplicate.questions);
             }
     }
 }]);

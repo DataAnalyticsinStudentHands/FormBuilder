@@ -261,6 +261,20 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
                 }
             });
         };
+        $scope.duplicateForm = function() {
+            bootbox.prompt({
+                title: "Name of Duplicate Form",
+                value: $scope.form.name,
+                callback: function(result) {
+                    if (result === null || result === "") {
+                        ngNotify.set("New form must have name!", "error")
+                    } else {
+                        formService.duplicateForm($scope.form, result);
+                        ngNotify.set("Form successfully duplicated!", "success")
+                    }
+                }
+            });
+        };
 
         $scope.save = function(){
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {

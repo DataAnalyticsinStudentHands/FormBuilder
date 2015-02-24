@@ -61,13 +61,14 @@
             </label>
             <p class="help-block">Message to show visitor once form is submitted.</p>
             <label class='control-label'> Expiration Time
-                <input type="date" ng-model="form.expiration_date" class='form-control'>
+                <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
             </label>
             <p class="help-block">Date at which form will automatically close to new submissions.</p>
         </div>
         <div class="col-md-2">
             <input type="submit" class="btn btn-primary pull-right" value="Save">
             <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
+            <a type="button" class="btn btn-default" ng-click="duplicateForm()">Duplicate</a>
         </div>
     </form>
 </div>
