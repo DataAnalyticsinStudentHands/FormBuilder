@@ -64,15 +64,15 @@ angular.module 'builder.provider', []
     @convertFormObject = (name, formObject={}) ->
         component = @components[formObject.component]
         throw "The component #{formObject.component} was not registered." if not component?
-        if formObject.id
-            exist = no
-            for form in @forms[name] when formObject.id <= form.id # less and equal
-                formObject.id = @formsId[name]++
-                exist = yes
-                break
-            @formsId[name] = formObject.id + 1 if not exist
+#        if formObject.id
+#            exist = no
+#            for form in @forms[name] when formObject.id <= form.id # less and equal
+#                formObject.id = @formsId[name]++
+#                exist = yes
+#                break
+#            @formsId[name] = formObject.id + 1 if not exist
         result =
-            id: formObject.id ? @formsId[name]++
+            id: formObject.id ? null
             component: formObject.component
             editable: formObject.editable ? component.editable
             index: formObject.index ? 0
@@ -160,7 +160,7 @@ angular.module 'builder.provider', []
         @param name: The form name.
         @param index: The form object index.
         @param form: The form object.
-            id: {int} The form object id. It will be generate by $builder if not asigned.
+            id: {int} The form object id. It will be null if not asigned.
             component: {string} The component name
             editable: {bool} Is the form object editable? (default is yes)
             label: {string} The form object label.

@@ -281,7 +281,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                 var questions = data.questions;
                 questions.forEach(function(question){
                     $builder.addFormObject('default', {
-                        //id: question.question_id,
+                        id: question.question_id,
                         component: question.component,
                         description: question.description,
                         label: question.label,

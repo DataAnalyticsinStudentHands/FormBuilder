@@ -62,7 +62,7 @@
       return result;
     };
     this.convertFormObject = function(name, formObject) {
-      var component, exist, form, i, len, ref, ref1, ref10, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, result;
+      var component, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, result;
       if (formObject == null) {
         formObject = {};
       }
@@ -70,34 +70,18 @@
       if (component == null) {
         throw "The component " + formObject.component + " was not registered.";
       }
-      if (formObject.id) {
-        exist = false;
-        ref = this.forms[name];
-        for (i = 0, len = ref.length; i < len; i++) {
-          form = ref[i];
-          if (!(formObject.id <= form.id)) {
-            continue;
-          }
-          formObject.id = this.formsId[name]++;
-          exist = true;
-          break;
-        }
-        if (!exist) {
-          this.formsId[name] = formObject.id + 1;
-        }
-      }
       result = {
-        id: (ref1 = formObject.id) != null ? ref1 : this.formsId[name]++,
+        id: (ref = formObject.id) != null ? ref : null,
         component: formObject.component,
-        editable: (ref2 = formObject.editable) != null ? ref2 : component.editable,
-        index: (ref3 = formObject.index) != null ? ref3 : 0,
-        label: (ref4 = formObject.label) != null ? ref4 : component.label,
-        description: (ref5 = formObject.description) != null ? ref5 : component.description,
-        placeholder: (ref6 = formObject.placeholder) != null ? ref6 : component.placeholder,
-        options: (ref7 = formObject.options) != null ? ref7 : component.options,
-        settings: (ref8 = formObject.settings) != null ? ref8 : component.settings,
-        required: (ref9 = formObject.required) != null ? ref9 : component.required,
-        validation: (ref10 = formObject.validation) != null ? ref10 : component.validation
+        editable: (ref1 = formObject.editable) != null ? ref1 : component.editable,
+        index: (ref2 = formObject.index) != null ? ref2 : 0,
+        label: (ref3 = formObject.label) != null ? ref3 : component.label,
+        description: (ref4 = formObject.description) != null ? ref4 : component.description,
+        placeholder: (ref5 = formObject.placeholder) != null ? ref5 : component.placeholder,
+        options: (ref6 = formObject.options) != null ? ref6 : component.options,
+        settings: (ref7 = formObject.settings) != null ? ref7 : component.settings,
+        required: (ref8 = formObject.required) != null ? ref8 : component.required,
+        validation: (ref9 = formObject.validation) != null ? ref9 : component.validation
       };
       return result;
     };
@@ -207,7 +191,7 @@
         @param name: The form name.
         @param index: The form object index.
         @param form: The form object.
-            id: {int} The form object id. It will be generate by $builder if not asigned.
+            id: {int} The form object id. It will be null if not asigned.
             component: {string} The component name
             editable: {bool} Is the form object editable? (default is yes)
             label: {string} The form object label.

@@ -96,8 +96,8 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                 }
                 if(question.id || question.id === 0) {
                     question.question_id = question.id;
-                    delete question.id;
                 }
+                delete question.id;
                 console.log(question);
                 return question;
             },
