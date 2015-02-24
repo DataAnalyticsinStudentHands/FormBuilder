@@ -13,7 +13,9 @@ var databaseModule = angular.module('databaseModule', [
     'ui.router',
     'ngSanitize',
     'ngNotify',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ui.grid',
+    'ui.grid.resizeColumns'
 ]);
 
 databaseModule.config(

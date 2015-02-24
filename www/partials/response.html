@@ -10,36 +10,7 @@
     <div class="well" ng-show="responses.length < 1">
         <p>There are currently no responses here.</p>
     </div>
-    <div style="overflow-y: scroll" ng-hide="responses.length < 1">
-    <table ng-table="tableParams" show-filter="true" class="table">
-        <thead>
-        <tr>
-            <th ng-repeat="column in columns" ng-show="column.visible"
-                class="text-center sortable" ng-class="{
-                    'sort-asc': tableParams.isSortBy(column.field, 'asc'),
-                    'sort-desc': tableParams.isSortBy(column.field, 'desc')
-                  }"
-                ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
-                {{column.title}}
-            </th>
-        </tr>
-        <tr>
-            <th ng-repeat="column in columns"
-                ng-show="column.visible"
-                class="text-center sortable">
-                <!--suppress CheckEmptyScriptTag, HtmlFormInputWithoutLabel -->
-                <input type="text" class="form-control" placeholder="Search..."
-                       ng-model="filter_dict[column.field] "/>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="response in $data">
-            <td ng-repeat="column in columns" ng-show="column.visible" sortable="column.field">
-                {{response[column.field]}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
     </div>
 </div>

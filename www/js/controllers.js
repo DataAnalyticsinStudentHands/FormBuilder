@@ -1,6 +1,6 @@
 'use strict';
 /* Controllers */
-var formBuilderController = angular.module('formBuilderControllerModule', ['ngTable']);
+var formBuilderController = angular.module('formBuilderControllerModule', []);
 
 formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify',
     function($scope, Auth, $state, ngNotify) {
@@ -85,8 +85,8 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'ngTableParams', 'responses', 'form',
-    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, ngTableParams, responses, form) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form',
+    function($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form) {
         $scope.id = $stateParams.id;
         $scope.responses = responses;
         $scope.form = form;
@@ -100,46 +100,29 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.questions = $scope.form.questions;
         $scope.questions.forEach(function(q){
             var q_obj = {};
-            q_obj["title"] = q.label;
-            q_obj["field"] = q.question_id;
-            q_obj["visible"] = true;
+            q_obj["displayName"] = q.label;
+            q_obj["field"] = q.question_id.toString();
             $scope.columns.push(q_obj);
         });
         var data = [];
-
         $scope.responses.forEach(function(response){
             var entries = response.entries;
             var proc_entries = {};
             entries.forEach(function(entry){
                 if(entry)
-                    proc_entries[entry.question_id] = entry.value;
+                    proc_entries[entry.question_id.toString()] = entry.value;
             });
             data.push(proc_entries);
         });
-        $scope.tableParams = new ngTableParams({
-            page: 1,            // show first page
-            count: 10           // count per page,
-        }, {
-            total: data.length, // length of data
-            getData: function($defer, params) {
-                // use build-in angular filter
-                var filteredData = $scope.filter_dict ?
-                    $filter('filter')(data, $scope.filter_dict) :
-                    data;
+        $scope.data = data;
 
-                var orderedData = params.sorting() ?
-                    $filter('orderBy')(filteredData, params.orderBy()) :
-                    filteredData;
-
-                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-            }
-        });
-
-        $scope.$watch("filter_dict", function () {
-            if($scope.filter_dict && $scope.tableParams){
-                $scope.tableParams.reload();
-            }
-        }, true);
+        $scope.gridOptions = {
+            enableSorting: true,
+            enableColumnResizing: true,
+            enableFiltering: true,
+            data: $scope.data,
+            columnDefs: $scope.columns
+        };
 
         $scope.getCSV = function(){
             $scope.CSVout = "";
