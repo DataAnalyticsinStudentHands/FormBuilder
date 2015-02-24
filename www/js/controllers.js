@@ -355,7 +355,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.input = [];
         $scope.submit = function() {
             $validator.validate($scope, $scope.id).success(function() {
-                responseService.newResponse($scope.input, $scope.id).then(function(){
+                responseService.newResponse($scope.input, $scope.id, $scope.uid).then(function(){
                     ngNotify.set("Form submission success!", "success");
                     $state.go("finished", {"id": $scope.form_obj.id});
                     $scope.input = null;
