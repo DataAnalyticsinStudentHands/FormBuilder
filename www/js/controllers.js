@@ -102,7 +102,9 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             var q_obj = {};
             q_obj["displayName"] = q.label;
             q_obj["field"] = q.question_id.toString();
-            $scope.columns.push(q_obj);
+            q_obj["width"] = 200;
+            if(q.component !== "description" && q.component !== "section")
+                $scope.columns.push(q_obj);
         });
         var data = [];
         $scope.responses.forEach(function(response){
