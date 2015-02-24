@@ -172,19 +172,19 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                 });
             },
         createResponse:
-            function(fid) {
+            function(fid, uid) {
                 return Restangular.all("formResponses").post({
                     "form_id": fid,
-                    "owner_id": 1,
+                    "owner_id": uid,
                     "entries": []
                 }).then(function(data){
                     return eval(data);
                 });
             },
         newResponse:
-            function(input, fid) {
+            function(input, fid, uid) {
                 var service = this;
-                return this.createResponse(fid).then(function(id){
+                return this.createResponse(fid, uid).then(function(id){
                     return service.getResponse(id).then(function(response){
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
