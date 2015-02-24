@@ -238,12 +238,12 @@ angular.module 'builder.directive', [
         $(element).on 'hide.bs.popover', ->
             # do not remove the DOM
             $popover = $("form.#{popover.id}").closest '.popover'
-            if not popover.isClickedSave
+#            if not popover.isClickedSave
                 # eval the cancel event
-                if scope.$$phase or scope.$root.$$phase
-                    scope.popover.cancel()
-                else
-                    scope.$apply -> scope.popover.cancel()
+#                if scope.$$phase or scope.$root.$$phase
+#                    scope.popover.cancel()
+#                else
+#                    scope.$apply -> scope.popover.cancel()
             $popover.removeClass 'in'
             setTimeout ->
                 $popover.hide()

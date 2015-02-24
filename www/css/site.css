@@ -1,4 +1,9 @@
 .footer{height:50px}
+
+.grid {
+    height: 800px;
+}
+
 .rmargin {
     margin-right: 0;
     margin-left: 0;
