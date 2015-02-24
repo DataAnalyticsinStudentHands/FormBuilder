@@ -2,8 +2,9 @@
 /* Controllers */
 var formBuilderController = angular.module('formBuilderControllerModule', []);
 
-formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify',
-    function($scope, Auth, $state, ngNotify) {
+formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify', '$stateParams',
+    function($scope, Auth, $state, ngNotify, $stateParams) {
+        $scope.form_id = $stateParams.form_id;
         if($scope.isAuthenticated() === true) {
             //Point 'em to logged in page of app
             $state.go('secure.home');
@@ -20,7 +21,7 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNo
                     $scope.loginResult = result;
                     ngNotify.set("Login success!", "success");
                     Auth.confirmCredentials();
-                    $state.go('secure.home');
+                    if ($scope.form_id) $state.go('form', {id: $scope.form_id}); else $state.go('secure.home');
                 }, function() {
                     ngNotify.set("Login failure, please try again!", "error");
                     $scope.loginMsg = "Arghhh, matey! Check your username or password.";
@@ -40,8 +41,8 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNo
         };
     }]);
 
-formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify',
-    function($scope, $state, Auth, ngNotify) {
+formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify', '$stateParams',
+    function($scope, $state, Auth, ngNotify, $stateParams) {
         $scope.registerUser = function() {
             var errorMSG;
             if($scope.password.pw == $scope.password.pwc) {
@@ -52,7 +53,7 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                     function () {
                         Auth.clearCredentials();
                         ngNotify.set("Registration success!", "success");
-                        $state.go("login", {}, {reload: true});
+                        $state.go("login", {"form_id":$stateParams.form_id}, {reload: true});
                     }, function (error) {
                         errorMSG = "Registration Failure!";
                         if (error.status == 409)
@@ -186,6 +187,12 @@ formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
                 location.replace(form.redirect_url);
             }, 5000)
         }
+    }]);
+
+formBuilderController.controller('closedCtrl', ['$scope', '$stateParams',
+    function($scope, $stateParams) {
+        $scope.form = JSON.parse($stateParams.form);
+        console.log($scope.form);
     }]);
 
 formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',

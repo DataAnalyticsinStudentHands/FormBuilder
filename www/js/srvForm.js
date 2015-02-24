@@ -99,7 +99,6 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     question.question_id = question.id;
                 }
                 delete question.id;
-                console.log(question);
                 return question;
             },
         processInQuestion:

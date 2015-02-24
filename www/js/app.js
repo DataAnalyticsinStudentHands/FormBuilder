@@ -23,14 +23,14 @@ databaseModule.config(
         $urlRouterProvider.otherwise("/login");
         $stateProvider.
             state('login', {
-                url: "/login",
+                url: "/login/:form_id",
                 views: {
                     "app": { templateUrl: "partials/login.html", controller: "loginCtrl"}
                 },
                 authenticate: false
             }).
             state('register', {
-                url: "/register",
+                url: "/register/:form_id",
                 views: {
                     "app": { templateUrl: "partials/register.html", controller: "registerCtrl"}
                 },
@@ -100,8 +100,17 @@ databaseModule.config(
                     }
                 },
                 resolve: {
-                    form: function(formService, $stateParams) {
-                        return formService.getForm($stateParams.id);
+                    form: function(formService, $stateParams, $state) {
+                        return formService.getForm($stateParams.id).then(function(data){
+                            return data;
+                        }, function(data){
+                            console.log(data);
+                            if(data.status === 401 && data.data.enabled) {
+                                $state.go('login', {form_id: $stateParams.id});
+                            } else {
+                                $state.go('closed', {id: $stateParams.id, form: JSON.stringify(data.data)});
+                            }
+                        });
                     }
                 },
                 authenticate: false
@@ -116,6 +125,15 @@ databaseModule.config(
                 resolve: {
                     form: function(formService, $stateParams) {
                         return formService.getForm($stateParams.id);
+                    }
+                },
+                authenticate: false
+            }).
+            state('closed', {
+                url: "/close/:id/:form",
+                views: {
+                    "app": {
+                        templateUrl: "partials/closed.html", controller: "closedCtrl"
                     }
                 },
                 authenticate: false
