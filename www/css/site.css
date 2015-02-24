@@ -7,13 +7,27 @@
 .rmargin {
     margin-right: 0;
     margin-left: 0;
+    background-color: white;
+    border-bottom: 1px solid #f7f7f7;
+    margin-bottom: 10px;
+    padding:15px;
 }
 .form-title-fixed {
     position: fixed !important;
     top:0;
     z-index: 1000;
-    background-color: white;
     /*width: inherit;*/
+}
+@media screen and (min-width: 710px) {
+    .rmargin>div>.pull-right {
+       -webkit-transform: translateY(-50%);
+       -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        right: 15px;
+    }
 }
 @media screen and (max-width: 767px) {
     .rmargin {
@@ -54,15 +68,6 @@
 .formbuilderRight .form-horizontal{
     overflow-y: scroll;
     overflow-x: hidden;
-    /*height: 500px;*/
-}
-
-.formbuilderRight {
-    /*display: block;*/
-    
-/*    overflow-y: hidden;
-    overflow-x: hidden;
-    height: calc(100% - 250px);*/
 }
 
 .form-signin {
