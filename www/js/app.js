@@ -20,7 +20,7 @@ var databaseModule = angular.module('databaseModule', [
 
 databaseModule.config(
     function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/login/");
         $stateProvider.
             state('login', {
                 url: "/login/:form_id",
@@ -216,7 +216,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         popoverTemplateUrl: 'partials/component/popDate.html'
     });
     $builder.registerComponent('phoneInput', {
-        group: 'Common',
+        group: 'Default',
         label: 'Phone',
         description: 'Phone Number',
         validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',

@@ -6,7 +6,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
     $builderProvider.registerComponent 'textInput',
         group: 'Default'
         label: 'Text Input'
-        description: 'description'
+        description: ''
         placeholder: 'placeholder'
         required: no
         validationOptions: [
@@ -75,7 +75,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
     $builderProvider.registerComponent 'textArea',
         group: 'Default'
         label: 'Text Area'
-        description: 'description'
+        description: ''
         placeholder: 'placeholder'
         required: no
         template:
@@ -133,7 +133,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
     $builderProvider.registerComponent 'checkbox',
         group: 'Default'
         label: 'Checkbox'
-        description: 'description'
+        description: ''
         placeholder: 'placeholder'
         required: no
         options: ['option one', 'option two']
@@ -190,7 +190,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
     $builderProvider.registerComponent 'radio',
         group: 'Default'
         label: 'Radio'
-        description: 'description'
+        description: ''
         placeholder: 'placeholder'
         required: no
         options: ['option one', 'option two']
@@ -244,7 +244,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
     $builderProvider.registerComponent 'select',
         group: 'Default'
         label: 'Select'
-        description: 'description'
+        description: ''
         placeholder: 'placeholder'
         required: no
         options: ['option one', 'option two']

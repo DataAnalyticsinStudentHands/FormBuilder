@@ -5,7 +5,7 @@
       $builderProvider.registerComponent('textInput', {
         group: 'Default',
         label: 'Text Input',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         validationOptions: [
@@ -29,7 +29,7 @@
       $builderProvider.registerComponent('textArea', {
         group: 'Default',
         label: 'Text Area',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-sm-4 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class=\"col-sm-8\">\n        <textarea maxlength='{{settings.charLimit}}' ng-trim=\"false\" type=\"text\" ng-model=\"inputText\" validator-required=\"{{required}}\" validator-group=\"{{formName}}\" id=\"{{formName+index}}\" class=\"form-control\" rows=\"6\" placeholder=\"{{placeholder}}\"/>\n        <p class=\"help-block pull-right\" ng-show=\"settings.charLimit_show === true\">{{settings.charLimit - inputText.length}} characters remaining</p>\n        <p class=\"help-block\">{{description}}</p>\n    </div>\n</div>",
@@ -38,7 +38,7 @@
       $builderProvider.registerComponent('checkbox', {
         group: 'Default',
         label: 'Checkbox',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
@@ -49,7 +49,7 @@
       $builderProvider.registerComponent('radio', {
         group: 'Default',
         label: 'Radio',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
@@ -59,7 +59,7 @@
       return $builderProvider.registerComponent('select', {
         group: 'Default',
         label: 'Select',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
