@@ -227,15 +227,6 @@
           return $(element).on('hide.bs.popover', function() {
             var $popover;
             $popover = $("form." + popover.id).closest('.popover');
-            if (!popover.isClickedSave) {
-              if (scope.$$phase || scope.$root.$$phase) {
-                scope.popover.cancel();
-              } else {
-                scope.$apply(function() {
-                  return scope.popover.cancel();
-                });
-              }
-            }
             $popover.removeClass('in');
             setTimeout(function() {
               return $popover.hide();
