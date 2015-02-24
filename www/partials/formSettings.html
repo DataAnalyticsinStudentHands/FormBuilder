@@ -20,12 +20,25 @@
     </div>
     <form class="row" ng-submit="save()">
         <div class="col-md-5">
-            <label class='control-label pull-right'> Form Open
-                <input type="checkbox" class='form-control' ng-model="form.enabled">
-            </label>
-            <label class='control-label'> Form Public
-                <input type="checkbox" class='form-control' ng-model="form.public">
-            </label>
+            <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
+            <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
+            <br/>
+            <div class="onoffswitch pull-left">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.public">
+                <label class="onoffswitch-label" for="myonoffswitch2">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+            <div class="onoffswitch pull-right">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.enabled" id="myonoffswitch">
+                <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+            <br/>
+            <br/>
             <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
             <br/>
             <label class='control-label' style="width: 100%"> Form Closed Message
@@ -47,7 +60,7 @@
                 <textarea class='form-control' ng-model="form.completed_message"></textarea>
             </label>
             <p class="help-block">Message to show visitor once form is submitted.</p>
-            <label class='control-label'> Form URL
+            <label class='control-label'> Expiration Time
                 <input type="date" ng-model="form.expiration_date" class='form-control'>
             </label>
             <p class="help-block">Date at which form will automatically close to new submissions.</p>
