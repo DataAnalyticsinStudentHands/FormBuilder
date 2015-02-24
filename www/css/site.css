@@ -15,19 +15,40 @@
     background-color: white;
     /*width: inherit;*/
 }
-.form-fixed {
-    position: fixed !important;
-    top:100px;
+@media screen and (max-width: 767px) {
+    .rmargin {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .rmargin {
+        width: 750px;
+    }
 }
 @media screen and (min-width: 992px) {
     .formbuilderRight {
-        position: absolute;
-        right: 40px;
+        width: 455px;
+    }
+    .rmargin {
+        width: 970px;
+    }
+    .form-fixed {
+        position: fixed !important;
+        top:100px;
+        left:50%;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .formbuilderRight {
+        width: 555px;
+    }
+    .rmargin {
+        width: 1170px;
     }
 }
 @media screen and (max-width: 991px) {
     .formbuilderRight .form-horizontal{
-        height: 400px;
+        height: 400px !important;
     }
 }
 .formbuilderRight .form-horizontal{

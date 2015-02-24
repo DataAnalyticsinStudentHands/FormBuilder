@@ -1,37 +1,26 @@
 /**
  * Created by Carl on 2/6/2015.
  */
+//  $(function() {
+//     $(".formbuilderRight").css('width', $(".formbuilderLeft").width());
+// });
 $(window).scroll(function () {
     if ($(window).scrollTop() > 140) {
         $('.rmargin').addClass('form-title-fixed');
-        $('.rmargin').css('width', $('.container').width()+30);
         $('.formbuilder').css('margin-top', 100);
     } else {
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
     };
-    if (verge.viewportW() > 991) {
-        var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 140) {
-            fb.addClass('form-fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
-        } else {
-            fb.removeClass('form-fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
-        }
+    var fb = $('.formbuilderRight');
+    if ($(window).scrollTop() > 140) {
+        fb.addClass('form-fixed');
+        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
     } else {
-        $(".formbuilderRight .form-horizontal").css('height', 400);
+        fb.removeClass('form-fixed');
+        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-285+$(window).scrollTop());
     }
 });
-$( window ).resize(function() {
-    if (verge.viewportW() <= 991) {
-        $('.formbuilderRight').removeClass('form-fixed');
-        $(".formbuilderRight .form-horizontal").css('height', 400);
-    } else {
-        // $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
-    }
-});
-
 var dd = {
     content: [],
     styles: {
