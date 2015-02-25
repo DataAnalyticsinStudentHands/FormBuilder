@@ -1,9 +1,11 @@
 .footer{height:50px}
-
-/*.grid {
-    height: 800px;
+.form-group {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
 }
-*/
+.grid {
+    height: 500px !important;
+}
 .rmargin {
     margin-right: 0;
     margin-left: 0;
