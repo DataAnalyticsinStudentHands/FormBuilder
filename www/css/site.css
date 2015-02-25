@@ -1,11 +1,52 @@
+/*site wise**************************************************************************************/
+/*uh branding colors*/
+.navbar-default {
+    background-color: #c8102e;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+}
+.navbar-default .navbar-text {
+    color: white;
+}
+.navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a,.navbar-default,.btn-default,.navbar-default .navbar-link {
+    color: white;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:active, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:active, .btn-default:hover, .btn-default:active {
+    color: white;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    background-color: #960c22;
+    color: white;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-toggle:active,.navbar-toggle:hover,.navbar-toggle:focus,.btn-default:hover, .btn-default:active, .btn-default:focus {
+    color: white;
+    background-color: #00866c;
+}
+.btn-default {
+    background-color: #00b388;
+}
+.navbar-toggle {
+    background-color: #00b388;
+    border-color: none;
+}
+.navbar-default .navbar-toggle {
+    border: none;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+/*uh branding colors */
 .footer{height:50px}
+/*site wise***************************************************************************************/
+.grid {
+    min-height: 400px;
+}
 .form-group {
     margin-left: 15px !important;
     margin-right: 15px !important;
 }
-.grid {
-    height: 500px !important;
-}
+/*form builder ***********************************************************************************/
 .rmargin {
     margin-right: 0;
     margin-left: 0;
@@ -71,7 +112,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
+/*form builder **********************************************************************************************/
 .form-signin {
     max-width: 330px;
     padding: 15px;

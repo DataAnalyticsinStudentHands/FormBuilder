@@ -12,5 +12,8 @@
     </div>
 </div>
 <div>
-<div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
+<div class="ui-grid-container">
+<!--  ui-grid-move-columns   ui-grid-auto-resize-->
+    <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
+    </div>    
 </div>
