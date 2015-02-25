@@ -19,7 +19,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
-                <div class="col-sm-8">
+                <div class='{{settings.boxSize ? settings.boxSize : "col-sm-8"}}'>
                     <input type="text" maxlength='settings.charLimit' ng-trim="false" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
                     <p class="help-block">{{description}}</p>
                     <p class="help-block pull-right" ng-show="settings.charLimit_show === true">{{settings.charLimit - inputText.length}} characters remaining</p>
@@ -58,6 +58,10 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                 <div class="form-group" ng-if="validationOptions.length > 0">
                     <label class="control-label">Validation</label>
                     <select ng-model="$parent.validation" class="form-control" ng-options="option.rule as option.label for option in validationOptions"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Size</label>
+                    <select ng-init="settings.boxSize='col-sm-8'" ng-model="settings.boxSize" class="form-control" ng-options="size.value as size.label for size in [{'value':'col-sm-8','label':'Large'},{'value':'col-sm-3','label':'Small'}]"></select>
                 </div>
 
                 <hr/>

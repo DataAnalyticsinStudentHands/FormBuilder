@@ -51,6 +51,7 @@ angular.module 'builder.controller', ['builder.provider']
         component = $builder.components[formObject.component]
         $scope.validationOptions = component.validationOptions
 
+
     $scope.data =
         model: null
         backup: ->
