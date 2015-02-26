@@ -61,7 +61,8 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                 </div>
                 <div class="form-group">
                     <label class="control-label">Size</label>
-                    <select ng-init="settings.boxSize='col-sm-8'" ng-model="settings.boxSize" class="form-control" ng-options="size.value as size.label for size in [{'value':'col-sm-8','label':'Large'},{'value':'col-sm-3','label':'Small'}]"></select>
+                    <select ng-init="settings.boxSize = settings.boxSize || 'col-sm-8'" ng-model="settings.boxSize" class="form-control" ng-options="size.value as size.label for size in [{'value':'col-sm-8','label':'Large'},{'value':'col-sm-3','label':'Medium'},{'value':'col-sm-2','label':'Small'}]">
+                    </select>
                 </div>
 
                 <hr/>
