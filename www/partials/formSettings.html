@@ -10,9 +10,10 @@
                     <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
                 </label>
                 <div class="pull-right">
-                    <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
+                    <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
                     <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
                     <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
+                    <a type="button" class="btn btn-default" ng-click="duplicateForm()">Duplicate</a>
                 </div>
             </div>
         </div>
@@ -66,9 +67,8 @@
             <p class="help-block">Date at which form will automatically close to new submissions.</p>
         </div>
         <div class="col-md-2">
+            <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
             <input type="submit" class="btn btn-primary pull-right" value="Save">
-            <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
-            <a type="button" class="btn btn-default" ng-click="duplicateForm()">Save As</a>
         </div>
     </form>
 </div>

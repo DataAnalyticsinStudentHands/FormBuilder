@@ -124,6 +124,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             enableSorting: true,
             enableColumnResizing: true,
             enableFiltering: true,
+            enableGridMenu: true,
             data: $scope.data,
             columnDefs: $scope.columns
         };

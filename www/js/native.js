@@ -1,37 +1,22 @@
 /**
  * Created by Carl on 2/6/2015.
  */
+
 $(window).scroll(function () {
+    $('.grid').css('height', 600+'px');
+    var fb = $('.formbuilderRight');
     if ($(window).scrollTop() > 140) {
+        fb.addClass('form-fixed');
+        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
         $('.rmargin').addClass('form-title-fixed');
-        $('.rmargin').css('width', $('.container').width()+30);
         $('.formbuilder').css('margin-top', 100);
     } else {
+        fb.removeClass('form-fixed');
+        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-285+$(window).scrollTop());
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
     };
-    if (verge.viewportW() > 991) {
-        var fb = $('.formbuilderRight');
-        if ($(window).scrollTop() > 140) {
-            fb.addClass('form-fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
-        } else {
-            fb.removeClass('form-fixed');
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
-        }
-    } else {
-        $(".formbuilderRight .form-horizontal").css('height', 400);
-    }
 });
-$( window ).resize(function() {
-    if (verge.viewportW() <= 991) {
-        $('.formbuilderRight').removeClass('form-fixed');
-        $(".formbuilderRight .form-horizontal").css('height', 400);
-    } else {
-        // $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-295+$(window).scrollTop());
-    }
-});
-
 var dd = {
     content: [],
     styles: {
