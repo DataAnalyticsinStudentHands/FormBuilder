@@ -105,7 +105,9 @@ databaseModule.config(
                             return data;
                         }, function(data){
                             console.log(data);
-                            if(data.status === 401 && data.data.enabled) {
+                            if(new Date() > data.data.expiration_date) {
+                                $state.go('closed', {id: $stateParams.id, form: JSON.stringify(data.data)});
+                            } else if(data.status === 401 && data.data.enabled) {
                                 $state.go('login', {form_id: $stateParams.id});
                             } else {
                                 $state.go('closed', {id: $stateParams.id, form: JSON.stringify(data.data)});
