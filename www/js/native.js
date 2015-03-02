@@ -12,7 +12,7 @@ $(window).scroll(function () {
     } else {
         fb.removeClass('form-fixed');
         if ($('.formbuilderLeft').height()>=$('.formbuilderRight').height()) {
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-290+$(window).scrollTop());
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-300+$(window).scrollTop());
         }
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
