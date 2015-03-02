@@ -69,46 +69,37 @@ databaseModule.config(
                 url: "/home",
                 templateUrl: "partials/form_home.html",
                 controller: 'homeCtrl',
-<<<<<<< HEAD
                 data : { pageTitle: 'Home' },
-=======
                 resolve: {
                     forms: function(formService) {
                         return formService.getMyForms();
                     }
                 },
->>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.builder', {
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",
                 controller: 'builderCtrl',
-<<<<<<< HEAD
                 data : { pageTitle: 'Builder' },
-=======
                 resolve: {
                     form: function(formService, $stateParams) {
                         if($stateParams.id)
                             return formService.getForm($stateParams.id);
                     }
                 },
->>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.form_settings', {
                 url: "/form_settings/:id",
                 templateUrl: "partials/formSettings.html",
                 controller: 'formSettingsCtrl',
-<<<<<<< HEAD
                 data : { pageTitle: 'Settings' },
-=======
                 resolve: {
                     form: function(formService, $stateParams) {
                         return formService.getForm($stateParams.id);
                     }
                 },
->>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.response', {
