@@ -5,14 +5,14 @@
 $(window).scroll(function () {
     var fb = $('.formbuilderRight');
     var checkhi=$( window ).height()-285;
-    if ($(window).scrollTop() > 220) {
+    if ($(window).scrollTop() > 220 && $('.formbuilderLeft').height()>=$('.formbuilderRight').height()) {
         fb.addClass('form-fixed');
         $('.rmargin').addClass('form-title-fixed');
         $('.formbuilder').css('margin-top', 70);
     } else {
         fb.removeClass('form-fixed');
         if ($('.formbuilderLeft').height()>=$('.formbuilderRight').height()) {
-            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-285+$(window).scrollTop());
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-290+$(window).scrollTop());
         }
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
