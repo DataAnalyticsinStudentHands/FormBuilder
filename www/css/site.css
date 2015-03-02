@@ -23,6 +23,9 @@
     color: white;
     background-color: #00866c;
 }
+.btn {
+    margin: 2px;
+}
 .btn-default {
     background-color: #00b388;
     border-radius: 12px;
