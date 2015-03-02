@@ -13,7 +13,7 @@
                     <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
                     <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
                     <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
-                    <a type="button" class="btn btn-default" ng-click="duplicateForm()">Duplicate</a>
+                    <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
                 </div>
             </div>
         </div>
@@ -53,9 +53,9 @@
         </div>
         <div class="col-md-5">
             <label class='control-label'> Form URL
-                <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled">
+                 <a target="_blank" ng-href="{{formURL}}"><input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true"></a>
             </label>
-            <a type="button" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
+            <a type="button" style="margin-top:52px;" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
             <p class="help-block">Form must be open for URL to function.</p>
             <label class='control-label' style="width: 100%"> Form Submitted Message
                 <textarea class='form-control' ng-model="form.completed_message"></textarea>

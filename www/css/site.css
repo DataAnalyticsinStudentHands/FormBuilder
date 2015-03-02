@@ -25,6 +25,23 @@
 }
 .btn-default {
     background-color: #00b388;
+    border-radius: 12px;
+    border:none;
+    /*opacity: .5;*/
+}
+.btn-default>span {
+    line-height: inherit;
+}
+.btn-primary, .form-control, .btn-danger,.btn-default  {
+    border-radius: 12px;
+}
+.list-group-item:last-child {
+    border-bottom-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+.list-group-item:first-child {
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
 }
 .navbar-toggle {
     background-color: #00b388;
@@ -42,7 +59,7 @@
     margin-right: 0;
 }
 .footer{height:50px}
-/*site wise***************************************************************************************/
+/*site wise ***************************************************************************************/
 .grid {
     min-height: 400px;
 }
@@ -97,7 +114,7 @@
     }
     .form-fixed {
         position: fixed !important;
-        top:100px;
+        top:70px;
         left:50%;
     }
     .rmargin>div>.pull-right {
@@ -181,7 +198,7 @@
 
 /*** CHECKBOX FLIPSWITCH ***/
 .onoffswitch {
-    position: relative; width: 75px;
+    position: relative; width: 65px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
@@ -207,14 +224,14 @@
     content: "";
     padding-left: 0px;
     background-color: #00b388; color: #FFFFFF;
-    border-radius: 25px;
+    /*border-radius: 25px;*/
 }
 .onoffswitch-inner:after {
     content: "";
     padding-right: 0px;
     background-color: #CCCCCC; color: #333333;
     text-align: right;
-    border-radius: 25px;
+    /*border-radius: 25px;*/
 }
 .onoffswitch-switch {
     border: 1px solid #CCCCCC; 
@@ -222,7 +239,7 @@
     display: block; width: 30px;
     background: #fff;
     margin: 0 0 5px 0;
-    position: absolute; top: 0; bottom: 0; right: 45px;
+    position: absolute; top: 0; bottom: 0; right: 35px;
     -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
     -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
 }

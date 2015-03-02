@@ -19,7 +19,7 @@
     </div>
     <ul class="list-group">
         <li ng-repeat="form in myForms | filter: {name: query}" class="list-group-item clearfix">
-            {{form.name}}
+            <span style="font-size:1.25em;">{{form.name}}</span>
             <span class="pull-right">
                 <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})" title="Responses"><span class="glyphicon glyphicon-inbox"></span></button>
                 <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>

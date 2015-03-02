@@ -3,13 +3,13 @@
  */
 
 $(window).scroll(function () {
-    $('.grid').css('height', 600+'px');
+    // $('.grid').css('height', 600+'px');
     var fb = $('.formbuilderRight');
-    if ($(window).scrollTop() > 140) {
+    if ($(window).scrollTop() > 220) {
         fb.addClass('form-fixed');
         $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
         $('.rmargin').addClass('form-title-fixed');
-        $('.formbuilder').css('margin-top', 100);
+        $('.formbuilder').css('margin-top', 70);
     } else {
         fb.removeClass('form-fixed');
         $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-285+$(window).scrollTop());
