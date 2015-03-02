@@ -52,10 +52,10 @@
             <p class="help-block">URL to send user after finishing form.</p>
         </div>
         <div class="col-md-5">
-            <label class='control-label'> Form URL
-                 <a target="_blank" ng-href="{{formURL}}"><input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true"></a>
+            <label class='control-label' style="width:100%"> Form URL
+                 <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
             </label>
-            <a type="button" style="margin-top:52px;" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
+            <a type="button" style="margin-top:5px;" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
             <p class="help-block">Form must be open for URL to function.</p>
             <label class='control-label' style="width: 100%"> Form Submitted Message
                 <textarea class='form-control' ng-model="form.completed_message"></textarea>
