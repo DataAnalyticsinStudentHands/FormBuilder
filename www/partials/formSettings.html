@@ -13,58 +13,72 @@
                     <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
                     <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
                     <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
-                    <a type="button" class="btn btn-default" ng-click="duplicateForm()">Duplicate</a>
+                    <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
                 </div>
             </div>
         </div>
         <hr/>
     </div>
     <form class="row" ng-submit="save()">
-        <div class="col-md-5">
-            <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
-            <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
-            <br/>
-            <div class="onoffswitch pull-left">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.enabled">
-                <label class="onoffswitch-label" for="myonoffswitch2">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">Form Status</div>
+                <div class="panel-body">
+                    <label class='control-label' style="width:100%"> Form URL
+                        <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
+                    </label>
+                    <p class="help-block">Form must be open to accept responses.</p>
+
+                    <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
+                    <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
+
+                    <br/>
+
+                    <div class="onoffswitch pull-left">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.enabled">
+                        <label class="onoffswitch-label" for="myonoffswitch2">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <div class="onoffswitch pull-right">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public" id="myonoffswitch">
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
+
+                    <br/>
+
+                    <label class='control-label'> Expiration Time
+                        <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
+                    </label>
+                    <p class="help-block">Date at which form will automatically close to new submissions.</p>
+
+                    <label class='control-label' style="width: 100%"> Form Closed Message
+                        <textarea class='form-control' ng-model="form.closed_message"></textarea>
+                    </label>
+                    <p class="help-block">Message to show visitor once form is closed or expired.</p>
+                </div>
             </div>
-            <div class="onoffswitch pull-right">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public" id="myonoffswitch">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
+            <div class="panel panel-default">
+                <div class="panel-heading">Post-Form Actions</div>
+                <div class="panel-body">
+                    <label class='control-label' style="width: 100%"> URL Redirect
+                        <input type="url" class='form-control' ng-model="form.redirect_url">
+                    </label>
+                    <p class="help-block">URL to send user after finishing form.</p>
+
+                    <label class='control-label' style="width: 100%"> Form Submitted Message
+                        <textarea class='form-control' ng-model="form.completed_message"></textarea>
+                    </label>
+                    <p class="help-block">Message to show visitor once form is submitted.</p>
+                </div>
             </div>
-            <br/>
-            <br/>
-            <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
-            <br/>
-            <label class='control-label' style="width: 100%"> Form Closed Message
-                <textarea class='form-control' ng-model="form.closed_message"></textarea>
-            </label>
-            <p class="help-block">Message to show visitor once form is closed or expired.</p>
-            <label class='control-label' style="width: 100%"> URL Redirect
-                <input type="url" class='form-control' ng-model="form.redirect_url">
-            </label>
-            <p class="help-block">URL to send user after finishing form.</p>
-        </div>
-        <div class="col-md-5">
-            <label class='control-label'> Form URL
-                <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled">
-            </label>
-            <a type="button" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
-            <p class="help-block">Form must be open for URL to function.</p>
-            <label class='control-label' style="width: 100%"> Form Submitted Message
-                <textarea class='form-control' ng-model="form.completed_message"></textarea>
-            </label>
-            <p class="help-block">Message to show visitor once form is submitted.</p>
-            <label class='control-label'> Expiration Time
-                <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
-            </label>
-            <p class="help-block">Date at which form will automatically close to new submissions.</p>
         </div>
         <div class="col-md-2">
             <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">

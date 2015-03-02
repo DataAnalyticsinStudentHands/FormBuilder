@@ -17,7 +17,6 @@ var databaseModule = angular.module('databaseModule', [
     'ui.grid',
     'ui.grid.resizeColumns'
 ]);
-
 databaseModule.config(
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login/");
@@ -27,6 +26,7 @@ databaseModule.config(
                 views: {
                     "app": { templateUrl: "partials/login.html", controller: "loginCtrl"}
                 },
+                data : { pageTitle: 'Login' },
                 authenticate: false
             }).
             state('register', {
@@ -34,6 +34,7 @@ databaseModule.config(
                 views: {
                     "app": { templateUrl: "partials/register.html", controller: "registerCtrl"}
                 },
+                data : { pageTitle: 'Register' },
                 authenticate: false
             }).
             state('secure', {
@@ -42,12 +43,14 @@ databaseModule.config(
                     "menu_view@secure": { templateUrl: "partials/menuBar.html", controller: "menuCtrl"},
                     "app": { templateUrl: "partials/home.html"}
                 },
+                data : { pageTitle: 'Home' },
                 abstract: true
             }).
             state('secure.home', {
                 url: "/home",
                 templateUrl: "partials/form_home.html",
                 controller: 'homeCtrl',
+                data : { pageTitle: 'Home' },
                 resolve: {
                     forms: function(formService) {
                         return formService.getMyForms();
@@ -59,6 +62,7 @@ databaseModule.config(
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",
                 controller: 'builderCtrl',
+                data : { pageTitle: 'Builder' },
                 resolve: {
                     form: function(formService, $stateParams) {
                         if($stateParams.id)
@@ -71,6 +75,7 @@ databaseModule.config(
                 url: "/form_settings/:id",
                 templateUrl: "partials/formSettings.html",
                 controller: 'formSettingsCtrl',
+                data : { pageTitle: 'Settings' },
                 resolve: {
                     form: function(formService, $stateParams) {
                         return formService.getForm($stateParams.id);
@@ -90,12 +95,14 @@ databaseModule.config(
                         return responseService.getResponsesByFormId($stateParams.id);
                     }
                 },
+                data : { pageTitle: 'Responses' },
                 authenticate: true
             }).
             state('secure.user_response', {
                 url: "/user_response",
                 templateUrl: "partials/userResponse.html",
                 controller: 'userResponseCtrl',
+                data : { pageTitle: 'Response Form' },
                 authenticate: true
             }).
             state('download', {
@@ -105,6 +112,7 @@ databaseModule.config(
                         templateUrl: "partials/file.html", controller: "fileDownloadCtrl"
                     }
                 },
+                data : { pageTitle: 'Download' },
                 authenticate: true
             }).
             state('form', {
@@ -131,6 +139,7 @@ databaseModule.config(
                         });
                     }
                 },
+                data : { pageTitle: 'Form' },
                 authenticate: false
             }).
             state('finished', {
@@ -145,6 +154,7 @@ databaseModule.config(
                         return formService.getForm($stateParams.id);
                     }
                 },
+                data : { pageTitle: 'Finished' },
                 authenticate: false
             }).
             state('closed', {
