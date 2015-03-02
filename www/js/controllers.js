@@ -73,12 +73,14 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
         }
     }]);
 
-formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService', 'ngNotify',
-    function($scope, Auth, $state, formService, ngNotify) {
+formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService', 'ngNotify', 'forms',
+    function($scope, Auth, $state, formService, ngNotify, forms) {
         $scope.state = $state;
-        formService.getMyForms().then(function(data){
-            $scope.myForms = data;
-        });
+        $scope.myForms = forms;
+    }]);
+
+formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$state',
+    function($scope, Auth, ngNotify, $state) {
         $scope.logOut = function() {
             Auth.clearCredentials();
             ngNotify.set("Successfully logged out!", "success");
@@ -223,13 +225,12 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         $scope.download($scope.id);
     }]);
 
-formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify',
-    function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify) {
+formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
+    function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
         $scope.id = $stateParams.id;
-        formService.getForm($scope.id).then(function(data) {
-            $scope.form = data;
-        });
+        $scope.form = form;
         $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/form/" + $scope.id;
+
         $scope.deleteForm = function() {
             bootbox.dialog({
                 title: "Delete Form",
@@ -269,7 +270,6 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
                 }
             });
         };
-
         $scope.save = function(){
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
                 ngNotify.set("Form saved!", "success");
@@ -277,29 +277,27 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         }
     }]);
 
-formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify',
-    function($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify) {
+formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
+    function($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify, form) {
         $scope.form_id = $stateParams.id;
         $builder.forms['default'] = null;
 
         //IF we are actually editing a previously saved form
         if($scope.form_id) {
-            formService.getForm($scope.form_id).then(function(data){
-                $scope.form_data = data;
-                var questions = data.questions;
-                questions.forEach(function(question){
-                    $builder.addFormObject('default', {
-                        id: question.question_id,
-                        component: question.component,
-                        description: question.description,
-                        label: question.label,
-                        index: question.index,
-                        placeholder: question.placeholder,
-                        required: question.required,
-                        options: question.options,
-                        validation: question.validation,
-                        settings: question.settings
-                    });
+            $scope.form_data = form;
+            var questions = form.questions;
+            questions.forEach(function(question){
+                $builder.addFormObject('default', {
+                    id: question.question_id,
+                    component: question.component,
+                    description: question.description,
+                    label: question.label,
+                    index: question.index,
+                    placeholder: question.placeholder,
+                    required: question.required,
+                    options: question.options,
+                    validation: question.validation,
+                    settings: question.settings
                 });
             });
         } else {
