@@ -5,7 +5,7 @@
       $builderProvider.registerComponent('textInput', {
         group: 'Default',
         label: 'Text Input',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         validationOptions: [
@@ -23,13 +23,13 @@
             rule: '[url]'
           }
         ],
-        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-sm-4 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class=\"col-sm-8\">\n        <input type=\"text\" maxlength='settings.charLimit' ng-trim=\"false\" ng-model=\"inputText\" validator-required=\"{{required}}\" validator-group=\"{{formName}}\" id=\"{{formName+index}}\" class=\"form-control\" placeholder=\"{{placeholder}}\"/>\n        <p class=\"help-block\">{{description}}</p>\n        <p class=\"help-block pull-right\" ng-show=\"settings.charLimit_show === true\">{{settings.charLimit - inputText.length}} characters remaining</p>\n    </div>\n</div>",
-        popoverTemplate: "<form>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Label</label>\n        <input type=\"text\" ng-model=\"label\" validator=\"[required]\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Description</label>\n        <input type=\"text\" ng-model=\"description\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Placeholder</label>\n        <input type=\"text\" ng-model=\"placeholder\" class=\"form-control\"/>\n    </div>\n    <div class=\"checkbox\">\n        <label>\n            <input type=\"checkbox\" ng-model=\"required\" />\n            Required</label>\n    </div>\n    <div class=\"checkbox\">\n        <label>\n            <input type=\"checkbox\" ng-model=\"settings.charLimit_show\" />\n            Character Limit</label>\n    </div>\n    <div class=\"form-group\" ng-show=\"settings.charLimit_show === true\">\n        <label class=\"control-label\">Character Limit</label>\n        <input type=\"number\" ng-model=\"settings.charLimit\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\" ng-if=\"validationOptions.length > 0\">\n        <label class=\"control-label\">Validation</label>\n        <select ng-model=\"$parent.validation\" class=\"form-control\" ng-options=\"option.rule as option.label for option in validationOptions\"></select>\n    </div>\n\n    <hr/>\n    <div class=\"form-group\">\n        <input type=\"submit\" ng-click=\"popover.save($event)\" class=\"btn btn-primary\" value=\"Close\"/>\n        <input type=\"button\" ng-click=\"popover.cancel($event)\" class=\"btn btn-default\" value=\"Cancel\"/>\n        <input type=\"button\" ng-click=\"popover.remove($event)\" class=\"btn btn-danger\" value=\"Delete\"/>\n    </div>\n</form>"
+        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-sm-4 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class='{{settings.boxSize ? settings.boxSize : \"col-sm-8\"}}'>\n        <input type=\"text\" maxlength='settings.charLimit' ng-trim=\"false\" ng-model=\"inputText\" validator-required=\"{{required}}\" validator-group=\"{{formName}}\" id=\"{{formName+index}}\" class=\"form-control\" placeholder=\"{{placeholder}}\"/>\n        <p class=\"help-block\">{{description}}</p>\n        <p class=\"help-block pull-right\" ng-show=\"settings.charLimit_show === true\">{{settings.charLimit - inputText.length}} characters remaining</p>\n    </div>\n</div>",
+        popoverTemplate: "<form>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Label</label>\n        <input type=\"text\" ng-model=\"label\" validator=\"[required]\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Description</label>\n        <input type=\"text\" ng-model=\"description\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Placeholder</label>\n        <input type=\"text\" ng-model=\"placeholder\" class=\"form-control\"/>\n    </div>\n    <div class=\"checkbox\">\n        <label>\n            <input type=\"checkbox\" ng-model=\"required\" />\n            Required</label>\n    </div>\n    <div class=\"checkbox\">\n        <label>\n            <input type=\"checkbox\" ng-model=\"settings.charLimit_show\" />\n            Character Limit</label>\n    </div>\n    <div class=\"form-group\" ng-show=\"settings.charLimit_show === true\">\n        <label class=\"control-label\">Character Limit</label>\n        <input type=\"number\" ng-model=\"settings.charLimit\" class=\"form-control\"/>\n    </div>\n    <div class=\"form-group\" ng-if=\"validationOptions.length > 0\">\n        <label class=\"control-label\">Validation</label>\n        <select ng-model=\"$parent.validation\" class=\"form-control\" ng-options=\"option.rule as option.label for option in validationOptions\"></select>\n    </div>\n    <div class=\"form-group\">\n        <label class=\"control-label\">Size</label>\n        <select ng-init=\"settings.boxSize = settings.boxSize || 'col-sm-8'\" ng-model=\"settings.boxSize\" class=\"form-control\" ng-options=\"size.value as size.label for size in [{'value':'col-sm-8','label':'Large'},{'value':'col-sm-3','label':'Medium'},{'value':'col-sm-2','label':'Small'}]\">\n        </select>\n    </div>\n\n    <hr/>\n    <div class=\"form-group\">\n        <input type=\"submit\" ng-click=\"popover.save($event)\" class=\"btn btn-primary\" value=\"Close\"/>\n        <input type=\"button\" ng-click=\"popover.cancel($event)\" class=\"btn btn-default\" value=\"Cancel\"/>\n        <input type=\"button\" ng-click=\"popover.remove($event)\" class=\"btn btn-danger\" value=\"Delete\"/>\n    </div>\n</form>"
       });
       $builderProvider.registerComponent('textArea', {
         group: 'Default',
         label: 'Text Area',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-sm-4 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class=\"col-sm-8\">\n        <textarea maxlength='{{settings.charLimit}}' ng-trim=\"false\" type=\"text\" ng-model=\"inputText\" validator-required=\"{{required}}\" validator-group=\"{{formName}}\" id=\"{{formName+index}}\" class=\"form-control\" rows=\"6\" placeholder=\"{{placeholder}}\"/>\n        <p class=\"help-block pull-right\" ng-show=\"settings.charLimit_show === true\">{{settings.charLimit - inputText.length}} characters remaining</p>\n        <p class=\"help-block\">{{description}}</p>\n    </div>\n</div>",
@@ -38,7 +38,7 @@
       $builderProvider.registerComponent('checkbox', {
         group: 'Default',
         label: 'Checkbox',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
@@ -49,7 +49,7 @@
       $builderProvider.registerComponent('radio', {
         group: 'Default',
         label: 'Radio',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
@@ -59,7 +59,7 @@
       return $builderProvider.registerComponent('select', {
         group: 'Default',
         label: 'Select',
-        description: 'description',
+        description: '',
         placeholder: 'placeholder',
         required: false,
         options: ['option one', 'option two'],
