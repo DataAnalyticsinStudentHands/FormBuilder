@@ -17,25 +17,6 @@ var databaseModule = angular.module('databaseModule', [
     'ui.grid',
     'ui.grid.resizeColumns'
 ]);
-databaseModule.directive('title', ['$rootScope', '$timeout',
-  function($rootScope, $timeout) {
-    return {
-      link: function() {
-
-        var listener = function(event, toState) {
-
-          $timeout(function() {
-            $rootScope.title = (toState.data && toState.data.pageTitle) 
-            ? toState.data.pageTitle 
-            : '';
-          });
-        };
-
-        $rootScope.$on('$stateChangeSuccess', listener);
-      }
-    };
-  }
-]);
 databaseModule.config(
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login/");
