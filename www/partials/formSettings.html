@@ -42,33 +42,35 @@
             <br/>
             <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
             <br/>
+            <label class='control-label' style="width:100%"> Form URL
+                 <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
+            </label>
+            <p class="help-block">Form must be open for URL to function.</p>
+            <br/>
+            <label class='control-label' style="width: 100%"> Form Submitted Message
+                <textarea class='form-control' ng-model="form.completed_message"></textarea>
+            </label>
+            <p class="help-block">Message to show visitor once form is submitted.</p>
+        </div>
+        <div class="col-md-5">
+            <label class='control-label'> Expiration Time
+                <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
+            </label>
+            <p class="help-block">Date at which form will automatically close to new submissions.</p>
+            <br/>
             <label class='control-label' style="width: 100%"> Form Closed Message
                 <textarea class='form-control' ng-model="form.closed_message"></textarea>
             </label>
             <p class="help-block">Message to show visitor once form is closed or expired.</p>
+            <br/>
             <label class='control-label' style="width: 100%"> URL Redirect
                 <input type="url" class='form-control' ng-model="form.redirect_url">
             </label>
             <p class="help-block">URL to send user after finishing form.</p>
         </div>
-        <div class="col-md-5">
-            <label class='control-label' style="width:100%"> Form URL
-                 <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
-            </label>
-            <a type="button" style="margin-top:5px;" target="_blank" ng-href="{{formURL}}" class="btn btn-default">Go To Form</a>
-            <p class="help-block">Form must be open for URL to function.</p>
-            <label class='control-label' style="width: 100%"> Form Submitted Message
-                <textarea class='form-control' ng-model="form.completed_message"></textarea>
-            </label>
-            <p class="help-block">Message to show visitor once form is submitted.</p>
-            <label class='control-label'> Expiration Time
-                <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
-            </label>
-            <p class="help-block">Date at which form will automatically close to new submissions.</p>
-        </div>
         <div class="col-md-2">
             <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
-            <input type="submit" class="btn btn-primary pull-right" value="Save">
+            <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
 </div>
