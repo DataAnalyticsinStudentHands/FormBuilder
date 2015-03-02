@@ -59,7 +59,7 @@ databaseModule.config(
             state('secure', {
                 url: "/secure",
                 views: {
-                    "menu_view@secure": { templateUrl: "partials/menuBar.html", controller: "homeCtrl"},
+                    "menu_view@secure": { templateUrl: "partials/menuBar.html", controller: "menuCtrl"},
                     "app": { templateUrl: "partials/home.html"}
                 },
                 data : { pageTitle: 'Home' },
@@ -69,21 +69,46 @@ databaseModule.config(
                 url: "/home",
                 templateUrl: "partials/form_home.html",
                 controller: 'homeCtrl',
+<<<<<<< HEAD
                 data : { pageTitle: 'Home' },
+=======
+                resolve: {
+                    forms: function(formService) {
+                        return formService.getMyForms();
+                    }
+                },
+>>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.builder', {
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",
                 controller: 'builderCtrl',
+<<<<<<< HEAD
                 data : { pageTitle: 'Builder' },
+=======
+                resolve: {
+                    form: function(formService, $stateParams) {
+                        if($stateParams.id)
+                            return formService.getForm($stateParams.id);
+                    }
+                },
+>>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.form_settings', {
                 url: "/form_settings/:id",
                 templateUrl: "partials/formSettings.html",
                 controller: 'formSettingsCtrl',
+<<<<<<< HEAD
                 data : { pageTitle: 'Settings' },
+=======
+                resolve: {
+                    form: function(formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
+                    }
+                },
+>>>>>>> fe9a1a055c5c9139549b588934c7b5f5fc60dade
                 authenticate: true
             }).
             state('secure.response', {
@@ -197,6 +222,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         return Auth.hasCredentials();
     };
     $rootScope.$on("$stateChangeStart", function(event, toState){
+        $('body').removeClass('loaded');
         // User isn’t authenticated
         if(toState.name == "form"  && !Auth.hasCredentials()) {
             Auth.setCredentials("Visitor", "test");
@@ -208,7 +234,12 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         }
         $rootScope.isAuthenticated(false);
     });
-
+    $rootScope.$on("$stateChangeSuccess", function(){
+        $('body').addClass('loaded');
+    });
+    $rootScope.$on("$stateChangeError", function(){
+        $('body').addClass('loaded');
+    });
 
     $builder.registerComponent('descriptionHorizontal', {
         group: 'Other',
