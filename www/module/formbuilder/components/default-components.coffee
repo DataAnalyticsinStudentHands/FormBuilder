@@ -204,8 +204,10 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class="col-sm-8">
-                    <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/> <div class='radio' ng-repeat="item in options track by $index">
-                        <label><input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item}}' type='radio'/>
+                    <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+                    <div class='radio' ng-repeat="item in options track by $index">
+                        <label>
+                            <input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item}}' type='radio'/>
                             {{item}}
                         </label>
                     </div>
@@ -257,9 +259,9 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
-                <div class="col-sm-8">  <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
-                    <select ng-options="value for value in options" id="{{formName+index}}" class="form-control"
-                        ng-model="inputText"/>
+                <div class="col-sm-8">
+                    <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+                    <select ng-options="value for value in options" id="{{formName+index}}" class="form-control" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
                     <p class='help-block'>{{description}}</p>
                 </div>
             </div>

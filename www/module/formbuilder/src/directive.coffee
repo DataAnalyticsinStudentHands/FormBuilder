@@ -360,7 +360,10 @@ angular.module 'builder.directive', [
                 checked = []
                 for index of scope.inputArray when scope.inputArray[index]
                     checked.push scope.options[index]
-                scope.inputText = checked.join ', '
+                if scope.checked and scope.checked[0] != undefined
+                    scope.inputText = checked.join ', '
+                else
+                    scope.inputText = scope.inputArray.join ', '
             , yes
         scope.$watch 'inputText', -> scope.updateInput scope.inputText
         # watch (management updated form objects

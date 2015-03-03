@@ -331,7 +331,11 @@
                   checked.push(scope.options[index]);
                 }
               }
-              return scope.inputText = checked.join(', ');
+              if (scope.checked && scope.checked[0] !== void 0) {
+                return scope.inputText = checked.join(', ');
+              } else {
+                return scope.inputText = scope.inputArray.join(', ');
+              }
             }, true);
           }
           scope.$watch('inputText', function() {

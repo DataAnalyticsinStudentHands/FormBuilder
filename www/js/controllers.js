@@ -322,6 +322,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                     });
                 }
             } else {
+                console.log($builder.forms['default']);
                 formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
                     ngNotify.set("Form saved!", "success");
                 });
