@@ -3,28 +3,29 @@
 .navbar-default {
     background-color: #c8102e;
     text-decoration: none;
+    color: white;
     border: none;
     border-radius: 0;
 }
-.navbar-default .navbar-text {
-    color: white;
+.nav, .navbar-nav,.navbar-default .navbar-text, .navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a,.navbar-default,.btn-default,.navbar-default .navbar-link, .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:active, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:active, .btn-default:hover, .btn-default:active  {
+    color: white !important;
 }
-.navbar-default .navbar-brand, .navbar-default .navbar-nav>li>a,.navbar-default,.btn-default,.navbar-default .navbar-link {
-    color: white;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:active, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:active, .btn-default:hover, .btn-default:active {
-    color: white;
-}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+.navbar-default .navbar-nav>li>a:active:focus,.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:target, .navbar-default .navbar-nav>.active>a:active, .navbar-default .navbar-nav>.active>a:visited, .navbar-default .navbar-nav>li>a:active {
     background-color: #960c22;
     color: white;
+    outline: none;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-toggle:active,.navbar-toggle:hover,.navbar-toggle:focus,.btn-default:hover, .btn-default:active, .btn-default:focus {
     color: white;
     background-color: #00866c;
+    outline: none;
 }
 .btn {
+    outline: none;
     margin: 2px;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus { 
+    outline: none ! important; outline-style: none! important; 
 }
 .btn-default {
     background-color: #00b388;
@@ -142,6 +143,14 @@
     overflow-x: hidden;
 }
 /*form builder **********************************************************************************************/
+input:focus {outline: none; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+button {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+:focus {
+outline: 0;
+}
 .form-signin {
     max-width: 330px;
     padding: 15px;

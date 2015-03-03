@@ -3,16 +3,17 @@
  */
 
 $(window).scroll(function () {
-    // $('.grid').css('height', 600+'px');
     var fb = $('.formbuilderRight');
-    if ($(window).scrollTop() > 220) {
+    var checkhi=$( window ).height()-285;
+    if ($(window).scrollTop() > 220 && $('.formbuilderLeft').height()>=$('.formbuilderRight').height()) {
         fb.addClass('form-fixed');
-        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-145);
         $('.rmargin').addClass('form-title-fixed');
         $('.formbuilder').css('margin-top', 70);
     } else {
         fb.removeClass('form-fixed');
-        $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-285+$(window).scrollTop());
+        if ($('.formbuilderLeft').height()>=$('.formbuilderRight').height()) {
+            $(".formbuilderRight .form-horizontal").css('height', $( window ).height()-300+$(window).scrollTop());
+        }
         $('.formbuilder').css('margin-top', '');
         $('.rmargin').removeClass('form-title-fixed');
     };

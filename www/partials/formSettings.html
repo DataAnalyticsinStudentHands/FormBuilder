@@ -24,16 +24,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Form Status</div>
                 <div class="panel-body">
-                    <label class='control-label' style="width:100%"> Form URL
-                        <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
-                    </label>
-                    <p class="help-block">Form must be open to accept responses.</p>
-
                     <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
                     <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
-
                     <br/>
-
                     <div class="onoffswitch pull-left">
                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.enabled">
                         <label class="onoffswitch-label" for="myonoffswitch2">
@@ -53,7 +46,10 @@
                     <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
 
                     <br/>
-
+                    <label class='control-label' style="width:100%"> Form URL
+                        <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
+                    </label>
+                    <p class="help-block">Form must be open to accept responses.</p>
                     <label class='control-label'> Expiration Time
                         <input type="datetime-local" ng-model="form.expiration_date" class='form-control'>
                     </label>
