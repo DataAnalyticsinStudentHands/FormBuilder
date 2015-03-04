@@ -107,7 +107,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             q_obj["field"] = q.question_id.toString();
             q_obj["width"] = 200;
             //if(q.component !== "description" && q.component !== "section")
-            if(q.component !== "description")
+            if(q.component !== "description" && q.component !== "descriptionHorizontal")
                 $scope.columns.push(q_obj);
         });
         var data = [];

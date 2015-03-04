@@ -76,7 +76,6 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     question.options = JSON.stringify(angular.copy(question.options));
                 if(!(typeof question.settings == 'string' || question.settings instanceof String))
                     question.settings = JSON.stringify(angular.copy(question.settings));
-                console.log(question.validation);
                 switch(question.validation){
                     case "/.*/":
                         question.validation = "NONE";
@@ -107,8 +106,6 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                 question.options = eval(question.options);
                 if(question.settings)
                     question.settings = JSON.parse(question.settings);
-
-                console.log(question.validation);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";
