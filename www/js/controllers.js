@@ -335,7 +335,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.id = $stateParams.id;
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
-
+        console.log(form.questions);
         form.questions.forEach(function(question){
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
@@ -354,6 +354,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.form = $builder.forms[$scope.id];
         $scope.input = [];
         $scope.submit = function() {
+            console.log($scope.input);
             $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id, $scope.uid).then(function(){
                     ngNotify.set("Form submission success!", "success");

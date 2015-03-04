@@ -76,6 +76,7 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     question.options = JSON.stringify(angular.copy(question.options));
                 if(!(typeof question.settings == 'string' || question.settings instanceof String))
                     question.settings = JSON.stringify(angular.copy(question.settings));
+                console.log(question.validation);
                 switch(question.validation){
                     case "/.*/":
                         question.validation = "NONE";
@@ -89,7 +90,7 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     case "[url]":
                         question.validation = "URL";
                         break;
-                    case "/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/":
+                    case "/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$|^$/":
                         question.validation = "PHONE";
                         break;
                     default:
@@ -106,6 +107,8 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                 question.options = eval(question.options);
                 if(question.settings)
                     question.settings = JSON.parse(question.settings);
+
+                console.log(question.validation);
                 switch(question.validation){
                     case "NONE":
                         question.validation = "/.*/";
@@ -120,7 +123,7 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                         question.validation = "[url]";
                         break;
                     case "PHONE":
-                        question.validation = "/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/";
+                        question.validation = "/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$|^$/";
                         break;
                     default:
                         question.validation = "/.*/";
