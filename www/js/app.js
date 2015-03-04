@@ -287,7 +287,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
     $builder.registerComponent('fileUpload', {
         group: 'Other',
         label: 'Upload a file',
-        description: 'Upload a file',
+        description: 'Please Upload a PDF or Word Document File',
         required: false,
         templateUrl: 'partials/component/tmplFileUpload.html',
         popoverTemplateUrl: 'partials/component/popFileUpload.html'

@@ -20,7 +20,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class='{{settings.boxSize ? settings.boxSize : "col-sm-8"}}'>
-                    <input type="text" maxlength='settings.charLimit' ng-trim="false" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
+                    <input type="text" maxlength='{{settings.charLimit}}' ng-trim="false" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
                     <p class="help-block">{{description}}</p>
                     <p class="help-block pull-right" ng-show="settings.charLimit_show === true">{{settings.charLimit - inputText.length}} characters remaining</p>
                 </div>
