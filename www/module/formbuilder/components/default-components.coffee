@@ -149,7 +149,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class="col-sm-8">
                     <input type="hidden" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
-                    <div class="checkbox" ng-repeat="item in options track by $index">
+                    <div class="checkbox" ng-init="$parent.inputArray = settings.default" ng-repeat="item in options track by $index">
                         <label><input type="checkbox" ng-model="$parent.inputArray[$index]" value="item"/>
                             {{item}}
                         </label>
@@ -178,6 +178,19 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                         <input type="checkbox" ng-model="required" />
                         Required
                     </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
+                    <div class="col-sm-8">
+                        <input type="hidden" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+                        <div class="checkbox" ng-repeat="item in options track by $index">
+                            <label><input type="checkbox" ng-model="$parent.inputArray[$index]" value="item" ng-change="settings.default = $parent.inputArray"/>
+                                {{item}}
+                            </label>
+                        </div>
+                        <p class="help-block">{{description}}</p>
+                    </div>
                 </div>
 
                 <hr/>
