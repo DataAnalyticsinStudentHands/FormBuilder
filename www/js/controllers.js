@@ -196,7 +196,6 @@ formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
 formBuilderController.controller('closedCtrl', ['$scope', '$stateParams',
     function($scope, $stateParams) {
         $scope.form = JSON.parse($stateParams.form);
-        console.log($scope.form);
     }]);
 
 formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',
@@ -344,7 +343,6 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                     });
                 }
             } else {
-                console.log($builder.forms['default']);
                 formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
                     ngNotify.set("Form saved!", "success");
                 });
@@ -357,7 +355,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.id = $stateParams.id;
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
-        console.log(form.questions);
         form.questions.forEach(function(question){
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
@@ -376,7 +373,6 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         $scope.form = $builder.forms[$scope.id];
         $scope.input = [];
         $scope.submit = function() {
-            console.log($scope.input);
             $validator.validate($scope, $scope.id).success(function() {
                 responseService.newResponse($scope.input, $scope.id, $scope.uid).then(function(){
                     ngNotify.set("Form submission success!", "success");
