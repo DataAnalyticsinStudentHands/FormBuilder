@@ -145,11 +145,13 @@
         $scope.questionPageArray[0].show = true;
         $scope.form.forEach(function(question) {
           var pageArray;
+          question = angular.copy(question);
           pageArray = $scope.questionPageArray[page_number];
           if (!pageArray) {
             pageArray = [];
           }
           if (question.component !== 'section') {
+            question.index -= page_number;
             pageArray.push(question);
             return $scope.questionPageArray[page_number] = pageArray;
           } else {
@@ -190,7 +192,7 @@
           label: $scope.formObject.label,
           value: value != null ? value : ''
         };
-        return $scope.$parent.input.splice($scope.$index, 1, input);
+        return $scope.$parent.input.splice($scope.index, 1, input);
       };
     }
   ]);

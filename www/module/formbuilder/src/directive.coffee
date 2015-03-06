@@ -355,6 +355,7 @@ angular.module 'builder.directive', [
             scope.inputArray = []
             # watch (end-user updated input of the form
             scope.$watch 'inputArray', (newValue, oldValue) ->
+#                console.log("change in array", scope.inputArray);
                 # array input, like checkbox
                 return if newValue is oldValue
                 checked = []
@@ -365,7 +366,9 @@ angular.module 'builder.directive', [
                 else
                     scope.inputText = scope.inputArray.join ', '
             , yes
-        scope.$watch 'inputText', -> scope.updateInput scope.inputText
+        scope.$watch 'inputText', ->
+#            console.log("change in text", scope.inputText);
+            scope.updateInput scope.inputText
         # watch (management updated form objects
         scope.$watch attrs.fbFormObject, ->
             scope.copyObjectToScope scope.formObject

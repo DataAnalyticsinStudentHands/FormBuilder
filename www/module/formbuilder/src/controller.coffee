@@ -128,10 +128,12 @@ angular.module 'builder.controller', ['builder.provider']
         $scope.questionPageArray[0].heading = ''
         $scope.questionPageArray[0].show = true
         $scope.form.forEach (question) ->
+            question = angular.copy question
             pageArray = $scope.questionPageArray[page_number]
             if !pageArray
                 pageArray = []
             if question.component != 'section'
+                question.index -= page_number;
                 pageArray.push question
                 $scope.questionPageArray[page_number] = pageArray
             else
@@ -165,6 +167,8 @@ angular.module 'builder.controller', ['builder.provider']
 
     $scope.copyObjectToScope = (object) -> copyObjectToScope object, $scope
     $scope.updateInput = (value) ->
+#        console.log($scope.index, $scope.component)
+#        console.log($scope.$parent.input);
         ###
         Copy current scope.input[X] to $parent.input.
         @param value: The input value.
@@ -173,5 +177,5 @@ angular.module 'builder.controller', ['builder.provider']
             id: $scope.formObject.id
             label: $scope.formObject.label
             value: value ? ''
-        $scope.$parent.input.splice $scope.$index, 1, input
+        $scope.$parent.input.splice $scope.index, 1, input
 ]
