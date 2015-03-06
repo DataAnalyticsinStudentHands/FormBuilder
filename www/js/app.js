@@ -194,7 +194,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
         return Auth.hasCredentials();
     };
     $rootScope.$on("$stateChangeStart", function(event, toState){
-        $('*').popover('hide');
+        $('*').popover('hide'); //hide ALL the popovers (on state change)
         $('body').removeClass('loaded');
         // User isn’t authenticated
         if(toState.name == "form"  && !Auth.hasCredentials()) {

@@ -173,8 +173,26 @@
               The delete event of the popover.
                */
               $event.preventDefault();
-              $builder.removeFormObject(scope.$parent.formName, scope.$parent.$index);
-              $(element).popover('hide');
+              bootbox.dialog({
+                title: 'Delete',
+                message: 'Are you sure? Deleting will cause data loss!',
+                buttons: {
+                  success: {
+                    label: 'Cancel',
+                    className: 'btn-default'
+                  },
+                  danger: {
+                    label: 'Delete',
+                    className: 'btn-danger',
+                    callback: function() {
+                      return scope.$apply(function() {
+                        $builder.removeFormObject(scope.$parent.formName, scope.$parent.$index);
+                        return $(element).popover('hide');
+                      });
+                    }
+                  }
+                }
+              });
             },
             shown: function() {
 
