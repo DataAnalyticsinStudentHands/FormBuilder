@@ -326,12 +326,12 @@
                 return;
               }
               checked = [];
-              for (index in scope.inputArray) {
-                if (scope.inputArray[index]) {
-                  checked.push(scope.options[index]);
+              if (scope.options && scope.options.length > 0) {
+                for (index in scope.inputArray) {
+                  if (scope.inputArray[index]) {
+                    checked.push(scope.options[index]);
+                  }
                 }
-              }
-              if (scope.checked && scope.checked[0] !== void 0) {
                 return scope.inputText = checked.join(', ');
               } else {
                 return scope.inputText = scope.inputArray.join(', ');
