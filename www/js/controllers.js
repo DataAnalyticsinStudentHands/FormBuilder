@@ -310,6 +310,28 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                 required: true
             });
         }
+        $scope.saveButton = function() {
+            if($scope.form_id !== 0)
+                bootbox.dialog({
+                    title: "Save Form",
+                    message: "Are you sure? Since this form is open, saving may cause problems with question integrity.",
+                    buttons: {
+                        success: {
+                            label: "Cancel",
+                            className: "btn-default"
+                        },
+                        danger: {
+                            label: "Save",
+                            className: "btn-danger",
+                            callback: function() {
+                                $scope.save();
+                            }
+                        }
+                    }
+                });
+            else
+                $scope.save();
+        };
         $scope.save = function() {
             if(!$scope.form_id) {
                 if(!$scope.form_data) {
