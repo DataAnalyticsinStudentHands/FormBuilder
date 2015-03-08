@@ -14,6 +14,7 @@ var databaseModule = angular.module('databaseModule', [
     'ngSanitize',
     'ngNotify',
     'angularFileUpload',
+    'ui.bootstrap.datetimepicker',
     'ui.grid',
     'ui.grid.resizeColumns'
 ]);
