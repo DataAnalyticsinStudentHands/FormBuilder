@@ -310,7 +310,8 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
             });
         }
         $scope.saveButton = function() {
-            if($scope.form_id !== 0)
+            console.log(form);
+            if($scope.form_id !== 0 && form && form.enabled)
                 bootbox.dialog({
                     title: "Save Form",
                     message: "Are you sure? Since this form is open, saving may cause problems with question integrity.",
