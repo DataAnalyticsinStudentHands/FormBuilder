@@ -223,6 +223,12 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                         else
                             entry.value = "No File";
                         break;
+                    case "dateTimeInput":
+                        entry.value = $filter('date')(entry.value, 'MM-dd-yyyy HH:mm a');
+                        break;
+                    case "dateInput":
+                        entry.value = $filter('date')(entry.value, 'MM-dd-yyyy');
+                        break;
                 }
                 return entry;
             }
