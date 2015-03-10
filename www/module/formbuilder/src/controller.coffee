@@ -48,8 +48,8 @@ angular.module 'builder.controller', ['builder.provider']
             $scope.options = (x for x in text.split('\n') when x.length > 0)
 #            $scope.inputText = $scope.options[0]
 
-        component = $builder.components[formObject.component]
-        $scope.validationOptions = component.validationOptions
+            component = $builder.components[formObject.component]
+            $scope.validationOptions = component.validationOptions
 
 
     $scope.data =

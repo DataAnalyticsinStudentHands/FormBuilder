@@ -112,6 +112,14 @@
         link: function(scope, element) {
           var popover;
           scope.inputArray = [];
+          scope.resetInputArray = function() {
+            scope.inputArray = [];
+            return scope.settings["default"] = null;
+          };
+          scope.resetInputText = function() {
+            scope.inputText = null;
+            return scope.settings["default"] = null;
+          };
           scope.$component = $builder.components[scope.formObject.component];
           scope.setupScope(scope.formObject);
           scope.$watch('$component.template', function(template) {
