@@ -186,7 +186,11 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                 var service = this;
                 return this.createResponse(fid, uid).then(function(id){
                     return service.getResponse(id).then(function(response){
-                        response.responder_email = rem;
+                        if(rem) {
+                            response.responder_email = rem;
+                            response.send_confirmation_to_responder = true;
+                            response.is_complete = true;
+                        }
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             if(inputObj)
