@@ -228,6 +228,10 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
     function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
         $scope.id = $stateParams.id;
         $scope.form = form;
+        if(new Date($scope.form.expiration_date).getTime() !== new Date(0).getTime()) {
+            console.log(new Date($scope.form.expiration_date));
+            $scope.expiration_date = $scope.form.expiration_date;
+        }
         $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/form/" + $scope.id;
 
         $scope.deleteForm = function() {
@@ -270,6 +274,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
             });
         };
         $scope.save = function(){
+            $scope.form.expiration_date = $scope.expiration_date;
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
                 ngNotify.set("Form saved!", "success");
             });

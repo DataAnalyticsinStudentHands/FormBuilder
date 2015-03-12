@@ -68,8 +68,10 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
             },
         processInForm:
             function (form) {
-            form.questions = $filter('orderBy')(form.questions, 'index');
-        },
+                form.questions = $filter('orderBy')(form.questions, 'index');
+                if(!form.expiration_date)
+                   form.expiration_date = null;
+            },
         processOutQuestion:
             function(question) {
                 if(!(typeof question.options == 'string' || question.options instanceof String))
