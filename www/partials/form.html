@@ -12,4 +12,20 @@
             </div>
         </form>
     </div>
+    <div class="row">
+        <div class="pull-left control-label" style="font-weight: bold">E-Mail Receipt</div>
+        <br/>
+        <div class="onoffswitch pull-left">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="require_receipt">
+            <label class="onoffswitch-label" for="myonoffswitch4">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+        <br/>
+        <br/>
+        <label class='control-label'> Receipt E-Mail
+            <input type="text" ng-model="responder_email" class='form-control' ng-disabled="!require_receipt">
+        </label>
+    </div>
 </div>
