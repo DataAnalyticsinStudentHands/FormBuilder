@@ -188,7 +188,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                     return service.getResponse(id).then(function(response){
                         if(rem) {
                             response.responder_email = rem;
-                            response.send_confirmation_to_responder = true;
+                            response.send_receipt = true;
                             response.is_complete = true;
                         }
                         response.entries.forEach(function(entryObj){
