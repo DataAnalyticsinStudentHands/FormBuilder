@@ -19,7 +19,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
-                <div class='{{settings.boxSize ? settings.boxSize : "col-sm-8"}}' ng-init="settings.setDefaults ? ($parent.inputText = settings.default || $parent.inputText) : $parent.inputText = null">
+                <div class='{{settings.boxSize ? settings.boxSize : "col-sm-8"}}' ng-init="settings.setDefaults ? (inputText = settings.default || inputText) : inputText = null">
                     <input type="text" maxlength='{{settings.charLimit}}' ng-trim="false" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
                     <p class="help-block">{{description}}</p>
                     <p class="help-block pull-right" ng-show="settings.charLimit_show === true">{{settings.charLimit - inputText.length}} characters remaining</p>
@@ -312,7 +312,7 @@ angular.module 'builder.components', ['builder', 'validator.rules']
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
-                <div class="col-sm-8">
+                <div class="col-sm-8" ng-init="settings.setDefaults ? (inputText = settings.default || inputText) : inputText = null">
                     <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
                     <select ng-options="value for value in options" id="{{formName+index}}" class="form-control" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
                     <p class='help-block'>{{description}}</p>
@@ -339,6 +339,22 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                         <input type='checkbox' ng-model="required" />
                         Required
                 </label>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="settings.setDefaults" ng-change="resetInputText()" />
+                        Set Defaults</label>
+                </div>
+
+                <div class="form-group" ng-show="settings.setDefaults">
+                    <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">Defaults</label>
+                    <div class="col-sm-8">
+                        <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
+                        <select ng-options="value for value in options" id="{{formName+index}}" class="form-control" ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}" ng-change="settings.default = inputText"/>
+                        <p class='help-block'>{{description}}</p>
+                    </div>
+                </div>
+
                 <hr/>
                 <div class='form-group'>
                     <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Close'/>
