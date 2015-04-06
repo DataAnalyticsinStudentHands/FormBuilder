@@ -324,6 +324,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                             label: "Save",
                             className: "btn-danger",
                             callback: function() {
+                                form.enabled = false;
                                 $scope.save();
                             }
                         }
