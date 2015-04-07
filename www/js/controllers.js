@@ -101,15 +101,29 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.columns = [];
         $scope.filter_dict = {};
         $scope.questions = $scope.form.questions;
+
+        var buttons = {};
+        buttons.displayName = "Actions";
+        buttons.enableColumnResizing = true;
+        buttons.field = "0";
+        buttons.width = 100;
+        buttons.enableFiltering = false;
+        buttons.enableSorting = false;
+        buttons.cellTemplate = '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>';
+        $scope.columns.push(buttons);
+
         $scope.questions.forEach(function(q){
             var q_obj = {};
             q_obj["displayName"] = q.label;
             q_obj["field"] = q.question_id.toString();
             q_obj["width"] = 200;
             //if(q.component !== "description" && q.component !== "section")
-            if(q.component !== "description" && q.component !== "descriptionHorizontal")
+            if(q.component !== "description" && q.component !== "descriptionHorizontal") {
+                console.log(q_obj);
                 $scope.columns.push(q_obj);
+            }
         });
+
         var data = [];
         $scope.responses.forEach(function(response){
             var entries = response.entries;
