@@ -201,7 +201,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
             },
         deleteResponse:
             function(rid) {
-                return Restangular.all("formResponses").one(rid).remove();
+                return Restangular.all("formResponses").all(rid).remove();
             },
         processInResponse:
             function(response, form){

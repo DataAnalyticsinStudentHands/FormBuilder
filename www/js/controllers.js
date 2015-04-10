@@ -90,6 +90,13 @@ formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$st
 
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form',
     function($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form) {
+        $scope.Delete = function(row) {
+            var index = $scope.gridOptions.data.indexOf(row.entity);
+            responseService.deleteResponse(responses[index].id);
+            $scope.gridOptions.data.splice(index, 1);
+            responses.splice(index, 1);
+        };
+
         $scope.id = $stateParams.id;
         $scope.responses = responses;
         $scope.form = form;
@@ -109,7 +116,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.width = 100;
         buttons.enableFiltering = false;
         buttons.enableSorting = false;
-        buttons.cellTemplate = '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>';
+        buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.Delete(row)"><span class="glyphicon glyphicon-trash"></span></button>';
         $scope.columns.push(buttons);
 
         $scope.questions.forEach(function(q){
@@ -119,7 +126,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             q_obj["width"] = 200;
             //if(q.component !== "description" && q.component !== "section")
             if(q.component !== "description" && q.component !== "descriptionHorizontal") {
-                console.log(q_obj);
                 $scope.columns.push(q_obj);
             }
         });
