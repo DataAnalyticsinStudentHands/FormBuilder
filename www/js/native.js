@@ -2,6 +2,10 @@
  * Created by Carl on 2/6/2015.
  */
 
+var isDate = function(date) {
+    return ( (new Date(date) !== "Invalid Date" && !isNaN(new Date(date)) ));
+}
+
 $(window).scroll(function () {
     var fb = $('.formbuilderRight');
     var checkhi=$( window ).height()-285;
