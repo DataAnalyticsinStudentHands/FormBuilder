@@ -189,8 +189,8 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                         if(rem) {
                             response.responder_email = rem;
                             response.send_receipt = true;
-                            response.is_complete = true;
                         }
+                        response.is_complete = true;
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             if(inputObj)
