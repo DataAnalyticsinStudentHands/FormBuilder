@@ -181,11 +181,20 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                     return eval(data);
                 });
             },
+        processOutResponse: function (input) {
+            input.forEach(function(inputItem){
+                if(isDate(inputItem.value)){
+                    inputItem.value = $filter('date')(Date.parse(inputItem.value), 'yyyy-MM-ddTHH:mmZ');
+                }
+            });
+            return input;
+        },
         newResponse:
             function(input, fid, uid) {
                 var service = this;
                 return this.createResponse(fid, uid).then(function(id){
                     return service.getResponse(id).then(function(response){
+                        input = service.processOutResponse(input);
                         response.entries.forEach(function(entryObj){
                             var inputObj = $filter('getById')(input, entryObj.question_id);
                             if(inputObj)
