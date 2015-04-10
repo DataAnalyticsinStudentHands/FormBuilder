@@ -123,6 +123,16 @@ angular.module 'builder.directive', [
         formObject: '=fbFormObjectEditable'
     link: (scope, element) ->
         scope.inputArray = [] # just for fix warning
+
+        # Added for default value removal
+        scope.resetInputArray = () ->
+            scope.inputArray = []
+            scope.settings.default = null
+
+        scope.resetInputText = () ->
+            scope.inputText = null
+            scope.settings.default = null
+
         # get component
         scope.$component = $builder.components[scope.formObject.component]
         # setup scope

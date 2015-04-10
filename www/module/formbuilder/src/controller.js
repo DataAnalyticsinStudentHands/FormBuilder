@@ -29,7 +29,6 @@
         4. Watch scope.optionsText then convert to scope.options.
         5. setup validationOptions
          */
-        var component;
         copyObjectToScope(formObject, $scope);
         $scope.optionsText = formObject.options.join('\n');
         $scope.$watch('[label, description, placeholder, required, options, settings, validation]', function() {
@@ -41,9 +40,9 @@
           formObject.settings = $scope.settings;
           return formObject.validation = $scope.validation;
         }, true);
-        $scope.$watch('optionsText', function(text) {
-          var x;
-          return $scope.options = (function() {
+        return $scope.$watch('optionsText', function(text) {
+          var component, x;
+          $scope.options = (function() {
             var i, len, ref, results;
             ref = text.split('\n');
             results = [];
@@ -55,9 +54,9 @@
             }
             return results;
           })();
+          component = $builder.components[formObject.component];
+          return $scope.validationOptions = component.validationOptions;
         });
-        component = $builder.components[formObject.component];
-        return $scope.validationOptions = component.validationOptions;
       };
       return $scope.data = {
         model: null,
