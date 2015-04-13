@@ -86,6 +86,43 @@
                     <p class="help-block">Message to show visitor once form is submitted.</p>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">E-Mail</div>
+                <div class="panel-body">
+                    <div class="pull-left control-label" style="font-weight: bold">E-Mail Notifications</div>
+                    <br/>
+                    <div class="onoffswitch pull-left">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="form.send_notification">
+                        <label class="onoffswitch-label" for="myonoffswitch3">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <p class="help-block">Enables e-mail notifications for new form responses.</p>
+
+                    <label class='control-label'> E-Mail Notification Recipient
+                        <input type="text" ng-model="form.confirmation_recipient_email" class='form-control'>
+                    </label>
+                    <br/>
+
+                    <div class="pull-left control-label" style="font-weight: bold">Require Receipt</div>
+                    <br/>
+                    <div class="onoffswitch pull-left">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="form.send_receipt">
+                        <label class="onoffswitch-label" for="myonoffswitch4">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <label class='control-label' style="width: 100%"> Receipt E-Mail Message
+                        <textarea class='form-control' ng-model="form.email_message"></textarea>
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="col-md-2">
             <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
