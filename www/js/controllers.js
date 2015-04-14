@@ -392,6 +392,18 @@ formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
         $scope.uploadRightAway = true;
 
+        $scope.objJoin = function (obj){
+
+            var retArr = [];
+            for(var item in obj){
+
+                if(obj[item]!='')
+                    retArr.push(obj[item]);
+            }
+
+            return retArr;
+        }
+
         $scope.hasUploader = function (index) {
             return $scope.upload[index] !== null;
         };

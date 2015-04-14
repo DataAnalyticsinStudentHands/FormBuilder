@@ -21,8 +21,9 @@
                 {{f.name}} - size: {{f.size/1000}}kB
             </div>
         </div>
-        <input ng-hide='inputText' ng-model='inputText' validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        <input ng-hide='inputText' ng-model='inputText' validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" type="file" ng-file-select="onFileSelect($files, label+index)" onclick="this.value=null" accept="{{objJoin(settings.filetypesVal).join(', ')}}">
         <input ng-show='inputId' class="form-control" type="button" ng-click="deleteFile(inputId)" value="Delete">
         <p class='help-block'>{{description}}</p>
+        <p class='help-block'>Accepted file types: {{objJoin(settings.filetypesVal).join(', ')}}</p>
     </div>
 </div>
