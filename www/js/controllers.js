@@ -290,6 +290,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         }
         $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/form/" + $scope.id;
 
+        formService.updateRoles();
         $scope.deleteForm = function() {
             bootbox.dialog({
                 title: "Delete Form",
@@ -334,7 +335,7 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
                 ngNotify.set("Form saved!", "success");
             });
-        }
+        };
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
@@ -375,7 +376,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
             if($scope.form_id !== 0 && form && form.enabled)
                 bootbox.dialog({
                     title: "Save Form",
-                    message: "Are you sure? Since this form is open, saving may cause problems with question integrity.",
+                    message: "Are you sure? Since this form is open, saving may cause problems with question integrity. <br/><br/> This form will be closed once saved.",
                     buttons: {
                         success: {
                             label: "Cancel",
@@ -470,7 +471,7 @@ formBuilderController.controller('uploadCtrl',
             }
 
             return retArr;
-        }
+        };
 
         $scope.hasUploader = function (index) {
             return $scope.upload[index] !== null;

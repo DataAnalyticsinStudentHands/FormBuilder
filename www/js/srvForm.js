@@ -70,7 +70,7 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
             function (form) {
                 form.questions = $filter('orderBy')(form.questions, 'index');
                 if(!form.expiration_date)
-                   form.expiration_date = null;
+                    form.expiration_date = null;
             },
         processOutQuestion:
             function(question) {
@@ -135,6 +135,18 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                     delete q.question_id;
                 });
                 this.newForm(new_name, form_duplicate.questions);
+            },
+        addPermission:
+            function(fid, uid, role) {
+                Restangular.all("forms").one(fid).all("PERMISSION").one(uid).post();
+            },
+        removePermission:
+            function(fid, uid, role) {
+                Restangular.all("forms").one(fid).all("PERMISSION").one(uid).delete();
+            },
+        updateRoles:
+            function(fid, uid, role_array) {
+
             }
     }
 }]);
@@ -183,7 +195,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                     return eval(data);
                 });
             },
-            processOutResponse: function (input) {
+        processOutResponse: function (input) {
             input.forEach(function(inputItem){
                 if(isDate(inputItem.value)){
                     inputItem.value = $filter('date')(Date.parse(inputItem.value), 'yyyy-MM-ddTHH:mmZ');

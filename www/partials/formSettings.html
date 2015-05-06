@@ -123,6 +123,24 @@
                     </label>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Permission Control</div>
+                <div class="panel-body">
+                    <label class='control-label'> User
+                        <input type="text" ng-model="username" class='form-control'>
+                    </label>
+                    <label class='control-label'> Role
+                        <select ng-model="role" class='form-control'>
+                            <option></option>
+                            <option>Owner</option>
+                            <option>Responder</option>
+                            <option>Collaborator</option>
+                            <option>Response Viewer</option>
+                        </select>
+                    </label>
+                    <input type="submit" ui-sref="secure.home" class="btn btn-primary" value="Add">
+                </div>
+            </div>
         </div>
         <div class="col-md-2">
             <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
