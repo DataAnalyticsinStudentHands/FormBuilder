@@ -145,8 +145,25 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                 Restangular.all("forms").one(fid).all("PERMISSION").one(uid).delete();
             },
         updateRoles:
-            function(fid, uid, role_array) {
-
+            function(fid, uin, role) {
+                var role_array;
+                switch(role) {
+                    case "Owner":
+                        role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
+                        break;
+                    case "Collaborator":
+                        role_array = ["READ", "WRITE", "CREATE", "DELETE_RESPONSES"];
+                        break;
+                    case "Response Viewer":
+                        role_array = ["READ", "DELETE_RESPONSES"];
+                        break;
+                    case "Responder":
+                        role_array = ["READ", "CREATE"];
+                        break;
+                    default:
+                        break;
+                }
+                Restangular.all("forms").all(fid).all("PERMISSION").all(uin).customPOST(null, null, {permissions: role_array});
             }
     }
 }]);
@@ -195,7 +212,8 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
                     return eval(data);
                 });
             },
-        processOutResponse: function (input) {
+        processOutResponse:
+            function (input) {
             input.forEach(function(inputItem){
                 if(isDate(inputItem.value)){
                     inputItem.value = $filter('date')(Date.parse(inputItem.value), 'yyyy-MM-ddTHH:mmZ');

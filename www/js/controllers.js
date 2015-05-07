@@ -290,7 +290,6 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         }
         $scope.formURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/form/" + $scope.id;
 
-        formService.updateRoles();
         $scope.deleteForm = function() {
             bootbox.dialog({
                 title: "Delete Form",
@@ -336,6 +335,10 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
                 ngNotify.set("Form saved!", "success");
             });
         };
+
+        $scope.updatePermission = function(){
+            formService.updateRoles(form.id, $scope.perm_username, $scope.perm_role);
+        }
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',

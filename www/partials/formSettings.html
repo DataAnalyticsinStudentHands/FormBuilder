@@ -127,10 +127,10 @@
                 <div class="panel-heading">Permission Control</div>
                 <div class="panel-body">
                     <label class='control-label'> User
-                        <input type="text" ng-model="username" class='form-control'>
+                        <input type="text" ng-model="perm_username" class='form-control'>
                     </label>
                     <label class='control-label'> Role
-                        <select ng-model="role" class='form-control'>
+                        <select ng-model="perm_role" class='form-control'>
                             <option></option>
                             <option>Owner</option>
                             <option>Responder</option>
@@ -138,7 +138,7 @@
                             <option>Response Viewer</option>
                         </select>
                     </label>
-                    <input type="submit" ui-sref="secure.home" class="btn btn-primary" value="Add">
+                    <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Add">
                 </div>
             </div>
         </div>
