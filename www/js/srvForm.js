@@ -152,15 +152,16 @@ fbService.factory('formService', ['Restangular', '$filter', function(Restangular
                         role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
                         break;
                     case "Collaborator":
-                        role_array = ["READ", "WRITE", "CREATE", "DELETE_RESPONSES"];
+                        role_array = ["READ", "WRITE", "CREATE"];
                         break;
                     case "Response Viewer":
-                        role_array = ["READ", "DELETE_RESPONSES"];
+                        role_array = ["READ"];
                         break;
                     case "Responder":
-                        role_array = ["READ", "CREATE"];
+                        role_array = ["CREATE"];
                         break;
                     default:
+                        console.error("problem!");
                         break;
                 }
                 Restangular.all("forms").all(fid).all("PERMISSION").all(uin).customPOST(null, null, {permissions: role_array});

@@ -127,18 +127,31 @@
                 <div class="panel-heading">Permission Control</div>
                 <div class="panel-body">
                     <label class='control-label'> User
-                        <input type="text" ng-model="perm_username" class='form-control'>
+                        <input type="email" ng-model="perm_username" class='form-control'>
                     </label>
                     <label class='control-label'> Role
                         <select ng-model="perm_role" class='form-control'>
                             <option></option>
-                            <option>Owner</option>
                             <option>Responder</option>
                             <option>Collaborator</option>
                             <option>Response Viewer</option>
+                            <option>Owner</option>
                         </select>
                     </label>
                     <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Add">
+                    <br/>
+                    <div ng-if="perm_role == 'Owner'">
+                        Enables user to view, update, and delete the form and view and delete form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Collaborator'">
+                        Enables user to view and update the form and view form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Response Viewer'">
+                        Enables user to view the form and form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Responder'">
+                        Enables user to view and reply to the form.
+                    </div>
                 </div>
             </div>
         </div>
