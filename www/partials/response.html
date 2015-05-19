@@ -1,10 +1,12 @@
 <div class="container">
     <div class="row">
-        <h2>Responses
+        <ng-include src="'/partials/tabs.html'"></ng-include>
+        <h4>{{form.name}}</h4>
+        <h5>{{form.subtitle}}</h5>
+        <h2>
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="toPDF()">PDF</button>
             <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="getCSV()">CSV</button>
         </h2>
-        <h4>Form: {{form.name}}</h4>
     </div>
     <hr/>
     <div class="well" ng-show="responses.length < 1">
