@@ -341,6 +341,12 @@ formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state'
         }
     }]);
 
+formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
+    function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
+        $scope.id = $stateParams.id;
+        $scope.form = form;
+    }]);
+
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
     function($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify, form) {
         $scope.form_id = $stateParams.id;

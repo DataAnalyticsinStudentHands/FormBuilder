@@ -84,6 +84,18 @@ databaseModule.config(
                 },
                 authenticate: true
             }).
+            state('secure.form_studies', {
+                url: "/studies/:id",
+                templateUrl: "partials/studies.html",
+                controller: 'studiesCtrl',
+                resolve: {
+                    form: function(formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
+                    }
+                },
+                data : { pageTitle: 'Studies' },
+                authenticate: true
+            }).
             state('secure.response', {
                 url: "/response/:id",
                 templateUrl: "partials/response.html",
