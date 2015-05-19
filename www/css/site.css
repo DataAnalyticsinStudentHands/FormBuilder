@@ -4,9 +4,10 @@
     border-bottom: none;
 }
 .sub-navbar {
-    background-color: #00b388 !important;
+    background-color: white !important;
     font-size: 1.35em;
-    margin-bottom: 15px !important;
+    margin-bottom: 25px !important;
+    border-bottom: 1px solid #ddd !important;
 }
 .sub-navbar>div {
     margin-top: 10px;
@@ -14,8 +15,8 @@
 .navbar {
     margin-bottom: 0px;
 }
-.nav-tabs a {
-    color: white;
+.nav-tabs a, .sub-navbar>div {
+    color: #C8102E;
 }
 .nav-tabs > li, .nav-pills > li {
     float:none;
