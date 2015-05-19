@@ -20,7 +20,7 @@
         <hr/>
     </div>
     <div class="row">
-        <input type="submit" ng-click="studies.push({});" value="Add Study">
+        <input type="submit" ng-click="studies.push({participants:[]});" value="Add Study">
     </div>
     <div class="row" ng-repeat="study in studies">
         {{study}}
@@ -37,13 +37,12 @@
                 <option value="1">Random</option>
             </select>
         </label>
-        <label> Participant <input ng-model="add_participant"> </label>
-        <input type="submit" ng-click="study.participants.push(add_participant); add_participant = null" value="Add Participant">
 
-        <div class="dropdown">
+        <div class="dropdown" ng-if="study.random == '0'">
             <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#" href="#">
+                <label for="input{{$id}}">Time</label>
                 <div class="input-group">
-                    <input value="{{study.time | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}" type="text" class="form-control" contenteditable="false">
+                    <input value="{{study.time | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text" class="form-control" contenteditable="false">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </a>
@@ -51,8 +50,20 @@
                 <datetimepicker data-ng-model="study.time" data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
             </ul>
         </div>
-        <p class="help-block">Time to send out submissions</p>
+        <p class="help-block" ng-if="study.random == '0'">Time to send out submissions</p>
+        <div ng-if="study.random == '1'">
+            <label> Range
+                <select ng-model="study.range">
+                    <option>Morning</option>
+                    <option>Noon</option>
+                    <option>Evening</option>
+                    <option>Night</option>
+                </select>
+            </label>
+        </div>
 
+        <label> Participant <input ng-model="add_participant"> </label>
+        <input type="submit" ng-click="study.participants.push(add_participant); add_participant = null" value="Add Participant">
         <ul> <li ng-repeat="participant in study.participants">{{participant}}</li> </ul>
         <hr/>
     </div>
