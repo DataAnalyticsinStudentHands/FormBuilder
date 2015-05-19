@@ -345,6 +345,8 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
     function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
         $scope.id = $stateParams.id;
         $scope.form = form;
+
+        $scope.studies = [{participants: ["bob", "hank"]}, {participants: ["tom", "tim"]}];
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',

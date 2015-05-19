@@ -19,7 +19,41 @@
         </div>
         <hr/>
     </div>
-    <form class="row">
+    <div class="row">
+        <input type="submit" ng-click="studies.push({});" value="Add Study">
+    </div>
+    <div class="row" ng-repeat="study in studies">
+        {{study}}
+        <br/>
+        <label> Study Type
+            <select ng-model="study.repetitive">
+                <option value="0">Daily</option>
+                <option value="1">Repetitive</option>
+            </select>
+        </label>
+        <label> Study Type
+            <select ng-model="study.random">
+                <option value="0">Fixed</option>
+                <option value="1">Random</option>
+            </select>
+        </label>
+        <label> Participant <input ng-model="add_participant"> </label>
+        <input type="submit" ng-click="study.participants.push(add_participant); add_participant = null" value="Add Participant">
 
-    </form>
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#" href="#">
+                <div class="input-group">
+                    <input value="{{study.time | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}" type="text" class="form-control" contenteditable="false">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="study.time" data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
+            </ul>
+        </div>
+        <p class="help-block">Time to send out submissions</p>
+
+        <ul> <li ng-repeat="participant in study.participants">{{participant}}</li> </ul>
+        <hr/>
+    </div>
 </div>
