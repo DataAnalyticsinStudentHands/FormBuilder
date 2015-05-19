@@ -1,18 +1,22 @@
+<ng-include src="'/partials/tabs.html'"></ng-include>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <ng-include src="'/partials/tabs.html'"></ng-include>
-            <h4>{{form.name}}</h4>
-            <h5>{{form.subtitle}}</h5>
-            <h2>
-                <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="toPDF()">PDF</button>
-                <button type="button" class="btn btn-default pull-right" ng-show="responses" ng-click="getCSV()">CSV</button>
-            </h2>
+    <div class="col-md-12">
+        <div class="row">
+            <label>
+                <h4>{{form.name}}</h4>
+                <h5>{{form.subtitle}}</h5>
+            </label>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" ng-show="responses" ng-click="toPDF()">PDF</button>
+                <button type="button" class="btn btn-default" ng-show="responses" ng-click="getCSV()">CSV</button>
+            </div>
         </div>
     </div>
     <hr/>
-    <div class="well" ng-show="responses.length < 1">
-        <p>There are currently no responses here.</p>
+    <div class="row">
+        <div class="well" ng-show="responses.length < 1">
+            <p>There are currently no responses here.</p>
+        </div>
+        <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
     </div>
-    <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
 </div>

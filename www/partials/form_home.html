@@ -1,11 +1,11 @@
-<div class="container">
-    <div class="row">
-        <h1>
-            Forms
-            <button type="button" class="btn btn-primary pull-right" ui-sref="secure.builder">New Form</button>
-            <input type="search" class="form-control pull-right" style="width: 35%; margin-right: 5px" ng-init="query=''" ng-model="query" placeholder="Filter by Title, Subtitle, or Question">
-        </h1>
+<nav class="navbar navbar-default sub-navbar">
+    <div class="container">
+        All Forms
+        <button type="button" class="btn btn-primary pull-right" ui-sref="secure.builder">New Form</button>
+        <input type="search" class="form-control pull-right" style="width: 35%; margin-right: 5px" ng-init="query=''" ng-model="query" placeholder="Filter by Title, Subtitle, or Question">
     </div>
+</nav>
+<div class="container">
     <div class="well" ng-show="myForms.length < 1">
         <h2>Welcome!</h2>
 
@@ -21,9 +21,9 @@
         <li ng-repeat="form in myForms | filter:filterByQuestion" class="list-group-item clearfix">
             <span style="font-size:1.25em;">{{form.name}}</span>
             <span class="pull-right">
-                <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})" title="Responses"><span class="glyphicon glyphicon-inbox"></span></button>
                 <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button type="button" class="btn btn-default" ui-sref="secure.form_settings({'id':{{form.id}}})" title="Settings"><span class="glyphicon glyphicon-cog"></span></button>
+                <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})" title="Responses"><span class="glyphicon glyphicon-inbox"></span></button>
                 <a type="button" class="btn btn-default" target="_blank" ui-sref="form({'id':{{form.id}}})" title="Preview/Link"><span class="glyphicon glyphicon-link"></span></a>
             </span>
         </li>

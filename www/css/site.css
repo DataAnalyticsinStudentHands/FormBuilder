@@ -1,7 +1,30 @@
 /*site wise**************************************************************************************/
 /*uh branding colors*/
+.nav-tabs {
+    border-bottom: none;
+}
+.sub-navbar {
+    background-color: #00b388 !important;
+    font-size: 1.35em;
+    margin-bottom: 15px !important;
+}
+.sub-navbar>div {
+    margin-top: 10px;
+}
 .navbar {
     margin-bottom: 0px;
+}
+.nav-tabs a {
+    color: white;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+.nav-tabs, .nav-pills {
+    text-align:center;
 }
 .navbar-default {
     background-color: #c8102e;
