@@ -5,6 +5,7 @@ var formBuilderController = angular.module('formBuilderControllerModule', []);
 formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify', '$stateParams',
     function($scope, Auth, $state, ngNotify, $stateParams) {
         $scope.form_id = $stateParams.form_id;
+        $scope.curState = $state.current.name;
         if($scope.isAuthenticated() === true) {
             //Point 'em to logged in page of app
             $state.go('secure.home');
@@ -43,6 +44,7 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNo
 
 formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify', '$stateParams',
     function($scope, $state, Auth, ngNotify, $stateParams) {
+        $scope.curState = $state.current.name;
         $scope.registerUser = function() {
             var errorMSG;
             if($scope.password.pw == $scope.password.pwc) {
@@ -77,6 +79,7 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
     function($scope, Auth, $state, formService, ngNotify, forms) {
         $scope.state = $state;
         $scope.myForms = forms;
+        $scope.curState = $state.current.name;
 
         $scope.filterByQuestion = function(inForm){
 
@@ -117,6 +120,7 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
 
 formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$state',
     function($scope, Auth, ngNotify, $state) {
+        $scope.curState = $state.current.name;
         $scope.logOut = function() {
             Auth.clearCredentials();
             ngNotify.set("Successfully logged out!", "success");
@@ -126,6 +130,8 @@ formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$st
 
 formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form',
     function($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form) {
+        $scope.curState = $state.current.name;
+        $scope.form_id = $stateParams.id;
         $scope.Delete = function(row) {
             var index = $scope.gridOptions.data.indexOf(row.entity);
             responseService.deleteResponse(responses[index].id);
@@ -234,6 +240,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
 
 formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
     function($scope, Auth, $state, formService, responseService) {
+        $scope.curState = $state.current.name;
         responseService.getMyResponses($scope.id).then(function(data){
             $scope.responses = data;
         });
@@ -241,6 +248,7 @@ formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state'
 
 formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
     function($scope, form, $timeout) {
+        $scope.curState = $state.current.name;
         $scope.form = form;
         if($scope.form.redirect_url){
             $timeout(function(){
@@ -251,12 +259,14 @@ formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
 
 formBuilderController.controller('closedCtrl', ['$scope', '$stateParams',
     function($scope, $stateParams) {
+        $scope.curState = $state.current.name;
         $scope.form = JSON.parse($stateParams.form);
     }]);
 
 formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',
     function($scope, $stateParams, ngNotify, Restangular) {
         $scope.id = $stateParams.id;
+        $scope.curState = $state.current.name;
 
         $scope.download = function(id) {
             Restangular.setFullResponse(true);
@@ -280,9 +290,12 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         $scope.download($scope.id);
     }]);
 
-formBuilderController.controller('formSettingsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
-    function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
+formBuilderController.controller('formSettingsCtrl', ['$rootScope','$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
+    function($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
         $scope.id = $stateParams.id;
+        $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
+
         $scope.form = form;
         if(new Date($scope.form.expiration_date).getTime() !== new Date(0).getTime()) {
             console.log(new Date($scope.form.expiration_date));
@@ -351,6 +364,7 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
     function($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify, form) {
         $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
         $builder.forms['default'] = null;
 
         //IF we are actually editing a previously saved form
@@ -426,6 +440,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
 
 formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
     function($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
+        $scope.curState = $state.current.name;
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
         $scope.send_receipt = form.send_receipt;
@@ -470,7 +485,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
 formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
         $scope.uploadRightAway = true;
-
+        $scope.curState = $state.current.name;
         $scope.objJoin = function (obj){
 
             var retArr = [];

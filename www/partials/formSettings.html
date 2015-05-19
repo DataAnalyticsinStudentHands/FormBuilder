@@ -1,20 +1,17 @@
 <div class="container">
     <div class="row">
-        <h2>Form Settings</h2>
-        <div class="row">
-            <div class="col-md-12">
-                <label> Form Title
-                    <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
-                </label>
-                <label> Form Subtitle
-                    <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
-                </label>
-                <div class="pull-right">
-                    <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
-                    <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
-                    <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
-                    <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
-                </div>
+        <ng-include src="'/partials/tabs.html'"></ng-include>
+        <div class="col-md-12">
+            <label> Form Title
+                <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
+            </label>
+            <label> Form Subtitle
+                <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
+            </label>
+            <div class="pull-right">
+                <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
+                <a type="submit" target="_blank" ui-sref="form({'id':form_id})" class="btn btn-default">Preview</a>
+                <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
             </div>
         </div>
         <hr/>

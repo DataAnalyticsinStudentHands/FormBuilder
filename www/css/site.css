@@ -1,5 +1,8 @@
 /*site wise**************************************************************************************/
 /*uh branding colors*/
+.navbar {
+    margin-bottom: 0px;
+}
 .navbar-default {
     background-color: #c8102e;
     text-decoration: none;
