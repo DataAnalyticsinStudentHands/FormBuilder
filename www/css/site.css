@@ -47,6 +47,11 @@
     background-color: #00866c;
     outline: none;
 }
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-toggle:active,.navbar-toggle:hover,.navbar-toggle:focus {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+}
 .btn {
     outline: none;
     margin: 2px;
@@ -75,8 +80,7 @@
     border-top-left-radius: 18px;
 }
 .navbar-toggle {
-    background-color: #00b388;
-    border-color: none;
+    /*border-color: 1px solid white !important;*/
 }
 .navbar-default .navbar-toggle {
     border: none;
