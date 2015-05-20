@@ -22,7 +22,7 @@
     float:none;
     display:inline-block;
     *display:inline; /* ie7 fix */
-     zoom:1; /* hasLayout ie7 trigger */
+    zoom:1; /* hasLayout ie7 trigger */
 }
 .nav-tabs, .nav-pills {
     text-align:center;
@@ -118,9 +118,9 @@
 }
 @media screen and (min-width: 740px) {
     .rmargin>div>.pull-right {
-       -webkit-transform: translateY(-50%);
-       -ms-transform: translateY(-50%);
-       -o-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
         transform: translateY(-50%);
         position: absolute;
         top: 36px;
@@ -180,7 +180,7 @@ button {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 :focus {
-outline: 0;
+    outline: 0;
 }
 .form-signin {
     max-width: 330px;

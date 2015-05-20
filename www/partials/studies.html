@@ -87,7 +87,6 @@
                 <p class="help-block">Time to send out submissions</p>
             </div>
         </section>
-
         <label> Participant <input ng-model="add_participant"> </label>
         <input type="submit" ng-click="study.participants.push(add_participant); add_participant = null" value="Add Participant">
         <ul> <li ng-repeat="participant in study.participants">{{participant}}</li> </ul>
