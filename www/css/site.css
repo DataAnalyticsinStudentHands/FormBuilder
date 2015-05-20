@@ -1,7 +1,31 @@
 /*site wise**************************************************************************************/
 /*uh branding colors*/
+.nav-tabs {
+    border-bottom: none;
+}
+.sub-navbar {
+    background-color: white !important;
+    font-size: 1.35em;
+    margin-bottom: 25px !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.sub-navbar>div {
+    margin-top: 10px;
+}
 .navbar {
     margin-bottom: 0px;
+}
+.nav-tabs a, .sub-navbar>div {
+    color: #C8102E;
+}
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+.nav-tabs, .nav-pills {
+    text-align:center;
 }
 .navbar-default {
     background-color: #c8102e;
@@ -22,6 +46,11 @@
     color: white;
     background-color: #00866c;
     outline: none;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-toggle:active,.navbar-toggle:hover,.navbar-toggle:focus {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
 }
 .btn {
     outline: none;
@@ -51,8 +80,7 @@
     border-top-left-radius: 18px;
 }
 .navbar-toggle {
-    background-color: #00b388;
-    border-color: none;
+    /*border-color: 1px solid white !important;*/
 }
 .navbar-default .navbar-toggle {
     border: none;

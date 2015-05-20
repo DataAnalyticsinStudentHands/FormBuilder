@@ -1,7 +1,7 @@
+<ng-include src="'/partials/tabs.html'"></ng-include>
 <div class="container">
-    <div class="row">
-        <ng-include src="'/partials/tabs.html'"></ng-include>
-        <div class="col-md-12">
+    <div class="col-md-12">
+        <div class="row">
             <label> Form Title
                 <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
             </label>
@@ -14,8 +14,8 @@
                 <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
             </div>
         </div>
-        <hr/>
     </div>
+    <hr/>
     <form class="row" ng-submit="save()">
         <div class="col-md-10">
             <div class="panel panel-default">
