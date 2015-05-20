@@ -5,8 +5,7 @@
 }
 
 .sub-navbar {
-    background-color: white !important;
-    font-size: 1.35em;
+    background-color: #fafafa !important;
     margin-bottom: 25px !important;
     border-bottom: 1px solid #ddd !important;
 }
@@ -15,7 +14,8 @@
     margin-top: 10px;
 }
 
-.navbar {
+.navbar {    
+    font-size: 1.25em;
     margin-bottom: 0px;
 }
 
@@ -54,7 +54,7 @@
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .navbar-toggle:active, .navbar-toggle:hover, .navbar-toggle:focus, .btn-default:hover, .btn-default:active, .btn-default:focus {
     color: white;
-    background-color: #00866c;
+    background-color: #00866c !important;
     outline: none;
 }
 
