@@ -4,7 +4,7 @@
 
 var fbService = angular.module('formBuilderServiceModule', []);
 
-fbService.factory('userService', ['Restangular', '$q', '$filter', function (Restangular, $q, $filter) {
+fbService.factory('userService', ['Restangular', '$filter', function (Restangular, $filter) {
     return {
         getMyUser: function () {
             return Restangular.all("users").get("myUser");
@@ -126,12 +126,6 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
                 delete q.question_id;
             });
             this.newForm(new_name, form_duplicate.questions);
-        },
-        addPermission: function (fid, uid, role) {
-            Restangular.all("forms").one(fid).all("PERMISSION").one(uid).post();
-        },
-        removePermission: function (fid, uid, role) {
-            Restangular.all("forms").one(fid).all("PERMISSION").one(uid).delete();
         },
         updateRoles: function (fid, uin, role) {
             var role_array;
