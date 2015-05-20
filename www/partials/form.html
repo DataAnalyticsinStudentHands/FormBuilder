@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
         <h2>{{form_obj.name}}</h2>
+
         <h3>{{form_obj.subtitle}}</h3>
         <hr/>
         <form class="form-horizontal" ng-submit="submit()">
@@ -15,8 +16,10 @@
     <div class="row">
         <div class="pull-left control-label" style="font-weight: bold">E-Mail Receipt</div>
         <br/>
+
         <div class="onoffswitch pull-left">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="send_receipt" ng-disabled="receipt_required">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4"
+                   ng-model="send_receipt" ng-disabled="receipt_required">
             <label class="onoffswitch-label" for="myonoffswitch4">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>

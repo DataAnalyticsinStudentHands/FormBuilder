@@ -6,6 +6,7 @@
                 <h4>{{form.name}}</h4>
                 <h5>{{form.subtitle}}</h5>
             </label>
+
             <div class="pull-right">
                 <button type="button" class="btn btn-default" ng-show="responses" ng-click="toPDF()">PDF</button>
                 <button type="button" class="btn btn-default" ng-show="responses" ng-click="getCSV()">CSV</button>
@@ -17,6 +18,7 @@
         <div class="well" ng-show="responses.length < 1">
             <p>There are currently no responses here.</p>
         </div>
-        <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
+        <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns
+             ui-grid-move-columns></div>
     </div>
 </div>

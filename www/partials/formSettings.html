@@ -6,8 +6,10 @@
                 <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
             </label>
             <label> Form Subtitle
-                <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
+                <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control'
+                       placeholder="Form Subtitle"/>
             </label>
+
             <div class="pull-right">
                 <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
                 <a type="submit" target="_blank" ui-sref="form({'id':form_id})" class="btn btn-default">Preview</a>
@@ -24,15 +26,18 @@
                     <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
                     <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.enabled">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2"
+                               ng-model="form.enabled">
                         <label class="onoffswitch-label" for="myonoffswitch2">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
                         </label>
                     </div>
                     <div class="onoffswitch pull-right">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public" id="myonoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public"
+                               id="myonoffswitch">
                         <label class="onoffswitch-label" for="myonoffswitch">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -40,25 +45,32 @@
                     </div>
                     <br/>
                     <br/>
-                    <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
+
+                    <p class="help-block">Form must be open to receive responses. Form must be public for responses
+                        without user login. Open forms that are not public require user login.</p>
 
                     <br/>
                     <label class='control-label' style="width:100%"> Form URL
                         <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled">
                     </label>
+
                     <p class="help-block">Form must be open to accept responses.</p>
 
                     <div class="pull-left control-label" style="font-weight: bold">Expiration Time</div>
                     <br/>
+
                     <div class="dropdown">
-                        <a class="dropdown-toggle" id="expiration" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <a class="dropdown-toggle" id="expiration" role="button" data-toggle="dropdown" data-target="#"
+                           href="#">
                             <div class="input-group">
-                                <input value="{{expiration_date | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}" type="text" class="form-control">
+                                <input value="{{expiration_date | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}"
+                                       type="text" class="form-control">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="expiration_date" data-datetimepicker-config="{ dropdownSelector: '#expiration' }"/>
+                            <datetimepicker data-ng-model="expiration_date"
+                                            data-datetimepicker-config="{ dropdownSelector: '#expiration' }"/>
                         </ul>
                     </div>
                     <p class="help-block">Date at which form will automatically close to new submissions.</p>
@@ -66,6 +78,7 @@
                     <label class='control-label' style="width: 100%"> Form Closed Message
                         <textarea class='form-control' ng-model="form.closed_message"></textarea>
                     </label>
+
                     <p class="help-block">Message to show visitor once form is closed or expired.</p>
                 </div>
             </div>
@@ -75,11 +88,13 @@
                     <label class='control-label' style="width: 100%"> URL Redirect
                         <input type="url" class='form-control' ng-model="form.redirect_url">
                     </label>
+
                     <p class="help-block">URL to send user after finishing form.</p>
 
                     <label class='control-label' style="width: 100%"> Form Submitted Message
                         <textarea class='form-control' ng-model="form.completed_message"></textarea>
                     </label>
+
                     <p class="help-block">Message to show visitor once form is submitted.</p>
                 </div>
             </div>
@@ -88,8 +103,10 @@
                 <div class="panel-body">
                     <div class="pull-left control-label" style="font-weight: bold">E-Mail Notifications</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="form.send_notification">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3"
+                               ng-model="form.send_notification">
                         <label class="onoffswitch-label" for="myonoffswitch3">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -97,6 +114,7 @@
                     </div>
                     <br/>
                     <br/>
+
                     <p class="help-block">Enables e-mail notifications for new form responses.</p>
 
                     <label class='control-label'> E-Mail Notification Recipient
@@ -106,8 +124,10 @@
 
                     <div class="pull-left control-label" style="font-weight: bold">Require Receipt</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="form.send_receipt">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4"
+                               ng-model="form.send_receipt">
                         <label class="onoffswitch-label" for="myonoffswitch4">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -137,6 +157,7 @@
                     </label>
                     <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Add">
                     <br/>
+
                     <div ng-if="perm_role == 'Owner'">
                         Enables user to view, update, and delete the form and view and delete form responses.
                     </div>
