@@ -56,13 +56,13 @@
             </div>
         </section>
         <div class="row">
-            <div style="display:inline-block;"><label><input type="checkbox">Sunday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Tuesday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Monday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Wednesday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Thursday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Friday</label></div>
-            <div style="display:inline-block;"><label><input type="checkbox">Saturday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.sunday" ng-true-value="1" ng-init="study.sunday=0" ng-false-value="0" type="checkbox">Sunday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.monday" ng-true-value="1" ng-init="study.monday=0" ng-false-value="0" type="checkbox">Tuesday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.tuesday" ng-true-value="1" ng-init="study.tuesday=0" ng-false-value="0" type="checkbox">Monday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.wednesday" ng-true-value="1" ng-init="study.wednesday=0" ng-false-value="0" type="checkbox">Wednesday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.thursday" ng-true-value="1" ng-init="study.thursday=0" ng-false-value="0" type="checkbox">Thursday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.friday" ng-true-value="1" ng-init="study.friday=0" ng-false-value="0" type="checkbox">Friday</label></div>
+            <div style="display:inline-block;"><label><input ng-model="study.saturday" ng-true-value="1" ng-init="study.saturday=0" ng-false-value="0" type="checkbox">Saturday</label></div>
         </div>
         <section>
             <input type="submit" ng-click="study.times.push({});" value="Add Timing">
