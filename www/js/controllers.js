@@ -284,10 +284,10 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
 formBuilderController.controller('formSettingsCtrl', ['$rootScope','$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
     function($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
         $scope.id = $stateParams.id;
+        $scope.form = form;
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
 
-        $scope.form = form;
         if(new Date($scope.form.expiration_date).getTime() !== new Date(0).getTime()) {
             console.log(new Date($scope.form.expiration_date));
             $scope.expiration_date = $scope.form.expiration_date;
@@ -347,7 +347,8 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope','$scope', 'Au
 
 formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
     function($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
-        $scope.id = $stateParams.id;
+        $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
         $scope.form = form;
         $scope.studies = [{"participants":[],"random":"0"} ];
     }]);

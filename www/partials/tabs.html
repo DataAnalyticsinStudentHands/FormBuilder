@@ -2,9 +2,9 @@
 	<div class="container">
 		<ul class="nav nav-tabs">
 		    <li role="presentation" ng-class="{ 'active': curState=='secure.builder'}"><a ui-sref="secure.builder({'id': form_id})"><span class="glyphicon glyphicon-pencil"></span> Builder</a></li>
-		    <li role="presentation" ng-class="{ 'active': curState=='secure.form_settings'}"><a ui-sref="secure.form_settings({'id': form_id})"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-			<li role="presentation" ng-class="{ 'active': curState=='secure.response'}"><a ui-sref="secure.response({'id':form_id})"><span class="glyphicon glyphicon-inbox"></span> Responses</a></li>
-            <li role="presentation" ng-class="{ 'active': curState=='secure.studies'}"><a ui-sref="secure.form_studies({'id':form_id})"><span class="glyphicon glyphicon-book"></span> Studies</a></li>
+		    <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.form_settings'}"><a ui-sref="secure.form_settings({'id': form_id})"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+			<li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.response'}"><a ui-sref="secure.response({'id':form_id})"><span class="glyphicon glyphicon-inbox"></span> Responses</a></li>
+            <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.form_studies'}"><a ui-sref="secure.form_studies({'id':form_id})"><span class="glyphicon glyphicon-book"></span> Studies</a></li>
         </ul>
 	</div>
 </nav>
