@@ -12,6 +12,7 @@
         </div>
         <hr/>
     </div>
+    {{studies}}
     <div class="row">
         <input type="submit" ng-click="studies.push({participants:[],times:[]});" value="Add Study">
     </div>
@@ -54,7 +55,18 @@
                 <p class="help-block">Time to send out submissions</p>
             </div>
         </section>
-        <input type="submit" ng-click="study.times.push({});" value="Add Timing">
+        <div class="row">
+            <div style="display:inline-block;"><label><input type="checkbox">Sunday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Tuesday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Monday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Wednesday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Thursday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Friday</label></div>
+            <div style="display:inline-block;"><label><input type="checkbox">Saturday</label></div>
+        </div>
+        <section>
+            <input type="submit" ng-click="study.times.push({});" value="Add Timing">
+        </section>
         <div ng-repeat="time in study.times">
             <label> Timing
                 <select ng-model="time.random">
