@@ -21,7 +21,6 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
     return {
         getMyForms: function () {
             return Restangular.all("forms").customGET("myForms", {numberOfForms: 999999999}).then(function (data) {
-                console.log(data);
                 data = data.plain();
                 var data_keys = Object.keys(data);
                 var output = [];
@@ -64,7 +63,6 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
                                 perm_role = "";
                                 break;
                         }
-                        console.log(p, perm_role);
                         form.permissions[perm_keys[i]].perm_role = perm_role;
                     }
                 }

@@ -78,35 +78,28 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
         $scope.state = $state;
         $scope.myForms = forms;
         $scope.filterByQuestion = function (inForm) {
-
             if ($scope.query) {
-
                 // Filters by name
-                var matchArr = inForm.name.match($scope.query);
+                var matchArr = inForm.name.toLowerCase().match($scope.query.toLowerCase());
                 if (matchArr && (matchArr.length > 0))
                     return true;
-
                 // Filters by subtitle
                 if (inForm.subtitle)
-                    matchArr = inForm.subtitle.match($scope.query);
+                    matchArr = inForm.subtitle.toLowerCase().match($scope.query.toLowerCase());
                 if (matchArr && (matchArr.length > 0))
                     return true;
-
                 for (var i = 0; i < inForm.questions.length; i++) {
-
                     // Filters by question label
                     if (inForm.questions[i].label)
-                        matchArr = inForm.questions[i].label.match($scope.query);
+                        matchArr = inForm.questions[i].label.toLowerCase().match($scope.query.toLowerCase());
                     if (matchArr && (matchArr.length > 0))
                         return true;
-
                     // Filters by question description
                     if (inForm.questions[i].description)
-                        matchArr = inForm.questions[i].description.match($scope.query);
+                        matchArr = inForm.questions[i].description.toLowerCase().match($scope.query.toLowerCase());
                     if (matchArr && (matchArr.length > 0))
                         return true;
                 }
-
                 return false;
             }
             else
@@ -346,8 +339,8 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
             });
         };
 
-        $scope.updatePermission = function () {
-            formService.updateRoles(form.id, $scope.perm_username, $scope.perm_role);
+        $scope.updatePermission = function (user, role) {
+            formService.updateRoles(form.id, user, role);
         }
     }]);
 

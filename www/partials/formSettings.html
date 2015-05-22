@@ -153,7 +153,7 @@
                             <option>Owner</option>
                         </select>
                     </label>
-                    <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Add">
+                    <input type="button" ng-click="updatePermission(perm_username, perm_role)" class="btn btn-primary" value="Add">
                     <br/>
 
                     <div ng-if="perm_role == 'Owner'">
@@ -183,7 +183,7 @@
                                 <option>Owner</option>
                             </select>
                         </label>
-                        <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Update">
+                        <input type="button" ng-click="updatePermission(key, p.perm_role)" class="btn btn-primary" value="Update">
                     </div>
                 </div>
             </div>
