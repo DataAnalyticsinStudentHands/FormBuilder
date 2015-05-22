@@ -14,102 +14,121 @@
     </div>
     {{studies}}
     <div class="row">
-        <input type="submit" ng-click="studies.push({participants:[],times:[]});" value="Add Study">
+        <input type="submit" class="btn btn-default" ng-click="studies.push({participants:[],times:[]});" value="Add Study">
     </div>
-    <div class="row" ng-repeat="study in studies">
-        {{study}}
-        <br/>
-        <section class="row">
-            <div class="dropdown col-md-4">
-                <a class="dropdown-toggle" id="start_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                   href="#">
-                    <label for="start_input{{$id}}">Start Time</label>
-
-                    <div class="input-group">
-                        <input value="{{study.start_time | date:'MM-dd-yyyy hh:mm a'}}" id="start_input{{$id}}"
-                               type="text" class="form-control">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="study.start_time"
-                                    data-datetimepicker-config="{ dropdownSelector: '#start_time{{$id}}' }"></datetimepicker>
-                </ul>
-                <p class="help-block">Time to send out submissions</p>
-            </div>
-            <div class="dropdown col-md-4">
-                <a class="dropdown-toggle" id="end_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                   href="#">
-                    <label for="end_input{{$id}}">End Time</label>
-
-                    <div class="input-group">
-                        <input value="{{study.end_time | date:'MM-dd-yyyy hh:mm a'}}" id="end_input{{$id}}" type="text"
-                               class="form-control">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="study.end_time"
-                                    data-datetimepicker-config="{ dropdownSelector: '#end_time{{$id}}' }"></datetimepicker>
-                </ul>
-                <p class="help-block">Time to send out submissions</p>
-            </div>
-        </section>
-        <div class="row">
-            <div style="display:inline-block;"><label><input ng-model="study.sunday" ng-true-value="1" ng-init="study.sunday=0" ng-false-value="0" type="checkbox">Sunday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.monday" ng-true-value="1" ng-init="study.monday=0" ng-false-value="0" type="checkbox">Tuesday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.tuesday" ng-true-value="1" ng-init="study.tuesday=0" ng-false-value="0" type="checkbox">Monday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.wednesday" ng-true-value="1" ng-init="study.wednesday=0" ng-false-value="0" type="checkbox">Wednesday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.thursday" ng-true-value="1" ng-init="study.thursday=0" ng-false-value="0" type="checkbox">Thursday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.friday" ng-true-value="1" ng-init="study.friday=0" ng-false-value="0" type="checkbox">Friday</label></div>
-            <div style="display:inline-block;"><label><input ng-model="study.saturday" ng-true-value="1" ng-init="study.saturday=0" ng-false-value="0" type="checkbox">Saturday</label></div>
+    <hr>
+    <div class="panel panel-default" ng-repeat="study in studies">
+        <div class="panel-heading">
+            <button class="btn pull-right btn-danger" type="submit" ng-click="" value="Delete Study">Delete Study</button>
+            <h3 class="panel-title">Study #{{$index+1}}</h3>
+            <div class="clearfix"></div>
         </div>
-        <section>
-            <input type="submit" ng-click="study.times.push({});" value="Add Timing">
-        </section>
-        <div ng-repeat="time in study.times">
-            <label> Timing
-                <select ng-model="time.random">
-                    <option value="0">Fixed</option>
-                    <option value="1">Random</option>
-                </select>
-            </label>
-            <div ng-if="time.random == '0'" class="row">
+        <div class="panel-body">
+            <section class="row">
                 <div class="dropdown col-md-4">
-                    <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                    <a class="dropdown-toggle" id="start_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
                        href="#">
-                        <label for="input{{$id}}">Time</label>
+                        <label for="start_input{{$id}}">Start Time</label>
 
                         <div class="input-group">
-                            <input value="{{time.time | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text"
+                            <input value="{{study.start_time | date:'MM-dd-yyyy hh:mm a'}}" id="start_input{{$id}}"
+                                   type="text" class="form-control">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="study.start_time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#start_time{{$id}}' }"></datetimepicker>
+                    </ul>
+                    <p class="help-block">Time to send out submissions</p>
+                </div>
+                <div class="dropdown col-md-4">
+                    <a class="dropdown-toggle" id="end_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                       href="#">
+                        <label for="end_input{{$id}}">End Time</label>
+
+                        <div class="input-group">
+                            <input value="{{study.end_time | date:'MM-dd-yyyy hh:mm a'}}" id="end_input{{$id}}" type="text"
                                    class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="time.time"
-                                        data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
+                        <datetimepicker data-ng-model="study.end_time"
+                                        data-datetimepicker-config="{ dropdownSelector: '#end_time{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
-            </div>
-            <div ng-if="time.random == '1'" class="row">
-                <label> Range
-                    <select ng-model="time.range">
-                        <option>Morning</option>
-                        <option>Noon</option>
-                        <option>Evening</option>
-                        <option>Night</option>
+            </section>
+            <section class="well">
+                <label class="checkbox-inline">
+                    <input ng-model="study.sunday" ng-true-value="1" ng-init="study.sunday=0" ng-false-value="0" type="checkbox"> Sunday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.monday" ng-true-value="1" ng-init="study.tuesday=0" ng-false-value="0" type="checkbox"> Monday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.tuesday" ng-true-value="1" ng-init="study.monday=0" ng-false-value="0" type="checkbox"> Tuesday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.wednesday" ng-true-value="1" ng-init="study.wednesday=0" ng-false-value="0" type="checkbox"> Wednesday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.thursday" ng-true-value="1" ng-init="study.thursday=0" ng-false-value="0" type="checkbox"> Thursday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.friday" ng-true-value="1" ng-init="study.friday=0" ng-false-value="0" type="checkbox"> Friday
+                </label>
+                <label class="checkbox-inline">
+                    <input ng-model="study.saturday" ng-true-value="1" ng-init="study.saturday=0" ng-false-value="0" type="checkbox"> Saturday
+                </label>
+            </section>
+            <section class="row">
+                <input type="submit" class="btn btn-default" ng-click="study.times.push({});" value="Add Timing">
+            </section>
+            <div ng-repeat="time in study.times">
+                <label> Timing
+                    <select ng-model="time.random">
+                        <option value="0">Fixed</option>
+                        <option value="1">Random</option>
                     </select>
                 </label>
+                <div ng-if="time.random == '0'" class="row">
+                    <div class="dropdown col-md-4">
+                        <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                           href="#">
+                            <label for="input{{$id}}">Time</label>
+
+                            <div class="input-group">
+                                <input value="{{time.time | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text"
+                                       class="form-control">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="time.time"
+                                            data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
+                        </ul>
+                        <p class="help-block">Time to send out submissions</p>
+                    </div>
+                </div>
+                <div ng-if="time.random == '1'" class="row">
+                    <label> Range
+                        <select ng-model="time.range">
+                            <option>Morning</option>
+                            <option>Noon</option>
+                            <option>Evening</option>
+                            <option>Night</option>
+                        </select>
+                    </label>
+                </div>
             </div>
+            <label> Participant <input ng-model="add_participant"> </label>
+            <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant); add_participant = null"
+                   value="Add Participant">
+            <ul class="well">
+                <li ng-repeat="participant in study.participants">{{participant}}</li>
+            </ul>
         </div>
-        <label> Participant <input ng-model="add_participant"> </label>
-        <input type="submit" ng-click="study.participants.push(add_participant); add_participant = null"
-               value="Add Participant">
-        <ul>
-            <li ng-repeat="participant in study.participants">{{participant}}</li>
-        </ul>
-        <hr/>
     </div>
 </div>
