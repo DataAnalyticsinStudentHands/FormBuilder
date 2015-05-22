@@ -20,19 +20,54 @@ fbService.factory('userService', ['Restangular', '$filter', function (Restangula
 fbService.factory('formService', ['Restangular', '$filter', function (Restangular, $filter) {
     return {
         getMyForms: function () {
-            return Restangular.all("forms").customGETLIST("myForms", {numberOfForms: 999999999}).then(function (data) {
-                return data.plain();
+            return Restangular.all("forms").customGET("myForms", {numberOfForms: 999999999}).then(function (data) {
+                console.log(data);
+                data = data.plain();
+                var data_keys = Object.keys(data);
+                var output = [];
+                for(var i = 0; i < data_keys.length; i++) {
+                    var form = JSON.parse(data_keys[i]);
+                    form.perms = data_keys[i];
+                    output.push(form);
+                }
+                return output;
             });
         },
-        getForm: function (fid) {
+        getForm: function (fid, perm) {
             var service = this;
-            return Restangular.all("forms").one(fid).get().then(function (success) {
+            return Restangular.all("forms").one(fid).get({permissions: perm}).then(function (success) {
                 var form = Restangular.stripRestangular(success);
                 service.processInForm(form);
                 form.questions.forEach(function (question) {
                     service.processInQuestion(question);
                 });
                 form.expiration_date = new Date(form.expiration_date);
+                if(perm) {
+                    var perm_keys = Object.keys(form.permissions);
+                    for(var i = 0; i < perm_keys.length; i++) {
+                        var p = form.permissions[perm_keys[i]];
+                        var perm_role = "";
+                        switch(p.toString()) {
+                            case '1':
+                                perm_role = "Response Viewer";
+                                break;
+                            case '4,2,1':
+                                perm_role = "Collaborator";
+                                break;
+                            case '128,8,4,2,1':
+                                perm_role = "Owner";
+                                break;
+                            case '4':
+                                perm_role = "Responder";
+                                break;
+                            default:
+                                perm_role = "";
+                                break;
+                        }
+                        console.log(p, perm_role);
+                        form.permissions[perm_keys[i]].perm_role = perm_role;
+                    }
+                }
                 return form;
             });
         },

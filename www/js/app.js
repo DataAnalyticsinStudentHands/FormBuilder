@@ -79,7 +79,7 @@ databaseModule.config(
                 data: {pageTitle: 'Settings'},
                 resolve: {
                     form: function (formService, $stateParams) {
-                        return formService.getForm($stateParams.id);
+                        return formService.getForm($stateParams.id, true);
                     }
                 },
                 authenticate: true
@@ -182,7 +182,7 @@ databaseModule.config(
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', 'userService', 'ngNotify',
     function (Restangular, $rootScope, Auth, $q, $state, $builder, userService, ngNotify) {
-        Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilderPTEST/");
+        Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilderPTEST2/");
         //Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
 
         $rootScope.Restangular = function () {

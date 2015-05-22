@@ -169,6 +169,23 @@
                         Enables user to view and reply to the form.
                     </div>
                 </div>
+                <div ng-repeat="(key, p) in form.permissions">
+                    <div class="panel-body">
+                        <label class='control-label'>
+                            <input type="email" ng-model="key" class='form-control' disabled>
+                        </label>
+                        <label class='control-label'>
+                            <select ng-model="p.perm_role" class='form-control'>
+                                <option></option>
+                                <option>Responder</option>
+                                <option>Collaborator</option>
+                                <option>Response Viewer</option>
+                                <option>Owner</option>
+                            </select>
+                        </label>
+                        <input type="button" ng-click="updatePermission()" class="btn btn-primary" value="Update">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-2">
