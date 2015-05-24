@@ -16,7 +16,8 @@ var databaseModule = angular.module('databaseModule', [
     'angularFileUpload',
     'ui.bootstrap.datetimepicker',
     'ui.grid',
-    'ui.grid.resizeColumns'
+    'ui.grid.resizeColumns',
+    'ui.bootstrap'
 ]);
 databaseModule.config(
     function ($stateProvider, $urlRouterProvider) {
@@ -80,6 +81,9 @@ databaseModule.config(
                 resolve: {
                     form: function (formService, $stateParams) {
                         return formService.getForm($stateParams.id, true);
+                    },
+                    users: function(userService) {
+                        return userService.getAllUsers();
                     }
                 },
                 authenticate: true

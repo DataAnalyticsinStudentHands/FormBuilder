@@ -13,6 +13,12 @@ fbService.factory('userService', ['Restangular', '$filter', function (Restangula
             return Restangular.all("users").all("myRole").getList().then(function (success) {
                 return success[0];
             });
+        },
+        getAllUsers: function() {
+            return Restangular.all("users").getList().then(function(success){
+                console.log(success.plain());
+                return success.plain();
+            })
         }
     }
 }]);

@@ -281,12 +281,13 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         $scope.download($scope.id);
     }]);
 
-formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
-    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
+formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
+    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
         $scope.id = $stateParams.id;
         $scope.form = form;
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
+        $scope.users = users;
 
         if (new Date($scope.form.expiration_date).getTime() !== new Date(0).getTime()) {
             $scope.expiration_date = $scope.form.expiration_date;
@@ -341,7 +342,7 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
 
         $scope.updatePermission = function (user, role) {
             formService.updateRoles(form.id, user, role);
-        }
+        };
     }]);
 
 formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',

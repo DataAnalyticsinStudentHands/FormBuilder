@@ -142,7 +142,8 @@
                 <div class="panel-heading">Permission Control</div>
                 <div class="panel-body">
                     <label class='control-label'> User
-                        <input type="email" ng-model="perm_username" class='form-control'>
+                        <!--<input type="text" ng-model="selected" typeahead="user as user.username for user in userService.getAllUsers() | filter: $viewValue" class="form-control">-->
+                        <input type="text" ng-model="perm_username" typeahead="user as user.username for user in users | filter: {username: $viewValue}">
                     </label>
                     <label class='control-label'> Role
                         <select ng-model="perm_role" class='form-control'>
@@ -155,7 +156,6 @@
                     </label>
                     <input type="button" ng-click="updatePermission(perm_username, perm_role)" class="btn btn-primary" value="Add">
                     <br/>
-
                     <div ng-if="perm_role == 'Owner'">
                         Enables user to view, update, and delete the form and view and delete form responses.
                     </div>
@@ -169,7 +169,7 @@
                         Enables user to view and reply to the form.
                     </div>
                 </div>
-                <div ng-repeat="(key, p) in form.permissions">
+                <div ng-repeat="(key, p) in form.permissions" ng-if="key != uin">
                     <div class="panel-body">
                         <label class='control-label'>
                             <input type="email" ng-model="key" class='form-control' disabled>
