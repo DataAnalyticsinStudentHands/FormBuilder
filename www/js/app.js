@@ -95,6 +95,9 @@ databaseModule.config(
                 resolve: {
                     form: function (formService, $stateParams) {
                         return formService.getForm($stateParams.id);
+                    },
+                    users: function(userService) {
+                        return userService.getAllUsers();
                     }
                 },
                 data: {pageTitle: 'Studies'},

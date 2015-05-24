@@ -142,7 +142,6 @@
                 <div class="panel-heading">Permission Control</div>
                 <div class="panel-body">
                     <label class='control-label'> User
-                        <!--<input type="text" ng-model="selected" typeahead="user as user.username for user in userService.getAllUsers() | filter: $viewValue" class="form-control">-->
                         <input type="text" ng-model="perm_username" typeahead="user as user.username for user in users | filter: {username: $viewValue}">
                     </label>
                     <label class='control-label'> Role

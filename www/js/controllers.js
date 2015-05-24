@@ -345,11 +345,13 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
         };
     }]);
 
-formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form',
-    function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form) {
+formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
+    function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
         $scope.form = form;
+        $scope.users = users;
+
         $scope.studies = [{"participants": [], times: [], "random": "0"}];
     }]);
 

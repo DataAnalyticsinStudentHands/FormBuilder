@@ -16,7 +16,6 @@ fbService.factory('userService', ['Restangular', '$filter', function (Restangula
         },
         getAllUsers: function() {
             return Restangular.all("users").getList().then(function(success){
-                console.log(success.plain());
                 return success.plain();
             })
         }

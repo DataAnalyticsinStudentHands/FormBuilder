@@ -1,3 +1,11 @@
 /www/lib
 /platforms/
 /plugins/
+www/lib
+node_modules/
+platforms/
+plugins/
+resources/
+hooks/
+.brackets.json
+npm-debug.log
