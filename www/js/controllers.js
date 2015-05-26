@@ -345,14 +345,16 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
         };
     }]);
 
-formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
-    function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
+formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users', 'studyService',
+    function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users, studyService) {
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
         $scope.form = form;
         $scope.users = users;
+        $scope.studyService = studyService;
 
         $scope.studies = [];
+
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',

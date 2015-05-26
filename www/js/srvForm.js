@@ -295,19 +295,19 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
 fbService.factory('studyService',['Restangular', function(Restangular){
     return {
         getStudiesByFormId: function(fid) {
-
+            return Restangular.all("studies").all("getstudiesform").getList(fid);
         },
         getStudyById: function(sid) {
-
+            return Restangular.all("studies").get(sid);
         },
         newStudies: function(studies) {
-
+            return Restangular.all("studies").all('list').post(studies);
         },
         updateStudies: function(studies) {
-
+            return Restangular.all("studies").all('updatestudies').put(studies);
         },
         deleteStudy: function(sid) {
-
+            return Restangular.all("studies").delete(sid);
         }
     }
 }]);
