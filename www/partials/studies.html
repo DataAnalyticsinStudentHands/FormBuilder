@@ -14,11 +14,12 @@
     </div>
     {{studies}}
     <div class="row">
-        <input type="submit" class="btn btn-default" ng-click="studies.push({participants:[],times:[]});" value="Add Study">
+        <input type="submit" class="btn btn-default" ng-click="studies.push({participants:[],times:[],fixedTimes:[],ranges:[]});" value="Add Study">
     </div>
     <hr>
     <div class="panel panel-default" ng-repeat="study in studies">
         <div class="panel-heading">
+            <button class="btn pull-right btn-default" type="submit" ng-click="" value="Delete Study">Save Study</button>
             <button class="btn pull-right btn-danger" type="submit" ng-click="" value="Delete Study">Delete Study</button>
             <h3 class="panel-title">Study #{{$index+1}}</h3>
             <div class="clearfix"></div>
@@ -84,50 +85,53 @@
                 </label>
             </section>
             <section class="row">
-                <input type="submit" class="btn btn-default" ng-click="study.times.push({});" value="Add Timing">
             </section>
-            <div ng-repeat="time in study.times">
-                <label> Timing
-                    <select ng-model="time.random" class="form-control">
-                        <option value="0">Fixed</option>
-                        <option value="1">Random</option>
+            <label class="row"> Timing
+                <select ng-model="random" class="form-control">
+                    <option value="0">Fixed</option>
+                    <option value="1">Random</option>
+                </select>
+            </label>
+            <div ng-if="random == '0'" class="row">
+                <div class="dropdown col-md-4">
+                    <label for="input{{$id}}">Time</label>
+                    <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                       href="#">
+                        <div class="input-group">
+                            <input value="{{time_fixed | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text"
+                                   class="form-control">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time_fixed"
+                                        data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
+                    </ul>
+                    <p class="help-block">Time to send out submissions</p>
+                </div>
+                <input type="submit" class="btn btn-default col-md-1" ng-click="study.fixedTimes.push(time_fixed);" value="Add">
+            </div>
+            <div ng-if="random == '1'">
+                <label> Range
+                    <select ng-model="range" class="form-control">
+                        <option>Morning</option>
+                        <option>Noon</option>
+                        <option>Evening</option>
+                        <option>Night</option>
                     </select>
                 </label>
-                <div ng-if="time.random == '0'" class="row">
-                    <div class="dropdown col-md-4">
-                        <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                           href="#">
-                            <label for="input{{$id}}">Time</label>
-                            <div class="input-group">
-                                <input value="{{time.time | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text"
-                                       class="form-control">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="time.time"
-                                            data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
-                        </ul>
-                        <p class="help-block">Time to send out submissions</p>
-                    </div>
-                </div>
-                <div ng-if="time.random == '1'" class="row">
-                    <label> Range
-                        <select ng-model="time.range" class="form-control">
-                            <option>Morning</option>
-                            <option>Noon</option>
-                            <option>Evening</option>
-                            <option>Night</option>
-                        </select>
-                    </label>
-                </div>
+                <input type="submit" class="btn btn-default" ng-click="study.ranges.push(range);" value="Add">
             </div>
-            <label> Participant
-                <input type="text" ng-model="add_participant" typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
-            </label>
+            <div ng-repeat="time in study.fixedTimes track by $index"> {{time | date:'MM-dd-yyyy hh:mm a'}} </div>
+            <div ng-repeat="range in study.ranges track by $index"> {{range}} </div>
+            <div class="row">
+                <label> Participant
+                    <input type="text" ng-model="add_participant" typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
+                </label>
             <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant); add_participant = null"
                    value="Add Participant">
-            <ul class="well">
+            </div>
+            <ul class="well" ng-if="study.participants && study.participants.length > 0">
                 <li ng-repeat="participant in study.participants">{{participant.username}}</li>
             </ul>
         </div>

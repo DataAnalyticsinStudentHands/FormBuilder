@@ -352,7 +352,7 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.form = form;
         $scope.users = users;
 
-        $scope.studies = [{"participants": [], times: [], "random": "0"}];
+        $scope.studies = [];
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',

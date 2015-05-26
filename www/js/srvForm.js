@@ -291,3 +291,23 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
         }
     }
 }]);
+
+fbService.factory('studyService',['Restangular', function(Restangular){
+    return {
+        getStudiesByFormId: function(fid) {
+
+        },
+        getStudyById: function(sid) {
+
+        },
+        newStudies: function(studies) {
+
+        },
+        updateStudies: function(studies) {
+
+        },
+        deleteStudy: function(sid) {
+
+        }
+    }
+}]);
