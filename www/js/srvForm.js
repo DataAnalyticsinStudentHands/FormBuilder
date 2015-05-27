@@ -305,7 +305,7 @@ fbService.factory('studyService',['Restangular', '$filter', function(Restangular
             studies.forEach(function(study){
                 srv.processOutStudy(study);
             });
-            return Restangular.all("studies").all('list').post(studies);
+            return Restangular.all("studies").all('updatestudies').customPUT(studies);
         },
         updateStudies: function(studies) {
             return Restangular.all("studies").all('updatestudies').put(studies);
