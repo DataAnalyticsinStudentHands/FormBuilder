@@ -314,8 +314,8 @@ fbService.factory('studyService',['Restangular', '$filter', function(Restangular
             return Restangular.all("studies").delete(sid);
         },
         processOutStudy: function(study) {
-            study.startTime = $filter('date')(Date.parse(study.startTime), 'yyyy-MM-ddTHH:mmZ');
-            study.endTime = $filter('date')(Date.parse(study.endTime), 'yyyy-MM-ddTHH:mmZ');
+            study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');
+            study.endDate = $filter('date')(Date.parse(study.endDate), 'yyyy-MM-ddTHH:mmZ');
         }
     }
 }]);

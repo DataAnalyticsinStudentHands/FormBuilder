@@ -153,7 +153,7 @@
                             <option>Owner</option>
                         </select>
                     </label>
-                    <input type="button" ng-click="updatePermission(perm_username, perm_role)" class="btn btn-primary" value="Add">
+                    <input type="button" ng-click="updatePermission(perm_username.username, perm_role)" class="btn btn-primary" value="Add">
                     <br/>
                     <div ng-if="perm_role == 'Owner'">
                         Enables user to view, update, and delete the form and view and delete form responses.
