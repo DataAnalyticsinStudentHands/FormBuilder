@@ -292,7 +292,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
     }
 }]);
 
-fbService.factory('studyService',['Restangular', function(Restangular){
+fbService.factory('studyService',['Restangular', '$filter', function(Restangular, $filter){
     return {
         getStudiesByFormId: function(fid) {
             return Restangular.all("studies").all("getstudiesform").getList(fid);
@@ -301,6 +301,10 @@ fbService.factory('studyService',['Restangular', function(Restangular){
             return Restangular.all("studies").get(sid);
         },
         newStudies: function(studies) {
+            var srv = this;
+            studies.forEach(function(study){
+                srv.processOutStudy(study);
+            });
             return Restangular.all("studies").all('list').post(studies);
         },
         updateStudies: function(studies) {
@@ -308,6 +312,10 @@ fbService.factory('studyService',['Restangular', function(Restangular){
         },
         deleteStudy: function(sid) {
             return Restangular.all("studies").delete(sid);
+        },
+        processOutStudy: function(study) {
+            study.startTime = $filter('date')(Date.parse(study.startTime), 'yyyy-MM-ddTHH:mmZ');
+            study.endTime = $filter('date')(Date.parse(study.endTime), 'yyyy-MM-ddTHH:mmZ');
         }
     }
 }]);

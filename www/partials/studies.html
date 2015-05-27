@@ -14,7 +14,7 @@
     </div>
     {{studies}}
     <div class="row">
-        <input type="submit" class="btn btn-default" ng-click="studies.push({participants:[],times:[],fixedTimes:[],ranges:[]});" value="Add Study">
+        <input type="submit" class="btn btn-default" ng-click="studies.push({participants:[],fixedTimes:[],ranges:[]});" value="Add Study">
     </div>
     <hr>
     <div class="panel panel-default" ng-repeat="study in studies">
@@ -27,36 +27,36 @@
         <div class="panel-body">
             <section class="row">
                 <div class="dropdown col-md-4">
-                    <a class="dropdown-toggle" id="start_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                    <a class="dropdown-toggle" id="startTime{{$id}}" role="button" data-toggle="dropdown" data-target="#"
                        href="#">
                         <label for="start_input{{$id}}">Start Time</label>
 
                         <div class="input-group">
-                            <input value="{{study.start_time | date:'MM-dd-yyyy hh:mm a'}}" id="start_input{{$id}}"
+                            <input value="{{study.startTime | date:'MM-dd-yyyy hh:mm a'}}" id="start_input{{$id}}"
                                    type="text" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="study.start_time"
-                                        data-datetimepicker-config="{ dropdownSelector: '#start_time{{$id}}' }"></datetimepicker>
+                        <datetimepicker data-ng-model="study.startTime"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startTime{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
                 <div class="dropdown col-md-4">
-                    <a class="dropdown-toggle" id="end_time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
+                    <a class="dropdown-toggle" id="endTime{{$id}}" role="button" data-toggle="dropdown" data-target="#"
                        href="#">
                         <label for="end_input{{$id}}">End Time</label>
 
                         <div class="input-group">
-                            <input value="{{study.end_time | date:'MM-dd-yyyy hh:mm a'}}" id="end_input{{$id}}" type="text"
+                            <input value="{{study.endTime | date:'MM-dd-yyyy hh:mm a'}}" id="end_input{{$id}}" type="text"
                                    class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="study.end_time"
-                                        data-datetimepicker-config="{ dropdownSelector: '#end_time{{$id}}' }"></datetimepicker>
+                        <datetimepicker data-ng-model="study.endTime"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endTime{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
@@ -128,11 +128,11 @@
                 <label> Participant
                     <input type="text" ng-model="add_participant" typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
                 </label>
-            <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant); add_participant = null"
+            <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant.username); add_participant = null"
                    value="Add Participant">
             </div>
             <ul class="well" ng-if="study.participants && study.participants.length > 0">
-                <li ng-repeat="participant in study.participants">{{participant.username}}</li>
+                <li ng-repeat="participant in study.participants">{{participant}}</li>
             </ul>
         </div>
     </div>
