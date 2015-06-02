@@ -295,7 +295,9 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
 fbService.factory('studyService',['Restangular', '$filter', function(Restangular, $filter){
     return {
         getStudiesByFormId: function(fid) {
-            return Restangular.all("studies").all("getstudiesform").getList(fid);
+            return Restangular.all("studies").all("getstudiesform").one(fid).getList().then(function(s){
+                return s.plain();
+            });
         },
         getStudyById: function(sid) {
             return Restangular.all("studies").get(sid);
@@ -314,8 +316,15 @@ fbService.factory('studyService',['Restangular', '$filter', function(Restangular
             return Restangular.all("studies").delete(sid);
         },
         processOutStudy: function(study) {
-            study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');
-            study.endDate = $filter('date')(Date.parse(study.endDate), 'yyyy-MM-ddTHH:mmZ');
+            if(study.startDate && isDate(study.startDate)) study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');
+            if(study.endDate && isDate(study.endDate)) study.endDate = $filter('date')(Date.parse(study.endDate), 'yyyy-MM-ddTHH:mmZ');
+            var times = [];
+            if(study.fixedTimes){
+                study.fixedTimes.forEach(function(time){
+                    if(time && isDate(time)) times.push($filter('date')(Date.parse(time), 'yyyy-MM-ddTHH:mmZ'));
+                });
+                study.fixedTimes = times;
+            }
         }
     }
 }]);
