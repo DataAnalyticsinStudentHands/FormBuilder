@@ -12,7 +12,6 @@
         </div>
         <hr/>
     </div>
-    {{studies}}
     <div class="row">
         <input type="submit" class="btn btn-default" ng-click="studies.push({formId:form.id, participants:[],fixedTimes:[],ranges:[]});" value="Add Study">
     </div>
@@ -29,34 +28,34 @@
                 <div class="dropdown col-md-4">
                     <a class="dropdown-toggle" id="startDate{{$id}}" role="button" data-toggle="dropdown" data-target="#"
                        href="#">
-                        <label for="start_input{{$id}}">Start Time</label>
+                        <label for="start_input{{$id}}">Start Day</label>
 
                         <div class="input-group">
-                            <input value="{{study.startDate | date:'MM-dd-yyyy hh:mm a'}}" id="start_input{{$id}}"
+                            <input value="{{study.startDate | date:'MM-dd-yyyy'}}" id="start_input{{$id}}"
                                    type="text" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <datetimepicker data-ng-model="study.startDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#startDate{{$id}}' }"></datetimepicker>
+                                        data-datetimepicker-config="{ startView:'day', minView:'day', dropdownSelector: '#startDate{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
                 <div class="dropdown col-md-4">
                     <a class="dropdown-toggle" id="endDate{{$id}}" role="button" data-toggle="dropdown" data-target="#"
                        href="#">
-                        <label for="end_input{{$id}}">End Time</label>
+                        <label for="end_input{{$id}}">End Day</label>
 
                         <div class="input-group">
-                            <input value="{{study.endDate | date:'MM-dd-yyyy hh:mm a'}}" id="end_input{{$id}}" type="text"
+                            <input value="{{study.endDate | date:'MM-dd-yyyy'}}" id="end_input{{$id}}" type="text"
                                    class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <datetimepicker data-ng-model="study.endDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#endDate{{$id}}' }"></datetimepicker>
+                                        data-datetimepicker-config="{  startView:'day', minView:'day', dropdownSelector: '#endDate{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
