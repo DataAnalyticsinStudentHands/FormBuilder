@@ -20,7 +20,9 @@
     <hr>
     <div class="panel panel-default" ng-repeat="study in studies">
         <div class="panel-heading">
-            <button class="btn pull-right btn-default" type="submit" ng-click="studyService.newStudies(studies)" value="Delete Study">Save Study</button>
+            <button class="btn pull-right btn-default" type="submit" ng-click="saveStudies()" value="Delete Study">Save
+                Study
+            </button>
             <button ng-if="study.id" class="btn pull-right btn-danger" type="submit"
                     ng-click="studyService.deleteStudy(study.id)" value="Delete Study">Delete Study
             </button>

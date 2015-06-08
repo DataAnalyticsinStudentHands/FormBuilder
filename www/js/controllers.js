@@ -352,8 +352,11 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.form = form;
         $scope.users = users;
         $scope.studyService = studyService;
-
         $scope.studies = (studies) ? studies : [];
+        $scope.saveStudies = function () {
+            studyService.newStudies(studies);
+            $state.reload();
+        }
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
