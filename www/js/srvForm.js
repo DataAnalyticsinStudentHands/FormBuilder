@@ -313,7 +313,7 @@ fbService.factory('studyService',['Restangular', '$filter', function(Restangular
             return Restangular.all("studies").all('updatestudies').put(studies);
         },
         deleteStudy: function(sid) {
-            return Restangular.all("studies").delete(sid);
+            return Restangular.all("studies").all(sid).remove();
         },
         processOutStudy: function(study) {
             if(study.startDate && isDate(study.startDate)) study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');

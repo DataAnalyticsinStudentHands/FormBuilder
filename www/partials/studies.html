@@ -19,7 +19,9 @@
     <div class="panel panel-default" ng-repeat="study in studies">
         <div class="panel-heading">
             <button class="btn pull-right btn-default" type="submit" ng-click="studyService.newStudies(studies)" value="Delete Study">Save Study</button>
-            <button class="btn pull-right btn-danger" type="submit" ng-click="" value="Delete Study">Delete Study</button>
+            <button ng-if="study.id" class="btn pull-right btn-danger" type="submit"
+                    ng-click="studyService.deleteStudy(study.id)" value="Delete Study">Delete Study
+            </button>
             <h3 class="panel-title">Study #{{$index+1}}</h3>
             <div class="clearfix"></div>
         </div>
@@ -104,7 +106,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <datetimepicker data-ng-model="time_fixed"
-                                        data-datetimepicker-config="{ dropdownSelector: '#time{{$id}}' }"></datetimepicker>
+                                        data-datetimepicker-config="{ startView:'hour', minView:'minute', dropdownSelector: '#time{{$id}}' }"></datetimepicker>
                     </ul>
                     <p class="help-block">Time to send out submissions</p>
                 </div>
@@ -131,7 +133,8 @@
                        value="Add Participant">
             </div>
             <ul class="well" ng-if="study.participants && study.participants.length > 0">
-                <li ng-repeat="participant in study.participants">{{participant}}</li>
+                <li ng-repeat="participant in study.participants">{{participant}} <span
+                        ng-click="study.participants.splice($index, 1)">X</span></li>
             </ul>
         </div>
     </div>
