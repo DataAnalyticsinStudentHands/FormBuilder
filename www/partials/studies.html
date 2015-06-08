@@ -13,7 +13,9 @@
         <hr/>
     </div>
     <div class="row">
-        <input type="submit" class="btn btn-default" ng-click="studies.push({formId:form.id, participants:[],fixedTimes:[],ranges:[]});" value="Add Study">
+        <input type="submit" class="btn btn-default"
+               ng-click="studies.push({formId:form.id, participants:[],fixedTimes:[],ranges:[], monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true});"
+               value="Add Study">
     </div>
     <hr>
     <div class="panel panel-default" ng-repeat="study in studies">
@@ -64,25 +66,28 @@
             </section>
             <section class="well">
                 <label class="checkbox-inline">
-                    <input ng-model="study.sunday" ng-true-value="1" ng-init="study.sunday=0" ng-false-value="0" type="checkbox"> Sunday
+                    <input ng-model="study.sunday" ng-true-value="true" ng-false-value="false" type="checkbox"> Sunday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.monday" ng-true-value="1" ng-init="study.tuesday=0" ng-false-value="0" type="checkbox"> Monday
+                    <input ng-model="study.monday" ng-true-value="true" ng-false-value="false" type="checkbox"> Monday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.tuesday" ng-true-value="1" ng-init="study.monday=0" ng-false-value="0" type="checkbox"> Tuesday
+                    <input ng-model="study.tuesday" ng-true-value="true" ng-false-value="false" type="checkbox"> Tuesday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.wednesday" ng-true-value="1" ng-init="study.wednesday=0" ng-false-value="0" type="checkbox"> Wednesday
+                    <input ng-model="study.wednesday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                    Wednesday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.thursday" ng-true-value="1" ng-init="study.thursday=0" ng-false-value="0" type="checkbox"> Thursday
+                    <input ng-model="study.thursday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                    Thursday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.friday" ng-true-value="1" ng-init="study.friday=0" ng-false-value="0" type="checkbox"> Friday
+                    <input ng-model="study.friday" ng-true-value="true" ng-false-value="false" type="checkbox"> Friday
                 </label>
                 <label class="checkbox-inline">
-                    <input ng-model="study.saturday" ng-true-value="1" ng-init="study.saturday=0" ng-false-value="0" type="checkbox"> Saturday
+                    <input ng-model="study.saturday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                    Saturday
                 </label>
             </section>
             <section class="row">
