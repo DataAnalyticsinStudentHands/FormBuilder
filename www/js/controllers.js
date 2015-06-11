@@ -354,8 +354,9 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.studyService = studyService;
         $scope.studies = (studies) ? studies : [];
         $scope.saveStudies = function () {
-            studyService.newStudies(studies);
-            $state.reload();
+            studyService.newStudies(studies).then(function(s){
+                $state.reload();
+            });
         }
     }]);
 
