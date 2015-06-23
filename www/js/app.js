@@ -192,7 +192,7 @@ databaseModule.config(
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', 'userService', 'ngNotify',
     function (Restangular, $rootScope, Auth, $q, $state, $builder, userService, ngNotify) {
-        Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilderPTEST2/");
+        Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
         //Restangular.setBaseUrl("http://172.27.219.197:8080/RESTFUL-WS/");
 
         $rootScope.Restangular = function () {
