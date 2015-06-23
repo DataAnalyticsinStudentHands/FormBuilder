@@ -1,24 +1,21 @@
+<ng-include src="'/partials/tabs.html'"></ng-include>
 <div class="container">
-    <div class="row">
-        <h2>Form Settings</h2>
+    <div class="col-md-12">
         <div class="row">
-            <div class="col-md-12">
-                <label> Form Title
-                    <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
-                </label>
-                <label> Form Subtitle
-                    <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
-                </label>
-                <div class="pull-right">
-                    <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
-                    <input type="submit" ui-sref="secure.builder({'id': form.id})" class="btn btn-default" value="Edit Form">
-                    <a type="submit" target="_blank" ui-sref="form({'id':form.id})" class="btn btn-default">Preview</a>
-                    <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
-                </div>
+            <label> Form Title
+                <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
+            </label>
+            <label> Form Subtitle
+                <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control'
+                       placeholder="Form Subtitle"/>
+            </label>
+            <div class="pull-right">
+                <a type="button" class="btn btn-danger" ng-click="deleteForm()">Delete</a>
+                <a type="button" class="btn btn-primary" ng-click="duplicateForm()">Duplicate</a>
             </div>
         </div>
-        <hr/>
     </div>
+    <hr/>
     <form class="row" ng-submit="save()">
         <div class="col-md-10">
             <div class="panel panel-default">
@@ -27,15 +24,18 @@
                     <div class="pull-left control-label" style="font-weight: bold">Form Open</div>
                     <div class="pull-right control-label" style="font-weight: bold">Form Public</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" ng-model="form.enabled">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2"
+                               ng-model="form.enabled">
                         <label class="onoffswitch-label" for="myonoffswitch2">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
                         </label>
                     </div>
                     <div class="onoffswitch pull-right">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public" id="myonoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="form.public"
+                               id="myonoffswitch">
                         <label class="onoffswitch-label" for="myonoffswitch">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -43,25 +43,32 @@
                     </div>
                     <br/>
                     <br/>
-                    <p class="help-block">Form must be open to receive responses. Form must be public for responses without user login. Open forms that are not public require user login.</p>
+
+                    <p class="help-block">Form must be open to receive responses. Form must be public for responses
+                        without user login. Open forms that are not public require user login.</p>
 
                     <br/>
                     <label class='control-label' style="width:100%"> Form URL
-                        <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled" contenteditable="true">
+                        <input type="text" ng-model="formURL" class='form-control' ng-disabled="!form.enabled">
                     </label>
+
                     <p class="help-block">Form must be open to accept responses.</p>
 
                     <div class="pull-left control-label" style="font-weight: bold">Expiration Time</div>
                     <br/>
+
                     <div class="dropdown">
-                        <a class="dropdown-toggle" id="expiration" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <a class="dropdown-toggle" id="expiration" role="button" data-toggle="dropdown" data-target="#"
+                           href="#">
                             <div class="input-group">
-                                <input value="{{expiration_date | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}" type="text" class="form-control">
+                                <input value="{{expiration_date | date:'MM-dd-yyyy hh:mm a'}}" id="{{formName+index}}"
+                                       type="text" class="form-control">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="expiration_date" data-datetimepicker-config="{ dropdownSelector: '#expiration' }"/>
+                            <datetimepicker data-ng-model="expiration_date"
+                                            data-datetimepicker-config="{ dropdownSelector: '#expiration' }"/>
                         </ul>
                     </div>
                     <p class="help-block">Date at which form will automatically close to new submissions.</p>
@@ -69,6 +76,7 @@
                     <label class='control-label' style="width: 100%"> Form Closed Message
                         <textarea class='form-control' ng-model="form.closed_message"></textarea>
                     </label>
+
                     <p class="help-block">Message to show visitor once form is closed or expired.</p>
                 </div>
             </div>
@@ -78,11 +86,13 @@
                     <label class='control-label' style="width: 100%"> URL Redirect
                         <input type="url" class='form-control' ng-model="form.redirect_url">
                     </label>
+
                     <p class="help-block">URL to send user after finishing form.</p>
 
                     <label class='control-label' style="width: 100%"> Form Submitted Message
                         <textarea class='form-control' ng-model="form.completed_message"></textarea>
                     </label>
+
                     <p class="help-block">Message to show visitor once form is submitted.</p>
                 </div>
             </div>
@@ -91,8 +101,10 @@
                 <div class="panel-body">
                     <div class="pull-left control-label" style="font-weight: bold">E-Mail Notifications</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" ng-model="form.send_notification">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3"
+                               ng-model="form.send_notification">
                         <label class="onoffswitch-label" for="myonoffswitch3">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -100,6 +112,7 @@
                     </div>
                     <br/>
                     <br/>
+
                     <p class="help-block">Enables e-mail notifications for new form responses.</p>
 
                     <label class='control-label'> E-Mail Notification Recipient
@@ -109,8 +122,10 @@
 
                     <div class="pull-left control-label" style="font-weight: bold">Require Receipt</div>
                     <br/>
+
                     <div class="onoffswitch pull-left">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" ng-model="form.send_receipt">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4"
+                               ng-model="form.send_receipt">
                         <label class="onoffswitch-label" for="myonoffswitch4">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
@@ -121,6 +136,54 @@
                     <label class='control-label' style="width: 100%"> Receipt E-Mail Message
                         <textarea class='form-control' ng-model="form.email_message"></textarea>
                     </label>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Permission Control</div>
+                <div class="panel-body">
+                    <label class='control-label'> User
+                        <input type="text" ng-model="perm_username" typeahead="user as user.username for user in users | filter: {username: $viewValue}">
+                    </label>
+                    <label class='control-label'> Role
+                        <select ng-model="perm_role" class='form-control'>
+                            <option></option>
+                            <option>Responder</option>
+                            <option>Collaborator</option>
+                            <option>Response Viewer</option>
+                            <option>Owner</option>
+                        </select>
+                    </label>
+                    <input type="button" ng-click="updatePermission(perm_username.username, perm_role)" class="btn btn-primary" value="Add">
+                    <br/>
+                    <div ng-if="perm_role == 'Owner'">
+                        Enables user to view, update, and delete the form and view and delete form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Collaborator'">
+                        Enables user to view and update the form and view form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Response Viewer'">
+                        Enables user to view the form and form responses.
+                    </div>
+                    <div ng-if="perm_role == 'Responder'">
+                        Enables user to view and reply to the form.
+                    </div>
+                </div>
+                <div ng-repeat="(key, p) in form.permissions" ng-if="key != uin">
+                    <div class="panel-body">
+                        <label class='control-label'>
+                            <input type="email" ng-model="key" class='form-control' disabled>
+                        </label>
+                        <label class='control-label'>
+                            <select ng-model="p.perm_role" class='form-control'>
+                                <option></option>
+                                <option>Responder</option>
+                                <option>Collaborator</option>
+                                <option>Response Viewer</option>
+                                <option>Owner</option>
+                            </select>
+                        </label>
+                        <input type="button" ng-click="updatePermission(key, p.perm_role)" class="btn btn-primary" value="Update">
+                    </div>
                 </div>
             </div>
         </div>

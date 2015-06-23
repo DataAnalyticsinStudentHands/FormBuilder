@@ -18,10 +18,11 @@
 -->
 
 <div class="form-group">
-    
+
     <label for="{{formName+index}}"
            class="col-sm-4 control-label"
            ng-class="{'fb-required':required}">{{label}}</label>
+
     <div class="col-sm-8">
         <input type="text"
                ng-trim="false"
@@ -33,11 +34,11 @@
                id="{{formName+index}}"
                class="form-control"
                placeholder="{{placeholder}}"/>
-<!--           validator="/[A-Z]/"
-               validator-invoke="watch"
-               validator-error="it should be /[a-z]/"    maxlength='3000'-->
-        
-<!--        <p class='help-block pull-right'>{{3000 - inputText.length}} characters remaining</p>-->
+        <!--           validator="/[A-Z]/"
+                       validator-invoke="watch"
+                       validator-error="it should be /[a-z]/"    maxlength='3000'-->
+
+        <!--        <p class='help-block pull-right'>{{3000 - inputText.length}} characters remaining</p>-->
         <p class='help-block'>{{description}}</p>
     </div>
 </div>

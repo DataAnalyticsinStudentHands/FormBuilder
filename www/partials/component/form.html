@@ -2,8 +2,10 @@
     <div class="panel-heading" ng-init="hideShow[$index] = page.show">
         <h3 class="panel-title clearfix">
             {{page.heading}}
-            <span ng-show="!hideShow[$index]" ng-click="hideShow[$index] = !hideShow[$index]" class="pull-right glyphicon glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-            <span ng-show="hideShow[$index]" ng-click="hideShow[$index] = !hideShow[$index]" class="pull-right glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            <span ng-show="!hideShow[$index]" ng-click="hideShow[$index] = !hideShow[$index]"
+                  class="pull-right glyphicon glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+            <span ng-show="hideShow[$index]" ng-click="hideShow[$index] = !hideShow[$index]"
+                  class="pull-right glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         </h3>
     </div>
     <div ng-show="hideShow[$index]" class="panel-body">

@@ -1,23 +1,22 @@
+<ng-include src="'/partials/tabs.html'"></ng-include>
 <div class="container">
-    <div class="row">
-        <h2>Form Builder</h2>
-        <div class="row rmargin">
-            <div class="col-md-12">
-                <label> Form Title
-                    <input type='text' ng-model="form_data.name" id="form_title" class='form-control' placeholder="Form Name"/>
-                </label>
-                <label> Form Subtitle
-                    <input type='text' ng-model="form_data.subtitle" id="form_subtitle" class='form-control' placeholder="Form Subtitle"/>
-                </label>
-                <div class="pull-right">
-                    <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
-                    <input type="submit" ng-show="form_id > 0" class="btn btn-default" ui-sref="secure.form_settings({id: form_id})" value="Settings">
-                    <a type="submit" ng-show="form_id > 0" target="_blank" ui-sref="form({'id':form_id})" class="btn btn-default">Preview</a>
-                    <input type="submit" ng-click="saveButton()" class="btn btn-primary" value="Save">
-                </div>
+    <div class="col-md-12 rmargin">
+        <div class="row">
+            <label> Form Title
+                <input type='text' ng-model="form_data.name" id="form_title" class='form-control'
+                       placeholder="Form Name"/>
+            </label>
+            <label> Form Subtitle
+                <input type='text' ng-model="form_data.subtitle" id="form_subtitle" class='form-control'
+                       placeholder="Form Subtitle"/>
+            </label>
+            <div class="pull-right">
+                <input type="submit" ui-sref="secure.home" class="btn btn-danger" value="Cancel">
+                <input type="submit" ng-click="saveButton()" class="btn btn-primary" value="Save">
             </div>
         </div>
     </div>
+    <hr/>
     <div class="row formbuilder">
         <div class="col-md-6 formbuilderLeft">
             <div class="panel panel-default">
