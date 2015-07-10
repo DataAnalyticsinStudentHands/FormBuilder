@@ -64,10 +64,29 @@
     <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
 </head>
 <body>
+    <style>
+            *[data-when-js-is-on] {
+                display: none;
+            }
+        </style>
+        <script>
+            document.getElementsByTagName("style")[0].textContent = "";
+        </script>
+    <noscript>
+  <style>
+    .iff-javascript-enabled {
+        display: none;
+    }
+  </style>
+</noscript>
+    
+<div class ="iff-javascript-enabled">
 <img class="center-block" src="img/hc_logo.png" style="padding:10px; max-height:80px; max-width:100% !important;"/>
 <div ui-view="app"></div>
 <div id="loader-wrapper">
     <div id="loader"></div>
 </div>
+    </div>
+    <noscript><center><h1>Your browser does not have Javascript enabled.</h1></center></noscript>
 </body>
 </html>
