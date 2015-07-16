@@ -60,6 +60,45 @@ databaseModule.config(
                 },
                 authenticate: true
             }).
+
+            state('secure.questions', {
+                url: "/questions",
+                templateUrl: "partials/questions.html",
+                controller: 'questionsCtrl',
+                data: {pageTitle: 'Questions'},
+                resolve: {
+                    forms: function (formService) {
+                        return formService.getMyForms();
+                    }
+                },
+                authenticate: true
+            }).
+            state('secure.map', {
+                url: "/map",
+                templateUrl: "partials/map.html",
+                controller: 'mapCtrl',
+                data: {pageTitle: 'Map'},
+                resolve: {
+                    forms: function (formService) {
+                        return formService.getMyForms();
+                    }
+                },
+                authenticate: true
+            }).
+
+            state('secure.asthma', {
+                url: "/asthma",
+                templateUrl: "partials/asthma.html",
+                controller: 'asthmaCtrl',
+                data: {pageTitle: 'Asthma'},
+                resolve: {
+                    forms: function (formService) {
+                        return formService.getMyForms();
+                    }
+                },
+                authenticate: true
+            }).
+
             state('secure.builder', {
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",

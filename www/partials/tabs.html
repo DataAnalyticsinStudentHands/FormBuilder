@@ -1,6 +1,11 @@
 <nav class="navbar navbar-default sub-navbar">
     <div class="container">
         <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="{ 'active': curState=='secure.map'}">
+                <a ui-sref="secure.map({'id': form_id})">
+                    <span class="glyphicons glyphicons-map"></span> Map
+                </a>
+            </li>
             <li role="presentation" ng-class="{ 'active': curState=='secure.builder'}">
                 <a ui-sref="secure.builder({'id': form_id})">
                     <span class="glyphicon glyphicon-pencil"></span> Form Edit
@@ -11,19 +16,24 @@
                     <span class="glyphicon glyphicon-cog"></span> Form Settings
                 </a>
             </li>
+            <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.questions'}">
+                <a ui-sref="secure.questions({'id':form_id})">
+                    <span class="glyphicon glyphicon-inbox"></span> Questions
+                </a>
+            </li>
             <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.response'}">
                 <a ui-sref="secure.response({'id':form_id})">
                     <span class="glyphicon glyphicon-inbox"></span> Responses
                 </a>
             </li>
-            <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.form_studies'}">
+        <!--    <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.form_studies'}">
                 <a ui-sref="secure.form_studies({'id':form_id})">
                     <span class="glyphicon glyphicon-book"></span> Studies
                 </a>
             </li>
             <li class="pull-right">
                 <a type="submit" ng-show="form_id > 0" target="_blank" ui-sref="form({'id':form_id})" class="btn btn-default">Preview</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>
