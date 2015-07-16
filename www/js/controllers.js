@@ -239,23 +239,17 @@ formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state'
 
 formBuilderController.controller('questionsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
     function ($scope, Auth, $state, formService, responseService) {
-        responseService.getMyResponses($scope.id).then(function (data) {
-            $scope.responses = data;
-        });
+        
     }]);
 
 formBuilderController.controller('asthmaCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
     function ($scope, Auth, $state, formService, responseService) {
-        responseService.getMyResponses($scope.id).then(function (data) {
-            $scope.responses = data;
-        });
+        
     }]);
 
 formBuilderController.controller('mapCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
     function ($scope, Auth, $state, formService, responseService) {
-        responseService.getMyResponses($scope.id).then(function (data) {
-            $scope.responses = data;
-        });
+        
     }]);
 
 formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
