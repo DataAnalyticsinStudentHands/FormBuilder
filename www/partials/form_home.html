@@ -23,7 +23,7 @@
         <li ng-repeat="form in myForms | filter:filterByQuestion" class="list-group-item clearfix">
             <span style="font-size:1.25em;">{{form.name}}</span>
             <span class="pull-right">
-                <button type="button" class="btn btn-default" ui-sref="secure.map({'id':{{form.id}}})" title="Map"><span class="glyphicon glyphicon-map"></span> Map</button>
+                <button type="button" class="btn btn-default" ui-sref="secure.map({'id':{{form.id}}})" title="Map"><span class="glyphicon glyphicon-pencil"></span> Map</button>
                 <button type="button" class="btn btn-default" ui-sref="secure.questions({'id':{{form.id}}})" title="Questions"><span class="glyphicon glyphicon-pencil"></span> Questions</button>
                 <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})" title="Edit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
                 <button type="button" class="btn btn-default" ui-sref="secure.form_settings({'id':{{form.id}}})"
