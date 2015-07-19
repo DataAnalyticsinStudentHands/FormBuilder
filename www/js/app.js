@@ -60,45 +60,47 @@ databaseModule.config(
                 },
                 authenticate: true
             }).
-
             state('secure.questions', {
-                url: "/questions",
+                url: "/questions/:id",
                 templateUrl: "partials/questions.html",
                 controller: 'questionsCtrl',
                 data: {pageTitle: 'Questions'},
                 resolve: {
-                    forms: function (formService) {
-                        return formService.getMyForms();
+                    form: function (formService, $stateParams) {
+                        if ($stateParams.id)
+                            return formService.getForm($stateParams.id);
                     }
                 },
                 authenticate: true
             }).
             state('secure.map', {
-                url: "/map",
+                url: "/map/:id",
                 templateUrl: "partials/map.html",
                 controller: 'mapCtrl',
                 data: {pageTitle: 'Map'},
                 resolve: {
-                    forms: function (formService) {
-                        return formService.getMyForms();
+                    form: function (formService, $stateParams) {
+                        return formService.getForm($stateParams.id, true);
+                    },
+                    users: function(userService) {
+                        return userService.getAllUsers();
                     }
                 },
                 authenticate: true
             }).
-
             state('secure.asthma', {
-                url: "/asthma",
+                url: "/asthma/:id",
                 templateUrl: "partials/asthma.html",
                 controller: 'asthmaCtrl',
                 data: {pageTitle: 'Asthma'},
                 resolve: {
-                    forms: function (formService) {
-                        return formService.getMyForms();
+                    form: function (formService, $stateParams) {
+                        if ($stateParams.id)
+                            return formService.getForm($stateParams.id);
                     }
                 },
                 authenticate: true
             }).
-
             state('secure.builder', {
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",

@@ -16,20 +16,17 @@
             <li>Drag & drop form components from the right site of the screen into the left side.</li>
             <li>Press the “Save” button whenever you want to save your progress.</li>
         </ol>
-        <p>You can come back to this page by clicking the “Home” button in the top bar. It will then show you a list of
-            all your forms.</p>
+        <p>You can come back to this page by clicking the “Home” button in the top bar. It will then show you a list of all your forms.</p>
     </div>
     <ul class="list-group">
         <li ng-repeat="form in myForms | filter:filterByQuestion" class="list-group-item clearfix">
             <span style="font-size:1.25em;">{{form.name}}</span>
             <span class="pull-right">
-                <button type="button" class="btn btn-default" ui-sref="secure.map({'id':{{form.id}}})" title="Map"><span class="glyphicon glyphicon-pencil"></span> Map</button>
-                <button type="button" class="btn btn-default" ui-sref="secure.questions({'id':{{form.id}}})" title="Questions"><span class="glyphicon glyphicon-pencil"></span> Questions</button>
+                <button type="button" class="btn btn-default" ui-sref="secure.map({'id':{{form.id}}})" title="Map"><span class="glyphicon glyphicon-map-marker"></span> Map</button>
                 <button type="button" class="btn btn-default" ui-sref="secure.builder({'id':{{form.id}}})" title="Edit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                <button type="button" class="btn btn-default" ui-sref="secure.form_settings({'id':{{form.id}}})"
-                        title="Settings"><span class="glyphicon glyphicon-cog"></span> Settings</button>
-                <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})"
-                        title="Responses"><span class="glyphicon glyphicon-inbox"></span> Responses </button>
+                <button type="button" class="btn btn-default" ui-sref="secure.form_settings({'id':{{form.id}}})" title="Settings"><span class="glyphicon glyphicon-cog"></span> Settings</button>
+                <button type="button" class="btn btn-default" ui-sref="secure.questions({'id':{{form.id}}})" title="Questions"><span class="glyphicon glyphicon-question-sign"></span> Questions</button>
+                <button type="button" class="btn btn-default" ui-sref="secure.response({'id':{{form.id}}})" title="Responses"><span class="glyphicon glyphicon-inbox"></span> Responses </button>
             <!--    <a type="button" class="btn btn-default" target="_blank" ui-sref="form({'id':{{form.id}}})"
                    title="Preview/Link"><span class="glyphicon glyphicon-link"></span> Preview</a> -->
             </span>

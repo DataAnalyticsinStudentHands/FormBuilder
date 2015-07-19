@@ -237,19 +237,31 @@ formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state'
         });
     }]);
 
-formBuilderController.controller('questionsCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
-    function ($scope, Auth, $state, formService, responseService) {
-        
+formBuilderController.controller('questionsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
+    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
+        $scope.id = $stateParams.id;
+        $scope.form = form;
+        $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
+        $scope.users = users;
     }]);
 
-formBuilderController.controller('asthmaCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
-    function ($scope, Auth, $state, formService, responseService) {
-        
+formBuilderController.controller('asthmaCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
+    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
+        $scope.id = $stateParams.id;
+        $scope.form = form;
+        $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
+        $scope.users = users;
     }]);
 
-formBuilderController.controller('mapCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
-    function ($scope, Auth, $state, formService, responseService) {
-        
+formBuilderController.controller('mapCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
+    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
+        $scope.id = $stateParams.id;
+        $scope.form = form;
+        $scope.form_id = $stateParams.id;
+        $scope.curState = $state.current.name;
+        $scope.users = users;
     }]);
 
 formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',

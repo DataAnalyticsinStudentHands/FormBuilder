@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation" ng-class="{ 'active': curState=='secure.map'}">
                 <a ui-sref="secure.map({'id': form_id})">
-                    <span class="glyphicons glyphicons-map"></span> Map
+                    <span class="glyphicons glyphicon-map-marker"></span> Map
                 </a>
             </li>
             <li role="presentation" ng-class="{ 'active': curState=='secure.builder'}">
@@ -18,7 +18,7 @@
             </li>
             <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.questions'}">
                 <a ui-sref="secure.questions({'id':form_id})">
-                    <span class="glyphicon glyphicon-inbox"></span> Questions
+                    <span class="glyphicon glyphicon-question-sign"></span> Questions
                 </a>
             </li>
             <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.response'}">
