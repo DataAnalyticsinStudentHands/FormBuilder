@@ -60,47 +60,45 @@ databaseModule.config(
                 },
                 authenticate: true
             }).
+
             state('secure.questions', {
-                url: "/questions/:id",
+                url: "/questions",
                 templateUrl: "partials/questions.html",
                 controller: 'questionsCtrl',
                 data: {pageTitle: 'Questions'},
                 resolve: {
-                    form: function (formService, $stateParams) {
-                        if ($stateParams.id)
-                            return formService.getForm($stateParams.id);
+                    forms: function (formService) {
+                        return formService.getMyForms();
                     }
                 },
                 authenticate: true
             }).
             state('secure.map', {
-                url: "/map/:id",
+                url: "/map",
                 templateUrl: "partials/map.html",
                 controller: 'mapCtrl',
                 data: {pageTitle: 'Map'},
                 resolve: {
-                    form: function (formService, $stateParams) {
-                        return formService.getForm($stateParams.id, true);
-                    },
-                    users: function(userService) {
-                        return userService.getAllUsers();
+                    forms: function (formService) {
+                        return formService.getMyForms();
                     }
                 },
                 authenticate: true
             }).
+
             state('secure.asthma', {
-                url: "/asthma/:id",
+                url: "/asthma",
                 templateUrl: "partials/asthma.html",
                 controller: 'asthmaCtrl',
                 data: {pageTitle: 'Asthma'},
                 resolve: {
-                    form: function (formService, $stateParams) {
-                        if ($stateParams.id)
-                            return formService.getForm($stateParams.id);
+                    forms: function (formService) {
+                        return formService.getMyForms();
                     }
                 },
                 authenticate: true
             }).
+
             state('secure.builder', {
                 url: "/builder/:id",
                 templateUrl: "partials/formbuilder.html",
@@ -317,7 +315,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             group: 'Default',
             label: 'Phone',
             description: 'Phone Number',
-            validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$|^$/',
+            validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.\/]{0,1}[0-9]{3}[-\s\.\/]{0,1}[0-9]{4}$|^$/',
+            //validation: '/^\( ?[0-9]{3}(\-|\)|\/) ?[0-9]{3}(\-|\/) ?[0-9]{4}$/',
             placeholder: '###-###-####',
             required: false,
             templateUrl: 'partials/component/tmplPhone.html',
