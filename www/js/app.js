@@ -314,4 +314,11 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             templateUrl: 'partials/component/tmplFileUpload.html',
             popoverTemplateUrl: 'partials/component/popFileUpload.html'
         });
+        $builder.registerComponent('QRscanner', {
+            group: 'Other',
+            label: 'Scan A QR Code',
+            required: false,
+            templateUrl: 'partials/component/tmplQRscanner.html',
+            popoverTemplateUrl: 'partials/component/popQRscanner.html'
+        });
     }]);
