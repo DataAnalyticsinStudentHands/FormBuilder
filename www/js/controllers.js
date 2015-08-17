@@ -479,7 +479,8 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         }
     }]);
 
-formBuilderController.controller('uploadCtrl', function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
+formBuilderController.controller('uploadCtrl',
+    function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
         $scope.uploadRightAway = true;
         $scope.objJoin = function (obj) {
 
@@ -589,25 +590,15 @@ formBuilderController.controller('uploadCtrl', function ($filter, $scope, $http,
         }
     });
 
-formBuilderController.controller('scannerCtrl', function($scope, $rootScope, $cordovaBarcodeScanner, $ionicPlatform) {
-    var vm = this;
-
-    vm.scan = function(){
-        $ionicPlatform.ready(function() {
+formBuilderController.controller('scannerCtrl',
+    function($scope, $rootScope, $cordovaBarcodeScanner) {
+        $scope.scan = function(){
             $cordovaBarcodeScanner
                 .scan()
                 .then(function(result) {
-                    // Success! Barcode data is here
-                    vm.scanResults = "We got a barcode\n" +
-                        "Result: " + result.text + "\n" +
-                        "Format: " + result.format + "\n" +
-                        "Cancelled: " + result.cancelled;
+                    $scope.$parent.inputText = result.text;
                 }, function(error) {
-                    // An error occurred
-                    vm.scanResults = 'Error: ' + error;
-                });
-        });
-    };
 
-    vm.scanResults = '';
+                });
+        };
 });

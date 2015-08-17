@@ -17,7 +17,8 @@ var databaseModule = angular.module('databaseModule', [
     'ui.bootstrap.datetimepicker',
     'ui.grid',
     'ui.grid.resizeColumns',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngCordova'
 ]);
 databaseModule.config(
     function ($stateProvider, $urlRouterProvider) {
