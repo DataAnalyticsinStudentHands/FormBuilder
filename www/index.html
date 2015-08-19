@@ -6,9 +6,8 @@
     <title ng-bind="'Form Builder | '+title">Form Builder</title>
 
     <!-- ANGULAR + BOOTSTRAP + RESTANGULAR + JQUERY + UI-ROUTER -->
-    <!--<script src="//code.angularjs.org/1.2.20/angular.min.js"></script>-->
     <!--[if lte IE 9]>
-    <script src="lib/xdomain/dist/xdomain.min.js" slave="https://www.housuggest.org:8443/CORS/index.html"></script>
+    <script src="http://cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://www.housuggest.org:8443/CORS/index.html"></script>
     <![endif]-->
     <script src="lib/angular/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
@@ -73,7 +72,7 @@
     }
 </style>
 <script>
-    document.getElementsByTagName("style")[0].textContent = "";
+    if(!window.console) {console={}; console.log = function(){};} 
 </script>
 <noscript>
   <style>
