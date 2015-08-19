@@ -7,6 +7,9 @@
 
     <!-- ANGULAR + BOOTSTRAP + RESTANGULAR + JQUERY + UI-ROUTER -->
     <!--<script src="//code.angularjs.org/1.2.20/angular.min.js"></script>-->
+    <!--[if lte IE 9]>
+    <script src="lib/xdomain/dist/xdomain.min.js" slave="https://www.housuggest.org:8443/CORS/index.html"></script>
+    <![endif]-->
     <script src="lib/angular/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -64,15 +67,15 @@
     <link rel="stylesheet" type="text/css" href="lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
 </head>
 <body>
-    <style>
-            *[data-when-js-is-on] {
-                display: none;
-            }
-        </style>
-        <script>
-            document.getElementsByTagName("style")[0].textContent = "";
-        </script>
-    <noscript>
+<style>
+    *[data-when-js-is-on] {
+        display: none;
+    }
+</style>
+<script>
+    document.getElementsByTagName("style")[0].textContent = "";
+</script>
+<noscript>
   <style>
     .iff-javascript-enabled {
         display: none;
