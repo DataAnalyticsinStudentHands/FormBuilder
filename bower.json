@@ -28,5 +28,8 @@
     "jquery": "2.1.0",
     "angular-validator": "*",
     "ngCordova": "~0.1.20-alpha"
+  },
+  "resolutions": {
+    "angular": "1.4.4"
   }
 }

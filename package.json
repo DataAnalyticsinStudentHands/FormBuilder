@@ -1,6 +1,5 @@
 {
-  "name": "DashDEmoApp",
-  "description": "DASH Demo App",
+  "name": "Form Builder",
   "version": "0.0.1",
   "author": "UH",
   "dependencies": {
