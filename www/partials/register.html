@@ -1,11 +1,23 @@
 <div class="container-fluid">
-    <form class="form-signin" ng-submit="registerUser()">
-        <h2 class="form-signin-heading">Register</h2>
-        <input class="form-control email" type="email" ng-model="register.username" placeholder="E-Mail Address"
-               required>
-        <input class="form-control pw1 pw2" type="password" ng-model="password.pw" placeholder="Password" required>
-        <input class="form-control pw2 pw" type="password" ng-model="password.pwc" placeholder="Confirm Password"
-               required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-    </form>
+<form class="form-signin" ng-submit="registerUser()">
+    <h2 class="form-signin-heading">Register</h2>
+    <input class="form-control email" type="email" ng-model="register.username" placeholder="E-Mail Address" required>
+    <input class="form-control pw1 pw2" type="password" ng-model="password.pw" placeholder="Password" required>
+    <input class="form-control pw2 pw" type="password" ng-model="password.pwc" placeholder="Confirm Password" required>
+    <input class="form-control cellPhone" type="tel" ng-model="register.cellPhone" placeholder="Cell Phone Number (optional)">
+
+    <br/>
+    Notification Preference:
+    <div class="radio">
+        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="EMAIL"/> Email </label>
+    </div>
+    <div class="radio">
+        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="TEXT"/> Text </label>
+    </div>
+    <div class="radio">
+        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="BOTH"/> Both </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+</form>
 </div>

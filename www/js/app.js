@@ -199,10 +199,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             return Restangular;
         };
         $rootScope.isAuthenticated = function (authenticate) {
-            userService.getMyUser().then(function (result) {
-                $rootScope.uid = result.id.toString();
-                $rootScope.uin = result.username.toString();
-            }, function (error) {
+            var notAuthenticatedCallback = function (error) {
                 if (error.status === 0) { // NO NETWORK CONNECTION OR SERVER DOWN, WE WILL NOT LOG THEM OUT
                     ngNotify.set("Internet or Server Unavailable", {type: "error", sticky: true});
                 } else { //Most Likely a 403 - LOG THEM OUT
@@ -212,7 +209,15 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
                         location.reload();
                     }
                 }
-            });
+            }
+            if (!Auth.hasCredentials()) {
+                return false;
+                notAuthenticatedCallback();
+            }
+            userService.getMyUser().then(function (result) {
+                $rootScope.uid = result.id.toString();
+                $rootScope.uin = result.username.toString();
+            }, notAuthenticatedCallback);
             return Auth.hasCredentials();
         };
         $rootScope.$on("$stateChangeStart", function (event, toState) {
@@ -313,5 +318,12 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             required: false,
             templateUrl: 'partials/component/tmplFileUpload.html',
             popoverTemplateUrl: 'partials/component/popFileUpload.html'
+        });
+        $builder.registerComponent('QRscanner', {
+            group: 'Other',
+            label: 'Scan A QR Code',
+            required: false,
+            templateUrl: 'partials/component/tmplQRscanner.html',
+            popoverTemplateUrl: 'partials/component/popQRscanner.html'
         });
     }]);
