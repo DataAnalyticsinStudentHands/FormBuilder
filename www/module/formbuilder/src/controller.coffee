@@ -143,6 +143,7 @@ angular.module 'builder.controller', ['builder.provider']
                 if !pageArray
                     pageArray = []
                 pageArray.heading = question.label
+                pageArray.sectionObj = question
                 pageArray.show = question.required
                 $scope.questionPageArray[page_number] = pageArray
 
