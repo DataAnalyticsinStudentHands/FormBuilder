@@ -3,7 +3,7 @@
   "version": "1",
   "homepage": "https://github.com/DataAnalyticsinStudentHands/FormBuilder",
   "authors": [
-    "CarlSteven <carl_steven@live.com>"
+    "DASH <dash@uh.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -26,8 +26,7 @@
     "ng-file-upload-shim": "~3.0.4",
     "ng-file-upload": "~3.0.4",
     "jquery": "2.1.0",
-    "angular-validator": "*",
-    "ngCordova": "~0.1.20-alpha"
+    "angular-validator": "*"
   },
   "resolutions": {
     "angular": "1.4.4"
