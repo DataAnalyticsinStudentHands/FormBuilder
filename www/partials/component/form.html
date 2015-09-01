@@ -1,4 +1,4 @@
-<div ng-repeat="page in questionPageArray" class="panel panel-danger" ng-show="page.length != 0">
+<div ng-repeat="page in questionPageArray" class="panel {{page.sectionObj.settings.color ? page.sectionObj.settings.color : 'panel-danger'}}" ng-show="page.length != 0">
     <div class="panel-heading" ng-init="hideShow[$index] = page.show">
         <h3 class="panel-title clearfix">
             {{page.heading}}

@@ -10,6 +10,13 @@
             Expand by Default
         </label>
     </div>
+    <label> Section Color
+        <select ng-model="settings.color" ng-init="settings.color = (settings.color) ? settings.color : 'panel-danger'">
+            <option value="panel-danger">Red</option>
+            <option value="panel-warning">Yellow</option>
+            <option value="panel-success">Green</option>
+        </select>
+    </label>
     <hr/>
     <div class='form-group'>
         <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Close'/>
