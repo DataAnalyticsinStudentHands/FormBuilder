@@ -18,7 +18,7 @@
     "angular-cookies": "~1.2",
     "angular-mocks": ">=1.2.18",
     "angular-sanitize": "*",
-    "angular-ui-grid": "~3.0.0-rc.19",
+    "angular-ui-grid": "3.0.6",
     "angular-bootstrap-datetimepicker": "*",
     "angular-ui-router": "~0.2.10",
     "restangular": "*",
