@@ -149,6 +149,8 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.Delete(row)"><span class="glyphicon glyphicon-trash"></span></button>';
         $scope.columns.push(buttons);
 
+        $scope.columns.push({"displayName":"Time", "field":"time-of-submission", "width":120});
+
         $scope.questions.forEach(function (q) {
             var q_obj = {};
             q_obj["displayName"] = q.label;
@@ -164,6 +166,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.responses.forEach(function (response) {
             var entries = response.entries;
             var proc_entries = {};
+            proc_entries["time-of-submission"] = $filter('date')(response.insertion_date, "MM/dd/yy h:mma");
             entries.forEach(function (entry) {
                 if (entry)
                     proc_entries[entry.question_id.toString()] = entry.value;

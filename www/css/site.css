@@ -385,3 +385,7 @@ button {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0;
 }
+
+.ui-grid-top-panel {
+    overflow: visible;
+}
