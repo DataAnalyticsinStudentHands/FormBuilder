@@ -130,14 +130,13 @@
                 </label>
                 <input type="submit" class="btn btn-default" ng-click="study.ranges.push(range);" value="Add">
             </div>
-            <div ng-repeat="time in study.fixedTimes track by $index"> {{time | date:'MM-dd-yyyy hh:mm a'}} </div>
-            <div ng-repeat="range in study.ranges track by $index"> {{range}} </div>
+            <div ng-repeat="time in study.fixedTimes track by $index"> {{time | date:'MM-dd-yyyy hh:mm a'}}  <span ng-click="study.fixedTimes.splice($index, 1)">X</span></div>
+            <div ng-repeat="range in study.ranges track by $index"> {{range}} <span ng-click="study.ranges.splice($index, 1)">X</span> </div>
             <div class="row">
                 <label> Participant
                     <input type="text" ng-model="add_participant" typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
                 </label>
-                <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant.username); add_participant = null"
-                       value="Add Participant">
+                <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant.username); add_participant = null" value="Add Participant">
             </div>
             <ul class="well" ng-if="study.participants && study.participants.length > 0">
                 <li ng-repeat="participant in study.participants">{{participant}} <span
