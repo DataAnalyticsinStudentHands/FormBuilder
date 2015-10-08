@@ -26,7 +26,9 @@
             <button ng-if="study.id" class="btn pull-right btn-danger" type="submit"
                     ng-click="studyService.deleteStudy(study.id)" value="Delete Study">Delete Study
             </button>
-            <h3 class="panel-title">Study #{{$index+1}}</h3>
+                        <label>Study Name
+                <input type='text' ng-model="study.studyName" id="study_name" class='form-control'/>
+            </label>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
@@ -46,7 +48,7 @@
                         <datetimepicker data-ng-model="study.startDate"
                                         data-datetimepicker-config="{ startView:'day', minView:'day', dropdownSelector: '#startDate{{$id}}' }"></datetimepicker>
                     </ul>
-                    <p class="help-block">Time to send out submissions</p>
+                    <p class="help-block">First day of responses</p>
                 </div>
                 <div class="dropdown col-md-4">
                     <a class="dropdown-toggle" id="endDate{{$id}}" role="button" data-toggle="dropdown" data-target="#"
@@ -63,7 +65,7 @@
                         <datetimepicker data-ng-model="study.endDate"
                                         data-datetimepicker-config="{  startView:'day', minView:'day', dropdownSelector: '#endDate{{$id}}' }"></datetimepicker>
                     </ul>
-                    <p class="help-block">Time to send out submissions</p>
+                    <p class="help-block">Last day of responses</p>
                 </div>
             </section>
             <section class="well">
