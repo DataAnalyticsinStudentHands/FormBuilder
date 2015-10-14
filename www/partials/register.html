@@ -6,18 +6,21 @@
     <input class="form-control pw2 pw" type="password" ng-model="password.pwc" placeholder="Confirm Password" required>
     <input class="form-control cellPhone" type="tel" ng-model="register.cellPhone" placeholder="Cell Phone Number (optional)">
 
-    <br/>
-    Notification Preference:
-    <div class="radio">
-        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="EMAIL"/> Email </label>
+    <div class="form-group">
+        <h3><small>Notification Preference:</small></h3>
+        <label class="radio-inline">
+            <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="EMAIL"/>
+            Email
+        </label>
+        <label class="radio-inline">
+            <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="TEXT"/>
+            Text
+        </label>
+        <label class="radio-inline">
+            <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="BOTH"/>
+            Both
+        </label>
     </div>
-    <div class="radio">
-        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="TEXT"/> Text </label>
-    </div>
-    <div class="radio">
-        <label> <input class="notificationPreference" type="radio" ng-model="register.notificationPreference" value="BOTH"/> Both </label>
-    </div>
-
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 </form>
 </div>
