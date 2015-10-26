@@ -154,7 +154,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.Delete(row)"><span class="glyphicon glyphicon-trash"></span></button>';
         $scope.columns.push(buttons);
 
-        $scope.columns.push({"displayName":"UID", "field":"owner_id", "width":120}, {"displayName":"Time", "field":"time-of-submission", "width":120});
+        $scope.columns.push({"displayName":"Time", "field":"time-of-submission", "width":120});
 
         $scope.questions.forEach(function (q) {
             var q_obj = {};
@@ -172,7 +172,6 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             var entries = response.entries;
             var proc_entries = {};
             proc_entries["time-of-submission"] = $filter('date')(response.insertion_date, "MM/dd/yy h:mma");
-            proc_entries["owner_id"] = response.owner_id;
             entries.forEach(function (entry) {
                 if (entry)
                     proc_entries[entry.question_id.toString()] = entry.value;
@@ -187,8 +186,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             enableFiltering: true,
             enableGridMenu: true,
             data: $scope.data,
-            columnDefs: $scope.columns,
-            rowHeight: 40
+            columnDefs: $scope.columns
         };
 
         $scope.getCSV = function () {
@@ -198,14 +196,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             questions.forEach(function (question) {
                 questionValueArray.push(question.label);
             });
-            $scope.CSVout += '"UID","' + questionValueArray.join('","') + '"';
+            $scope.CSVout += '"' + questionValueArray.join('","') + '"';
             $scope.responses.forEach(function (response) {
                 var entries = [];
                 questions.forEach(function (question) {
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
                     entries.push(entry.value.replace(/"/g, '""'));
                 });
-                $scope.CSVout += "\n" + '"' + response.owner_id + '","' + entries.join('","') + '"';
+                $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
             });
 
             var download_button = document.createElement('a');
@@ -351,7 +349,33 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
         };
 
         $scope.updatePermission = function (user, role) {
-            formService.updateRoles(form.id, user, role);
+            console.log(user, role, form);
+            var role_array;
+
+            switch (role) {
+                case "Owner":
+                    role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
+                    break;
+                case "Collaborator":
+                    role_array = ["READ", "WRITE", "CREATE"];
+                    break;
+                case "Response Viewer":
+                    role_array = ["READ"];
+                    break;
+                case "Responder":
+                    role_array = ["CREATE"];
+                    break;
+                default:
+                    console.error("problem!");
+                    break;
+            }
+            form.permissions[user] = role_array;
+            // formService.updateRoles(form.id, user, role);
+        };
+
+        $scope.updateAllPermissions = function () {
+            // TODO: move this to formService
+            formService.processOutPermissions($scope.form.permissions);
         };
     }]);
 
@@ -364,20 +388,14 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.studyService = studyService;
         $scope.studies = (studies) ? studies : [];
         $scope.saveStudies = function () {
-             var allNamed = true;
-            //Test to make sure all studies have names
-            for (var i in studies){
-                if(!studies[i].studyName){
-                   allNamed = false; 
-                }
-            }
-            if(allNamed){
-                studyService.newStudies(studies).then(function(s){
-                    $state.reload();
-                });
-            } else {
-                ngNotify.set("All studies must have a name", "error");
-            }
+            studyService.newStudies(studies).then(function(s){
+                $state.reload();
+            });
+        }
+        $scope.parseTextList = function (study) {
+            // console.log(study);
+            study.participants = study.participants_txt.split('\n');
+            study.participants_txt = '';
         }
     }]);
 

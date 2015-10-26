@@ -325,6 +325,8 @@ fbService.factory('studyService',['Restangular', '$filter', function(Restangular
                 });
                 study.fixedTimes = times;
             }
+            delete study['participants_txt'];
+            console.log(study);
         }
     }
 }]);
