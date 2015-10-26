@@ -1,6 +1,8 @@
 'use strict';
 /* Controllers */
-var formBuilderController = angular.module('formBuilderControllerModule', []);
+var formBuilderController = angular.module('formBuilderControllerModule', [
+    'ui.bootstrap'
+]);
 
 formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify', '$stateParams',
     function ($scope, Auth, $state, ngNotify, $stateParams) {
@@ -70,6 +72,9 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                 errorMSG = "Passwords do not match.";
                 ngNotify.set(errorMSG, "error");
             }
+        }
+        $scope.cancel = function () {
+            $state.go('login');
         }
     }]);
 
@@ -384,7 +389,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
 
         //IF we are actually editing a previously saved form
         if ($scope.form_id) {
-            $scope.form_data = form;
+            $scope.form = form;
             var questions = form.questions;
             questions.forEach(function (question) {
                 $builder.addFormObject('default', {
@@ -435,17 +440,18 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
         };
         $scope.save = function () {
             if (!$scope.form_id) {
-                if (!$scope.form_data.name) {
+                if (!$scope.form) {
                     ngNotify.set("Form Name is required!", "error");
                 } else {
-                    formService.newForm($scope.form_data.name, angular.copy($builder.forms['default'])).then(function (response) {
+                    formService.newForm($scope.form.name, angular.copy($builder.forms['default'])).then(function (response) {
                         ngNotify.set("Form saved!", "success");
+                        console.log(response.headers());
                         $scope.form_id = response.headers("ObjectId");
                         $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
                     });
                 }
             } else {
-                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
+                formService.updateForm($scope.form_id, $scope.form, angular.copy($builder.forms['default'])).then(function () {
                     ngNotify.set("Form saved!", "success");
                 });
             }

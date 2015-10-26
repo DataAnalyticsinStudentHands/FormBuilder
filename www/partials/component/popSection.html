@@ -11,7 +11,8 @@
         </label>
     </div>
     <label> Section Color
-        <select ng-model="settings.color" ng-init="settings.color = (settings.color) ? settings.color : 'panel-danger'">
+        <select ng-model="settings.color" ng-init="settings.color = (settings.color) ? settings.color : 'panel-default'">
+            <option value="panel-default">None</option>
             <option value="panel-danger">Red</option>
             <option value="panel-warning">Yellow</option>
             <option value="panel-success">Green</option>

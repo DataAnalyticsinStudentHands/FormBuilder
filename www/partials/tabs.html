@@ -1,5 +1,7 @@
-<nav class="navbar navbar-default sub-navbar">
+<div class="page-header page-header-tabs">
     <div class="container">
+        <h2 class="page-title">{{form.name}}</h2>
+        <p class="page-subtitle">{{form.subtitle}}</p>
         <ul class="nav nav-tabs">
             <li role="presentation" ng-class="{ 'active': curState=='secure.builder'}">
                 <a ui-sref="secure.builder({'id': form_id})">
@@ -14,6 +16,8 @@
             <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.response'}">
                 <a ui-sref="secure.response({'id':form_id})">
                     <span class="glyphicon glyphicon-inbox"></span> Responses
+                    <!-- TODO: keep track of number of responses to show as a badge in the tab -->
+                    <!-- <span class="badge">{{responses.length}}</span> -->
                 </a>
             </li>
             <li role="presentation" ng-if="form_id > 0" ng-class="{ 'active': curState=='secure.form_studies'}">
@@ -22,8 +26,10 @@
                 </a>
             </li>
             <li class="pull-right">
-                <a type="submit" ng-show="form_id > 0" target="_blank" ui-sref="form({'id':form_id})" class="btn btn-default">Preview</a>
+                <a type="submit" class="btn btn-primary" ng-show="form_id > 0" target="_blank" ui-sref="form({'id':form_id})">
+                    <span class="glyphicon glyphicon-eye-open"></span> Preview
+                </a>
             </li>
         </ul>
     </div>
-</nav>
+</div>
