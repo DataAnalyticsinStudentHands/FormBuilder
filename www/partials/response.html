@@ -1,24 +1,18 @@
 <ng-include src="'partials/tabs.html'"></ng-include>
 <div class="container">
-    <div class="col-md-12">
-        <div class="row">
-            <label>
-                <h4>{{form.name}}</h4>
-                <h5>{{form.subtitle}}</h5>
-            </label>
-
-            <div class="pull-right">
-                <button type="button" class="btn btn-default" ng-show="responses" ng-click="toPDF()">PDF</button>
-                <button type="button" class="btn btn-default" ng-show="responses" ng-click="getCSV()">CSV</button>
-            </div>
-        </div>
+    <div class="btn-group" ng-hide="responses.length < 1">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="glyphicon glyphicon-save-file"></i> Export responses <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#" ng-click="toPDF()">as PDF</a></li>
+            <li><a href="#" ng-click="getCSV()">as CSV</a></li>
+        </ul>
     </div>
     <hr/>
-    <div class="row">
-        <div class="well" ng-show="responses.length < 1">
-            <p>There are currently no responses here.</p>
-        </div>
-        <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns
-             ui-grid-move-columns></div>
+    <div class="alert alert-info" ng-show="responses.length < 1">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        There are currently no responses here.
     </div>
+    <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns></div>
 </div>

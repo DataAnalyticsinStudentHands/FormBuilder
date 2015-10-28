@@ -1,11 +1,11 @@
 <div class="container">
     <form class="form-signin" ng-submit="submit()">
-        <h2 class="form-signin-heading">FormBuilder Log In</h2>
+        <h2 class="form-signin-heading"><span class="logo"><b>Form</b>Builder</span> Log In</h2>
         <input id="inputEmail" class="form-control email" type="email" ng-model="userName" placeholder="Email address"
                required autofocus>
         <input type="password" id="inputPassword" class="form-control pw" ng-model="passWord" placeholder="Password"
                required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <div class="pull-right"><a ui-sref="register({form_id: form_id})">REGISTER HERE</a></div>
+        <button class="btn btn-lg btn-link btn-block" type="button" ui-sref="register({form_id: form_id})">Register</button>
     </form>
 </div>
