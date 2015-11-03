@@ -1,137 +1,183 @@
-/*site wise**************************************************************************************/
-/*uh branding colors*/
-.nav-tabs {
-    border-bottom: none;
+/*** SITE WISE ***/
+.site-header {
+    background-color: #f8f8f8;
 }
 
-.sub-navbar {
-    background-color: #fafafa !important;
-    margin-bottom: 25px !important;
-    border-bottom: 1px solid #ddd !important;
+.jumbotron ol {
+    font-size: 21px;
+    margin-bottom: 15px;
+    font-weight: 200;
 }
 
-.sub-navbar > div {
-    margin-top: 10px;
+a:link,
+.btn-link {
+    color: #c8102e;
 }
 
-.navbar {    
-    font-size: 1.25em;
-    margin-bottom: 0px;
-}
-
-.nav-tabs a, .sub-navbar > div {
-    color: #C8102E;
-}
-
-.nav-tabs > li, .nav-pills > li {
-    float: none;
-    display: inline-block;
-    *display: inline; /* ie7 fix */
-    zoom: 1; /* hasLayout ie7 trigger */
-}
-
-.nav-tabs, .nav-pills {
-    text-align: center;
-}
-
-.navbar-default {
-    background-color: #c8102e;
-    text-decoration: none;
-    color: white;
-    border: none;
-    border-radius: 0;
-}
-
-.nav, .navbar-nav, .navbar-default .navbar-text, .navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a, .navbar-default, .btn-default, .navbar-default .navbar-link, .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:active, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:active, .btn-default:hover, .btn-default:active {
-    color: white !important;
-}
-
-.navbar-default .navbar-nav > li > a:active:focus, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:target, .navbar-default .navbar-nav > .active > a:active, .navbar-default .navbar-nav > .active > a:visited, .navbar-default .navbar-nav > li > a:active {
-    background-color: #960c22;
-    color: white;
-    outline: none;
-}
-
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .navbar-toggle:active, .navbar-toggle:hover, .navbar-toggle:focus, .btn-default:hover, .btn-default:active, .btn-default:focus {
-    color: white;
-    background-color: #00866c !important;
-    outline: none;
-}
-
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, .navbar-toggle:active, .navbar-toggle:hover, .navbar-toggle:focus {
-    color: white;
-    background-color: transparent;
-    border: 1px solid white;
-}
-
-.btn {
-    outline: none;
-    margin: 2px;
-}
-
-.btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: none ! important;
-    outline-style: none ! important;
-}
-
-.btn-default {
-    background-color: #00b388;
-    border-radius: 12px;
-    border: none;
-    /*opacity: .5;*/
+a:link:hover,
+a:link:hover:focus,
+.btn-link:hover,
+.btn-link:focus {
+    color: #960c22;
 }
 
 .btn-default > span {
     line-height: inherit;
 }
-
-.btn-primary, .form-control, .btn-danger, .btn-default {
-    border-radius: 12px;
+.btn-primary {
+    background-color: #c8102e;
+    border-color: #960c22;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #960c22;
+    border-color: #960c22;
+}
+.btn-primary:active,
+.btn-primary:hover:active,
+.btn-primary:focus:active {
+    background-color: #960c22;
+    border-color: #960c22;
 }
 
-.list-group-item:last-child {
-    border-bottom-right-radius: 18px;
-    border-bottom-left-radius: 18px;
-}
-
-.list-group-item:first-child {
-    border-top-right-radius: 18px;
-    border-top-left-radius: 18px;
-}
-
-.navbar-toggle {
-    /*border-color: 1px solid white !important;*/
-}
-
-.navbar-default .navbar-toggle {
-    border: none;
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: white;
-}
-
-/*uh branding colors */
 .row {
     margin-left: 0;
     margin-right: 0;
 }
 
 .footer {
-    height: 50px
+    height: 50px;
 }
 
-/*site wise ***************************************************************************************/
 .grid {
     min-height: 400px;
 }
 
-/*.form-group {
-    margin-left: 15px !important;
-    margin-right: 15px !important;
-}*/
-/*form builder ***********************************************************************************/
-.rmargin {
+/*** Navbar ***/
+.navbar {    
+    /*font-size: 1.25em;*/
+    margin-bottom: 0px;
+}
+
+.navbar-default {
+    background-color: #c8102e;
+    color: #EEC0C0;
+}
+
+.navbar-default .navbar-collapse {
+    border-color: #960c22;
+}
+
+.logo {
+    font-weight: 200;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+    cursor: default;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: white;
+}
+
+.navbar-default .navbar-text,
+.navbar-default .navbar-nav > li > a {
+    color: inherit;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:active:focus,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:target,
+.navbar-default .navbar-nav > .active > a:active,
+.navbar-default .navbar-nav > .active > a:visited {
+    background-color: #960c22;
+    color: white;
+}
+
+.navbar-default .navbar-toggle {
+    border: none;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background: none;
+}
+
+.navbar-default .navbar-toggle:active {
+    background-color: #960c22;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #EEC0C0;
+}
+
+
+.navbar-default .navbar-toggle:hover .icon-bar,
+.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: white;
+}
+
+/*** Page Header ***/
+
+.page-header {
+    /* UH brand color */
+    background-color: #f8f8f8;
+    border-color: #ddd;
+    margin-top: 0;
+}
+.page-header-tabs {
+    padding-bottom: 0;
+}
+.page-header-center {
+    text-align: center;
+}
+
+.page-header .page-subtitle {
+    color: #888888;
+    font-size: 18px;
+}
+
+/*** Page Navigation Tabs ***/
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    color: #C8102E;
+    float: none;
+    display: inline-block;
+    *display: inline; /* ie7 fix */
+    zoom: 1; /* hasLayout ie7 trigger */
+    line-height: 1;
+}
+
+.nav-tabs a {
+    color: inherit;
+}
+
+.nav-tabs a.btn-primary {
+    color: white;
+}
+
+.nav-tabs a.btn-primary:hover {
+    background-color: #960c22;
+    border-color: #960c22;
+    color: white;
+}
+
+/*** Form Builder ***/
+
+.form-title {
     margin-right: 0;
     margin-left: 0;
     background-color: white;
@@ -141,13 +187,19 @@
 
 .form-title-fixed {
     position: fixed !important;
+    left: 0;
     top: 0;
     z-index: 1000;
-    /*width: inherit;*/
+    width: 100%;
+    padding: 15px 15px 0 15px;
 }
 
-@media screen and (min-width: 740px) {
-    .rmargin > div > .pull-right {
+.form-actions {
+    text-align: right;
+}
+
+/*@media screen and (min-width: 740px) {
+    .rmargin .form-actions {
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         -o-transform: translateY(-50%);
@@ -156,66 +208,29 @@
         top: 36px;
         right: 15px;
     }
-}
-
-@media screen and (max-width: 767px) {
-    .rmargin {
-        width: 100%;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .rmargin {
-        width: 750px;
-    }
-
-    .rmargin > div > .pull-right {
-        right: 45px;
-    }
-}
+}*/
 
 @media screen and (min-width: 992px) {
-    .formbuilderRight {
-        width: 455px;
-    }
-
-    .rmargin {
-        width: 970px;
-    }
-
     .form-fixed {
         position: fixed !important;
-        top: 70px;
+        top: 100px;
         left: 50%;
-    }
-
-    .rmargin > div > .pull-right {
-        right: 60px;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .formbuilderRight {
-        width: 555px;
-    }
-
-    .rmargin {
-        width: 1170px;
     }
 }
 
 @media screen and (max-width: 991px) {
-    .formbuilderRight .form-horizontal {
+    .builder-components .form-horizontal {
         height: 400px !important;
     }
 }
 
-.formbuilderRight .form-horizontal {
+.builder-components .form-horizontal {
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-/*form builder **********************************************************************************************/
+/*** Miscellaneous ***/
+
 input:focus {
     outline: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -236,13 +251,11 @@ button {
     margin: 0 auto;
 }
 
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-    margin-bottom: 10px;
-}
+/*** Sign-in Form ***/
 
-.form-signin .checkbox {
-    font-weight: normal;
+.form-signin .form-signin-heading {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .form-signin .form-control {
@@ -320,10 +333,10 @@ button {
     display: block;
     width: 200%;
     margin-left: -100%;
-    -moz-transition: margin 0.3s ease-in 0s;
-    -webkit-transition: margin 0.3s ease-in 0s;
-    -o-transition: margin 0.3s ease-in 0s;
-    transition: margin 0.3s ease-in 0s;
+    -moz-transition: margin 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    -webkit-transition: margin 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    -o-transition: margin 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    transition: margin 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
 }
 
 .onoffswitch-inner:before, .onoffswitch-inner:after {
@@ -372,10 +385,10 @@ button {
     top: 0;
     bottom: 0;
     right: 35px;
-    -moz-transition: all 0.3s ease-in 0s;
-    -webkit-transition: all 0.3s ease-in 0s;
-    -o-transition: all 0.3s ease-in 0s;
-    transition: all 0.3s ease-in 0s;
+    -moz-transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    -webkit-transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    -o-transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0s;
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -388,4 +401,38 @@ button {
 
 .ui-grid-top-panel {
     overflow: visible;
+}
+
+.weekdays {
+    display: flex;
+    justify-content: space-around;
+}
+
+.weekdays .checkbox-inline {
+    padding: 0;
+    margin: 0;
+    flex: 1 1 auto;
+}
+
+.weekdays .checkbox-inline input {
+    display: none;
+}
+
+.weekdays .checkbox-inline .icon {
+    color: #888888;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 24px;
+    padding: 8px;
+    line-height: 1;
+    display: block;
+}
+
+.weekdays .checkbox-inline input:checked + .icon {
+    color: #c8102e;
+}
+
+.weekdays .checkbox-inline .day {
+    text-align: center;
+    display: block;
 }

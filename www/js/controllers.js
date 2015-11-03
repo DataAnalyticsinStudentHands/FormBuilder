@@ -1,6 +1,8 @@
 'use strict';
 /* Controllers */
-var formBuilderController = angular.module('formBuilderControllerModule', []);
+var formBuilderController = angular.module('formBuilderControllerModule', [
+    'ui.bootstrap'
+]);
 
 formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify', '$stateParams',
     function ($scope, Auth, $state, ngNotify, $stateParams) {
@@ -70,6 +72,9 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                 errorMSG = "Passwords do not match.";
                 ngNotify.set(errorMSG, "error");
             }
+        }
+        $scope.cancel = function () {
+            $state.go('login');
         }
     }]);
 
@@ -344,7 +349,33 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
         };
 
         $scope.updatePermission = function (user, role) {
-            formService.updateRoles(form.id, user, role);
+            console.log(user, role, form);
+            var role_array;
+
+            switch (role) {
+                case "Owner":
+                    role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
+                    break;
+                case "Collaborator":
+                    role_array = ["READ", "WRITE", "CREATE"];
+                    break;
+                case "Response Viewer":
+                    role_array = ["READ"];
+                    break;
+                case "Responder":
+                    role_array = ["CREATE"];
+                    break;
+                default:
+                    console.error("problem!");
+                    break;
+            }
+            form.permissions[user] = role_array;
+            // formService.updateRoles(form.id, user, role);
+        };
+
+        $scope.updateAllPermissions = function () {
+            // TODO: move this to formService
+            formService.processOutPermissions($scope.form.permissions);
         };
     }]);
 
@@ -361,6 +392,11 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
                 $state.reload();
             });
         }
+        $scope.parseTextList = function (study) {
+            // console.log(study);
+            study.participants = study.participants_txt.split('\n');
+            study.participants_txt = '';
+        }
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
@@ -371,7 +407,7 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
 
         //IF we are actually editing a previously saved form
         if ($scope.form_id) {
-            $scope.form_data = form;
+            $scope.form = form;
             var questions = form.questions;
             questions.forEach(function (question) {
                 $builder.addFormObject('default', {
@@ -422,17 +458,18 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
         };
         $scope.save = function () {
             if (!$scope.form_id) {
-                if (!$scope.form_data) {
+                if (!$scope.form) {
                     ngNotify.set("Form Name is required!", "error");
                 } else {
-                    formService.newForm($scope.form_data.name, angular.copy($builder.forms['default'])).then(function (response) {
+                    formService.newForm($scope.form.name, angular.copy($builder.forms['default'])).then(function (response) {
                         ngNotify.set("Form saved!", "success");
+                        console.log(response.headers());
                         $scope.form_id = response.headers("ObjectId");
                         $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
                     });
                 }
             } else {
-                formService.updateForm($scope.form_id, $scope.form_data, angular.copy($builder.forms['default'])).then(function () {
+                formService.updateForm($scope.form_id, $scope.form, angular.copy($builder.forms['default'])).then(function () {
                     ngNotify.set("Form saved!", "success");
                 });
             }

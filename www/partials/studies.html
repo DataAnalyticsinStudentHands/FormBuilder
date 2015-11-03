@@ -1,147 +1,176 @@
 <ng-include src="'partials/tabs.html'"></ng-include>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <label> Form Title
-                <input type='text' ng-model="form.name" id="form_title" class='form-control' placeholder="Form Name"/>
-            </label>
-            <label> Form Subtitle
-                <input type='text' ng-model="form.subtitle" id="form_subtitle" class='form-control'
-                       placeholder="Form Subtitle"/>
-            </label>
-        </div>
-        <hr/>
+        <button type="button" class="btn btn-default" ng-click="studies.push({formId:form.id, participants:[],fixedTimes:[],ranges:[], monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true});">
+            <i class="glyphicon glyphicon-plus"></i> Add Study
+        </button>
     </div>
-    <div class="row">
-        <input type="submit" class="btn btn-default"
-               ng-click="studies.push({formId:form.id, participants:[],fixedTimes:[],ranges:[], monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true});"
-               value="Add Study">
-    </div>
-    <hr>
+    <hr/>
     <div class="panel panel-default" ng-repeat="study in studies">
         <div class="panel-heading">
-            <button class="btn pull-right btn-default" type="submit" ng-click="saveStudies()" value="Delete Study">Save
-                Study
-            </button>
-            <button ng-if="study.id" class="btn pull-right btn-danger" type="submit"
-                    ng-click="studyService.deleteStudy(study.id)" value="Delete Study">Delete Study
-            </button>
-            <h3 class="panel-title">Study #{{$index+1}}</h3>
-            <div class="clearfix"></div>
+            <label>Study Name
+                <input type='text' ng-model="study.studyName" id="study_name" class='form-control'/>
+            </label>
         </div>
         <div class="panel-body">
             <section class="row">
-                <div class="dropdown col-md-4">
-                    <a class="dropdown-toggle" id="startDate{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                       href="#">
-                        <label for="start_input{{$id}}">Start Day</label>
+                <div class="col-md-6">
+                    <h3>Days</h3>
 
-                        <div class="input-group">
-                            <input value="{{study.startDate | date:'MM-dd-yyyy'}}" id="start_input{{$id}}"
-                                   type="text" class="form-control">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <div class="form-group">
+                        <label class="control-label" for="start_input{{$id}}">Start Day</label>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="startDate{{$id}}" role="button" data-toggle="dropdown">
+                                <div class="input-group">
+                                    <input value="{{study.startDate | date:'MM-dd-yyyy'}}" id="start_input{{$id}}" type="text" class="form-control">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </a>
+                            <p class="help-block">First day of responses</p>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="study.startDate"
+                                                data-datetimepicker-config="{ startView:'day', minView:'day' }"></datetimepicker>
+                            </ul>
                         </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="study.startDate"
-                                        data-datetimepicker-config="{ startView:'day', minView:'day', dropdownSelector: '#startDate{{$id}}' }"></datetimepicker>
-                    </ul>
-                    <p class="help-block">Time to send out submissions</p>
-                </div>
-                <div class="dropdown col-md-4">
-                    <a class="dropdown-toggle" id="endDate{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                       href="#">
-                        <label for="end_input{{$id}}">End Day</label>
+                    </div>
 
-                        <div class="input-group">
-                            <input value="{{study.endDate | date:'MM-dd-yyyy'}}" id="end_input{{$id}}" type="text"
-                                   class="form-control">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <div class="form-group">
+                        <label class="control-label" for="end_input{{$id}}">End Day</label>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="endDate{{$id}}" role="button" data-toggle="dropdown">
+                                <div class="input-group">
+                                    <input value="{{study.endDate | date:'MM-dd-yyyy'}}" id="end_input{{$id}}" type="text" class="form-control">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </a>
+                            <p class="help-block">Last day of responses</p>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="study.endDate"
+                                                data-datetimepicker-config="{  startView:'day', minView:'day' }"></datetimepicker>
+                            </ul>
                         </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="study.endDate"
-                                        data-datetimepicker-config="{  startView:'day', minView:'day', dropdownSelector: '#endDate{{$id}}' }"></datetimepicker>
+                    </div>
+
+                    <h4>Days to send survey</h4>
+                    <div class="form-group weekdays">
+                        <label class="checkbox-inline" title="Sunday">
+                            <input ng-model="study.sunday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.sunday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.sunday"></span>
+                            <span class="day">Sun</span>
+                        </label>
+                        <label class="checkbox-inline" title="Monday">
+                            <input ng-model="study.monday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.monday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.monday"></span>
+                            <span class="day">Mon</span>
+                        </label>
+                        <label class="checkbox-inline" title="Tuesday">
+                            <input ng-model="study.tuesday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.tuesday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.tuesday"></span>
+                            <span class="day">Tue</span>
+                        </label>
+                        <label class="checkbox-inline" title="Wednesday">
+                            <input ng-model="study.wednesday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.wednesday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.wednesday"></span>
+                            <span class="day">Wed</span>
+                        </label>
+                        <label class="checkbox-inline" title="Thursday">
+                            <input ng-model="study.thursday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.thursday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.thursday"></span>
+                            <span class="day">Thu</span>
+                        </label>
+                        <label class="checkbox-inline" title="Friday">
+                            <input ng-model="study.friday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.friday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.friday"></span>
+                            <span class="day">Fri</span>
+                        </label>
+                        <label class="checkbox-inline" title="Saturday">
+                            <input ng-model="study.saturday" ng-true-value="true" ng-false-value="false" type="checkbox">
+                            <span class="icon glyphicon glyphicon-check" ng-if="study.saturday"></span>
+                            <span class="icon glyphicon glyphicon-unchecked" ng-if="!study.saturday"></span>
+                            <span class="day">Sat</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Time</h3>
+                    <p class="help-block">Time of the day at which to send out surveys</p>
+                    <div>
+                        <uib-timepicker ng-model="time_fixed" minute-step="5" style="display: inline-table; vertical-align: middle;"></uib-timepicker>
+                        <button type="button" class="btn btn-default" ng-click="study.fixedTimes.push(time_fixed);">Add</button>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="time in study.fixedTimes track by $index">
+                            <button type="button" class="close" aria-label="Close" ng-click="study.fixedTimes.splice($index, 1)" class="pull-right"><span aria-hidden="true">&times;</span></button>
+                            <span>{{time | date:'hh:mm a'}}</span>
+                        </li>
                     </ul>
-                    <p class="help-block">Time to send out submissions</p>
                 </div>
             </section>
-            <section class="well">
-                <label class="checkbox-inline">
-                    <input ng-model="study.sunday" ng-true-value="true" ng-false-value="false" type="checkbox"> Sunday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.monday" ng-true-value="true" ng-false-value="false" type="checkbox"> Monday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.tuesday" ng-true-value="true" ng-false-value="false" type="checkbox"> Tuesday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.wednesday" ng-true-value="true" ng-false-value="false" type="checkbox">
-                    Wednesday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.thursday" ng-true-value="true" ng-false-value="false" type="checkbox">
-                    Thursday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.friday" ng-true-value="true" ng-false-value="false" type="checkbox"> Friday
-                </label>
-                <label class="checkbox-inline">
-                    <input ng-model="study.saturday" ng-true-value="true" ng-false-value="false" type="checkbox">
-                    Saturday
-                </label>
-            </section>
-            <section class="row">
-            </section>
-            <label class="row"> Timing
-                <select ng-model="random" class="form-control">
-                    <option value="0">Fixed</option>
-                    <option value="1">Random</option>
-                </select>
-            </label>
-            <div ng-if="random == '0'" class="row">
-                <div class="dropdown col-md-4">
-                    <label for="input{{$id}}">Time</label>
-                    <a class="dropdown-toggle" id="time{{$id}}" role="button" data-toggle="dropdown" data-target="#"
-                       href="#">
-                        <div class="input-group">
-                            <input value="{{time_fixed | date:'MM-dd-yyyy hh:mm a'}}" id="input{{$id}}" type="text"
-                                   class="form-control">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="time_fixed"
-                                        data-datetimepicker-config="{ startView:'hour', minView:'minute', dropdownSelector: '#time{{$id}}' }"></datetimepicker>
-                    </ul>
-                    <p class="help-block">Time to send out submissions</p>
-                </div>
-                <input type="submit" class="btn btn-default col-md-1" ng-click="study.fixedTimes.push(time_fixed);" value="Add">
-            </div>
-            <div ng-if="random == '1'">
-                <label> Range
-                    <select ng-model="range" class="form-control">
-                        <option>MORNING</option>
-                        <option>AFTERNOON</option>
-                        <option>EVENING</option>
-                        <option>NIGHT</option>
-                    </select>
-                </label>
-                <input type="submit" class="btn btn-default" ng-click="study.ranges.push(range);" value="Add">
-            </div>
-            <div ng-repeat="time in study.fixedTimes track by $index"> {{time | date:'MM-dd-yyyy hh:mm a'}}  <span ng-click="study.fixedTimes.splice($index, 1)">X</span></div>
-            <div ng-repeat="range in study.ranges track by $index"> {{range}} <span ng-click="study.ranges.splice($index, 1)">X</span> </div>
             <div class="row">
-                <label> Participant
-                    <input type="text" ng-model="add_participant" typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
-                </label>
-                <input type="submit" class="btn btn-default" ng-click="study.participants.push(add_participant.username); add_participant = null" value="Add Participant">
+                <div class="col-md-6">
+                    <h3>Participants</h3>
+                    <!-- <div class="input-group">
+                        <input type="text" ng-model="add_participant" uib-typeahead="user as user.username for user in users | filter: {username: $viewValue}" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="study.participants.push(add_participant.username); add_participant = null">Add Participant</button>
+                        </span>
+                    </div> -->
+                    <div class="form-group">
+                        <div class="dropdown">
+                            <!-- Paste a plain-text list -->
+                            <button class="btn btn-danger" ng-click="study.participants=[]">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Delete all participants
+                            </button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-paste"></i>
+                                Paste a list
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="padding: 15px;">
+                                <p>Copy a list of participants' email addresses and paste into this box:</p>
+                                <p class="help-text">Each email address should occupy one line.</p>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="participant_txt" ng-model="study.participants_txt" rows="10" cols="20"></textarea>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Warning: this will remove all the current participants!
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-link" ng-click="">Cancel</button>
+                                    <button class="btn btn-primary" ng-click="parseTextList(study)">Save</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="control-label">Current Participants</label><br/>
+                    <div class="alert alert-info" ng-show="study.participants.length == 0">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        There are currently no participants.
+                    </div>
+                    <ul class="list-group" ng-if="study.participants && study.participants.length > 0">
+                        <li class="list-group-item" ng-repeat="participant in study.participants">
+                            <button type="button" class="close" aria-label="Close" ng-click="study.participants.splice($index, 1)" class="pull-right"><span aria-hidden="true">&times;</span></button>
+                            <span>{{participant}}</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul class="well" ng-if="study.participants && study.participants.length > 0">
-                <li ng-repeat="participant in study.participants">{{participant}} <span
-                        ng-click="study.participants.splice($index, 1)">X</span></li>
-            </ul>
+            <!-- What is this??? -->
+            <div ng-repeat="range in study.ranges track by $index"> {{range}} </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn pull-right btn-primary" type="submit" ng-click="saveStudies()">Save Study</button>
+            <button ng-if="study.id" class="btn btn-link" type="submit" ng-click="studyService.deleteStudy(study.id)">Delete Study</button>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>
