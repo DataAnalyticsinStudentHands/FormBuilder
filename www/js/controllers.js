@@ -540,6 +540,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                 ngNotify.set("E-Mail is required to receive receipt.", "error");
             } else {
                 $validator.validate($scope, $scope.id).success(function () {
+                    console.log($scope.input);
                     responseService.newResponse($scope.input, $scope.id, $scope.uid, $scope.responder_email).then(function () {
                         ngNotify.set("Form submission success!", "success");
                         $state.go("finished", {"id": $scope.form_obj.id});
@@ -551,7 +552,7 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                     ngNotify.set("Form submission error, please verify form contents.", "error");
                 });
             }
-        }
+        };
     }]);
 
 formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify', 'response',
@@ -561,9 +562,13 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
         $scope.send_receipt = form.send_receipt;
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
+        $scope.input = [];
+
         form.questions.forEach(function (question) {
             if (question.component != "section")
                 question.component = "description";
+            //$scope.input.push({id: question.question_id, value: "TEST", label: question.label});
+
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -577,7 +582,7 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
                 settings: question.settings
             });
         });
-
+        console.log($scope.input);
         $scope.form = $builder.forms[$scope.id];
     }]);
 
