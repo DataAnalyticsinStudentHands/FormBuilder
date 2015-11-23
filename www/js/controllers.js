@@ -152,11 +152,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             });
         };
         $scope.showForm = function (row) {
-
+            $state.go('responseView', {
+                "view": true,
+                "id": responses[$scope.gridOptions.data.indexOf(row.entity)].form_id,
+                "response_id": responses[$scope.gridOptions.data.indexOf(row.entity)].id
+            });
         };
         $scope.downloadForm = function (row) {
             var index = $scope.gridOptions.data.indexOf(row.entity);
-            //console.log(responses[index]);
             $scope.toPDF(responses[index].id);
         };
         $scope.id = $stateParams.id;
@@ -175,10 +178,12 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.displayName = "Actions";
         buttons.enableColumnResizing = true;
         buttons.field = "0";
-        buttons.width = 81;
+        buttons.width = 121;
         buttons.enableFiltering = false;
         buttons.enableSorting = false;
-        buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.delete(row)"><span class="glyphicon glyphicon-trash"></span></button>' +
+        buttons.cellTemplate =
+            '<button type="button" class="btn btn-default" ng-click="grid.appScope.delete(row)"><span class="glyphicon glyphicon-trash"></span></button>' +
+            '<button type="button" class="btn btn-default" ng-click="grid.appScope.showForm(row)"><span class="glyphicon glyphicon-folder-open"></span></button>' +
             '<button type="button" class="btn btn-default" ng-click="grid.appScope.downloadForm(row)"><span class="glyphicon glyphicon-download"></span></button>';
         $scope.columns.push(buttons);
 
@@ -507,6 +512,49 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
     }]);
 
 formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
+    function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
+        $scope.id = $stateParams.id;
+        $scope.receipt_required = form.send_receipt;
+        $scope.send_receipt = form.send_receipt;
+        $scope.$parent.form_obj = form;
+        $builder.forms[$scope.id] = null;
+        form.questions.forEach(function (question) {
+            $builder.addFormObject($scope.id, {
+                id: question.question_id,
+                component: question.component,
+                description: question.description,
+                label: question.label,
+                index: question.index,
+                placeholder: question.placeholder,
+                required: question.required,
+                options: question.options,
+                validation: question.validation,
+                settings: question.settings
+            });
+        });
+
+        $scope.form = $builder.forms[$scope.id];
+        $scope.input = [];
+        $scope.submit = function () {
+            if ($scope.send_receipt && !$scope.responder_email) {
+                ngNotify.set("E-Mail is required to receive receipt.", "error");
+            } else {
+                $validator.validate($scope, $scope.id).success(function () {
+                    responseService.newResponse($scope.input, $scope.id, $scope.uid, $scope.responder_email).then(function () {
+                        ngNotify.set("Form submission success!", "success");
+                        $state.go("finished", {"id": $scope.form_obj.id});
+                        $scope.input = null;
+                    }, function () {
+                        ngNotify.set("Submission failed!", "error");
+                    });
+                }).error(function () {
+                    ngNotify.set("Form submission error, please verify form contents.", "error");
+                });
+            }
+        }
+    }]);
+
+formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
     function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
