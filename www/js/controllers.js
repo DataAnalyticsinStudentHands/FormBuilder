@@ -175,11 +175,10 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.displayName = "Actions";
         buttons.enableColumnResizing = true;
         buttons.field = "0";
-        buttons.width = 121;
+        buttons.width = 81;
         buttons.enableFiltering = false;
         buttons.enableSorting = false;
         buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.delete(row)"><span class="glyphicon glyphicon-trash"></span></button>' +
-            '<button type="button" class="btn btn-default" ng-click="grid.appScope.showForm(row)"><span class="glyphicon glyphicon-folder-open"></span></button>' +
             '<button type="button" class="btn btn-default" ng-click="grid.appScope.downloadForm(row)"><span class="glyphicon glyphicon-download"></span></button>';
         $scope.columns.push(buttons);
 
