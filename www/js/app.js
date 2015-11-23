@@ -1,7 +1,6 @@
 'use strict';
 
 /* App Module */
-
 var databaseModule = angular.module('databaseModule', [
     'restangular',
     'formBuilderControllerModule',
@@ -19,6 +18,7 @@ var databaseModule = angular.module('databaseModule', [
     'ui.grid.resizeColumns',
     'ui.bootstrap'
 ]);
+
 databaseModule.config(
     function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login/");
@@ -221,13 +221,12 @@ databaseModule.config(
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', 'userService', 'ngNotify',
     function (Restangular, $rootScope, Auth, $q, $state, $builder, userService, ngNotify) {
-        // Restangular.setBaseUrl("https://www.housuggest.org:8443/FormBuilder/");
         Restangular.setBaseUrl("https://hnetdev.hnet.uh.edu:8443/FormBuilderPermTest/");
-        //Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS/");
 
         $rootScope.Restangular = function () {
             return Restangular;
         };
+
         $rootScope.isAuthenticated = function (authenticate) {
             var notAuthenticatedCallback = function (error) {
                 if (error.status === 0) { // NO NETWORK CONNECTION OR SERVER DOWN, WE WILL NOT LOG THEM OUT

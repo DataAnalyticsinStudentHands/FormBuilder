@@ -554,18 +554,20 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         }
     }]);
 
-formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
-    function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
+formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify', 'response',
+    function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify, response) {
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
         $scope.send_receipt = form.send_receipt;
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
         form.questions.forEach(function (question) {
+            if (question.component != "section")
+                question.component = "description";
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
-                description: question.description,
+                description: "",
                 label: question.label,
                 index: question.index,
                 placeholder: question.placeholder,
@@ -577,24 +579,6 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
         });
 
         $scope.form = $builder.forms[$scope.id];
-        $scope.input = [];
-        $scope.submit = function () {
-            if ($scope.send_receipt && !$scope.responder_email) {
-                ngNotify.set("E-Mail is required to receive receipt.", "error");
-            } else {
-                $validator.validate($scope, $scope.id).success(function () {
-                    responseService.newResponse($scope.input, $scope.id, $scope.uid, $scope.responder_email).then(function () {
-                        ngNotify.set("Form submission success!", "success");
-                        $state.go("finished", {"id": $scope.form_obj.id});
-                        $scope.input = null;
-                    }, function () {
-                        ngNotify.set("Submission failed!", "error");
-                    });
-                }).error(function () {
-                    ngNotify.set("Form submission error, please verify form contents.", "error");
-                });
-            }
-        }
     }]);
 
 formBuilderController.controller('uploadCtrl',
