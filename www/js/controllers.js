@@ -72,7 +72,7 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                 errorMSG = "Passwords do not match.";
                 ngNotify.set(errorMSG, "error");
             }
-        }
+        };
         $scope.cancel = function () {
             $state.go('login');
         }
@@ -121,17 +121,36 @@ formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$st
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form',
-    function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form', 'ngNotify',
+    function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form, ngNotify) {
         $scope.curState = $state.current.name;
         $scope.form_id = $stateParams.id;
         $scope.Delete = function (row) {
-            var index = $scope.gridOptions.data.indexOf(row.entity);
-            responseService.deleteResponse(responses[index].id);
-            $scope.gridOptions.data.splice(index, 1);
-            responses.splice(index, 1);
+            bootbox.dialog({
+                title: "Delete Response",
+                message: "Are you sure? Deleting will cause data loss!",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        className: "btn-default"
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            var index = $scope.gridOptions.data.indexOf(row.entity);
+                            responseService.deleteResponse(responses[index].id);
+                            $scope.gridOptions.data.splice(index, 1);
+                            responses.splice(index, 1);
+                            ngNotify.set("Response deleted successfully.", {
+                                position: 'bottom',
+                                type: 'success'
+                            });
+                        }
+                    }
+                }
+            });
         };
-
         $scope.id = $stateParams.id;
         $scope.responses = responses;
         $scope.form = form;
