@@ -555,20 +555,19 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
         };
     }]);
 
-formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify', 'response',
-    function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify, response) {
+formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', '$state', 'ngNotify', 'response',
+    function ($scope, $builder, $validator, $stateParams, form, $filter, $state, ngNotify, response) {
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
         $scope.send_receipt = form.send_receipt;
         $scope.$parent.form_obj = form;
         $builder.forms[$scope.id] = null;
-        $scope.input = [];
+        //console.log(response);
 
         form.questions.forEach(function (question) {
-            if (question.component != "section")
+            if (question.component != "section") {
                 question.component = "description";
-            //$scope.input.push({id: question.question_id, value: "TEST", label: question.label});
-
+            }
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -582,7 +581,13 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
                 settings: question.settings
             });
         });
-        console.log($scope.input);
+        $scope.defaultValue = {};
+        response.entries.forEach(function(response) {
+            $scope.defaultValue[response.question_id] = response.value;
+        });
+
+        console.log($scope.defaultValue, form.questions);
+
         $scope.form = $builder.forms[$scope.id];
     }]);
 
