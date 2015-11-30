@@ -1,20 +1,13 @@
 <div class="form-group">
 
-    <label for="{{formName+index}}"
+    <label
            class="col-sm-4 control-label"
            ng-class="{'fb-required':required}">{{label}}</label>
 
     <div class="col-sm-8">
-        <input type="text"
-               ng-trim="false"
-               ng-model="inputText"
-               validator-invoke="watch"
-               validator-error="Please enter a valid phone number"
-               validator-required="{{required}}"
-               validator-group="{{formName}}"
-               id="{{formName+index}}"
-               class="form-control"
-               placeholder="{{placeholder}}"/>
+        <signature-pad signature accept="accept" clear="clear" height="220" width="568"></signature-pad>
+        <button ng-click="clear()">Clear signature</button>
+        <button ng-click="signature = accept()">Sign</button>
         <p class='help-block'>{{description}}</p>
     </div>
 </div>
