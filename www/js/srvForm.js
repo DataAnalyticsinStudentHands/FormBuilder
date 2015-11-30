@@ -94,6 +94,7 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
                 service.processOutQuestion(question);
             });
             form_data.questions = form;
+            delete form_data['permissions'];
             return Restangular.all("forms").one(id).doPUT(form_data);
         },
         deleteForm: function (fid) {
@@ -103,6 +104,7 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             form.questions = $filter('orderBy')(form.questions, 'index');
             if (!form.expiration_date)
                 form.expiration_date = null;
+            form.permissions = this.processInPermissions(form.permissions);
         },
         processOutQuestion: function (question) {
             if (!(typeof question.options == 'string' || question.options instanceof String))
@@ -165,26 +167,30 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             });
             this.newForm(new_name, form_duplicate.questions);
         },
-        updateRoles: function (fid, uin, role) {
-            var role_array;
-            switch (role) {
-                case "Owner":
-                    role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
-                    break;
-                case "Collaborator":
-                    role_array = ["READ", "WRITE", "CREATE"];
-                    break;
-                case "Response Viewer":
-                    role_array = ["READ"];
-                    break;
-                case "Responder":
-                    role_array = ["CREATE"];
-                    break;
-                default:
-                    console.error("problem!");
-                    break;
+        // Transforms permissions from the received JSON hash map into an array of user objects
+        processInPermissions: function (permissions) {
+            var newPermissions = [];
+            for (var user in permissions) {
+                if (permissions.hasOwnProperty(user)) {
+                    var newUser = { username: user, role: permissions[user] };
+                    newPermissions.push(newUser);
+                }
             }
-            Restangular.all("forms").all(fid).all("PERMISSION").all(uin).customPOST(null, null, {permissions: role_array});
+            return newPermissions;
+        },
+        // Send a POST request to update permissions for each user/collaborator
+        updatePermission: function (fid, user) {
+            // POST /forms/{fid}/PERMISSION?username={username}?permissionRole={role}
+            // return Restangular.one("forms", fid).customPOST(null, "PERMISSION", {
+            return Restangular.one("forms", fid).all("PERMISSION").post(null, {
+                username: user.username, permissionRole: user.role });
+        },
+        // Sends a DELETE request to remove a user's permissions
+        removeUser: function (fid, user) {
+            // DELETE /forms/{fid}/PERMISSION?username={username}
+            // return Restangular.one("forms", fid).customDELETE("PERMISSION", {
+            return Restangular.one("forms", fid).all("PERMISSION").remove({
+                username: user.username });
         }
     }
 }]);

@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="formURL">Form URL</label>
                     <div class="col-sm-9">
-                        <input type="text" ng-model="formURL" id="formURL" class="form-control" ng-disabled="!form.enabled">
+                        <input type="text" ng-model="formURL" id="formURL" class="form-control" readonly="readonly">
                         <p class="help-block">Web address where the form can be accessed by particpants.</p>
                         <!-- <p class="help-block">Form must be open to accept responses.</p> -->
                     </div>
@@ -71,12 +71,12 @@
                 </div>
 
             </div>
-            
+
             <div class="panel-footer">
                 <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
                     <i class="glyphicon glyphicon-ok"></i> Save
                 </button>
-                <button class="btn btn-link pull-right" type="button" ng-click="">Cancel</button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home" style="margin-right: 10px">Cancel</button>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -102,12 +102,12 @@
                 </div>
 
             </div>
-            
+
             <div class="panel-footer">
                 <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
                     <i class="glyphicon glyphicon-ok"></i> Save
                 </button>
-                <button class="btn btn-link pull-right" type="button" ng-click="">Cancel</button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home" style="margin-right: 10px">Cancel</button>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -169,70 +169,61 @@
                 <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
                     <i class="glyphicon glyphicon-ok"></i> Save
                 </button>
-                <button class="btn btn-link pull-right" type="button" ng-click="">Cancel</button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home" style="margin-right: 10px">Cancel</button>
                 <div class="clearfix"></div>
             </div>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">Collaborators &amp; Permission Control</div>
-            <div class="panel-body">
-                <label class="control-label">Add a New User</label>
-                <div class="form-group form-inline">
-                    <input type="text" id="user" ng-model="perm_username" typeahead="user as user.username for user in users | filter: {username: $viewValue}" placeholder="Name" class="form-control">
-                    <select ng-model="perm_role" class="form-control">
-                        <option>Responder</option>
-                        <option>Collaborator</option>
-                        <option>Response Viewer</option>
-                        <option>Owner</option>
-                    </select>
-                    <button type="button" class="btn btn-default" ng-click="updatePermission(perm_username.username, perm_role)">
-                        <i class="glyphicon glyphicon-plus"></i> Add user
-                    </button>
-                    <p class="help-block" ng-if="perm_role == 'Owner'">Enables the user to view, update, and delete the form, and to view and delete form responses.</p>
-                    <p class="help-block" ng-if="perm_role == 'Collaborator'">Enables the user to view, update, and view form responses.</p>
-                    <p class="help-block" ng-if="perm_role == 'Response Viewer'">Enables the user to view the form and form responses.</p>
-                    <p class="help-block" ng-if="perm_role == 'Responder'">Enables the user to view and submit the form.</p>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr><th>Name</th><th>Role</th><th>Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="(key, p) in form.permissions">
-                            <td>{{key}}</td>
-                            <td>
-                                <select class="form-control" ng-model="p.perm_role" ng-disabled="key == uin">
-                                    <option>Responder</option>
-                                    <option>Collaborator</option>
-                                    <option>Response Viewer</option>
-                                    <option>Owner</option>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Actions" ng-hide="key == uin">
-                                    <!-- <button type="button" class="btn btn-default" ng-click="updatePermission(key, p.perm_role)" title="Update">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                    </button> -->
-                                    <button type="button" class="btn btn-default" ng-click="" title="Remove">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="user in form.permissions | orderBy:'username'" ng-if="user.username !== uin">
+                    <strong class="list-group-item-heading">{{user.username}}</strong>
+                    <div class="pull-right form-inline">
+                        <select class="form-control input-sm" ng-model="user.role" ng-change="updatePermission(user, uin)" ng-disabled="updatingPermissions || removingUser === user.username">
+                            <option value="responder">Responder</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="response_viewer">Response Viewer</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="removeUser(user)" title="Remove" ng-disabled="updatingPermissions || removingUser === user.username">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item form-group">
+                    <label class="control-label">Add a New User</label>
+                    <div class="form-inline">
+                        <input type="text" id="user" ng-model="perm_username" typeahead="user as user.username for user in users | filter: {username: $viewValue}" placeholder="Name" class="form-control" ng-disabled="updatingPermissions">
+                        <select ng-model="perm_role" class="form-control" ng-disabled="updatingPermissions">
+                            <option value="responder">Responder</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="response_viewer">Response Viewer</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                        <button type="button" class="btn btn-primary" ng-click="addUser(perm_username.username, perm_role, uin)" ng-disabled="updatingPermissions">
+                            <span ng-hide="addingUser"><i class="glyphicon glyphicon-plus"></i> Add user</span>
+                            <span ng-show="addingUser"><i class="glyphicon glyphicon-plus"></i> Adding user&hellip;</span>
+                        </button>
+                        <p class="help-block" ng-if="perm_role == 'owner'">Enables the user to view, update, and delete the form, and to view and delete form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'collabrator'">Enables the user to view, update, and view form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'response_viewer'">Enables the user to view the form and form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'responder'">Enables the user to view and submit the form.</p>
+                    </div>
+                </li>
+            </ul>
 
-            <div class="panel-footer">
-                <button class="btn btn-primary pull-right" type="button" ng-click="updateAllPermissions()">
-                    <i class="glyphicon glyphicon-ok"></i> Save
+            <div class="panel-footer" ng-if="false">
+                <button class="btn btn-primary pull-right" type="button" ng-click="updateAllPermissions(uin)" ng-disabled="updatingPermissions || removingUser !== null">
+                    Update permissions
                 </button>
-                <button class="btn btn-link pull-right" type="button" ng-click="">Cancel</button>
                 <div class="clearfix"></div>
             </div>
         </div>
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">Additional Form Actions</div>
             <div class="panel-body">
