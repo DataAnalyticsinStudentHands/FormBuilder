@@ -3,10 +3,12 @@
            class="col-sm-4 control-label"
            ng-class="{'fb-required':required}">{{label}}</label>
     <div class="col-sm-8">
-        <img src="{{inputText}}"/>
-        <signature-pad ng-if="!inputText" signature accept="accept" clear="clear" height="220" width="568"></signature-pad>
+        <img ng-show="inputText != null" src="{{inputText}}"/>
+        <signature-pad ng-show="inputText == null" signature accept="accept" clear="clear" height="220" width="568"></signature-pad>
         <button type="button" ng-click="clear(); inputText = null;">Clear signature</button>
-        <button type="button" ng-click="signature = accept(); inputText = signature.dataUrl">Sign</button>
+        <button ng-show="inputText == null" type="button" ng-click="signature = accept(); inputText = signature.dataUrl">Sign</button>
+
+        {{inputText}}
         <p class='help-block'>{{description}}</p>
     </div>
 </div>
