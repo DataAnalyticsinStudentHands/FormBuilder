@@ -319,13 +319,15 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         $scope.download($scope.id);
     }]);
 
-formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users',
-    function ($rootScope, $scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users) {
+formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', '$stateParams', 'ngNotify', 'form', 'users', '$q',
+    function ($rootScope, $scope, Auth, $state, formService, $stateParams, ngNotify, form, users, $q) {
         $scope.id = $stateParams.id;
         $scope.form = form;
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
         $scope.users = users;
+        $scope.addingUser = false;
+        $scope.removingUser = null;
 
         if (new Date($scope.form.expiration_date).getTime() !== new Date(0).getTime()) {
             $scope.expiration_date = $scope.form.expiration_date;
@@ -346,11 +348,11 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
                         className: "btn-danger",
                         callback: function () {
                             formService.deleteForm($scope.id).then(function () {
-                                    ngNotify.set("Deleted!", "success");
+                                    ngNotify.set("Successfully deleted form.", "success");
                                     $state.go("secure.home");
                                 },
                                 function () {
-                                    ngNotify.set("Error deleting!", "error");
+                                    ngNotify.set("Error deleting form!", "error");
                                 });
                         }
                     }
@@ -363,10 +365,10 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
                 value: $scope.form.name,
                 callback: function (result) {
                     if (result === null || result === "") {
-                        ngNotify.set("New form must have name!", "error")
+                        ngNotify.set("New form must have a name!", "error")
                     } else {
                         formService.duplicateForm($scope.form, result);
-                        ngNotify.set("Form successfully duplicated!", "success")
+                        ngNotify.set("Form successfully duplicated.", "success")
                     }
                 }
             });
@@ -375,37 +377,85 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
             $scope.form.expiration_date = $scope.expiration_date;
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
                 ngNotify.set("Form saved!", "success");
+            }, function (response) {
+                // Show error message if unsuccessful
+                ngNotify.set("Error saving form!", "error");
             });
         };
-
-        $scope.updatePermission = function (user, role) {
-            console.log(user, role, form);
-            var role_array;
-
-            switch (role) {
-                case "Owner":
-                    role_array = ["READ", "WRITE", "DELETE", "CREATE", "DELETE_RESPONSES"];
-                    break;
-                case "Collaborator":
-                    role_array = ["READ", "WRITE", "CREATE"];
-                    break;
-                case "Response Viewer":
-                    role_array = ["READ"];
-                    break;
-                case "Responder":
-                    role_array = ["CREATE"];
-                    break;
-                default:
-                    console.error("problem!");
-                    break;
-            }
-            form.permissions[user] = role_array;
-            // formService.updateRoles(form.id, user, role);
+        // This is currently unused because the server cannot handle multiple
+        // permission updates at the same time
+        $scope.updateAllPermissions = function (currentUser) {
+            var promises = [];
+            $scope.updatingPermissions = true;
+            $scope.form.permissions.forEach(function (user) {
+                // Skip current user
+                if (user.username === currentUser) return;
+                // Remember Restangular response promise
+                promises.push(formService.updatePermission(String($scope.form.id), user));
+            });
+            // Execute callback when all requests have been returned
+            $q.all(promises).then(function () {
+                $scope.updatingPermissions = false;
+                ngNotify.set("Form permissions successfully updated.", "success")
+            }, function (response) {
+                $scope.updatingPermissions = false;
+                // console.error(response);
+                ngNotify.set("An error occurred while updating form permissions.", "error")
+            });
         };
+        $scope.updatePermission = function (user, currentUser) {
+            $scope.updatingPermissions = true;
+            // Make request to server
+            formService.updatePermission(String($scope.form.id), user)
+                .then(function () {
+                    $scope.updatingPermissions = false;
+                    ngNotify.set("Form permissions successfully updated.", "success")
+                }, function (response) {
+                    $scope.updatingPermissions = false;
+                    // console.error(response);
+                    ngNotify.set("An error occurred while updating form permissions.", "error")
+                });
+        };
+        $scope.addUser = function (username, role, currentUser) {
+            console.log(username, role);
+            if (typeof username !== 'undefined' &&
+                (typeof role !== 'undefined' && role.length > 0)) {
 
-        $scope.updateAllPermissions = function () {
-            // TODO: move this to formService
-            formService.processOutPermissions($scope.form.permissions);
+                // Do not add current user
+                if (username === currentUser) {
+                    ngNotify.set("You cannot add yourself as a user.", "warning")
+                    return;
+                }
+                var user = {username: username, role: role};
+                $scope.updatePermission(user, currentUser);
+                // Add user to local angular model
+                $scope.form.permissions.push(user);
+                // Clear out username and role form fields
+                $scope.perm_username = null;
+                $scope.perm_role = '';
+            }
+        };
+        $scope.removeUser = function (user) {
+            $scope.removingUser = user.username;
+            // TODO: Check to make sure we aren't removing permissions for the current user
+            // Make request to server to remove user's permissions
+            formService.removeUser(String($scope.form.id), user).then(function () {
+                // Remove user from this form's permissions within Angular
+                // delete $scope.form.permissions[username];
+                // $scope.form.permissions = $filter('filter')(
+                //     $scope.form.permissions, { username: user.username });
+                $scope.form.permissions = $scope.form.permissions.filter(function (perm) {
+                    // console.log(perm);
+                    return perm.username !== user.username;
+                });
+                console.log($scope.form.permissions);
+                $scope.removingUser = null;
+                ngNotify.set("Successfully removed " + user.username + ".", "success");
+            }, function (response) {
+                // Show error message if unsuccessful
+                $scope.removingUser = null;
+                ngNotify.set("Error removing user!", "error");
+            });
         };
     }]);
 
@@ -417,16 +467,86 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.users = users;
         $scope.studyService = studyService;
         $scope.studies = (studies) ? studies : [];
+        $scope.editStudy = null;
+        $scope.editing = false;
+
+        $scope.addStudy = function () {
+            var study = {
+                studyName: '',
+                formId: $scope.form.id,
+                participants: [],
+                fixedTimes: [],
+                startDate: new Date(),
+                endDate: new Date(),
+                monday: true,
+                tuesday: true,
+                wednesday: true,
+                thursday: true,
+                friday: true,
+                saturday: true,
+                sunday: true
+            };
+            $scope.currentStudy = study;
+            $scope.editing = true;
+            $scope.studies.push(study);
+        };
+        $scope.editStudy = function (study) {
+            $scope.time_fixed = (new Date(0)).toISOString();
+            $scope.currentStudy = study;
+            $scope.editing = true;
+        };
+        $scope.cancelEdit = function () {
+            $scope.currentStudy = null;
+            $scope.editing = false;
+            $state.reload();
+        };
         $scope.saveStudies = function () {
             studyService.newStudies(studies).then(function (s) {
                 $state.reload();
             });
-        }
-        $scope.parseTextList = function (study) {
-            // console.log(study);
-            study.participants = study.participants_txt.split('\n');
+        };
+        $scope.replaceParticipants = function (study) {
+            var newParticipants = study.participants_txt.split('\n');
+            study.participants = newParticipants;
             study.participants_txt = '';
-        }
+        };
+        $scope.appendParticipants = function (study) {
+            var newParticipants = study.participants_txt.split('\n');
+            study.participants = study.participants.concat(newParticipants);
+            study.participants_txt = '';
+        };
+        $scope.exportParticipants = function () {
+            var CSVout = "";
+            var formName = $scope.form.name;
+            var study = $scope.currentStudy;
+            var participants = study.participants;
+            var currentDate = (new Date()).format('Ymd-His');
+            var fileName = formName + ' - ' + study.studyName + ' - ' + currentDate + '.csv';
+
+            // Index the users array by username for quick lookup
+            var usersMapKeyedByUsername = _.indexBy(users, 'username');
+
+            // Header row
+            CSVout += 'Email,User ID';
+
+            // Add row for each participant
+            var user_id;
+            participants.forEach(function (participant) {
+                // Check if this participant is a registered user
+                if (usersMapKeyedByUsername.hasOwnProperty(participant)) {
+                    user_id = String(usersMapKeyedByUsername[participant].id);
+                } else {
+                    user_id = 'N/A';
+                }
+                CSVout += '\n' + participant + ',' + user_id;
+            });
+
+            // Force download by creating a fake link
+            var download_button = document.createElement('a');
+            download_button.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVout));
+            download_button.setAttribute('download', fileName);
+            download_button.click();
+        };
     }]);
 
 formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
