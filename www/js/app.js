@@ -168,7 +168,7 @@ databaseModule.config(
             url: "/view/:id/:view/:response_id",
             views: {
                 "app": {
-                    templateUrl: "partials/form.html",
+                    templateUrl: "partials/responseView.html",
                     controller: 'responseViewCtrl'
                 }
             },
@@ -238,7 +238,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
                         location.reload();
                     }
                 }
-            }
+            };
             if (!Auth.hasCredentials()) {
                 return false;
                 notAuthenticatedCallback();
