@@ -818,16 +818,3 @@ formBuilderController.controller('uploadCtrl',
                 );
         }
     });
-
-formBuilderController.controller('scannerCtrl',
-    function ($scope, $rootScope, $cordovaBarcodeScanner) {
-        $scope.scan = function () {
-            $cordovaBarcodeScanner
-                .scan()
-                .then(function (result) {
-                    $scope.$parent.inputText = result.text;
-                }, function (error) {
-
-                });
-        };
-    });
