@@ -1,6 +1,6 @@
 /*** SITE WISE ***/
 .site-header {
-    background-color: #f8f8f8;
+    background-color: #f5f5f5;
 }
 
 .jumbotron ol {
@@ -36,6 +36,12 @@ a:link:hover:focus,
 .btn-primary:active,
 .btn-primary:hover:active,
 .btn-primary:focus:active {
+    background-color: #960c22;
+    border-color: #960c22;
+}
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus {
     background-color: #960c22;
     border-color: #960c22;
 }
@@ -130,7 +136,7 @@ a:link:hover:focus,
 
 .page-header {
     /* UH brand color */
-    background-color: #f8f8f8;
+    background-color: #f5f5f5;
     border-color: #ddd;
     margin-top: 0;
 }
@@ -165,11 +171,16 @@ a:link:hover:focus,
     color: inherit;
 }
 
+.nav-tabs a .glyphicon {
+    margin-right: 5px;
+}
+
 .nav-tabs a.btn-primary {
     color: white;
 }
 
-.nav-tabs a.btn-primary:hover {
+.nav-tabs a.btn-primary:hover,
+.nav-tabs a.btn-primary:focus {
     background-color: #960c22;
     border-color: #960c22;
     color: white;
@@ -360,7 +371,7 @@ button {
 .onoffswitch-inner:before {
     content: "";
     padding-left: 0px;
-    background-color: #00b388;
+    background-color: #c8102e;
     color: #FFFFFF;
     /*border-radius: 25px;*/
 }
