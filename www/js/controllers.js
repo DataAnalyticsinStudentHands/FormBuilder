@@ -565,9 +565,10 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
         //console.log(response);
 
         form.questions.forEach(function (question) {
-            if (question.component != "section") {
+            if (question.component != "section" && question.component != "descriptionHorizontal") {
                 question.component = "description";
             }
+            //console.log($filter('getByQuestionId')(response.entries, question.question_id));
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
@@ -576,7 +577,7 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
                 index: question.index,
                 placeholder: question.placeholder,
                 required: question.required,
-                options: question.options,
+                //options: question.options,
                 validation: question.validation,
                 settings: question.settings
             });
@@ -585,8 +586,7 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
         response.entries.forEach(function(response) {
             $scope.defaultValue[response.question_id] = response.value;
         });
-
-        console.log($scope.defaultValue, form.questions);
+        //console.log($scope.defaultValue, form.questions);
 
         $scope.form = $builder.forms[$scope.id];
     }]);

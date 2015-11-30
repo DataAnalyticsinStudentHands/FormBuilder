@@ -275,7 +275,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             label: 'TextBlock 1',
             description: "This is a textblock.",
             required: false,
-            arrayToText: true,
+            arrayToText: false,
             templateUrl: "partials/component/tmplDescriptionHorizontal.html",
             popoverTemplateUrl: "partials/component/popDescriptionHorizontal.html"
         });
@@ -284,7 +284,7 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             label: 'TextBlock 2',
             description: "This is a textblock.",
             required: false,
-            arrayToText: true,
+            arrayToText: false,
             templateUrl: "partials/component/tmplDescription.html",
             popoverTemplateUrl: "partials/component/popDescription.html"
         });
