@@ -72,7 +72,7 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
                 errorMSG = "Passwords do not match.";
                 ngNotify.set(errorMSG, "error");
             }
-        }
+        };
         $scope.cancel = function () {
             $state.go('login');
         }
@@ -121,17 +121,44 @@ formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$st
         }
     }]);
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form',
-    function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form) {
+formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form', 'ngNotify',
+    function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form, ngNotify) {
         $scope.curState = $state.current.name;
         $scope.form_id = $stateParams.id;
-        $scope.Delete = function (row) {
-            var index = $scope.gridOptions.data.indexOf(row.entity);
-            responseService.deleteResponse(responses[index].id);
-            $scope.gridOptions.data.splice(index, 1);
-            responses.splice(index, 1);
+        $scope.delete = function (row) {
+            bootbox.dialog({
+                title: "Delete Response",
+                message: "Are you sure? Deleting will cause data loss!",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        className: "btn-default"
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            var index = $scope.gridOptions.data.indexOf(row.entity);
+                            responseService.deleteResponse(responses[index].id);
+                            $scope.gridOptions.data.splice(index, 1);
+                            responses.splice(index, 1);
+                            ngNotify.set("Response deleted successfully.", {
+                                position: 'bottom',
+                                type: 'success'
+                            });
+                        }
+                    }
+                }
+            });
         };
+        $scope.showForm = function (row) {
 
+        };
+        $scope.downloadForm = function (row) {
+            var index = $scope.gridOptions.data.indexOf(row.entity);
+            //console.log(responses[index]);
+            $scope.toPDF(responses[index].id);
+        };
         $scope.id = $stateParams.id;
         $scope.responses = responses;
         $scope.form = form;
@@ -148,13 +175,14 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         buttons.displayName = "Actions";
         buttons.enableColumnResizing = true;
         buttons.field = "0";
-        buttons.width = 100;
+        buttons.width = 81;
         buttons.enableFiltering = false;
         buttons.enableSorting = false;
-        buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.Delete(row)"><span class="glyphicon glyphicon-trash"></span></button>';
+        buttons.cellTemplate = '<button type="button" class="btn btn-default" ng-click="grid.appScope.delete(row)"><span class="glyphicon glyphicon-trash"></span></button>' +
+            '<button type="button" class="btn btn-default" ng-click="grid.appScope.downloadForm(row)"><span class="glyphicon glyphicon-download"></span></button>';
         $scope.columns.push(buttons);
 
-        $scope.columns.push({"displayName":"Time", "field":"time-of-submission", "width":120});
+        $scope.columns.push({"displayName": "Time", "field": "time-of-submission", "width": 120});
 
         $scope.questions.forEach(function (q) {
             var q_obj = {};
@@ -211,28 +239,30 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             download_button.setAttribute('download', $scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".csv");
             download_button.click();
         };
-        $scope.toPDF = function () {
+        $scope.toPDF = function (responseId) {
             var table_loc = 0;
             var questions = $scope.form.questions;
             $scope.responses.forEach(function (response) {
-                table_loc += 2;
-                dd.content.push("", {});
-                dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
-                if (table_loc != 2)
-                    dd.content[table_loc - 1].pageBreak = 'before';
-                dd.content[table_loc].table = {};
-                dd.content[table_loc].table.widths = [150, '*'];
-                dd.content[table_loc].layout = 'noBorders';
-                dd.content[table_loc].table.body = [[{
-                    text: "Questions",
-                    alignment: "center",
-                    bold: true
-                }, {text: "Responses", alignment: "center", bold: true}]];
+                if (responseId && responseId == response.id) {
+                    table_loc += 2;
+                    dd.content.push("", {});
+                    dd.content[table_loc - 1] = {text: "Response: #" + response.id, alignment: "center", bold: true};
+                    if (table_loc != 2)
+                        dd.content[table_loc - 1].pageBreak = 'before';
+                    dd.content[table_loc].table = {};
+                    dd.content[table_loc].table.widths = [150, '*'];
+                    dd.content[table_loc].layout = 'noBorders';
+                    dd.content[table_loc].table.body = [[{
+                        text: "Questions",
+                        alignment: "center",
+                        bold: true
+                    }, {text: "Responses", alignment: "center", bold: true}]];
 
-                questions.forEach(function (question) {
-                    var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                    dd.content[table_loc].table.body.push([question.label, entry.value]);
-                });
+                    questions.forEach(function (question) {
+                        var entry = $filter('getByQuestionId')(response.entries, question.question_id);
+                        dd.content[table_loc].table.body.push([question.label, entry.value]);
+                    });
+                }
             });
             pdfMake.createPdf(dd).download($scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".pdf");
         }
@@ -269,21 +299,21 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
             Restangular.all("fileUploads")
                 .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)
                 .then(
-                function (success) {
-                    var blob = new Blob([success.data], {
-                        type: success.headers("content-type")
-                    });
-                    saveAs(blob, success.headers("file_name"));
-                    Restangular.setFullResponse(false);
-                },
-                function () {
-                    ngNotify.set("Something went wrong while getting the uploaded file!", {
-                        position: 'bottom',
-                        type: 'error'
-                    });
-                    Restangular.setFullResponse(false);
-                }
-            );
+                    function (success) {
+                        var blob = new Blob([success.data], {
+                            type: success.headers("content-type")
+                        });
+                        saveAs(blob, success.headers("file_name"));
+                        Restangular.setFullResponse(false);
+                    },
+                    function () {
+                        ngNotify.set("Something went wrong while getting the uploaded file!", {
+                            position: 'bottom',
+                            type: 'error'
+                        });
+                        Restangular.setFullResponse(false);
+                    }
+                );
         };
 
         $scope.download($scope.id);
@@ -396,7 +426,7 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
                     ngNotify.set("You cannot add yourself as a user.", "warning")
                     return;
                 }
-                var user = { username: username, role: role };
+                var user = {username: username, role: role};
                 $scope.updatePermission(user, currentUser);
                 // Add user to local angular model
                 $scope.form.permissions.push(user);
@@ -439,7 +469,7 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
         $scope.studies = (studies) ? studies : [];
         $scope.editStudy = null;
         $scope.editing = false;
-        
+
         $scope.addStudy = function () {
             var study = {
                 studyName: '',
@@ -471,7 +501,7 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
             $state.reload();
         };
         $scope.saveStudies = function () {
-            studyService.newStudies(studies).then(function(s){
+            studyService.newStudies(studies).then(function (s) {
                 $state.reload();
             });
         };
@@ -732,33 +762,33 @@ formBuilderController.controller('uploadCtrl',
             Restangular.all("fileUploads")
                 .withHttpConfig({responseType: 'arraybuffer'}).customGET(id)
                 .then(
-                function (success) {
-                    var blob = new Blob([success.data], {
-                        type: success.headers("content-type")
-                    });
-                    saveAs(blob, success.headers("file_name"));
-                    Restangular.setFullResponse(false);
-                },
-                function () {
-                    ngNotify.set("Something went wrong while getting the uploaded file!", {
-                        position: 'bottom',
-                        type: 'error'
-                    });
-                    Restangular.setFullResponse(false);
-                }
-            );
+                    function (success) {
+                        var blob = new Blob([success.data], {
+                            type: success.headers("content-type")
+                        });
+                        saveAs(blob, success.headers("file_name"));
+                        Restangular.setFullResponse(false);
+                    },
+                    function () {
+                        ngNotify.set("Something went wrong while getting the uploaded file!", {
+                            position: 'bottom',
+                            type: 'error'
+                        });
+                        Restangular.setFullResponse(false);
+                    }
+                );
         }
     });
 
 formBuilderController.controller('scannerCtrl',
-    function($scope, $rootScope, $cordovaBarcodeScanner) {
-        $scope.scan = function(){
+    function ($scope, $rootScope, $cordovaBarcodeScanner) {
+        $scope.scan = function () {
             $cordovaBarcodeScanner
                 .scan()
-                .then(function(result) {
+                .then(function (result) {
                     $scope.$parent.inputText = result.text;
-                }, function(error) {
+                }, function (error) {
 
                 });
         };
-});
+    });
