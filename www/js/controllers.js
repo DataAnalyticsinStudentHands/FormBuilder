@@ -570,7 +570,7 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
             $builder.addFormObject($scope.id, {
                 id: question.question_id,
                 component: question.component,
-                description: "",
+                description: question.description,
                 label: question.label,
                 index: question.index,
                 placeholder: question.placeholder,
