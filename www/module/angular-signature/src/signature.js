@@ -34,8 +34,6 @@ angular.module('signature').directive('signaturePad', ['$window',
                             signature.dataUrl = EMPTY_IMAGE;
                             signature.isEmpty = true;
                         }
-
-                        console.log(signature);
                         return signature;
                     };
 
