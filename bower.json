@@ -26,9 +26,11 @@
     "ng-file-upload-shim": "~3.0.4",
     "ng-file-upload": "~3.0.4",
     "jquery": "2.1.0",
-    "angular-validator": "*"
+    "angular-validator": "*",
+    "angular-signature": "~0.1.5"
   },
   "resolutions": {
-    "angular": "1.4.4"
+    "angular": ">= 1.2.23",
+    "signature_pad": "~1.5.2"
   }
 }
