@@ -172,7 +172,7 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             var newPermissions = [];
             for (var user in permissions) {
                 if (permissions.hasOwnProperty(user)) {
-                    var newUser = { username: user, role: permissions[user] };
+                    var newUser = {username: user, role: permissions[user]};
                     newPermissions.push(newUser);
                 }
             }
@@ -183,22 +183,24 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             // POST /forms/{fid}/PERMISSION?username={username}?permissionRole={role}
             // return Restangular.one("forms", fid).customPOST(null, "PERMISSION", {
             return Restangular.one("forms", fid).all("PERMISSION").post(null, {
-                username: user.username, permissionRole: user.role });
+                username: user.username, permissionRole: user.role
+            });
         },
         // Sends a DELETE request to remove a user's permissions
         removeUser: function (fid, user) {
             // DELETE /forms/{fid}/PERMISSION?username={username}
             // return Restangular.one("forms", fid).customDELETE("PERMISSION", {
             return Restangular.one("forms", fid).all("PERMISSION").remove({
-                username: user.username });
+                username: user.username
+            });
         }
     }
 }]);
 
 fbService.factory('responseService', ['Restangular', '$filter', 'formService', function (Restangular, $filter, formService) {
     return {
-        getResponse: function (rid) {
-            return Restangular.all("formResponses").get(rid).then(function (data) {
+        getResponse: function (rid, fid) {
+            return Restangular.all("formResponses").get(rid, {"formId": fid}).then(function (data) {
                 return Restangular.stripRestangular(data);
             });
         },
