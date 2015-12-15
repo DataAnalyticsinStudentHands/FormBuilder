@@ -14,8 +14,8 @@ fbService.factory('userService', ['Restangular', '$filter', function (Restangula
                 return success[0];
             });
         },
-        getAllUsers: function() {
-            return Restangular.all("users").getList().then(function(success){
+        getAllUsers: function () {
+            return Restangular.all("users").getList().then(function (success) {
                 return success.plain();
             })
         }
@@ -29,7 +29,7 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
                 data = data.plain();
                 var data_keys = Object.keys(data);
                 var output = [];
-                for(var i = 0; i < data_keys.length; i++) {
+                for (var i = 0; i < data_keys.length; i++) {
                     var form = JSON.parse(data_keys[i]);
                     form.perms = data_keys[i];
                     output.push(form);
@@ -46,6 +46,31 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
                     service.processInQuestion(question);
                 });
                 form.expiration_date = new Date(form.expiration_date);
+                if (perm) {
+                    var perm_keys = Object.keys(form.permissions);
+                    for (var i = 0; i < perm_keys.length; i++) {
+                        var p = form.permissions[perm_keys[i]];
+                        var perm_role = "";
+                        switch (p.toString()) {
+                            case '1':
+                                perm_role = "Response Viewer";
+                                break;
+                            case '4,2,1':
+                                perm_role = "Collaborator";
+                                break;
+                            case '128,8,4,2,1':
+                                perm_role = "Owner";
+                                break;
+                            case '4':
+                                perm_role = "Responder";
+                                break;
+                            default:
+                                perm_role = "";
+                                break;
+                        }
+                        form.permissions[perm_keys[i]].perm_role = perm_role;
+                    }
+                }
                 return form;
             });
         },
@@ -147,7 +172,7 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             var newPermissions = [];
             for (var user in permissions) {
                 if (permissions.hasOwnProperty(user)) {
-                    var newUser = { username: user, role: permissions[user] };
+                    var newUser = {username: user, role: permissions[user]};
                     newPermissions.push(newUser);
                 }
             }
@@ -158,22 +183,24 @@ fbService.factory('formService', ['Restangular', '$filter', function (Restangula
             // POST /forms/{fid}/PERMISSION?username={username}?permissionRole={role}
             // return Restangular.one("forms", fid).customPOST(null, "PERMISSION", {
             return Restangular.one("forms", fid).all("PERMISSION").post(null, {
-                username: user.username, permissionRole: user.role });
+                username: user.username, permissionRole: user.role
+            });
         },
         // Sends a DELETE request to remove a user's permissions
         removeUser: function (fid, user) {
             // DELETE /forms/{fid}/PERMISSION?username={username}
             // return Restangular.one("forms", fid).customDELETE("PERMISSION", {
             return Restangular.one("forms", fid).all("PERMISSION").remove({
-                username: user.username });
+                username: user.username
+            });
         }
     }
 }]);
 
 fbService.factory('responseService', ['Restangular', '$filter', 'formService', function (Restangular, $filter, formService) {
     return {
-        getResponse: function (rid) {
-            return Restangular.all("formResponses").get(rid).then(function (data) {
+        getResponse: function (rid, fid) {
+            return Restangular.all("formResponses").get(rid, {"formId": fid}).then(function (data) {
                 return Restangular.stripRestangular(data);
             });
         },
@@ -273,36 +300,36 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
     }
 }]);
 
-fbService.factory('studyService',['Restangular', '$filter', function(Restangular, $filter){
+fbService.factory('studyService', ['Restangular', '$filter', function (Restangular, $filter) {
     return {
-        getStudiesByFormId: function(fid) {
-            return Restangular.all("studies").all("getstudiesform").one(fid).getList().then(function(s){
+        getStudiesByFormId: function (fid) {
+            return Restangular.all("studies").all("getstudiesform").one(fid).getList().then(function (s) {
                 return s.plain();
             });
         },
-        getStudyById: function(sid) {
+        getStudyById: function (sid) {
             return Restangular.all("studies").get(sid);
         },
-        newStudies: function(studies) {
+        newStudies: function (studies) {
             var srv = this;
-            studies.forEach(function(study){
+            studies.forEach(function (study) {
                 srv.processOutStudy(study);
             });
             return Restangular.all("studies").all('updatestudies').customPUT(studies);
         },
-        updateStudies: function(studies) {
+        updateStudies: function (studies) {
             return Restangular.all("studies").all('updatestudies').put(studies);
         },
-        deleteStudy: function(sid) {
+        deleteStudy: function (sid) {
             return Restangular.all("studies").all(sid).remove();
         },
-        processOutStudy: function(study) {
-            if(study.startDate && isDate(study.startDate)) study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');
-            if(study.endDate && isDate(study.endDate)) study.endDate = $filter('date')(Date.parse(study.endDate), 'yyyy-MM-ddTHH:mmZ');
+        processOutStudy: function (study) {
+            if (study.startDate && isDate(study.startDate)) study.startDate = $filter('date')(Date.parse(study.startDate), 'yyyy-MM-ddTHH:mmZ');
+            if (study.endDate && isDate(study.endDate)) study.endDate = $filter('date')(Date.parse(study.endDate), 'yyyy-MM-ddTHH:mmZ');
             var times = [];
-            if(study.fixedTimes){
-                study.fixedTimes.forEach(function(time){
-                    if(time && isDate(time)) times.push($filter('date')(Date.parse(time), 'yyyy-MM-ddTHH:mmZ'));
+            if (study.fixedTimes) {
+                study.fixedTimes.forEach(function (time) {
+                    if (time && isDate(time)) times.push($filter('date')(Date.parse(time), 'yyyy-MM-ddTHH:mmZ'));
                 });
                 study.fixedTimes = times;
             }
