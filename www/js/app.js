@@ -221,7 +221,7 @@ databaseModule.config(
 
 databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$builder', 'userService', 'ngNotify',
     function (Restangular, $rootScope, Auth, $q, $state, $builder, userService, ngNotify) {
-        Restangular.setBaseUrl("https://hnetdev.hnet.uh.edu:8443/FormBuilderBackend/");
+        Restangular.setBaseUrl("https://hnetdev.hnet.uh.edu:8443/FormBuilderBackendTest/");
 
         $rootScope.Restangular = function () {
             return Restangular;
