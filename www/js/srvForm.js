@@ -248,7 +248,7 @@ fbService.factory('responseService', ['Restangular', '$filter', 'formService', f
         newResponse: function (input, fid, uid, rem) {
             var service = this;
             return this.createResponse(fid, uid).then(function (id) {
-                return service.getResponse(id).then(function (response) {
+                return service.getResponse(id, fid).then(function (response) {
                     if (rem) {
                         response.responder_email = rem;
                         response.send_receipt = true;
