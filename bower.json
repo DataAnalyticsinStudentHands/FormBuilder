@@ -26,7 +26,8 @@
     "ng-file-upload-shim": "~3.0.4",
     "ng-file-upload": "~3.0.4",
     "jquery": "2.1.0",
-    "angular-validator": "*"
+    "angular-validator": "*",
+    "moment": "~2.10.6"
   },
   "resolutions": {
     "angular": "1.4.4"
