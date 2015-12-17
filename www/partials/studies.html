@@ -14,6 +14,7 @@
                 </button>
             </div>
             <h4 class="list-group-item-heading clearfix">{{study.studyName}}</h4>
+            <p class="list-group-item-text" ng-show="study.id">Study ID: {{study.id}}</p>
         </li>
     </ul>
     <div class="panel panel-default" ng-if="editing">
@@ -201,7 +202,7 @@
         <div class="panel-footer">
             <button class="btn pull-right btn-primary" type="submit" ng-click="saveStudies()">Save Study</button>
             <button class="btn pull-right btn-default" ng-click="cancelEdit()" style="margin-right: 10px;">Cancel</button>
-            <button ng-if="currentStudy.id" class="btn btn-default" type="submit" ng-click="studyService.deleteStudy(currentStudy.id)">Delete Study</button>
+            <button ng-if="currentStudy.id" class="btn btn-default" type="submit" ng-click="studyService.deleteStudy(currentStudy.id); state.reload();">Delete Study</button>
             <div class="clearfix"></div>
         </div>
     </div>
