@@ -188,6 +188,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
         $scope.columns.push(buttons);
 
         $scope.columns.push({"displayName": "Time", "field": "time-of-submission", "width": 120});
+        $scope.columns.push({"displayName": "Study ID", "field": "study_id", "width": 120});
 
         $scope.questions.forEach(function (q) {
             var q_obj = {};
@@ -205,6 +206,7 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             var entries = response.entries;
             var proc_entries = {};
             proc_entries["time-of-submission"] = $filter('date')(response.insertion_date, "MM/dd/yy h:mma");
+            proc_entries["study_id"] = response.study_id;
             entries.forEach(function (entry) {
                 if (entry)
                     proc_entries[entry.question_id.toString()] = entry.value;
@@ -467,6 +469,7 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
 formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users', 'studyService', 'studies',
     function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users, studyService, studies) {
         $scope.form_id = $stateParams.id;
+        $scope.state = $state;
         $scope.curState = $state.current.name;
         $scope.form = form;
         $scope.users = users;
