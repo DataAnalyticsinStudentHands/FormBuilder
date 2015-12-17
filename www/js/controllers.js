@@ -489,7 +489,8 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
                 thursday: true,
                 friday: true,
                 saturday: true,
-                sunday: true
+                sunday: true,
+                duration: 3
             };
             $scope.currentStudy = study;
             $scope.editing = true;
