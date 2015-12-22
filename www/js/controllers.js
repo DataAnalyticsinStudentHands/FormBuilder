@@ -1,10 +1,9 @@
 'use strict';
-/* Controllers */
 var formBuilderController = angular.module('formBuilderControllerModule', [
     'ui.bootstrap'
 ]);
 
-formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNotify', '$stateParams',
+formBuilderController.controller('loginCtrl',
     function ($scope, Auth, $state, ngNotify, $stateParams) {
         $scope.form_id = $stateParams.form_id;
         if ($scope.isAuthenticated() === true) {
@@ -41,9 +40,9 @@ formBuilderController.controller('loginCtrl', ['$scope', 'Auth', '$state', 'ngNo
                 $scope.loginResult = "";
             }
         };
-    }]);
+    });
 
-formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'ngNotify', '$stateParams',
+formBuilderController.controller('registerCtrl',
     function ($scope, $state, Auth, ngNotify, $stateParams) {
         $scope.registerUser = function () {
             var errorMSG;
@@ -76,9 +75,9 @@ formBuilderController.controller('registerCtrl', ['$scope', '$state', 'Auth', 'n
         $scope.cancel = function () {
             $state.go('login');
         }
-    }]);
+    });
 
-formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formService', 'ngNotify', 'forms',
+formBuilderController.controller('homeCtrl',
     function ($scope, Auth, $state, formService, ngNotify, forms) {
         $scope.state = $state;
         $scope.myForms = forms;
@@ -110,18 +109,18 @@ formBuilderController.controller('homeCtrl', ['$scope', 'Auth', '$state', 'formS
             else
                 return true;
         }
-    }]);
+    });
 
-formBuilderController.controller('menuCtrl', ['$scope', 'Auth', 'ngNotify', '$state',
+formBuilderController.controller('menuCtrl',
     function ($scope, Auth, ngNotify, $state) {
         $scope.logOut = function () {
             Auth.clearCredentials();
             ngNotify.set("Successfully logged out!", "success");
             $state.go('secure.home', {}, {reload: true});
         }
-    }]);
+    });
 
-formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', '$filter', 'responses', 'form', 'ngNotify',
+formBuilderController.controller('responseCtrl',
     function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form, ngNotify) {
         $scope.curState = $state.current.name;
         $scope.form_id = $stateParams.id;
@@ -273,16 +272,16 @@ formBuilderController.controller('responseCtrl', ['$scope', 'Auth', '$state', 'f
             });
             pdfMake.createPdf(dd).download($scope.form.name + "_" + (new Date()).format('mdY\\_His') + ".pdf");
         }
-    }]);
+    });
 
-formBuilderController.controller('userResponseCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService',
+formBuilderController.controller('userResponseCtrl',
     function ($scope, Auth, $state, formService, responseService) {
         responseService.getMyResponses($scope.id).then(function (data) {
             $scope.responses = data;
         });
-    }]);
+    });
 
-formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
+formBuilderController.controller('finishedCtrl',
     function ($scope, form, $timeout) {
         $scope.form = form;
         if ($scope.form.redirect_url) {
@@ -290,14 +289,14 @@ formBuilderController.controller('finishedCtrl', ['$scope', 'form', '$timeout',
                 location.replace(form.redirect_url);
             }, 5000)
         }
-    }]);
+    });
 
-formBuilderController.controller('closedCtrl', ['$scope', '$stateParams',
+formBuilderController.controller('closedCtrl',
     function ($scope, $stateParams) {
         $scope.form = JSON.parse($stateParams.form);
-    }]);
+    });
 
-formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 'ngNotify', 'Restangular',
+formBuilderController.controller('fileDownloadCtrl',
     function ($scope, $stateParams, ngNotify, Restangular) {
         $scope.id = $stateParams.id;
 
@@ -324,9 +323,9 @@ formBuilderController.controller('fileDownloadCtrl', ['$scope', '$stateParams', 
         };
 
         $scope.download($scope.id);
-    }]);
+    });
 
-formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'Auth', '$state', 'formService', '$stateParams', 'ngNotify', 'form', 'users', '$q',
+formBuilderController.controller('formSettingsCtrl',
     function ($rootScope, $scope, Auth, $state, formService, $stateParams, ngNotify, form, users, $q) {
         $scope.id = $stateParams.id;
         $scope.form = form;
@@ -464,9 +463,9 @@ formBuilderController.controller('formSettingsCtrl', ['$rootScope', '$scope', 'A
                 ngNotify.set("Error removing user!", "error");
             });
         };
-    }]);
+    });
 
-formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'formService', 'responseService', '$stateParams', 'ngNotify', 'form', 'users', 'studyService', 'studies',
+formBuilderController.controller('studiesCtrl',
     function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users, studyService, studies) {
         $scope.form_id = $stateParams.id;
         $scope.state = $state;
@@ -556,9 +555,9 @@ formBuilderController.controller('studiesCtrl', ['$scope', 'Auth', '$state', 'fo
             download_button.setAttribute('download', fileName);
             download_button.click();
         };
-    }]);
+    });
 
-formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validator', 'formService', '$stateParams', '$filter', '$state', 'ngNotify', 'form',
+formBuilderController.controller('builderCtrl',
     function ($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify, form) {
         $scope.form_id = $stateParams.id;
         $scope.curState = $state.current.name;
@@ -633,9 +632,9 @@ formBuilderController.controller('builderCtrl', ['$scope', '$builder', '$validat
                 });
             }
         }
-    }]);
+    });
 
-formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', 'responseService', '$state', 'ngNotify',
+formBuilderController.controller('formCtrl',
     function ($scope, $builder, $validator, $stateParams, form, $filter, responseService, $state, ngNotify) {
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
@@ -677,9 +676,9 @@ formBuilderController.controller('formCtrl', ['$scope', '$builder', '$validator'
                 });
             }
         };
-    }]);
+    });
 
-formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$validator', '$stateParams', 'form', '$filter', '$state', 'ngNotify', 'response',
+formBuilderController.controller('responseViewCtrl',
     function ($scope, $builder, $validator, $stateParams, form, $filter, $state, ngNotify, response) {
         $scope.id = $stateParams.id;
         $scope.receipt_required = form.send_receipt;
@@ -710,7 +709,7 @@ formBuilderController.controller('responseViewCtrl', ['$scope', '$builder', '$va
         });
 
         $scope.form = $builder.forms[$scope.id];
-    }]);
+    });
 
 formBuilderController.controller('uploadCtrl',
     function ($filter, $scope, $http, $timeout, $upload, $stateParams, Restangular, ngNotify, $rootScope) {
