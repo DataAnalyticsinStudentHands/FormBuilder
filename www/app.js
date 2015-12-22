@@ -27,7 +27,7 @@ databaseModule.config(
         state('login', {
             url: "/login/:form_id",
             views: {
-                "app": {templateUrl: "partials/login.html", controller: "loginCtrl"}
+                "app": {templateUrl: "modules/login/login.html", controller: "loginCtrl"}
             },
             data: {pageTitle: 'Login'},
             authenticate: false
@@ -35,7 +35,7 @@ databaseModule.config(
         state('register', {
             url: "/register/:form_id",
             views: {
-                "app": {templateUrl: "partials/register.html", controller: "registerCtrl"}
+                "app": {templateUrl: "modules/login/register.html", controller: "registerCtrl"}
             },
             data: {pageTitle: 'Register'},
             authenticate: false
@@ -43,15 +43,15 @@ databaseModule.config(
         state('secure', {
             url: "/secure",
             views: {
-                "menu_view@secure": {templateUrl: "partials/menuBar.html", controller: "menuCtrl"},
-                "app": {templateUrl: "partials/home.html"}
+                "menu_view@secure": {templateUrl: "modules/core/menuBar.html", controller: "menuCtrl"},
+                "app": {templateUrl: "modules/core/home.html"}
             },
             data: {pageTitle: 'Home'},
             abstract: true
         }).
         state('secure.home', {
             url: "/home",
-            templateUrl: "partials/form_home.html",
+            templateUrl: "modules/core/form_home.html",
             controller: 'homeCtrl',
             data: {pageTitle: 'Home'},
             resolve: {
@@ -63,7 +63,7 @@ databaseModule.config(
         }).
         state('secure.builder', {
             url: "/builder/:id",
-            templateUrl: "partials/formbuilder.html",
+            templateUrl: "modules/formBuilder/formbuilder.html",
             controller: 'builderCtrl',
             data: {pageTitle: 'Builder'},
             resolve: {
@@ -76,7 +76,7 @@ databaseModule.config(
         }).
         state('secure.form_settings', {
             url: "/form_settings/:id",
-            templateUrl: "partials/formSettings.html",
+            templateUrl: "modules/formBuilder/formSettings.html",
             controller: 'formSettingsCtrl',
             data: {pageTitle: 'Settings'},
             resolve: {
@@ -91,7 +91,7 @@ databaseModule.config(
         }).
         state('secure.form_studies', {
             url: "/studies/:id",
-            templateUrl: "partials/studies.html",
+            templateUrl: "modules/study/studies.html",
             controller: 'studiesCtrl',
             resolve: {
                 form: function (formService, $stateParams) {
@@ -109,7 +109,7 @@ databaseModule.config(
         }).
         state('secure.response', {
             url: "/response/:id",
-            templateUrl: "partials/response.html",
+            templateUrl: "modules/formResponseViewer/response.html",
             controller: 'responseCtrl',
             resolve: {
                 form: function (formService, $stateParams) {
@@ -122,18 +122,11 @@ databaseModule.config(
             data: {pageTitle: 'Responses'},
             authenticate: true
         }).
-        state('secure.user_response', {
-            url: "/user_response",
-            templateUrl: "partials/userResponse.html",
-            controller: 'userResponseCtrl',
-            data: {pageTitle: 'Response Form'},
-            authenticate: true
-        }).
         state('download', {
             url: "/file/:id",
             views: {
                 "app": {
-                    templateUrl: "partials/file.html", controller: "fileDownloadCtrl"
+                    templateUrl: "modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
                 }
             },
             data: {pageTitle: 'Download'},
@@ -143,7 +136,7 @@ databaseModule.config(
             url: "/form/:id",
             views: {
                 "app": {
-                    templateUrl: "partials/form.html",
+                    templateUrl: "modules/formResponder/form.html",
                     controller: 'formCtrl'
                 }
             },
@@ -169,7 +162,7 @@ databaseModule.config(
             url: "/view/:id/:view/:response_id",
             views: {
                 "app": {
-                    templateUrl: "partials/responseView.html",
+                    templateUrl: "modules/responseViewer/responseView.html",
                     controller: 'responseViewCtrl'
                 }
             },
@@ -198,7 +191,7 @@ databaseModule.config(
             url: "/finish/:id",
             views: {
                 "app": {
-                    templateUrl: "partials/finish.html", controller: "finishedCtrl"
+                    templateUrl: "modules/formResponder/finish.html", controller: "finishedCtrl"
                 }
             },
             resolve: {
@@ -213,7 +206,7 @@ databaseModule.config(
             url: "/close/:id/:form",
             views: {
                 "app": {
-                    templateUrl: "partials/closed.html", controller: "closedCtrl"
+                    templateUrl: "modules/formResponder/closed.html", controller: "closedCtrl"
                 }
             },
             authenticate: false
@@ -277,8 +270,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             description: "This is a textblock.",
             required: false,
             arrayToText: false,
-            templateUrl: "partials/component/tmplDescriptionHorizontal.html",
-            popoverTemplateUrl: "partials/component/popDescriptionHorizontal.html"
+            templateUrl: "modules/components/descriptionHorizontal/tmplDescriptionHorizontal.html",
+            popoverTemplateUrl: "modules/components/descriptionHorizontal/popDescriptionHorizontal.html"
         });
         $builder.registerComponent('description', {
             group: 'Other',
@@ -286,8 +279,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             description: "This is a textblock.",
             required: false,
             arrayToText: false,
-            templateUrl: "partials/component/tmplDescription.html",
-            popoverTemplateUrl: "partials/component/popDescription.html"
+            templateUrl: "modules/components/description/tmplDescription.html",
+            popoverTemplateUrl: "modules/components/description/popDescription.html"
         });
         $builder.registerComponent('dateTimeInput', {
             group: 'Other',
@@ -295,8 +288,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             description: 'Choose a Date and Time',
             placeholder: '',
             required: false,
-            templateUrl: 'partials/component/tmplDateTime.html',
-            popoverTemplateUrl: 'partials/component/popDateTime.html'
+            templateUrl: 'modules/components/dateTime/tmplDateTime.html',
+            popoverTemplateUrl: 'modules/components/dateTime/popDateTime.html'
         });
         $builder.registerComponent('dateInput', {
             group: 'Other',
@@ -304,8 +297,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             description: 'Choose a Date',
             placeholder: '',
             required: false,
-            templateUrl: 'partials/component/tmplDate.html',
-            popoverTemplateUrl: 'partials/component/popDate.html'
+            templateUrl: 'modules/components/date/tmplDate.html',
+            popoverTemplateUrl: 'modules/components/date/popDate.html'
         });
         $builder.registerComponent('phoneInput', {
             group: 'Default',
@@ -314,16 +307,16 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$|^$/',
             placeholder: '###-###-####',
             required: false,
-            templateUrl: 'partials/component/tmplPhone.html',
-            popoverTemplateUrl: 'partials/component/popPhone.html'
+            templateUrl: 'modules/components/phone/tmplPhone.html',
+            popoverTemplateUrl: 'modules/components/phone/popPhone.html'
         });
         $builder.registerComponent('signaturePad', {
             group: 'Default',
             label: 'Signature Pad',
             description: 'Canvas to accept signature as mouse input.',
             required: false,
-            templateUrl: 'partials/component/tmplSignature.html',
-            popoverTemplateUrl: 'partials/component/popSignature.html'
+            templateUrl: 'modules/components/signaturePad/tmplSignature.html',
+            popoverTemplateUrl: 'modules/components/signaturePad/popSignature.html'
         });
         $builder.registerComponent('name', {
             group: 'Other',
@@ -338,8 +331,8 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             label: 'Address',
             required: false,
             arrayToText: true,
-            templateUrl: "partials/component/tmplAddress.html",
-            popoverTemplateUrl: "partials/component/popAddress.html"
+            templateUrl: "modules/components/address/tmplAddress.html",
+            popoverTemplateUrl: "modules/components/address/popAddress.html"
         });
         $builder.registerComponent('section', {
             group: 'Other',
@@ -347,21 +340,21 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             description: 'Conditional Section/Page Description',
             placeholder: '',
             required: false,
-            templateUrl: 'partials/component/tmplSection.html',
-            popoverTemplateUrl: 'partials/component/popSection.html'
+            templateUrl: 'modules/components/section/tmplSection.html',
+            popoverTemplateUrl: 'modules/components/section/popSection.html'
         });
         $builder.registerComponent('fileUpload', {
             group: 'Other',
             label: 'Upload a file',
             required: false,
-            templateUrl: 'partials/component/tmplFileUpload.html',
-            popoverTemplateUrl: 'partials/component/popFileUpload.html'
+            templateUrl: 'modules/components/fileUpload/tmplFileUpload.html',
+            popoverTemplateUrl: 'modules/components/fileUpload/popFileUpload.html'
         });
         $builder.registerComponent('QRscanner', {
             group: 'Other',
             label: 'Scan A QR Code',
             required: false,
-            templateUrl: 'partials/component/tmplQRscanner.html',
-            popoverTemplateUrl: 'partials/component/popQRscanner.html'
+            templateUrl: 'modules/components/QRScanner/tmplQRscanner.html',
+            popoverTemplateUrl: 'modules/components/QRScanner/popQRscanner.html'
         });
     }]);

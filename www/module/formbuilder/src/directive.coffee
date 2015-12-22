@@ -338,7 +338,7 @@ angular.module 'builder.directive', [
         formName: '@fbForm'
         input: '=ngModel'
         default: '=fbDefault'
-    templateUrl: 'partials/component/form.html'
+    templateUrl: 'modules/components/form.html'
     controller: 'fbFormController'
     link: (scope, element, attrs) ->
         # providers

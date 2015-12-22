@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
+    <div class='{{settings.boxSize ? settings.boxSize : "col-sm-8"}}' ng-init="settings.setDefaults ? (inputText = settings.default || inputText) : inputText = null">
+        <input type="text" maxlength='{{settings.charLimit}}' ng-trim="false" ng-model="$parent.inputText" validator-required="{{required}}" validator-group="{{formName}}" id="{{formName+index}}" class="form-control" placeholder="{{placeholder}}"/>
+        <p class="help-block">{{description}}</p>
+        <p class="help-block pull-right">
+            QR Code Scanning only available on mobile edition.
+        </p>
+    </div>
+</div>

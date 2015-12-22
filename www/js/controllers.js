@@ -194,7 +194,7 @@ formBuilderController.controller('responseCtrl',
             q_obj["displayName"] = q.label;
             q_obj["field"] = q.question_id.toString();
             q_obj["width"] = 200;
-            //if(q.component !== "description" && q.component !== "section")
+            //if(q.components !== "description" && q.components !== "section")
             if (q.component !== "description" && q.component !== "descriptionHorizontal") {
                 $scope.columns.push(q_obj);
             }
