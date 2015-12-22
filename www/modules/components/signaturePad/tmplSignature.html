@@ -7,7 +7,8 @@
         <img ng-show="inputText != null" src="{{inputText}}"/>
         <signature-pad ng-show="inputText == null" signature accept="accept" clear="clear" height="220"
                        width="568"></signature-pad>
-        <input ng-show="false" ng-model="inputText" type="text"  validator-required="{{required}}" validator-group="{{formName}}"/>
+        <input ng-show="false" ng-model="inputText" type="text" validator-required="{{required}}"
+               validator-group="{{formName}}"/>
         <button type="button" ng-click="clear(); inputText = null;">Clear signature</button>
         <button ng-show="inputText == null" type="button"
                 ng-click="signature = accept(); inputText = signature.dataUrl">Sign

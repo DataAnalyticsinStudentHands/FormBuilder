@@ -60,10 +60,10 @@ databaseServices.factory('Base64', function () {
                 }
 
                 output = output +
-                keyStr.charAt(enc1) +
-                keyStr.charAt(enc2) +
-                keyStr.charAt(enc3) +
-                keyStr.charAt(enc4);
+                    keyStr.charAt(enc1) +
+                    keyStr.charAt(enc2) +
+                    keyStr.charAt(enc3) +
+                    keyStr.charAt(enc4);
                 chr1 = chr2 = chr3 = "";
                 enc1 = enc2 = enc3 = enc4 = "";
             } while (i < input.length);
@@ -80,8 +80,8 @@ databaseServices.factory('Base64', function () {
             var base64test = /[^A-Za-z0-9\+\/\=]/g;
             if (base64test.exec(input)) {
                 alert("There were invalid base64 characters in the input text.\n" +
-                "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                "Expect errors in decoding.");
+                    "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+                    "Expect errors in decoding.");
             }
             input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 

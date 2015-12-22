@@ -476,6 +476,7 @@ formBuilderController.controller('studiesCtrl',
         $scope.studies = (studies) ? studies : [];
         $scope.editStudy = null;
         $scope.editing = false;
+        $scope.fixed_time = new Date();
 
         $scope.addStudy = function () {
             var study = {
