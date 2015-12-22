@@ -16,7 +16,8 @@ var databaseModule = angular.module('databaseModule', [
     'ui.bootstrap.datetimepicker',
     'ui.grid',
     'ui.grid.resizeColumns',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'signature'
 ]);
 
 databaseModule.config(
@@ -315,6 +316,14 @@ databaseModule.run(['Restangular', '$rootScope', 'Auth', '$q', '$state', '$build
             required: false,
             templateUrl: 'partials/component/tmplPhone.html',
             popoverTemplateUrl: 'partials/component/popPhone.html'
+        });
+        $builder.registerComponent('signaturePad', {
+            group: 'Default',
+            label: 'Signature Pad',
+            description: 'Canvas to accept signature as mouse input.',
+            required: false,
+            templateUrl: 'partials/component/tmplSignature.html',
+            popoverTemplateUrl: 'partials/component/popSignature.html'
         });
         $builder.registerComponent('name', {
             group: 'Other',
