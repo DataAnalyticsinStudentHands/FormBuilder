@@ -1,4 +1,4 @@
-fbService.filter('getById', function () {
+angular.module('FormBuilderCore').filter('getById', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -10,7 +10,7 @@ fbService.filter('getById', function () {
     }
 });
 
-fbService.filter('getByQuestionId', function () {
+angular.module('FormBuilderCore').filter('getByQuestionId', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -22,7 +22,7 @@ fbService.filter('getByQuestionId', function () {
     }
 });
 
-fbService.filter('uniqueById', function () {
+angular.module('FormBuilderCore').filter('uniqueById', function () {
     return function (collection, keyname) {
         var output = [],
             keys = [];
@@ -39,7 +39,7 @@ fbService.filter('uniqueById', function () {
     };
 });
 
-fbService.filter('orderByIndexInQuestion', function ($filter) {
+angular.module('FormBuilderCore').filter('orderByIndexInQuestion', function ($filter) {
     return function (collection, questions) {
         var sortedEntries = [];
         questions = $filter('orderBy')(questions, 'index');
@@ -50,7 +50,7 @@ fbService.filter('orderByIndexInQuestion', function ($filter) {
     };
 });
 
-fbService.filter("nl2br", function () {
+angular.module('FormBuilderCore').filter("nl2br", function () {
     return function (data) {
         if (!data) return data;
         return data.replace(/\n\r?/g, "<br />");

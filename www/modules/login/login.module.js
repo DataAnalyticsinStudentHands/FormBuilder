@@ -146,3 +146,22 @@ angular.module('Login').controller('registerCtrl',
             $state.go('login');
         }
     });
+
+angular.module('Login').factory('userService',
+    function (Restangular) {
+        return {
+            getMyUser: function () {
+                return Restangular.all("users").get("myUser");
+            },
+            getMyRole: function () {
+                return Restangular.all("users").all("myRole").getList().then(function (success) {
+                    return success[0];
+                });
+            },
+            getAllUsers: function () {
+                return Restangular.all("users").getList().then(function (success) {
+                    return success.plain();
+                })
+            }
+        }
+    });
