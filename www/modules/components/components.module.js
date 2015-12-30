@@ -1,7 +1,25 @@
 /**
  * Created by Carl on 12/29/2015.
  */
-angular.module('FormBuilderComponents', []);
+angular.module('FormBuilderComponents', [
+    'angularFileUpload',
+    'signature'
+]);
+
+angular.module('FormBuilderComponents').config(
+    function ($stateProvider) {
+        $stateProvider
+            .state('download', {
+            url: "/file/:id",
+            views: {
+                "app": {
+                    templateUrl: "/modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
+                }
+            },
+            data: {pageTitle: 'Download'},
+            authenticate: true
+        })
+    });
 
 angular.module('FormBuilderComponents').run(
     function ($builder) {

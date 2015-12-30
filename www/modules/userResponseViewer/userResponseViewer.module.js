@@ -1,7 +1,45 @@
 /**
  * Created by Carl on 12/29/2015.
  */
-angular.module('UserResponseViewer', []);
+angular.module('UserResponseViewer', [
+    'builder',
+    'builder.components',
+    'validator.rules'
+]);
+
+angular.module('UserResponseViewer').config(
+    function ($stateProvider) {
+        $stateProvider
+            .state('responseView', {
+                url: "/view/:id/:view/:response_id",
+                views: {
+                    "app": {
+                        templateUrl: "/modules/usrrresponseViewer/responseView.html",
+                        controller: 'responseViewCtrl'
+                    }
+                },
+                resolve: {
+                    form: function (formService, $stateParams, $state) {
+                        return formService.getForm($stateParams.id).then(function (data) {
+                            return data;
+                        }, function (data) {
+                            if (new Date() > data.data.expiration_date) {
+                                $state.go('closed', {id: $stateParams.id, form: JSON.stringify(data.data)});
+                            } else if (data.status === 401 && data.data.enabled) {
+                                $state.go('login', {form_id: $stateParams.id});
+                            } else {
+                                $state.go('closed', {id: $stateParams.id, form: JSON.stringify(data.data)});
+                            }
+                        });
+                    },
+                    response: function (responseService, $stateParams) {
+                        return responseService.getResponse($stateParams.response_id, $stateParams.id);
+                    }
+                },
+                data: {pageTitle: 'Form'},
+                authenticate: false
+            });
+    });
 
 angular.module('UserResponseViewer').controller('responseCtrl',
     function ($scope, Auth, $state, formService, responseService, $stateParams, $filter, responses, form, ngNotify) {

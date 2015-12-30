@@ -3,6 +3,29 @@
  */
 angular.module('Study', []);
 
+angular.module('Study').config(
+    function ($stateProvider) {
+        $stateProvider
+            .state('secure.form_studies', {
+                url: "/studies/:id",
+                templateUrl: "/modules/study/studies.html",
+                controller: 'studiesCtrl',
+                resolve: {
+                    form: function (formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
+                    },
+                    users: function (userService) {
+                        return userService.getAllUsers();
+                    },
+                    studies: function (studyService, $stateParams) {
+                        return studyService.getStudiesByFormId($stateParams.id);
+                    }
+                },
+                data: {pageTitle: 'Studies'},
+                authenticate: true
+            });
+    });
+
 angular.module('Study').controller('studiesCtrl',
     function ($scope, Auth, $state, formService, responseService, $stateParams, ngNotify, form, users, studyService, studies) {
         $scope.form_id = $stateParams.id;

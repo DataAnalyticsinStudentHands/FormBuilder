@@ -11,71 +11,16 @@ angular.module('FormBuilderCore', [
     'Study',
     'formBuilderServiceModule',
     'restangular',
-    'databaseServicesModule',
-    'builder',
-    'builder.components',
-    'validator.rules',
     'ui.router',
-    'ngSanitize',
-    'ngNotify',
-    'angularFileUpload',
     'ui.bootstrap.datetimepicker',
-    'ui.grid',
-    'ui.grid.resizeColumns',
     'ui.bootstrap',
-    'signature'
+    'ngSanitize',
+    'ngNotify'
 ]);
 
 angular.module('FormBuilderCore').run(
-    function (Restangular, $rootScope, Auth, $q, $state, userService, ngNotify) {
+    function (Restangular) {
         Restangular.setBaseUrl("https://housuggest.org:8443/FormBuilderBackendTest/");
-
-        $rootScope.Restangular = function () {
-            return Restangular;
-        };
-
-        $rootScope.isAuthenticated = function (authenticate) {
-            var notAuthenticatedCallback = function (error) {
-                if (error.status === 0) { // NO NETWORK CONNECTION OR SERVER DOWN, WE WILL NOT LOG THEM OUT
-                    ngNotify.set("Internet or Server Unavailable", {type: "error", sticky: true});
-                } else { //Most Likely a 403 - LOG THEM OUT
-                    if (authenticate) {
-                        Auth.clearCredentials();
-                        $state.go("login");
-                        location.reload();
-                    }
-                }
-            };
-            if (!Auth.hasCredentials()) {
-                return false;
-                notAuthenticatedCallback();
-            }
-            userService.getMyUser().then(function (result) {
-                $rootScope.uid = result.id.toString();
-                $rootScope.uin = result.username.toString();
-            }, notAuthenticatedCallback);
-            return Auth.hasCredentials();
-        };
-        $rootScope.$on("$stateChangeStart", function (event, toState) {
-            $('*').popover('hide'); //hide ALL the popovers (on state change)
-            $('body').removeClass('loaded');
-            // User isn’t authenticated
-            if (toState.name == "form" && !Auth.hasCredentials()) {
-                Auth.setCredentials("Visitor", "test");
-            } else if (toState.authenticate && !$rootScope.isAuthenticated(toState.authenticate)) {
-                // User isn’t authenticated
-                $state.go("login");
-                //Prevents the switching of the state
-                event.preventDefault();
-            }
-            $rootScope.isAuthenticated(false);
-        });
-        $rootScope.$on("$stateChangeSuccess", function () {
-            $('body').addClass('loaded');
-        });
-        $rootScope.$on("$stateChangeError", function () {
-            $('body').addClass('loaded');
-        });
     });
 
 angular.module('FormBuilderCore').controller('homeCtrl',

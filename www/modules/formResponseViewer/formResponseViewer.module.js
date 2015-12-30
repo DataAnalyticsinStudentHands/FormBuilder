@@ -1,7 +1,30 @@
 /**
  * Created by Carl on 12/29/2015.
  */
-angular.module('FormResponseViewer', []);
+angular.module('FormResponseViewer', [
+    'ui.grid',
+    'ui.grid.resizeColumns'
+]);
+
+angular.module('FormResponseViewer').config(
+    function ($stateProvider) {
+        $stateProvider
+            .state('secure.response', {
+                url: "/response/:id",
+                templateUrl: "/modules/formResponseViewer/response.html",
+                controller: 'responseCtrl',
+                resolve: {
+                    form: function (formService, $stateParams) {
+                        return formService.getForm($stateParams.id);
+                    },
+                    responses: function (responseService, $stateParams) {
+                        return responseService.getResponsesByFormId($stateParams.id);
+                    }
+                },
+                data: {pageTitle: 'Responses'},
+                authenticate: true
+            });
+    });
 
 angular.module('FormResponseViewer').controller('responseViewCtrl',
     function ($scope, $builder, $validator, $stateParams, form, $filter, $state, ngNotify, response) {

@@ -1,6 +1,6 @@
-var databaseServices = angular.module('databaseServicesModule', []);
+angular.module('databaseServicesModule', []);
 
-databaseServices.factory('Auth', ['Base64', '$http', function (Base64, $http) {
+angular.module('databaseServicesModule').factory('Auth', ['Base64', '$http', function (Base64, $http) {
     // initialize to whatever is in the cookie, if anything
     $http.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.getItem('formBuilder-authdata');
     console.log($http.defaults.headers.common.Authorization);
@@ -30,7 +30,7 @@ databaseServices.factory('Auth', ['Base64', '$http', function (Base64, $http) {
     };
 }]);
 
-databaseServices.factory('Base64', function () {
+angular.module('databaseServicesModule').factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +
         'QRSTUVWXYZabcdef' +
         'ghijklmnopqrstuv' +

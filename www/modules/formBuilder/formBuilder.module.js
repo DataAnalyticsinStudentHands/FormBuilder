@@ -1,7 +1,12 @@
 /**
  * Created by Carl on 12/22/2015.
  */
-angular.module('FormBuilder', []);
+angular.module('FormBuilder', [
+    'builder',
+    'builder.components',
+    'validator.rules',
+    'ui.router'
+]);
 
 angular.module('FormBuilder').controller('builderCtrl',
     function ($scope, $builder, $validator, formService, $stateParams, $filter, $state, ngNotify, form) {
@@ -78,6 +83,39 @@ angular.module('FormBuilder').controller('builderCtrl',
                 });
             }
         }
+    });
+
+angular.module('FormBuilder').config(
+    function ($stateProvider) {
+        $stateProvider
+            .state('secure.builder', {
+            url: "/builder/:id",
+            templateUrl: "/modules/formBuilder/formbuilder.html",
+            controller: 'builderCtrl',
+            data: {pageTitle: 'Builder'},
+            resolve: {
+                form: function (formService, $stateParams) {
+                    if ($stateParams.id)
+                        return formService.getForm($stateParams.id);
+                }
+            },
+            authenticate: true
+        })
+            .state('secure.form_settings', {
+                url: "/form_settings/:id",
+                templateUrl: "/modules/formBuilder/formSettings.html",
+                controller: 'formSettingsCtrl',
+                data: {pageTitle: 'Settings'},
+                resolve: {
+                    form: function (formService, $stateParams) {
+                        return formService.getForm($stateParams.id, true);
+                    },
+                    users: function (userService) {
+                        return userService.getAllUsers();
+                    }
+                },
+                authenticate: true
+            });
     });
 
 angular.module('FormBuilder').controller('formSettingsCtrl',
