@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="databaseModule">
+<html lang="en" ng-app="FormBuilderCore">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -19,11 +19,19 @@
     <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
 
     <!-- THE APP -->
-    <script src="modules/core/app.js"></script>
-    <script src="modules/core/controllers.js"></script>
-    <script src="js/directive.js"></script>
+    <script src="modules/core/core.module.js"></script>
+    <script src="modules/core/core.routes.js"></script>
+    <script src="modules/formResponder/formResponder.module.js"></script>
+    <script src="modules/formResponseViewer/formResponseViewer.module.js"></script>
+    <script src="modules/components/components.module.js"></script>
+    <script src="modules/login/login.module.js"></script>
+    <script src="modules/userResponseViewer/userResponseViewer.module.js"></script>
+    <script src="modules/study/study.module.js"></script>
+    <script src="modules/formBuilder/formBuilder.module.js"></script>
+
     <script src="modules/login/srvDatabase.js"></script>
-    <script src="js/srvForm.js"></script>
+    <script src="modules/core/core.service.js"></script>
+    <script src="js/directive.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/native.js"></script>
 
