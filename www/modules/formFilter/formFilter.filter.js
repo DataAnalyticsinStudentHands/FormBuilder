@@ -1,4 +1,7 @@
-angular.module('FormBuilderCore').filter('getById', function () {
+/**
+ * Created by Carl on 12/29/2015.
+ */
+angular.module('FormBuilderFilter').filter('getById', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -10,7 +13,7 @@ angular.module('FormBuilderCore').filter('getById', function () {
     }
 });
 
-angular.module('FormBuilderCore').filter('getByQuestionId', function () {
+angular.module('FormBuilderFilter').filter('getByQuestionId', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -22,7 +25,7 @@ angular.module('FormBuilderCore').filter('getByQuestionId', function () {
     }
 });
 
-angular.module('FormBuilderCore').filter('uniqueById', function () {
+angular.module('FormBuilderFilter').filter('uniqueById', function () {
     return function (collection, keyname) {
         var output = [],
             keys = [];
@@ -39,7 +42,7 @@ angular.module('FormBuilderCore').filter('uniqueById', function () {
     };
 });
 
-angular.module('FormBuilderCore').filter('orderByIndexInQuestion', function ($filter) {
+angular.module('FormBuilderFilter').filter('orderByIndexInQuestion', function ($filter) {
     return function (collection, questions) {
         var sortedEntries = [];
         questions = $filter('orderBy')(questions, 'index');
@@ -50,7 +53,7 @@ angular.module('FormBuilderCore').filter('orderByIndexInQuestion', function ($fi
     };
 });
 
-angular.module('FormBuilderCore').filter("nl2br", function () {
+angular.module('FormBuilderFilter').filter("nl2br", function () {
     return function (data) {
         if (!data) return data;
         return data.replace(/\n\r?/g, "<br />");
