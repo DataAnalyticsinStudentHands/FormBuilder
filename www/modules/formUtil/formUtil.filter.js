@@ -1,7 +1,7 @@
 /**
  * Created by Carl on 12/29/2015.
  */
-angular.module('FormBuilderFilter').filter('getById', function () {
+angular.module('FormBuilderUtil').filter('getById', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -13,7 +13,7 @@ angular.module('FormBuilderFilter').filter('getById', function () {
     }
 });
 
-angular.module('FormBuilderFilter').filter('getByQuestionId', function () {
+angular.module('FormBuilderUtil').filter('getByQuestionId', function () {
     return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
@@ -25,7 +25,7 @@ angular.module('FormBuilderFilter').filter('getByQuestionId', function () {
     }
 });
 
-angular.module('FormBuilderFilter').filter('uniqueById', function () {
+angular.module('FormBuilderUtil').filter('uniqueById', function () {
     return function (collection, keyname) {
         var output = [],
             keys = [];
@@ -42,7 +42,7 @@ angular.module('FormBuilderFilter').filter('uniqueById', function () {
     };
 });
 
-angular.module('FormBuilderFilter').filter('orderByIndexInQuestion', function ($filter) {
+angular.module('FormBuilderUtil').filter('orderByIndexInQuestion', function ($filter) {
     return function (collection, questions) {
         var sortedEntries = [];
         questions = $filter('orderBy')(questions, 'index');
@@ -53,7 +53,7 @@ angular.module('FormBuilderFilter').filter('orderByIndexInQuestion', function ($
     };
 });
 
-angular.module('FormBuilderFilter').filter("nl2br", function () {
+angular.module('FormBuilderUtil').filter("nl2br", function () {
     return function (data) {
         if (!data) return data;
         return data.replace(/\n\r?/g, "<br />");

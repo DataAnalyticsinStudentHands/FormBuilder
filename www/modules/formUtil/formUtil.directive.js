@@ -1,7 +1,7 @@
 /**
  * Created by Carl on 3/2/2015.
  */
-angular.module('FormBuilderCore').directive('title', ['$rootScope', '$timeout',
+angular.module('FormBuilderUtil').directive('title', ['$rootScope', '$timeout',
     function ($rootScope, $timeout) {
         return {
             link: function () {
