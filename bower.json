@@ -31,7 +31,6 @@
     "signature_pad": "~1.5.2"
   },
   "resolutions": {
-    "angular": ">= 1.2.23",
-    "signature_pad": "~1.5.2"
+    "angular": ">= 1.2.23"
   }
 }
