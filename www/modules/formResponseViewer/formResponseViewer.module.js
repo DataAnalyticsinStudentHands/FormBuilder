@@ -3,7 +3,8 @@
  */
 angular.module('FormResponseViewer', [
     'ui.grid',
-    'ui.grid.resizeColumns'
+    'ui.grid.resizeColumns',
+    'ui.router'
 ]);
 
 angular.module('FormResponseViewer').config(

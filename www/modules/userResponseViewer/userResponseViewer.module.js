@@ -4,7 +4,8 @@
 angular.module('UserResponseViewer', [
     'builder',
     'builder.components',
-    'validator.rules'
+    'validator.rules',
+    'ui.router'
 ]);
 
 angular.module('UserResponseViewer').config(

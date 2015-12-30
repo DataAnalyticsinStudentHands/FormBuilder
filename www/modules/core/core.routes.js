@@ -4,8 +4,8 @@
 angular.module('FormBuilderCore').config(
     function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/login/");
-        $stateProvider.
-        state('secure', {
+        $stateProvider
+            .state('secure', {
             url: "/secure",
             views: {
                 "menu_view@secure": {templateUrl: "/modules/core/menuBar.html", controller: "menuCtrl"},
@@ -13,8 +13,8 @@ angular.module('FormBuilderCore').config(
             },
             data: {pageTitle: 'Home'},
             abstract: true
-        }).
-        state('secure.home', {
+        })
+            .state('secure.home', {
             url: "/home",
             templateUrl: "/modules/core/form_home.html",
             controller: 'homeCtrl',

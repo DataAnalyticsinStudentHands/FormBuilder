@@ -4,7 +4,8 @@
 angular.module('FormResponder', [
     'builder',
     'builder.components',
-    'validator.rules'
+    'validator.rules',
+    'ui.router'
 ]);
 
 angular.module('FormResponder').config(

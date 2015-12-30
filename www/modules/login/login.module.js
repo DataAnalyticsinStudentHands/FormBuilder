@@ -2,7 +2,8 @@
  * Created by Carl on 12/29/2015.
  */
 angular.module('Login', [
-    'databaseServicesModule'
+    'databaseServicesModule',
+    'ui.router'
 ]);
 
 angular.module('Login').config(

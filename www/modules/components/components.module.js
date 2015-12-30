@@ -3,7 +3,8 @@
  */
 angular.module('FormBuilderComponents', [
     'angularFileUpload',
-    'signature'
+    'signature',
+    'ui.router'
 ]);
 
 angular.module('FormBuilderComponents').config(
