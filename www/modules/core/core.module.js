@@ -12,10 +12,10 @@ angular.module('FormBuilderCore', [
     'Study',
     'restangular',
     'ui.router',
-    'ui.bootstrap.datetimepicker',
-    'ui.bootstrap',
-    'ngSanitize',
-    'ngNotify'
+    'ui.bootstrap.datetimepicker', //Needs to moved to specific module(s) that needs this
+    'ui.bootstrap', //Needs to moved to specific module(s) that needs this
+    'ngSanitize', //Needs to moved to specific module(s) that needs this
+    'ngNotify' //Needs to moved to specific module(s) that needs this
 ]);
 
 angular.module('FormBuilderCore').run(
