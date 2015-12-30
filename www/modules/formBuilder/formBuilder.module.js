@@ -2,6 +2,7 @@
  * Created by Carl on 12/22/2015.
  */
 angular.module('FormBuilder', [
+    'FormData',
     'builder',
     'builder.components',
     'validator.rules',

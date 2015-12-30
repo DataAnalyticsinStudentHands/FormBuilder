@@ -2,6 +2,8 @@
  * Created by Carl on 12/29/2015.
  */
 angular.module('FormResponder', [
+    'FormData',
+    'ResponseData',
     'builder',
     'builder.components',
     'validator.rules',

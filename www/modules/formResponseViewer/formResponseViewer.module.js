@@ -2,6 +2,8 @@
  * Created by Carl on 12/29/2015.
  */
 angular.module('FormResponseViewer', [
+    'FormData',
+    'ResponseData',
     'ui.grid',
     'ui.grid.resizeColumns',
     'ui.router'
