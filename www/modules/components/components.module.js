@@ -4,7 +4,8 @@
 angular.module('FormBuilderComponents', [
     'angularFileUpload',
     'signature',
-    'ui.router'
+    'ui.router',
+    'restangular'
 ]);
 
 angular.module('FormBuilderComponents').config(

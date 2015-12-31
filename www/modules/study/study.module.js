@@ -4,7 +4,8 @@
 angular.module('Study', [
     'FormData',
     'ResponseData',
-    'ui.router'
+    'ui.router',
+    'restangular'
 ]);
 
 angular.module('Study').config(

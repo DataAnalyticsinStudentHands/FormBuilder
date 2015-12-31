@@ -1,7 +1,10 @@
 /**
  * Created by Carl on 12/29/2015.
  */
-angular.module('ResponseData', []);
+angular.module('ResponseData', [
+    'restangular',
+    'FormBuilderUtil'
+]);
 
 angular.module('ResponseData').factory('responseService',
     function (Restangular, $filter, formService) {
