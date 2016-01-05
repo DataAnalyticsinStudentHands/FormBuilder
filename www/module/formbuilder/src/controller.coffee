@@ -6,7 +6,7 @@ copyObjectToScope = (object, scope) ->
     Copy object (ng-repeat="object in objects") to scope without `hashKey`.
     ###
     for key, value of object when key isnt '$$hashKey'
-        # copy object.{} to scope.{}
+# copy object.{} to scope.{}
         scope[key] = angular.copy(value)
     return
 
@@ -46,7 +46,7 @@ angular.module 'builder.controller', ['builder.provider']
 
         $scope.$watch 'optionsText', (text) ->
             $scope.options = (x for x in text.split('\n') when x.length > 0)
-#            $scope.inputText = $scope.options[0]
+            #            $scope.inputText = $scope.options[0]
 
             component = $builder.components[formObject.component]
             $scope.validationOptions = component.validationOptions
@@ -85,7 +85,7 @@ angular.module 'builder.controller', ['builder.provider']
 # fbComponentsController
 # ----------------------------------------
 .controller 'fbComponentsController', ['$scope', '$injector', ($scope, $injector) ->
-    # providers
+# providers
     $builder = $injector.get '$builder'
 
     # action
@@ -115,7 +115,7 @@ angular.module 'builder.controller', ['builder.provider']
 # fbFormController
 # ----------------------------------------
 .controller 'fbFormController', ['$scope', '$injector', ($scope, $injector) ->
-    # providers
+# providers
     $builder = $injector.get '$builder'
     $timeout = $injector.get '$timeout'
 
@@ -163,7 +163,7 @@ angular.module 'builder.controller', ['builder.provider']
 # fbFormObjectController
 # ----------------------------------------
 .controller 'fbFormObjectController', ['$scope', '$injector', ($scope, $injector) ->
-    # providers
+# providers
     $builder = $injector.get '$builder'
 
     $scope.copyObjectToScope = (object) -> copyObjectToScope object, $scope

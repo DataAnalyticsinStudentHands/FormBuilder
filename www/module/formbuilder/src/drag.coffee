@@ -1,8 +1,8 @@
 angular.module 'builder.drag', []
 .provider '$drag', ->
-    # ----------------------------------------
-    # provider
-    # ----------------------------------------
+# ----------------------------------------
+# provider
+# ----------------------------------------
     $injector = null
     $rootScope = null
 
@@ -120,12 +120,12 @@ angular.module 'builder.drag', []
                 @autoScroll.scrolling = no
         start: (e) =>
             if e.clientY < 50
-                # up
+# up
                 @autoScroll.up = yes
                 @autoScroll.down = no
                 @autoScroll.scroll() if not @autoScroll.scrolling
             else if e.clientY > $(window).innerHeight() - 50
-                # down
+# down
                 @autoScroll.up = no
                 @autoScroll.down = yes
                 @autoScroll.scroll() if not @autoScroll.scrolling
@@ -137,7 +137,7 @@ angular.module 'builder.drag', []
             @autoScroll.down = no
 
 
-    @dragMirrorMode = ($element, defer=yes, object) =>
+    @dragMirrorMode = ($element, defer = yes, object) =>
         result =
             id: @getNewId()
             mode: 'mirror'
@@ -175,7 +175,7 @@ angular.module 'builder.drag', []
                             droppable.out e, result
                         return
             @hooks.up.drag = (e) =>
-                # execute callback for droppables
+# execute callback for droppables
                 for id, droppable of @data.droppables
                     if $(droppable.element).width() > 0
                         isHover = @isHover $clone, $(droppable.element)
@@ -191,7 +191,7 @@ angular.module 'builder.drag', []
         result
 
 
-    @dragDragMode = ($element, defer=yes, object) =>
+    @dragDragMode = ($element, defer = yes, object) =>
         result =
             id: @getNewId()
             mode: 'drag'
@@ -229,7 +229,7 @@ angular.module 'builder.drag', []
                             droppable.out e, result
                 return
             @hooks.up.drag = (e) =>
-                # execute callback for droppables
+# execute callback for droppables
                 for id, droppable of @data.droppables
                     if $(droppable.element).width() > 0
                         isHover = @isHover $element, $(droppable.element)
@@ -261,7 +261,7 @@ angular.module 'builder.drag', []
     # ----------------------------------------
     # public methods
     # ----------------------------------------
-    @draggable = ($element, options={}) =>
+    @draggable = ($element, options = {}) =>
         ###
         Make the element could be drag.
         @param element: The jQuery element.
@@ -284,7 +284,7 @@ angular.module 'builder.drag', []
         result
 
 
-    @droppable = ($element, options={}) =>
+    @droppable = ($element, options = {}) =>
         ###
         Make the element coulde be drop.
         @param $element: The jQuery element.
