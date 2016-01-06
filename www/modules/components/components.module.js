@@ -15,7 +15,7 @@ angular.module('FormBuilderComponents').config(
             url: "/file/:id",
             views: {
                 "app": {
-                    templateUrl: "/modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
+                    templateUrl: "modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
                 }
             },
             data: {pageTitle: 'Download'},
@@ -31,7 +31,7 @@ angular.module('FormBuilderComponents').run(
             description: "This is a textblock.",
             required: false,
             arrayToText: false,
-            templateUrl: "/modules/components/descriptionHorizontal/tmplDescriptionHorizontal.html",
+            templateUrl: "modules/components/descriptionHorizontal/tmplDescriptionHorizontal.html",
             popoverTemplateUrl: "modules/components/descriptionHorizontal/popDescriptionHorizontal.html"
         });
         $builder.registerComponent('description', {
@@ -40,7 +40,7 @@ angular.module('FormBuilderComponents').run(
             description: "This is a textblock.",
             required: false,
             arrayToText: false,
-            templateUrl: "/modules/components/description/tmplDescription.html",
+            templateUrl: "modules/components/description/tmplDescription.html",
             popoverTemplateUrl: "modules/components/description/popDescription.html"
         });
         $builder.registerComponent('dateTimeInput', {
@@ -49,7 +49,7 @@ angular.module('FormBuilderComponents').run(
             description: 'Choose a Date and Time',
             placeholder: '',
             required: false,
-            templateUrl: '/modules/components/dateTime/tmplDateTime.html',
+            templateUrl: 'modules/components/dateTime/tmplDateTime.html',
             popoverTemplateUrl: 'modules/components/dateTime/popDateTime.html'
         });
         $builder.registerComponent('dateInput', {
@@ -58,7 +58,7 @@ angular.module('FormBuilderComponents').run(
             description: 'Choose a Date',
             placeholder: '',
             required: false,
-            templateUrl: '/modules/components/date/tmplDate.html',
+            templateUrl: 'modules/components/date/tmplDate.html',
             popoverTemplateUrl: 'modules/components/date/popDate.html'
         });
         $builder.registerComponent('phoneInput', {
@@ -68,7 +68,7 @@ angular.module('FormBuilderComponents').run(
             validation: '/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$|^$/',
             placeholder: '###-###-####',
             required: false,
-            templateUrl: '/modules/components/phone/tmplPhone.html',
+            templateUrl: 'modules/components/phone/tmplPhone.html',
             popoverTemplateUrl: 'modules/components/phone/popPhone.html'
         });
         $builder.registerComponent('signaturePad', {
@@ -76,7 +76,7 @@ angular.module('FormBuilderComponents').run(
             label: 'Signature Pad',
             description: 'Canvas to accept signature as mouse input.',
             required: false,
-            templateUrl: '/modules/components/signaturePad/tmplSignature.html',
+            templateUrl: 'modules/components/signaturePad/tmplSignature.html',
             popoverTemplateUrl: 'modules/components/signaturePad/popSignature.html'
         });
         $builder.registerComponent('name', {
@@ -92,7 +92,7 @@ angular.module('FormBuilderComponents').run(
             label: 'Address',
             required: false,
             arrayToText: true,
-            templateUrl: "/modules/components/address/tmplAddress.html",
+            templateUrl: "modules/components/address/tmplAddress.html",
             popoverTemplateUrl: "modules/components/address/popAddress.html"
         });
         $builder.registerComponent('section', {
@@ -101,21 +101,21 @@ angular.module('FormBuilderComponents').run(
             description: 'Conditional Section/Page Description',
             placeholder: '',
             required: false,
-            templateUrl: '/modules/components/section/tmplSection.html',
+            templateUrl: 'modules/components/section/tmplSection.html',
             popoverTemplateUrl: 'modules/components/section/popSection.html'
         });
         $builder.registerComponent('fileUpload', {
             group: 'Other',
             label: 'Upload a file',
             required: false,
-            templateUrl: '/modules/components/fileUpload/tmplFileUpload.html',
+            templateUrl: 'modules/components/fileUpload/tmplFileUpload.html',
             popoverTemplateUrl: 'modules/components/fileUpload/popFileUpload.html'
         });
         $builder.registerComponent('QRscanner', {
             group: 'Other',
             label: 'Scan A QR Code',
             required: false,
-            templateUrl: '/modules/components/QRScanner/tmplQRscanner.html',
+            templateUrl: 'modules/components/QRScanner/tmplQRscanner.html',
             popoverTemplateUrl: 'modules/components/QRScanner/popQRscanner.html'
         });
     });

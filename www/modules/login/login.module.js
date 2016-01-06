@@ -12,7 +12,7 @@ angular.module('Login').config(
             .state('login', {
                 url: "/login/:form_id",
                 views: {
-                    "app": {templateUrl: "/modules/login/login.html", controller: "loginCtrl"}
+                    "app": {templateUrl: "modules/login/login.html", controller: "loginCtrl"}
                 },
                 data: {pageTitle: 'Login'},
                 authenticate: false
@@ -20,7 +20,7 @@ angular.module('Login').config(
             .state('register', {
                 url: "/register/:form_id",
                 views: {
-                    "app": {templateUrl: "/modules/login/register.html", controller: "registerCtrl"}
+                    "app": {templateUrl: "modules/login/register.html", controller: "registerCtrl"}
                 },
                 data: {pageTitle: 'Register'},
                 authenticate: false

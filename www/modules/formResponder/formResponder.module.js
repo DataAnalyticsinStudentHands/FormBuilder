@@ -17,7 +17,7 @@ angular.module('FormResponder').config(
             url: "/form/:id",
             views: {
                 "app": {
-                    templateUrl: "/modules/formResponder/form.html",
+                    templateUrl: "modules/formResponder/form.html",
                     controller: 'formCtrl'
                 }
             },
@@ -43,7 +43,7 @@ angular.module('FormResponder').config(
                 url: "/finish/:id",
                 views: {
                     "app": {
-                        templateUrl: "/modules/formResponder/finish.html", controller: "finishedCtrl"
+                        templateUrl: "modules/formResponder/finish.html", controller: "finishedCtrl"
                     }
                 },
                 resolve: {
@@ -58,7 +58,7 @@ angular.module('FormResponder').config(
             url: "/close/:id/:form",
             views: {
                 "app": {
-                    templateUrl: "/modules/formResponder/closed.html", controller: "closedCtrl"
+                    templateUrl: "modules/formResponder/closed.html", controller: "closedCtrl"
                 }
             },
             authenticate: false

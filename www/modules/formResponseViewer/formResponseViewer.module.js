@@ -14,7 +14,7 @@ angular.module('FormResponseViewer').config(
         $stateProvider
             .state('secure.response', {
                 url: "/response/:id",
-                templateUrl: "/modules/formResponseViewer/response.html",
+                templateUrl: "modules/formResponseViewer/response.html",
                 controller: 'responseCtrl',
                 resolve: {
                     form: function (formService, $stateParams) {

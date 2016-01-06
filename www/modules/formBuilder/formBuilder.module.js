@@ -14,7 +14,7 @@ angular.module('FormBuilder').config(
         $stateProvider
             .state('secure.builder', {
                 url: "/builder/:id",
-                templateUrl: "/modules/formBuilder/formbuilder.html",
+                templateUrl: "modules/formBuilder/formbuilder.html",
                 controller: 'builderCtrl',
                 data: {pageTitle: 'Builder'},
                 resolve: {
@@ -27,7 +27,7 @@ angular.module('FormBuilder').config(
             })
             .state('secure.form_settings', {
                 url: "/form_settings/:id",
-                templateUrl: "/modules/formBuilder/formSettings.html",
+                templateUrl: "modules/formBuilder/formSettings.html",
                 controller: 'formSettingsCtrl',
                 data: {pageTitle: 'Settings'},
                 resolve: {
