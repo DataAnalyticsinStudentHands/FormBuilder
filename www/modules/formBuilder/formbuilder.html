@@ -1,0 +1,31 @@
+<ng-include src="'/modules/formBuilder/tabs.html'"></ng-include>
+<div class="container">
+    <div class="row form-title">
+        <div class="form-group col-sm-4">
+            <label for="form_title">Form Title</label>
+            <input type="text" ng-model="form.name" id="form_title" class="form-control" placeholder="Form title">
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="form_subtitle">Form Subtitle</label>
+            <input type="text" ng-model="form.subtitle" id="form_subtitle" class="form-control"
+                   placeholder="Form subtitle">
+        </div>
+        <div class="form-actions col-sm-4">
+            <input type="submit" ui-sref="secure.home" class="btn btn-default" value="Cancel">
+            <input type="submit" ng-click="saveButton()" class="btn btn-primary" value="Save">
+        </div>
+    </div>
+    <div class="row formbuilder">
+        <div class="col-md-6 builder">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Builder</h3>
+                </div>
+                <div fb-builder="default"></div>
+            </div>
+        </div>
+        <div class="col-md-6 builder-components">
+            <div fb-components></div>
+        </div>
+    </div>
+</div>

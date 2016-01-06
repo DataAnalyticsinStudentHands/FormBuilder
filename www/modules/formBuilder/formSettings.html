@@ -1,0 +1,280 @@
+<ng-include src="'/modules/formBuilder/tabs.html'"></ng-include>
+<div class="container">
+    <form class="row" ng-submit="save()">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Form Status</div>
+            <div class="panel-body form-horizontal">
+
+                <div class="form-group">
+                    <label for="myonoffswitch2" class="col-sm-3 control-label">Form Open</label>
+                    <div class="col-sm-9">
+                        <div class="onoffswitch pull-left">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2"
+                                   ng-model="form.enabled">
+                            <label class="onoffswitch-label" for="myonoffswitch2">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="help-block">Form must be open to receive responses.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="myonoffswitch" class="col-sm-3 control-label">Form Public</label>
+                    <div class="col-sm-9">
+                        <div class="onoffswitch pull-left">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                   ng-model="form.public"
+                                   id="myonoffswitch">
+                            <label class="onoffswitch-label" for="myonoffswitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="help-block">Form must be public for responses without user login.<br/>Open forms that
+                            are not public require user login.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="formURL">Form URL</label>
+                    <div class="col-sm-9">
+                        <input type="text" ng-model="formURL" id="formURL" class="form-control" readonly="readonly">
+                        <p class="help-block">Web address where the form can be accessed by particpants.</p>
+                        <!-- <p class="help-block">Form must be open to accept responses.</p> -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="expirationTime">Expiration Time</label>
+                    <div class="dropdown col-sm-9">
+                        <a class="dropdown-toggle" id="expiration" role="button" data-toggle="dropdown">
+                            <div class="input-group">
+                                <input value="{{expiration_date | date:'MM-dd-yyyy hh:mm a'}}" id="expirationTime"
+                                       type="text" class="form-control">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="expiration_date"></datetimepicker>
+                        </ul>
+                        <p class="help-block">Date and time at which form will automatically close to new
+                            submissions.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="closedMessage">Form Closed Message</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="closedMessage" ng-model="form.closed_message"></textarea>
+                        <p class="help-block">Message to show visitor once form is closed or expired.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer">
+                <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
+                    <i class="glyphicon glyphicon-ok"></i> Save
+                </button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home"
+                        style="margin-right: 10px">Cancel
+                </button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Post-Form Actions</div>
+            <div class="panel-body form-horizontal">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="redirectURL">URL Redirect</label>
+                    <div class="col-sm-9">
+                        <input type="url" class="form-control" id="redirectURL" ng-model="form.redirect_url">
+                        <p class="help-block">Webpage where the user is sent after completing the form.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="completedMessage">Form Submitted Message</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="completedMessage"
+                                  ng-model="form.completed_message"></textarea>
+                        <p class="help-block">Message to show visitor once form is submitted.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer">
+                <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
+                    <i class="glyphicon glyphicon-ok"></i> Save
+                </button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home"
+                        style="margin-right: 10px">Cancel
+                </button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">E-Mail</div>
+            <div class="panel-body form-horizontal">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="myonoffswitch3">E-Mail Notifications</label>
+                    <div class="col-sm-9">
+                        <div class="onoffswitch pull-left">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3"
+                                   ng-model="form.send_notification">
+                            <label class="onoffswitch-label" for="myonoffswitch3">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="help-block">Enables e-mail notifications for new form responses.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="recipientEmail">E-Mail Notification Recipient</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="recipientEmail" class="form-control"
+                               ng-model="form.confirmation_recipient_email" ng-disabled="!form.send_notification">
+                        <p class="help-block">Email address to which notifications will be sent.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="myonoffswitch4">Require Receipt</label>
+                    <div class="col-sm-9">
+                        <div class="onoffswitch pull-left">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4"
+                                   ng-model="form.send_receipt">
+                            <label class="onoffswitch-label" for="myonoffswitch4">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="help-block">Requires the responder to enter an email address for a receipt.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="emailMessage">Receipt E-Mail Message</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="emailMessage" ng-model="form.email_message"></textarea>
+                        <p class="help-block">Message to send in receipt email once form is submitted.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <button class="btn btn-primary pull-right" type="submit" ng-click="save()" title="Save all settings">
+                    <i class="glyphicon glyphicon-ok"></i> Save
+                </button>
+                <button class="btn btn-default pull-right" type="button" ui-sref="secure.home"
+                        style="margin-right: 10px">Cancel
+                </button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Collaborators &amp; Permission Control</div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="user in form.permissions | orderBy:'username'"
+                    ng-if="user.username !== uin">
+                    <strong class="list-group-item-heading">{{user.username}}</strong>
+                    <div class="pull-right form-inline">
+                        <select class="form-control input-sm" ng-model="user.role"
+                                ng-change="updatePermission(user, uin)"
+                                ng-disabled="updatingPermissions || removingUser === user.username">
+                            <option value="responder">Responder</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="response_viewer">Response Viewer</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="removeUser(user)"
+                                    title="Remove" ng-disabled="updatingPermissions || removingUser === user.username">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item form-group">
+                    <label class="control-label">Add a New User</label>
+                    <div class="form-inline">
+                        <input type="text" id="user" ng-model="perm_username"
+                               typeahead="user as user.username for user in users | filter: {username: $viewValue}"
+                               placeholder="Name" class="form-control" ng-disabled="updatingPermissions">
+                        <select ng-model="perm_role" class="form-control" ng-disabled="updatingPermissions">
+                            <option value="responder">Responder</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="response_viewer">Response Viewer</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                        <button type="button" class="btn btn-primary"
+                                ng-click="addUser(perm_username.username, perm_role, uin)"
+                                ng-disabled="updatingPermissions">
+                            <span ng-hide="addingUser"><i class="glyphicon glyphicon-plus"></i> Add user</span>
+                            <span ng-show="addingUser"><i
+                                    class="glyphicon glyphicon-plus"></i> Adding user&hellip;</span>
+                        </button>
+                        <p class="help-block" ng-if="perm_role == 'owner'">Enables the user to view, update, and delete
+                            the form, and to view and delete form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'collabrator'">Enables the user to view, update, and
+                            view form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'response_viewer'">Enables the user to view the form
+                            and form responses.</p>
+                        <p class="help-block" ng-if="perm_role == 'responder'">Enables the user to view and submit the
+                            form.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="panel-footer" ng-if="false">
+                <button class="btn btn-primary pull-right" type="button" ng-click="updateAllPermissions(uin)"
+                        ng-disabled="updatingPermissions || removingUser !== null">
+                    Update permissions
+                </button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Additional Form Actions</div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Duplicate this form</label>
+                    <div class="col-sm-9">
+                        <button class="btn btn-default" ng-click="duplicateForm()" type="button">
+                            <span class="glyphicon glyphicon-duplicate"></span> Duplicate this form
+                        </button>
+                        <p class="help-block">Make a copy of this form into a new form.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Delete this form</label>
+                    <div class="col-sm-9">
+                        <button class="btn btn-danger" ng-click="deleteForm()" type="button">
+                            <span class="glyphicon glyphicon-trash"></span> Delete this form
+                        </button>
+                        <p class="help-block">Once you delete a form, there is no going back. Please be certain.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,20 @@
+<ng-include src="'/modules/formBuilder/tabs.html'"></ng-include>
+<div class="container">
+    <div class="btn-group" ng-hide="responses.length < 1">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            <i class="glyphicon glyphicon-save-file"></i> Export responses <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#" ng-click="toPDF()">as PDF</a></li>
+            <li><a href="#" ng-click="getCSV()">as CSV</a></li>
+        </ul>
+    </div>
+    <hr/>
+    <div class="alert alert-info" ng-show="responses.length < 1">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        There are currently no responses here.
+    </div>
+    <div ng-hide="responses.length < 1" class="grid" ui-grid="gridOptions" ui-grid-resize-columns
+         ui-grid-move-columns></div>
+</div>

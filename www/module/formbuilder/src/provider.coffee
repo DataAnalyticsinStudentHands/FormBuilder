@@ -61,16 +61,16 @@ angular.module 'builder.provider', []
             console.error "The popoverTemplate is empty."
         result
 
-    @convertFormObject = (name, formObject={}) ->
+    @convertFormObject = (name, formObject = {}) ->
         component = @components[formObject.component]
         throw "The component #{formObject.component} was not registered." if not component?
-#        if formObject.id
-#            exist = no
-#            for form in @forms[name] when formObject.id <= form.id # less and equal
-#                formObject.id = @formsId[name]++
-#                exist = yes
-#                break
-#            @formsId[name] = formObject.id + 1 if not exist
+        #        if formObject.id
+        #            exist = no
+        #            for form in @forms[name] when formObject.id <= form.id # less and equal
+        #                formObject.id = @formsId[name]++
+        #                exist = yes
+        #                break
+        #            @formsId[name] = formObject.id + 1 if not exist
         result =
             id: formObject.id ? null
             component: formObject.component
@@ -115,7 +115,7 @@ angular.module 'builder.provider', []
     # ----------------------------------------
     # public functions
     # ----------------------------------------
-    @registerComponent = (name, component={}) =>
+    @registerComponent = (name, component = {}) =>
         ###
         Register the component for form-builder.
         @param name: The component name.
@@ -137,7 +137,7 @@ angular.module 'builder.provider', []
             popoverTemplateUrl: {string} The url of the popover template.
         ###
         if not @components[name]?
-            # regist the new component
+# regist the new component
             newComponent = @convertComponent name, component
             @components[name] = newComponent
             @loadTemplate(newComponent) if $injector?
@@ -147,14 +147,14 @@ angular.module 'builder.provider', []
             console.error "The component #{name} was registered."
         return
 
-    @addFormObject = (name, formObject={}) =>
+    @addFormObject = (name, formObject = {}) =>
         ###
         Insert the form object into the form at last.
         ###
         @forms[name] ?= []
         @insertFormObject name, @forms[name].length, formObject
 
-    @insertFormObject = (name, index, formObject={}) =>
+    @insertFormObject = (name, index, formObject = {}) =>
         ###
         Insert the form object into the form at {index}.
         @param name: The form name.
