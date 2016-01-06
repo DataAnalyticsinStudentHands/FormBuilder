@@ -7,15 +7,15 @@ angular.module('FormBuilderHome').config(
             .state('secure', {
                 url: "/secure",
                 views: {
-                    "menu_view@secure": {templateUrl: "/modules/home/menuBar.html", controller: "menuCtrl"},
-                    "app": {templateUrl: "/modules/home/home.html"}
+                    "menu_view@secure": {templateUrl: "modules/home/menuBar.html", controller: "menuCtrl"},
+                    "app": {templateUrl: "modules/home/home.html"}
                 },
                 data: {pageTitle: 'Home'},
                 abstract: true
             })
             .state('secure.home', {
                 url: "/home",
-                templateUrl: "/modules/home/form_home.html",
+                templateUrl: "modules/home/form_home.html",
                 controller: 'homeCtrl',
                 data: {pageTitle: 'Home'},
                 resolve: {

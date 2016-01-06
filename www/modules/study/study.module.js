@@ -13,7 +13,7 @@ angular.module('Study').config(
         $stateProvider
             .state('secure.form_studies', {
                 url: "/studies/:id",
-                templateUrl: "/modules/study/studies.html",
+                templateUrl: "modules/study/studies.html",
                 controller: 'studiesCtrl',
                 resolve: {
                     form: function (formService, $stateParams) {

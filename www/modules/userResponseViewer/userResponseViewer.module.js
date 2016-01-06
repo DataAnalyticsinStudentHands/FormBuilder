@@ -15,7 +15,7 @@ angular.module('UserResponseViewer').config(
                 url: "/view/:id/:view/:response_id",
                 views: {
                     "app": {
-                        templateUrl: "/modules/usrrresponseViewer/responseView.html",
+                        templateUrl: "modules/userResponseViewer/responseView.html",
                         controller: 'responseViewCtrl'
                     }
                 },
