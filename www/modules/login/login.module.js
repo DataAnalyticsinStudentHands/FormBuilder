@@ -95,7 +95,11 @@ angular.module('Login').controller('loginCtrl',
                     if ($scope.form_id) $state.go('form', {id: $scope.form_id}); else $state.go('secure.home');
                 }, function (failure) {
                     console.log(failure);
-                    ngNotify.set("Login failure, please try again!", "error");
+                    if (failure.status = 501 && failure.data.message) {
+                        ngNotify.set(failure.data.message, "error");
+                    } else {
+                        ngNotify.set("Incorrect username or password.", "error");
+                    }
                     Auth.clearCredentials();
                 });
                 $scope.userName = '';
@@ -105,14 +109,14 @@ angular.module('Login').controller('loginCtrl',
     });
 
 angular.module('Login').controller('registerCtrl',
-    function ($scope, $state, Auth, ngNotify, $stateParams) {
+    function ($scope, $state, Auth, ngNotify, $stateParams, Restangular) {
         $scope.registerUser = function () {
             var errorMSG;
             if ($scope.password.pw == $scope.password.pwc) {
                 Auth.setCredentials("Visitor", "test");
                 $scope.salt = "nfp89gpe";
                 $scope.register.password = String(CryptoJS.SHA512($scope.password.pw + $scope.register.username + $scope.salt));
-                $scope.$parent.Restangular().all("users").post($scope.register).then(
+                Restangular.all("users").post($scope.register).then(
                     function () {
                         Auth.clearCredentials();
                         ngNotify.set("Registration success, please check your email to activate account.", "success");
