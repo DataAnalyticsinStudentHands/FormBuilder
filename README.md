@@ -9,7 +9,8 @@ FormBuilder is a dynamic form building web application that works with dynamic f
 - npm packages `npm install`
 
 ### Getting Started
-1. Run `gulp setup`. This runs common setup tasks, especially `bower install` using bower.json.
+1. Run `npm install`. This uses `package.js` to install local dependencies.
+2. Run `gulp setup`. This runs common setup tasks, especially `bower install` using bower.json.
 2. Run `ionic serve`. This uses `ionic.xml` and will serve as local node server. Live updates when you make changes to the code.
 
 ### Gulpfile
