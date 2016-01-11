@@ -1,7 +1,7 @@
 FormBuilder
 ===========
 
-FormBuilder is a dynamic form building web application that works with dynamic forms and provides sharing functionality. It communicates to a Java Backend located in FormBuilderBackend repo.
+FormBuilder is a dynamic form building web application that works with dynamic forms and provides sharing functionality. It communicates to a Java Backend located in FormBuilderBackend repo. Additional documentation on this project is located [here](https://github.com/DataAnalyticsinStudentHands/DASH-Documentation/tree/master/Code%20Development/Frontend/FormBuilder)
 
 ### Development Prerequisites
 - bower `npm install -g bower`
