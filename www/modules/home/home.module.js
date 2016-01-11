@@ -48,7 +48,7 @@ angular.module('FormBuilderHome').controller('menuCtrl',
     function ($scope, Auth, ngNotify, $state) {
         $scope.logOut = function () {
             Auth.clearCredentials();
-            ngNotify.set("Successfully logged out!", "success");
+            ngNotify.set("Successfully logged out!", {type: "success", duration: 5000});
             $state.go('secure.home', {}, {reload: true});
         }
     });

@@ -102,10 +102,10 @@ angular.module('FormBuilder').controller('builderCtrl',
         $scope.save = function () {
             if (!$scope.form_id) {
                 if (!$scope.form) {
-                    ngNotify.set("Form Name is required!", "error");
+                    ngNotify.set("Form Name is required!", { type: "error", duration: 10000});
                 } else {
                     formService.newForm($scope.form.name, angular.copy($builder.forms['default'])).then(function (response) {
-                        ngNotify.set("Form saved!", "success");
+                        ngNotify.set("Form saved!", {type: "success", duration: 5000});
                         console.log(response.headers());
                         $scope.form_id = response.headers("ObjectId");
                         $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
@@ -113,7 +113,7 @@ angular.module('FormBuilder').controller('builderCtrl',
                 }
             } else {
                 formService.updateForm($scope.form_id, $scope.form, angular.copy($builder.forms['default'])).then(function () {
-                    ngNotify.set("Form saved!", "success");
+                    ngNotify.set("Form saved!", {type: "success", duration: 5000});
                 });
             }
         }
@@ -148,11 +148,11 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
                         className: "btn-danger",
                         callback: function () {
                             formService.deleteForm($scope.id).then(function () {
-                                    ngNotify.set("Successfully deleted form.", "success");
+                                    ngNotify.set("Successfully deleted form.", {type: "success", duration: 5000});
                                     $state.go("secure.home");
                                 },
                                 function () {
-                                    ngNotify.set("Error deleting form!", "error");
+                                    ngNotify.set("Error deleting form!", {type: "error", duration: 10000});
                                 });
                         }
                     }
@@ -165,10 +165,10 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
                 value: $scope.form.name,
                 callback: function (result) {
                     if (result === null || result === "") {
-                        ngNotify.set("New form must have a name!", "error")
+                        ngNotify.set("New form must have a name!", {type: "error", duration: 10000})
                     } else {
                         formService.duplicateForm($scope.form, result);
-                        ngNotify.set("Form successfully duplicated.", "success")
+                        ngNotify.set("Form successfully duplicated.", {type: "success", duration: 5000})
                     }
                 }
             });
@@ -176,10 +176,10 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
         $scope.save = function () {
             $scope.form.expiration_date = $scope.expiration_date;
             formService.updateForm(String($scope.form.id), $scope.form, $scope.form.questions).then(function () {
-                ngNotify.set("Form saved!", "success");
-            }, function (response) {
+                ngNotify.set("Form saved!", {type: "success", duration: 5000});
+            }, function () {
                 // Show error message if unsuccessful
-                ngNotify.set("Error saving form!", "error");
+                ngNotify.set("Error saving form!", {type: "error", duration: 10000});
             });
         };
         // This is currently unused because the server cannot handle multiple
@@ -196,11 +196,11 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
             // Execute callback when all requests have been returned
             $q.all(promises).then(function () {
                 $scope.updatingPermissions = false;
-                ngNotify.set("Form permissions successfully updated.", "success")
+                ngNotify.set("Form permissions successfully updated.", {type: "success", duration: 5000})
             }, function (response) {
                 $scope.updatingPermissions = false;
                 // console.error(response);
-                ngNotify.set("An error occurred while updating form permissions.", "error")
+                ngNotify.set("An error occurred while updating form permissions.", {type: "error", duration: 10000})
             });
         };
         $scope.updatePermission = function (user, currentUser) {
@@ -209,11 +209,11 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
             formService.updatePermission(String($scope.form.id), user)
                 .then(function () {
                     $scope.updatingPermissions = false;
-                    ngNotify.set("Form permissions successfully updated.", "success")
+                    ngNotify.set("Form permissions successfully updated.", {type: "success", duration: 5000})
                 }, function (response) {
                     $scope.updatingPermissions = false;
                     // console.error(response);
-                    ngNotify.set("An error occurred while updating form permissions.", "error")
+                    ngNotify.set("An error occurred while updating form permissions.", {type: "error", duration: 10000})
                 });
         };
         $scope.addUser = function (username, role, currentUser) {
@@ -223,7 +223,7 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
 
                 // Do not add current user
                 if (username === currentUser) {
-                    ngNotify.set("You cannot add yourself as a user.", "warning")
+                    ngNotify.set("You cannot add yourself as a user.", {type: "warning", duration: 10000});
                     return;
                 }
                 var user = {username: username, role: role};
@@ -250,11 +250,11 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
                 });
                 console.log($scope.form.permissions);
                 $scope.removingUser = null;
-                ngNotify.set("Successfully removed " + user.username + ".", "success");
+                ngNotify.set("Successfully removed " + user.username + ".", {type: "success", duration: 5000});
             }, function (response) {
                 // Show error message if unsuccessful
                 $scope.removingUser = null;
-                ngNotify.set("Error removing user!", "error");
+                ngNotify.set("Error removing user!", {type: "error", duration: 10000});
             });
         };
     });

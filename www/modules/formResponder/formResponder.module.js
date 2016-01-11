@@ -92,19 +92,19 @@ angular.module('FormResponder').controller('formCtrl',
         $scope.input = [];
         $scope.submit = function () {
             if ($scope.send_receipt && !$scope.responder_email) {
-                ngNotify.set("E-Mail is required to receive receipt.", "error");
+                ngNotify.set("E-Mail is required to receive receipt.", {type: "error", duration: 10000});
             } else {
                 $validator.validate($scope, $scope.id).success(function () {
                     console.log($scope.input);
                     responseService.newResponse($scope.input, $scope.id, $scope.uid, $scope.responder_email).then(function () {
-                        ngNotify.set("Form submission success!", "success");
+                        ngNotify.set("Form submission success!", {type: "success", duration: 5000});
                         $state.go("finished", {"id": $scope.form_obj.id});
                         $scope.input = null;
                     }, function () {
-                        ngNotify.set("Submission failed!", "error");
+                        ngNotify.set("Submission failed!", {type: "error", duration: 10000});
                     });
                 }).error(function () {
-                    ngNotify.set("Form submission error, please verify form contents.", "error");
+                    ngNotify.set("Form submission error, please verify form contents.", {type: "error", duration: 10000});
                 });
             }
         };

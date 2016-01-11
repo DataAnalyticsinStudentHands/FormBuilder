@@ -65,7 +65,8 @@ angular.module('UserResponseViewer').controller('responseCtrl',
                             responses.splice(index, 1);
                             ngNotify.set("Response deleted successfully.", {
                                 position: 'bottom',
-                                type: 'success'
+                                type: 'success',
+                                duration: 5000
                             });
                         }
                     }
