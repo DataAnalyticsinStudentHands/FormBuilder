@@ -12,15 +12,15 @@ angular.module('FormBuilderComponents').config(
     function ($stateProvider) {
         $stateProvider
             .state('download', {
-            url: "/file/:id",
-            views: {
-                "app": {
-                    templateUrl: "modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
-                }
-            },
-            data: {pageTitle: 'Download'},
-            authenticate: true
-        })
+                url: "/file/:id",
+                views: {
+                    "app": {
+                        templateUrl: "modules/components/fileUpload/file.html", controller: "fileDownloadCtrl"
+                    }
+                },
+                data: {pageTitle: 'Download'},
+                authenticate: true
+            })
     });
 
 angular.module('FormBuilderComponents').run(
@@ -139,7 +139,8 @@ angular.module('FormBuilderComponents').controller('fileDownloadCtrl',
                     function () {
                         ngNotify.set("Something went wrong while getting the uploaded file!", {
                             position: 'bottom',
-                            type: 'error'
+                            type: 'error',
+                            duration: 10000
                         });
                         Restangular.setFullResponse(false);
                     }
@@ -226,10 +227,10 @@ angular.module('FormBuilderComponents').controller('uploadCtrl',
                     $scope.inputId = null;
                     $scope.inputText = null;
                     $scope.$parent.inputText = null;
-                    ngNotify.set("Deleted!", {position: 'bottom', type: 'success'});
+                    ngNotify.set("Deleted!", {position: 'bottom', type: 'success', duration: 5000});
                 },
                 function () {
-                    ngNotify.set("Could not delete your file on server.", {position: 'bottom', type: 'error'});
+                    ngNotify.set("Could not delete your file on server.", {position: 'bottom', type: 'error', duration: 10000});
                 }
             );
         };
@@ -252,7 +253,8 @@ angular.module('FormBuilderComponents').controller('uploadCtrl',
                     function () {
                         ngNotify.set("Something went wrong while getting the uploaded file!", {
                             position: 'bottom',
-                            type: 'error'
+                            type: 'error',
+                            duration: 10000
                         });
                         Restangular.setFullResponse(false);
                     }

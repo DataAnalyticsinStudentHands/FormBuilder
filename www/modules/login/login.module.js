@@ -90,15 +90,18 @@ angular.module('Login').controller('loginCtrl',
                 $scope.loginResultPromise = Restangular.all("users").one("myUser").get();
                 $scope.loginResultPromise.then(function (result) {
                     $scope.loginResult = result;
-                    ngNotify.set("Login success!", "success");
+                    ngNotify.set("Login success!", {type: "success", duration: 5000});
                     Auth.confirmCredentials();
                     if ($scope.form_id) $state.go('form', {id: $scope.form_id}); else $state.go('secure.home');
                 }, function (failure) {
                     console.log(failure);
                     if (failure.status = 501 && failure.data.message) {
-                        ngNotify.set(failure.data.message, "error");
+                        ngNotify.set(failure.data.message, {type: "success", duration: 5000});
                     } else {
-                        ngNotify.set("Incorrect username or password.", "error");
+                        ngNotify.set("Please check username and password entered.", {
+                            type: "error",
+                            duration: 10000
+                        });
                     }
                     Auth.clearCredentials();
                 });
@@ -119,13 +122,13 @@ angular.module('Login').controller('registerCtrl',
                 Restangular.all("users").post($scope.register).then(
                     function () {
                         Auth.clearCredentials();
-                        ngNotify.set("Registration success, please check your email to activate account.", "success");
+                        ngNotify.set("Registration success, please check your email to activate account.", {type: "success", duration: 5000});
                         $state.go("login", {"form_id": $stateParams.form_id}, {reload: true});
                     }, function (error) {
                         errorMSG = "Registration Failure!";
                         if (error.status == 409)
                             errorMSG = "Account with e-mail address already exists!";
-                        ngNotify.set(errorMSG, "error");
+                        ngNotify.set(errorMSG, {type: "error", duration: 10000});
                         Auth.clearCredentials();
                     }, function () {
                         $scope.register = null;
@@ -135,7 +138,7 @@ angular.module('Login').controller('registerCtrl',
                 Auth.clearCredentials();
             } else {
                 errorMSG = "Passwords do not match.";
-                ngNotify.set(errorMSG, "error");
+                ngNotify.set(errorMSG, {type: "error", duration: 10000});
             }
         };
         $scope.cancel = function () {
