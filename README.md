@@ -1,7 +1,15 @@
 FormBuilder
 ===========
 
-FormBuilder is a dynamic form building web application that works with dynamic forms and provides sharing functionality. It communicates to a Java Backend located in FormBuilderBackend repo.
+FormBuilder is a dynamic form building web application that works with dynamic forms and provides sharing functionality. It communicates to a Java Backend located in FormBuilderBackend repo. FormBuilder allows users to dynamically generate, respond to, and process responses to forms. FormBuilder is the portion of the application that is deployed to the online website, it is not intended to run in a mobile environment; use FormViewer applications for mobile usage.
+
+It is built from the [angular-form-builder](https://github.com/kelp404/angular-form-builder) and therefore the internal structure and workings of the module can be difficult to work with as they not well documented and are written in CoffeeScript. It is recommended to become familiar with `angular-form-builder` documentation before working with FormBuilder.
+
+### Documentation Contents
+- [FormBuilder File Structure](https://github.com/DataAnalyticsinStudentHands/DASH-Documentation/blob/master/Code%20Development/Frontend/FormBuilder/FormBuilder-File-Structure.md)
+- [Working with `angular-form-builder` Core Module](https://github.com/DataAnalyticsinStudentHands/DASH-Documentation/blob/master/Code%20Development/Frontend/FormBuilder/FormBuilder-Core.md)
+- [FormBuilder Modules](https://github.com/DataAnalyticsinStudentHands/DASH-Documentation/blob/master/Code%20Development/Frontend/FormBuilder/FormBuilder-Modules.md)
+- [Components](https://github.com/DataAnalyticsinStudentHands/DASH-Documentation/blob/master/Code%20Development/Frontend/FormBuilder/FormBuilder-Component.md)
 
 ### Development Prerequisites
 - bower `npm install -g bower`
