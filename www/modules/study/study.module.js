@@ -5,6 +5,7 @@ angular.module('Study', [
     'FormData',
     'ResponseData',
     'ui.router',
+    'ui.bootstrap.datetimepicker', //Needs to be moved to specific module(s) that needs this
     'restangular'
 ]);
 
@@ -38,6 +39,9 @@ angular.module('Study').controller('studiesCtrl',
         $scope.curState = $state.current.name;
         $scope.form = form;
         $scope.users = users;
+        $scope.usersMapKeyedByUsername = _.indexBy(users, 'username');
+        console.log($scope.usersMapKeyedByUsername['carl_steven@live.com']);
+        console.log($scope.usersMapKeyedByUsername['asdf123@asdf.com']);
         $scope.studyService = studyService;
         $scope.studies = (studies) ? studies : [];
         $scope.editStudy = null;
@@ -87,6 +91,19 @@ angular.module('Study').controller('studiesCtrl',
         };
         $scope.appendParticipants = function (study) {
             var newParticipants = study.participants_txt.split('\n');
+            var notAddedParticipants = [];
+            newParticipants.forEach(function (participant) {
+                var usersMapKeyedByUsername = _.indexBy(users, 'username');
+                if (!usersMapKeyedByUsername.hasOwnProperty(participant)) {
+                    newParticipants = _.without(newParticipants, _.findWhere(newParticipants, participant));
+                    notAddedParticipants.push(participant);
+                }
+            });
+            newParticipants = _.uniq(newParticipants);
+            notAddedParticipants = _.uniq(notAddedParticipants);
+            if (notAddedParticipants.length > 0) {
+                bootbox.alert("The following participants were not added because they don't have valid user accounts. <br/><br/><div style='text-align: center;'>" + notAddedParticipants.join("<br/>") + "</div>");
+            }
             study.participants = study.participants.concat(newParticipants);
             study.participants_txt = '';
         };

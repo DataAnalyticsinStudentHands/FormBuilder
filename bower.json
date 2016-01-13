@@ -28,9 +28,10 @@
     "jquery": "2.1.0",
     "angular-validator": "*",
     "moment": "~2.10.6",
-    "signature_pad": "~1.5.2"
+    "signature_pad": "~1.5.2",
+    "lodash": "~3.8.0"
   },
   "resolutions": {
-    "angular": ">= 1.2.23"
+    "angular": ">= 1.4"
   }
 }

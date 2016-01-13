@@ -122,7 +122,8 @@
                     <label class="control-label">Add a time</label>
                     <div class="">
                         <div>
-                            <uib-timepicker ng-model="time_fixed" minute-step="5" style="display: inline-table; vertical-align: middle;"></uib-timepicker>
+                            <uib-timepicker ng-model="time_fixed" minute-step="5"
+                                            style="display: inline-table; vertical-align: middle;"></uib-timepicker>
                             <button type="button" class="btn btn-default"
                                     ng-click="currentStudy.fixedTimes.push(time_fixed);">Add
                             </button>
@@ -198,7 +199,8 @@
                             <h3 class="panel-title">Current Participants</h3>
                         </div>
                         <ul class="list-group" style="height: 400px; overflow: auto;" ng-if="currentStudy.participants">
-                            <li class="list-group-item" ng-repeat="participant in currentStudy.participants">
+                            <li class="list-group-item" ng-repeat="participant in currentStudy.participants"
+                                ng-class="{'participant-verified': usersMapKeyedByUsername[participant].is_email_verified == true, 'participant-notverified': usersMapKeyedByUsername[participant].is_email_verified == false}">
                                 <button type="button" class="close" aria-label="Close"
                                         ng-click="currentStudy.participants.splice($index, 1)" class="pull-right"><span
                                         aria-hidden="true">&times;</span></button>
