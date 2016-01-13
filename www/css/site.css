@@ -1,4 +1,11 @@
 /*** SITE WISE ***/
+.participant-notverified {
+    background-color: lightcoral;
+}
+.participant-verified {
+    background-color: lightgreen;
+}
+
 .site-header {
     background-color: #f5f5f5;
 }
