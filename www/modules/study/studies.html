@@ -1,4 +1,4 @@
-<ng-include src="'/modules/formBuilder/tabs.html'"></ng-include>
+<ng-include src="'modules/formBuilder/tabs.html'"></ng-include>
 <div class="container">
     <div class="row">
         <button type="button" class="btn btn-default" ng-click="addStudy()">
@@ -167,10 +167,10 @@
                     <div class="">
                         <!-- Paste a plain-text list -->
                         <p>Copy a list of participants' email addresses and paste into this box:</p>
+                        <p class="help-block">Each email address should occupy one line.</p>
                         <textarea class="form-control" id="participants_txt" ng-model="currentStudy.participants_txt"
                                   rows="5" style="resize: none;"
                                   ng-init="currentStudy.participants_txt = ''"></textarea>
-                        <p class="help-block">Each email address should occupy one line.</p>
                         <button class="btn btn-default" ng-disabled="currentStudy.participants_txt.length == 0"
                                 ng-click="appendParticipants(currentStudy)">Add participants
                         </button>
@@ -197,6 +197,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Current Participants</h3>
+                            Green denotes activated emails. Red denotes emails not yet activated.
                         </div>
                         <ul class="list-group" style="height: 400px; overflow: auto;" ng-if="currentStudy.participants">
                             <li class="list-group-item" ng-repeat="participant in currentStudy.participants"
