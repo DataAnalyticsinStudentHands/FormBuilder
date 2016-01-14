@@ -9,3 +9,4 @@ resources/
 hooks/
 .brackets.json
 npm-debug.log
+dist/
