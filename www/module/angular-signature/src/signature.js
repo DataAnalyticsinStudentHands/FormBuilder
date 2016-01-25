@@ -49,12 +49,11 @@ angular.module('signature').directive('signaturePad', ['$window',
                 }
             ],
             link: function (scope, element) {
-                console.log(element.find('canvas'));
                 canvas = element.find('canvas')[0];
                 signaturePad = new SignaturePad(canvas);
 
                 if (!scope.height) scope.height = 220;
-                if (!scope.width) scope.width = 568;
+                if (!scope.width) scope.width = 500;
 
                 if (scope.signature && !scope.signature.$isEmpty && scope.signature.dataUrl) {
                     signaturePad.fromDataURL(scope.signature.dataUrl);
@@ -68,11 +67,11 @@ angular.module('signature').directive('signaturePad', ['$window',
                     canvas.getContext("2d").scale(ratio, ratio);
                 };
 
-                scope.onResize();
+                //scope.onResize();
 
-                angular.element($window).bind('resize', function () {
-                    scope.onResize();
-                });
+                //angular.element($window).bind('resize', function () {
+                //    scope.onResize();
+                //});
             }
         };
     }
