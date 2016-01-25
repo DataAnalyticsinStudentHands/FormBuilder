@@ -49,7 +49,6 @@ angular.module('signature').directive('signaturePad', ['$window',
                 }
             ],
             link: function (scope, element) {
-                console.log(element.find('canvas'));
                 canvas = element.find('canvas')[0];
                 signaturePad = new SignaturePad(canvas);
 
