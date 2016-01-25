@@ -39,6 +39,7 @@ angular.module('ResponseData').factory('responseService',
                 });
             },
             createResponse: function (fid, uid) {
+                if(!uid) uid = 1;
                 return Restangular.all("formResponses").post({
                     "form_id": fid,
                     "owner_id": uid,
