@@ -95,7 +95,6 @@ angular.module('FormResponder').controller('formCtrl',
                 ngNotify.set("E-Mail is required to receive receipt.", {type: "error", duration: 10000});
             } else {
                 $validator.validate($scope, $scope.id).success(function () {
-                    console.log($scope.input);
                     responseService.newResponse($scope.input, $scope.id, $scope.uid, $scope.responder_email).then(function () {
                         ngNotify.set("Form submission success!", {type: "success", duration: 5000});
                         $state.go("finished", {"id": $scope.form_obj.id});

@@ -1,9 +1,8 @@
 <div class="form-group">
     <label class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
     <div class="col-sm-8">
-        <img ng-if="inputText.indexOf('data:image/png;base64') > -1" src="{{inputText}}"/>
+        <img ng-if="inputText.indexOf('data:image/png;base64') > -1" ng-src="{{inputText}}"/>
         <p ng-if="inputText.indexOf('data:image/png;base64') == -1">{{inputText}}</p>
-
         <p class='help-block' ng-bind-html="description | nl2br"></p>
     </div>
 </div>

@@ -189,7 +189,6 @@ angular.module('UserResponseViewer').controller('responseCtrl',
 
                     questions.forEach(function (question) {
                         var entry = $filter('getByQuestionId')(response.entries, question.question_id);
-                        console.log(question);
                         if(question.component = "signaturePad" && entry.value)
                             dd.content[table_loc].table.body.push([question.label, {image: entry.value}]);
                         else

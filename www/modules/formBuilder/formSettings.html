@@ -214,8 +214,9 @@
                     <label class="control-label">Add a New User</label>
                     <div class="form-inline">
                         <input type="text" id="user" ng-model="perm_username"
-                               typeahead="user as user.username for user in users | filter: {username: $viewValue}"
-                               placeholder="Name" class="form-control" ng-disabled="updatingPermissions">
+                               uib-typeahead="user as user.username for user in users | filter: {username: $viewValue}"
+                               placeholder="Name" class="form-control" ng-disabled="updatingPermissions"
+                               autocomplete="off">
                         <select ng-model="perm_role" class="form-control" ng-disabled="updatingPermissions">
                             <option value="responder">Responder</option>
                             <option value="collaborator">Collaborator</option>

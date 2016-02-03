@@ -40,8 +40,6 @@ angular.module('Study').controller('studiesCtrl',
         $scope.form = form;
         $scope.users = users;
         $scope.usersMapKeyedByUsername = _.indexBy(users, 'username');
-        console.log($scope.usersMapKeyedByUsername['carl_steven@live.com']);
-        console.log($scope.usersMapKeyedByUsername['asdf123@asdf.com']);
         $scope.studyService = studyService;
         $scope.studies = (studies) ? studies : [];
         $scope.editStudy = null;
@@ -176,7 +174,6 @@ angular.module('Study').factory('studyService',
                     study.fixedTimes = times;
                 }
                 delete study['participants_txt'];
-                console.log(study);
             }
         }
     });

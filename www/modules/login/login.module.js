@@ -94,7 +94,6 @@ angular.module('Login').controller('loginCtrl',
                     Auth.confirmCredentials();
                     if ($scope.form_id) $state.go('form', {id: $scope.form_id}); else $state.go('secure.home');
                 }, function (failure) {
-                    console.log(failure);
                     if (failure.status = 501 && failure.data.message) {
                         ngNotify.set(failure.data.message, {type: "success", duration: 5000});
                     } else {
