@@ -106,7 +106,6 @@ angular.module('FormBuilder').controller('builderCtrl',
                 } else {
                     formService.newForm($scope.form.name, angular.copy($builder.forms['default'])).then(function (response) {
                         ngNotify.set("Form saved!", {type: "success", duration: 5000});
-                        console.log(response.headers());
                         $scope.form_id = response.headers("ObjectId");
                         $state.go("secure.builder", {"id": $scope.form_id}, {"location": false});
                     });
@@ -217,7 +216,6 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
                 });
         };
         $scope.addUser = function (username, role, currentUser) {
-            console.log(username, role);
             if (typeof username !== 'undefined' &&
                 (typeof role !== 'undefined' && role.length > 0)) {
 
@@ -245,10 +243,8 @@ angular.module('FormBuilder').controller('formSettingsCtrl',
                 // $scope.form.permissions = $filter('filter')(
                 //     $scope.form.permissions, { username: user.username });
                 $scope.form.permissions = $scope.form.permissions.filter(function (perm) {
-                    // console.log(perm);
                     return perm.username !== user.username;
                 });
-                console.log($scope.form.permissions);
                 $scope.removingUser = null;
                 ngNotify.set("Successfully removed " + user.username + ".", {type: "success", duration: 5000});
             }, function (response) {
