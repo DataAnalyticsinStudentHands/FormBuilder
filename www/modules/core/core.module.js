@@ -22,7 +22,8 @@ angular.module('FormBuilderCore', [
 angular.module('FormBuilderCore').run(
     function (Restangular) {
         //Restangular.setBaseUrl("http://f9c8d765.ngrok.io/RESTFUL-WS/");
-        Restangular.setBaseUrl("https://hnetdev.hnet.uh.edu:8443/FormBuilder/");
-        //Restangular.setBaseUrl("https://housuggest.org:8443/FormBuilder/");
+        //Restangular.setBaseUrl("https://hnetdev.hnet.uh.edu:8443/FormBuilder/");
+        Restangular.setBaseUrl("https://housuggest.org:8443/FormBuilder/");
         //Restangular.setBaseUrl("https://housuggest.org:8443/FormBuilderBackendTest/");
+       // Restangular.setBaseUrl("http://localhost:8080/RESTFUL-WS")
     });
