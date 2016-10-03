@@ -110,6 +110,7 @@ angular.module('UserResponseViewer').controller('responseCtrl',
         $scope.columns.push(buttons);
 
         $scope.columns.push({"displayName": "Time", "field": "time-of-submission", "width": 120});
+        $scope.columns.push({"displayName":"UID", "field":"owner_id", "width":120});
         $scope.columns.push({"displayName": "Study ID", "field": "study_id", "width": 120});
 
         $scope.questions.forEach(function (q) {
@@ -129,6 +130,7 @@ angular.module('UserResponseViewer').controller('responseCtrl',
             var proc_entries = {};
             proc_entries["time-of-submission"] = $filter('date')(response.insertion_date, "MM/dd/yy h:mma");
             proc_entries["study_id"] = response.study_id;
+            proc_entries["owner_id"] = response.owner_id;
             entries.forEach(function (entry) {
                 if (entry)
                     proc_entries[entry.question_id.toString()] = entry.value;
@@ -153,14 +155,14 @@ angular.module('UserResponseViewer').controller('responseCtrl',
             questions.forEach(function (question) {
                 questionValueArray.push(question.label);
             });
-            $scope.CSVout += '"' + questionValueArray.join('","') + '"';
+            $scope.CSVout += '"UID","' + questionValueArray.join('","') + '"';
             $scope.responses.forEach(function (response) {
                 var entries = [];
                 questions.forEach(function (question) {
                     var entry = $filter('getByQuestionId')(response.entries, question.question_id);
                     entries.push(entry.value.replace(/"/g, '""'));
                 });
-                $scope.CSVout += "\n" + '"' + entries.join('","') + '"';
+                $scope.CSVout += "\n" + '"' + response.owner_id + '","' + entries.join('","') + '"';
             });
 
             var download_button = document.createElement('a');
